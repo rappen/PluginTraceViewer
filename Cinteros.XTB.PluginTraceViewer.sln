@@ -7,8 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cinteros.XTB.PluginTraceVie
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{BF4F7CB8-22F0-4F83-A0C5-F7631EB926ED}"
 	ProjectSection(SolutionItems) = preProject
-		Cinteros.XrmToolBox.PluginTraceViewer.nuspec = Cinteros.XrmToolBox.PluginTraceViewer.nuspec
-		Cinteros.XrmToolBox.PluginTraceViewer.yml = Cinteros.XrmToolBox.PluginTraceViewer.yml
+		Cinteros.XTB.PluginTraceViewer.nuspec = Cinteros.XTB.PluginTraceViewer.nuspec
+		Cinteros.XTB.PluginTraceViewer.yml = Cinteros.XTB.PluginTraceViewer.yml
 	EndProjectSection
 EndProject
 Global

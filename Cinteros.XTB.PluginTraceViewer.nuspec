@@ -24,6 +24,6 @@
     </dependencies>
   </metadata>
   <files>
-    <file src="Output\Release\Cinteros.Xrm.Plugins.dll" target="lib\net452\Plugins" />
+    <file src="Cinteros.XTB.PluginTraceViewer\bin\Release\Cinteros.XTB.PluginTraceViewer.dll" target="lib\net452\Plugins" />
   </files>
 </package>
