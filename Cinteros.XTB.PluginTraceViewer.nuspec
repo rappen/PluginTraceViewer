@@ -11,7 +11,7 @@
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>Inspect and filter the Plug-in Trace Log</description>
     <summary>Inspect and filter the Plug-in Trace Log</summary>
-    <releaseNotes>Note: This plugins requires the FetchXML Builder to be installed to work properly!
+    <releaseNotes>Please note: This plugin requires the FetchXML Builder to be installed to work properly!
     
     Enables you to filter and find information from the Plug-in Trace Log in CRM.
     
