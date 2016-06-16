@@ -6,7 +6,7 @@
     using XrmToolBox.Extensibility.Interfaces;
 
     [Export(typeof(IXrmToolBoxPlugin)),
-    ExportMetadata("Name", "Plugin Trace Viewer"),
+    ExportMetadata("Name", "Plugin Trace Viewer ALPHA"),
     ExportMetadata("Description", "Investigate the Plug-in Trace Log"),
     ExportMetadata("SmallImageBase64", Constants.B64_IMAGE_SMALL), 
     ExportMetadata("BigImageBase64", Constants.B64_IMAGE_LARGE), 
