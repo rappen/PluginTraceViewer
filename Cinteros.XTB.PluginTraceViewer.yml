@@ -22,7 +22,7 @@ after_build:
 - cmd: >-
     nuget pack Cinteros.XTB.PluginTraceViewer.nuspec -Version %APPVEYOR_BUILD_VERSION%
 
-    7z a Cinteros.XTB.PluginTraceViewer_%APPVEYOR_BUILD_VERSION%.zip %APPVEYOR_BUILD_FOLDER%\Output\%CONFIGURATION%\Cinteros.XTB.PluginTraceViewer.dll
+    7z a Cinteros.XTB.PluginTraceViewer_%APPVEYOR_BUILD_VERSION%.zip %APPVEYOR_BUILD_FOLDER%\Cinteros.XTB.PluginTraceViewer\bin\%CONFIGURATION%\Cinteros.XTB.PluginTraceViewer.dll
 
     appveyor PushArtifact Cinteros.XTB.PluginTraceViewer_%APPVEYOR_BUILD_VERSION%.zip
 artifacts:
