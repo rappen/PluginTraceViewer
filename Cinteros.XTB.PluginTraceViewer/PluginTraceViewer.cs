@@ -18,6 +18,8 @@ namespace Cinteros.XTB.PluginTraceViewer
 {
     public partial class PluginTraceViewer : PluginControlBase, IGitHubPlugin, IMessageBusHost, IHelpPlugin
     {
+        private int lastRecordCount = 100;
+
         public PluginTraceViewer()
         {
             InitializeComponent();
@@ -190,6 +192,7 @@ namespace Cinteros.XTB.PluginTraceViewer
                                 "typename",
                                 "depth",
                                 "mode");
+                QEplugintracelog.TopCount = (int)numRecords.Value;
                 if (dateFrom.Checked)
                 {
                     QEplugintracelog.Criteria.AddCondition("createdon", ConditionOperator.OnOrAfter, dateFrom.Value.Date);
@@ -362,6 +365,18 @@ namespace Cinteros.XTB.PluginTraceViewer
         private void chkMessage_CheckedChanged(object sender, EventArgs e)
         {
             comboMessage.Enabled = chkMessage.Checked;
+        }
+
+        private void numRecords_ValueChanged(object sender, EventArgs e)
+        {
+            var compareValue = numRecords.Value - lastRecordCount.CompareTo((int)numRecords.Value);
+            if (compareValue < 10) numRecords.Increment = 1;
+            else if (compareValue < 20) numRecords.Increment = 5;
+            else if (compareValue < 50) numRecords.Increment = 10;
+            else if (compareValue < 200) numRecords.Increment = 25;
+            else if (compareValue < 1000) numRecords.Increment = 100;
+            else numRecords.Increment = 1000;
+            lastRecordCount = (int)numRecords.Value;
         }
     }
 }

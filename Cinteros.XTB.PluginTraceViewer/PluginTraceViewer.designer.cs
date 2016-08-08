@@ -34,6 +34,12 @@
             this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
             this.tsbAbout = new System.Windows.Forms.ToolStripButton();
             this.groupFilter = new System.Windows.Forms.GroupBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.numRecords = new System.Windows.Forms.NumericUpDown();
+            this.rbModeAsync = new System.Windows.Forms.RadioButton();
+            this.rbModeSync = new System.Windows.Forms.RadioButton();
+            this.rbModeAll = new System.Windows.Forms.RadioButton();
+            this.chkExceptions = new System.Windows.Forms.CheckBox();
             this.comboMessage = new System.Windows.Forms.ComboBox();
             this.chkMessage = new System.Windows.Forms.CheckBox();
             this.comboPlugin = new System.Windows.Forms.ComboBox();
@@ -66,12 +72,9 @@
             this.panelDetailsTop = new System.Windows.Forms.Panel();
             this.buttonOpenRecord = new System.Windows.Forms.Button();
             this.splitterDetailsWidth = new System.Windows.Forms.Splitter();
-            this.chkExceptions = new System.Windows.Forms.CheckBox();
-            this.rbModeAll = new System.Windows.Forms.RadioButton();
-            this.rbModeSync = new System.Windows.Forms.RadioButton();
-            this.rbModeAsync = new System.Windows.Forms.RadioButton();
             this.toolStripMain.SuspendLayout();
             this.groupFilter.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numRecords)).BeginInit();
             this.panelData.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.crmGridView)).BeginInit();
             this.groupDetails.SuspendLayout();
@@ -119,6 +122,8 @@
             // 
             // groupFilter
             // 
+            this.groupFilter.Controls.Add(this.label1);
+            this.groupFilter.Controls.Add(this.numRecords);
             this.groupFilter.Controls.Add(this.rbModeAsync);
             this.groupFilter.Controls.Add(this.rbModeSync);
             this.groupFilter.Controls.Add(this.rbModeAll);
@@ -139,6 +144,87 @@
             this.groupFilter.TabIndex = 26;
             this.groupFilter.TabStop = false;
             this.groupFilter.Text = "Filter";
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(384, 90);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(49, 13);
+            this.label1.TabIndex = 16;
+            this.label1.Text = "Max logs";
+            // 
+            // numRecords
+            // 
+            this.numRecords.Increment = new decimal(new int[] {
+            25,
+            0,
+            0,
+            0});
+            this.numRecords.Location = new System.Drawing.Point(452, 88);
+            this.numRecords.Maximum = new decimal(new int[] {
+            5000,
+            0,
+            0,
+            0});
+            this.numRecords.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.numRecords.Name = "numRecords";
+            this.numRecords.Size = new System.Drawing.Size(90, 20);
+            this.numRecords.TabIndex = 15;
+            this.numRecords.Value = new decimal(new int[] {
+            100,
+            0,
+            0,
+            0});
+            this.numRecords.ValueChanged += new System.EventHandler(this.numRecords_ValueChanged);
+            // 
+            // rbModeAsync
+            // 
+            this.rbModeAsync.AutoSize = true;
+            this.rbModeAsync.Location = new System.Drawing.Point(542, 42);
+            this.rbModeAsync.Name = "rbModeAsync";
+            this.rbModeAsync.Size = new System.Drawing.Size(76, 17);
+            this.rbModeAsync.TabIndex = 14;
+            this.rbModeAsync.TabStop = true;
+            this.rbModeAsync.Text = "Async only";
+            this.rbModeAsync.UseVisualStyleBackColor = true;
+            // 
+            // rbModeSync
+            // 
+            this.rbModeSync.AutoSize = true;
+            this.rbModeSync.Location = new System.Drawing.Point(464, 42);
+            this.rbModeSync.Name = "rbModeSync";
+            this.rbModeSync.Size = new System.Drawing.Size(71, 17);
+            this.rbModeSync.TabIndex = 13;
+            this.rbModeSync.TabStop = true;
+            this.rbModeSync.Text = "Sync only";
+            this.rbModeSync.UseVisualStyleBackColor = true;
+            // 
+            // rbModeAll
+            // 
+            this.rbModeAll.AutoSize = true;
+            this.rbModeAll.Checked = true;
+            this.rbModeAll.Location = new System.Drawing.Point(387, 42);
+            this.rbModeAll.Name = "rbModeAll";
+            this.rbModeAll.Size = new System.Drawing.Size(70, 17);
+            this.rbModeAll.TabIndex = 12;
+            this.rbModeAll.TabStop = true;
+            this.rbModeAll.Text = "All modes";
+            this.rbModeAll.UseVisualStyleBackColor = true;
+            // 
+            // chkExceptions
+            // 
+            this.chkExceptions.AutoSize = true;
+            this.chkExceptions.Location = new System.Drawing.Point(387, 18);
+            this.chkExceptions.Name = "chkExceptions";
+            this.chkExceptions.Size = new System.Drawing.Size(100, 17);
+            this.chkExceptions.TabIndex = 11;
+            this.chkExceptions.Text = "Exceptions only";
+            this.chkExceptions.UseVisualStyleBackColor = true;
             // 
             // comboMessage
             // 
@@ -206,9 +292,9 @@
             // buttonRetrieveLogs
             // 
             this.buttonRetrieveLogs.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonRetrieveLogs.Location = new System.Drawing.Point(732, 19);
+            this.buttonRetrieveLogs.Location = new System.Drawing.Point(701, 19);
             this.buttonRetrieveLogs.Name = "buttonRetrieveLogs";
-            this.buttonRetrieveLogs.Size = new System.Drawing.Size(87, 23);
+            this.buttonRetrieveLogs.Size = new System.Drawing.Size(118, 27);
             this.buttonRetrieveLogs.TabIndex = 4;
             this.buttonRetrieveLogs.Text = "Retrieve";
             this.buttonRetrieveLogs.UseVisualStyleBackColor = true;
@@ -463,50 +549,6 @@
             this.splitterDetailsWidth.TabIndex = 29;
             this.splitterDetailsWidth.TabStop = false;
             // 
-            // chkExceptions
-            // 
-            this.chkExceptions.AutoSize = true;
-            this.chkExceptions.Location = new System.Drawing.Point(387, 18);
-            this.chkExceptions.Name = "chkExceptions";
-            this.chkExceptions.Size = new System.Drawing.Size(100, 17);
-            this.chkExceptions.TabIndex = 11;
-            this.chkExceptions.Text = "Exceptions only";
-            this.chkExceptions.UseVisualStyleBackColor = true;
-            // 
-            // rbModeAll
-            // 
-            this.rbModeAll.AutoSize = true;
-            this.rbModeAll.Checked = true;
-            this.rbModeAll.Location = new System.Drawing.Point(387, 42);
-            this.rbModeAll.Name = "rbModeAll";
-            this.rbModeAll.Size = new System.Drawing.Size(70, 17);
-            this.rbModeAll.TabIndex = 12;
-            this.rbModeAll.TabStop = true;
-            this.rbModeAll.Text = "All modes";
-            this.rbModeAll.UseVisualStyleBackColor = true;
-            // 
-            // rbModeSync
-            // 
-            this.rbModeSync.AutoSize = true;
-            this.rbModeSync.Location = new System.Drawing.Point(464, 42);
-            this.rbModeSync.Name = "rbModeSync";
-            this.rbModeSync.Size = new System.Drawing.Size(71, 17);
-            this.rbModeSync.TabIndex = 13;
-            this.rbModeSync.TabStop = true;
-            this.rbModeSync.Text = "Sync only";
-            this.rbModeSync.UseVisualStyleBackColor = true;
-            // 
-            // rbModeAsync
-            // 
-            this.rbModeAsync.AutoSize = true;
-            this.rbModeAsync.Location = new System.Drawing.Point(542, 42);
-            this.rbModeAsync.Name = "rbModeAsync";
-            this.rbModeAsync.Size = new System.Drawing.Size(76, 17);
-            this.rbModeAsync.TabIndex = 14;
-            this.rbModeAsync.TabStop = true;
-            this.rbModeAsync.Text = "Async only";
-            this.rbModeAsync.UseVisualStyleBackColor = true;
-            // 
             // PluginTraceViewer
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -524,6 +566,7 @@
             this.toolStripMain.PerformLayout();
             this.groupFilter.ResumeLayout(false);
             this.groupFilter.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numRecords)).EndInit();
             this.panelData.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.crmGridView)).EndInit();
             this.groupDetails.ResumeLayout(false);
@@ -578,5 +621,7 @@
         private System.Windows.Forms.RadioButton rbModeSync;
         private System.Windows.Forms.RadioButton rbModeAll;
         private System.Windows.Forms.CheckBox chkExceptions;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.NumericUpDown numRecords;
     }
 }
