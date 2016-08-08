@@ -45,8 +45,8 @@ namespace Cinteros.XTB.PluginTraceViewer
             MessageBox.Show(
                 "Plugin Trace Viewer for XrmToolBox\n" +
                 "Version: " + Assembly.GetExecutingAssembly().GetName().Version + "\n\n" +
-                "Developed by Jonas Rapp at Cinteros AB.",
-                "About Data Updater", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                "Developed by Jonas Rapp at Innofactor AB.",
+                "About Plugin Trace Viewer", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         private void PluginTraceViewer_ConnectionUpdated(object sender, ConnectionUpdatedEventArgs e)
@@ -171,18 +171,18 @@ namespace Cinteros.XTB.PluginTraceViewer
             {
                 var QEplugintracelog = new QueryExpression("plugintracelog");
                 QEplugintracelog.ColumnSet.AddColumns(
-                        "performanceexecutionstarttime",
-                        "operationtype",
-                        "messagename",
-                        "plugintracelogid",
-                        "primaryentity",
-                        "exceptiondetails",
-                        "messageblock",
-                        "performanceexecutionduration",
-                        "createdon",
-                        "typename",
-                        "depth",
-                        "mode");
+                                "performanceexecutionstarttime",
+                                "operationtype",
+                                "messagename",
+                                "plugintracelogid",
+                                "primaryentity",
+                                "exceptiondetails",
+                                "messageblock",
+                                "performanceexecutionduration",
+                                "createdon",
+                                "typename",
+                                "depth",
+                                "mode");
                 if (dateFrom.Checked)
                 {
                     QEplugintracelog.Criteria.AddCondition("createdon", ConditionOperator.OnOrAfter, dateFrom.Value.Date);
@@ -205,7 +205,7 @@ namespace Cinteros.XTB.PluginTraceViewer
                         {
                             MessageBox.Show($"Failed to load trace logs:\n{args.Error.Message}", "Load", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         }
-                        else if (args.Result is EntityCollection && ((EntityCollection)args.Result).Entities.Count > 0)
+                        else if (args.Result is EntityCollection)
                         {
                             PopulateGrid(args.Result as EntityCollection);
                         }
@@ -324,6 +324,11 @@ namespace Cinteros.XTB.PluginTraceViewer
         private void checkBox1_CheckedChanged(object sender, EventArgs e)
         {
             comboPlugin.Enabled = checkBox1.Checked;
+        }
+
+        private void tsbCloseThisTab_Click(object sender, EventArgs e)
+        {
+            CloseTool();
         }
     }
 }

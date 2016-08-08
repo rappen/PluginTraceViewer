@@ -33,23 +33,6 @@
             this.tsbCloseThisTab = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
             this.tsbAbout = new System.Windows.Forms.ToolStripButton();
-            this.tsbOptions = new System.Windows.Forms.ToolStripDropDownButton();
-            this.tsmiFriendly = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparator12 = new System.Windows.Forms.ToolStripSeparator();
-            this.tsmiShowAttributes = new System.Windows.Forms.ToolStripMenuItem();
-            this.tsmiAttributesAll = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparator13 = new System.Windows.Forms.ToolStripSeparator();
-            this.tsmiAttributesManaged = new System.Windows.Forms.ToolStripMenuItem();
-            this.tsmiAttributesUnmanaged = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparator14 = new System.Windows.Forms.ToolStripSeparator();
-            this.tsmiAttributesCustomizable = new System.Windows.Forms.ToolStripMenuItem();
-            this.tsmiAttributesUncustomizable = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparator15 = new System.Windows.Forms.ToolStripSeparator();
-            this.tsmiAttributesStandard = new System.Windows.Forms.ToolStripMenuItem();
-            this.tsmiAttributesCustom = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparator16 = new System.Windows.Forms.ToolStripSeparator();
-            this.tsmiAttributesOnlyValidAF = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparator7 = new System.Windows.Forms.ToolStripSeparator();
             this.groupFilter = new System.Windows.Forms.GroupBox();
             this.comboPlugin = new System.Windows.Forms.ComboBox();
             this.checkBox1 = new System.Windows.Forms.CheckBox();
@@ -96,8 +79,7 @@
             this.toolStripMain.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.tsbCloseThisTab,
             this.toolStripSeparator4,
-            this.tsbAbout,
-            this.tsbOptions});
+            this.tsbAbout});
             this.toolStripMain.Location = new System.Drawing.Point(0, 0);
             this.toolStripMain.Name = "toolStripMain";
             this.toolStripMain.Size = new System.Drawing.Size(957, 25);
@@ -112,6 +94,7 @@
             this.tsbCloseThisTab.Name = "tsbCloseThisTab";
             this.tsbCloseThisTab.Size = new System.Drawing.Size(23, 22);
             this.tsbCloseThisTab.Text = "Close this tab";
+            this.tsbCloseThisTab.Click += new System.EventHandler(this.tsbCloseThisTab_Click);
             // 
             // toolStripSeparator4
             // 
@@ -127,152 +110,6 @@
             this.tsbAbout.Size = new System.Drawing.Size(60, 22);
             this.tsbAbout.Text = "About";
             this.tsbAbout.Click += new System.EventHandler(this.tsbAbout_Click);
-            // 
-            // tsbOptions
-            // 
-            this.tsbOptions.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.tsmiFriendly,
-            this.toolStripSeparator12,
-            this.tsmiShowAttributes,
-            this.toolStripSeparator7});
-            this.tsbOptions.Image = ((System.Drawing.Image)(resources.GetObject("tsbOptions.Image")));
-            this.tsbOptions.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.tsbOptions.Name = "tsbOptions";
-            this.tsbOptions.Size = new System.Drawing.Size(78, 22);
-            this.tsbOptions.Text = "Options";
-            // 
-            // tsmiFriendly
-            // 
-            this.tsmiFriendly.CheckOnClick = true;
-            this.tsmiFriendly.Name = "tsmiFriendly";
-            this.tsmiFriendly.Size = new System.Drawing.Size(156, 22);
-            this.tsmiFriendly.Text = "Friendly names";
-            // 
-            // toolStripSeparator12
-            // 
-            this.toolStripSeparator12.Name = "toolStripSeparator12";
-            this.toolStripSeparator12.Size = new System.Drawing.Size(153, 6);
-            // 
-            // tsmiShowAttributes
-            // 
-            this.tsmiShowAttributes.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.tsmiAttributesAll,
-            this.toolStripSeparator13,
-            this.tsmiAttributesManaged,
-            this.tsmiAttributesUnmanaged,
-            this.toolStripSeparator14,
-            this.tsmiAttributesCustomizable,
-            this.tsmiAttributesUncustomizable,
-            this.toolStripSeparator15,
-            this.tsmiAttributesStandard,
-            this.tsmiAttributesCustom,
-            this.toolStripSeparator16,
-            this.tsmiAttributesOnlyValidAF});
-            this.tsmiShowAttributes.Name = "tsmiShowAttributes";
-            this.tsmiShowAttributes.Size = new System.Drawing.Size(156, 22);
-            this.tsmiShowAttributes.Text = "Show attributes";
-            // 
-            // tsmiAttributesAll
-            // 
-            this.tsmiAttributesAll.Checked = true;
-            this.tsmiAttributesAll.CheckOnClick = true;
-            this.tsmiAttributesAll.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.tsmiAttributesAll.Name = "tsmiAttributesAll";
-            this.tsmiAttributesAll.Size = new System.Drawing.Size(195, 22);
-            this.tsmiAttributesAll.Text = "All";
-            // 
-            // toolStripSeparator13
-            // 
-            this.toolStripSeparator13.Name = "toolStripSeparator13";
-            this.toolStripSeparator13.Size = new System.Drawing.Size(192, 6);
-            // 
-            // tsmiAttributesManaged
-            // 
-            this.tsmiAttributesManaged.Checked = true;
-            this.tsmiAttributesManaged.CheckOnClick = true;
-            this.tsmiAttributesManaged.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.tsmiAttributesManaged.Enabled = false;
-            this.tsmiAttributesManaged.Name = "tsmiAttributesManaged";
-            this.tsmiAttributesManaged.Size = new System.Drawing.Size(195, 22);
-            this.tsmiAttributesManaged.Text = "Managed";
-            // 
-            // tsmiAttributesUnmanaged
-            // 
-            this.tsmiAttributesUnmanaged.Checked = true;
-            this.tsmiAttributesUnmanaged.CheckOnClick = true;
-            this.tsmiAttributesUnmanaged.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.tsmiAttributesUnmanaged.Enabled = false;
-            this.tsmiAttributesUnmanaged.Name = "tsmiAttributesUnmanaged";
-            this.tsmiAttributesUnmanaged.Size = new System.Drawing.Size(195, 22);
-            this.tsmiAttributesUnmanaged.Text = "Unmanaged";
-            // 
-            // toolStripSeparator14
-            // 
-            this.toolStripSeparator14.Name = "toolStripSeparator14";
-            this.toolStripSeparator14.Size = new System.Drawing.Size(192, 6);
-            // 
-            // tsmiAttributesCustomizable
-            // 
-            this.tsmiAttributesCustomizable.Checked = true;
-            this.tsmiAttributesCustomizable.CheckOnClick = true;
-            this.tsmiAttributesCustomizable.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.tsmiAttributesCustomizable.Enabled = false;
-            this.tsmiAttributesCustomizable.Name = "tsmiAttributesCustomizable";
-            this.tsmiAttributesCustomizable.Size = new System.Drawing.Size(195, 22);
-            this.tsmiAttributesCustomizable.Text = "Customizable";
-            // 
-            // tsmiAttributesUncustomizable
-            // 
-            this.tsmiAttributesUncustomizable.Checked = true;
-            this.tsmiAttributesUncustomizable.CheckOnClick = true;
-            this.tsmiAttributesUncustomizable.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.tsmiAttributesUncustomizable.Enabled = false;
-            this.tsmiAttributesUncustomizable.Name = "tsmiAttributesUncustomizable";
-            this.tsmiAttributesUncustomizable.Size = new System.Drawing.Size(195, 22);
-            this.tsmiAttributesUncustomizable.Text = "Uncustomizable";
-            // 
-            // toolStripSeparator15
-            // 
-            this.toolStripSeparator15.Name = "toolStripSeparator15";
-            this.toolStripSeparator15.Size = new System.Drawing.Size(192, 6);
-            // 
-            // tsmiAttributesStandard
-            // 
-            this.tsmiAttributesStandard.Checked = true;
-            this.tsmiAttributesStandard.CheckOnClick = true;
-            this.tsmiAttributesStandard.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.tsmiAttributesStandard.Enabled = false;
-            this.tsmiAttributesStandard.Name = "tsmiAttributesStandard";
-            this.tsmiAttributesStandard.Size = new System.Drawing.Size(195, 22);
-            this.tsmiAttributesStandard.Text = "Standard";
-            // 
-            // tsmiAttributesCustom
-            // 
-            this.tsmiAttributesCustom.Checked = true;
-            this.tsmiAttributesCustom.CheckOnClick = true;
-            this.tsmiAttributesCustom.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.tsmiAttributesCustom.Enabled = false;
-            this.tsmiAttributesCustom.Name = "tsmiAttributesCustom";
-            this.tsmiAttributesCustom.Size = new System.Drawing.Size(195, 22);
-            this.tsmiAttributesCustom.Text = "Custom";
-            // 
-            // toolStripSeparator16
-            // 
-            this.toolStripSeparator16.Name = "toolStripSeparator16";
-            this.toolStripSeparator16.Size = new System.Drawing.Size(192, 6);
-            // 
-            // tsmiAttributesOnlyValidAF
-            // 
-            this.tsmiAttributesOnlyValidAF.CheckOnClick = true;
-            this.tsmiAttributesOnlyValidAF.Enabled = false;
-            this.tsmiAttributesOnlyValidAF.Name = "tsmiAttributesOnlyValidAF";
-            this.tsmiAttributesOnlyValidAF.Size = new System.Drawing.Size(195, 22);
-            this.tsmiAttributesOnlyValidAF.Text = "Only valid for Adv.Find";
-            // 
-            // toolStripSeparator7
-            // 
-            this.toolStripSeparator7.Name = "toolStripSeparator7";
-            this.toolStripSeparator7.Size = new System.Drawing.Size(153, 6);
             // 
             // groupFilter
             // 
@@ -627,23 +464,6 @@
         private System.Windows.Forms.ToolStripButton tsbCloseThisTab;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator4;
         private System.Windows.Forms.ToolStripButton tsbAbout;
-        private System.Windows.Forms.ToolStripDropDownButton tsbOptions;
-        private System.Windows.Forms.ToolStripMenuItem tsmiFriendly;
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparator12;
-        private System.Windows.Forms.ToolStripMenuItem tsmiShowAttributes;
-        internal System.Windows.Forms.ToolStripMenuItem tsmiAttributesAll;
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparator13;
-        internal System.Windows.Forms.ToolStripMenuItem tsmiAttributesManaged;
-        internal System.Windows.Forms.ToolStripMenuItem tsmiAttributesUnmanaged;
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparator14;
-        internal System.Windows.Forms.ToolStripMenuItem tsmiAttributesCustomizable;
-        private System.Windows.Forms.ToolStripMenuItem tsmiAttributesUncustomizable;
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparator15;
-        private System.Windows.Forms.ToolStripMenuItem tsmiAttributesStandard;
-        internal System.Windows.Forms.ToolStripMenuItem tsmiAttributesCustom;
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparator16;
-        internal System.Windows.Forms.ToolStripMenuItem tsmiAttributesOnlyValidAF;
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparator7;
         private Xrm.CRMWinForm.CRMGridView crmGridView;
         private System.Windows.Forms.GroupBox groupFilter;
         private System.Windows.Forms.Panel panelData;
