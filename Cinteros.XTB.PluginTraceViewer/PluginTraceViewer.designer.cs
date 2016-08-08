@@ -35,7 +35,7 @@
             this.tsbAbout = new System.Windows.Forms.ToolStripButton();
             this.groupFilter = new System.Windows.Forms.GroupBox();
             this.comboPlugin = new System.Windows.Forms.ComboBox();
-            this.checkBox1 = new System.Windows.Forms.CheckBox();
+            this.chkPlugin = new System.Windows.Forms.CheckBox();
             this.checkDateTo = new System.Windows.Forms.CheckBox();
             this.checkDateFrom = new System.Windows.Forms.CheckBox();
             this.buttonRetrieveLogs = new System.Windows.Forms.Button();
@@ -114,7 +114,7 @@
             // groupFilter
             // 
             this.groupFilter.Controls.Add(this.comboPlugin);
-            this.groupFilter.Controls.Add(this.checkBox1);
+            this.groupFilter.Controls.Add(this.chkPlugin);
             this.groupFilter.Controls.Add(this.checkDateTo);
             this.groupFilter.Controls.Add(this.checkDateFrom);
             this.groupFilter.Controls.Add(this.buttonRetrieveLogs);
@@ -134,19 +134,19 @@
             this.comboPlugin.FormattingEnabled = true;
             this.comboPlugin.Location = new System.Drawing.Point(88, 64);
             this.comboPlugin.Name = "comboPlugin";
-            this.comboPlugin.Size = new System.Drawing.Size(180, 21);
+            this.comboPlugin.Size = new System.Drawing.Size(287, 21);
             this.comboPlugin.TabIndex = 8;
             // 
-            // checkBox1
+            // chkPlugin
             // 
-            this.checkBox1.AutoSize = true;
-            this.checkBox1.Location = new System.Drawing.Point(7, 66);
-            this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(55, 17);
-            this.checkBox1.TabIndex = 7;
-            this.checkBox1.Text = "Plugin";
-            this.checkBox1.UseVisualStyleBackColor = true;
-            this.checkBox1.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
+            this.chkPlugin.AutoSize = true;
+            this.chkPlugin.Location = new System.Drawing.Point(7, 66);
+            this.chkPlugin.Name = "chkPlugin";
+            this.chkPlugin.Size = new System.Drawing.Size(55, 17);
+            this.chkPlugin.TabIndex = 7;
+            this.chkPlugin.Text = "Plugin";
+            this.chkPlugin.UseVisualStyleBackColor = true;
+            this.chkPlugin.CheckedChanged += new System.EventHandler(this.chkPlugin_CheckedChanged);
             // 
             // checkDateTo
             // 
@@ -494,6 +494,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn messagebody;
         private System.Windows.Forms.Button buttonOpenRecord;
         private System.Windows.Forms.ComboBox comboPlugin;
-        private System.Windows.Forms.CheckBox checkBox1;
+        private System.Windows.Forms.CheckBox chkPlugin;
     }
 }

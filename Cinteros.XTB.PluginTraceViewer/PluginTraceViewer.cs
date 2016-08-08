@@ -87,12 +87,12 @@ namespace Cinteros.XTB.PluginTraceViewer
             {
                 GetPlugins(() =>
                 {
+                    comboPlugin.Items.Clear();
+                    comboPlugin.Items.AddRange(plugins.ToArray());
                     LoadConstraints();
                 });
                 return;
             }
-            comboPlugin.Items.Clear();
-            comboPlugin.Items.AddRange(plugins.ToArray());
         }
 
         private void GetPlugins(Action callback)
@@ -115,15 +115,9 @@ namespace Cinteros.XTB.PluginTraceViewer
                     }
                     else if (args.Result is EntityCollection)
                     {
-                        plugins = new List<string>();
                         var entities = ((EntityCollection)args.Result).Entities;
-                        foreach (var entity in entities)
-                        {
-                            if (entity.Contains("typename"))
-                            {
-                                plugins.Add(entity["typename"].ToString());
-                            }
-                        }
+                        plugins = entities.Where(e => e.Attributes.Contains("typename")).Select(e => e.Attributes["typename"].ToString()).ToList();
+                        callback();
                     }
                 }
             };
@@ -190,6 +184,10 @@ namespace Cinteros.XTB.PluginTraceViewer
                 if (dateTo.Checked)
                 {
                     QEplugintracelog.Criteria.AddCondition("createdon", ConditionOperator.OnOrBefore, dateTo.Value.Date);
+                }
+                if (chkPlugin.Checked && !string.IsNullOrWhiteSpace(comboPlugin.Text))
+                {
+                    QEplugintracelog.Criteria.AddCondition("typename", comboPlugin.Text.Contains("*") ? ConditionOperator.Like : ConditionOperator.Equal, comboPlugin.Text.Replace("*", "%"));
                 }
                 QEplugintracelog.AddOrder("performanceexecutionstarttime", OrderType.Descending);
                 var asyncinfo = new WorkAsyncInfo()
@@ -321,9 +319,9 @@ namespace Cinteros.XTB.PluginTraceViewer
             return string.Empty;
         }
 
-        private void checkBox1_CheckedChanged(object sender, EventArgs e)
+        private void chkPlugin_CheckedChanged(object sender, EventArgs e)
         {
-            comboPlugin.Enabled = checkBox1.Checked;
+            comboPlugin.Enabled = chkPlugin.Checked;
         }
 
         private void tsbCloseThisTab_Click(object sender, EventArgs e)
