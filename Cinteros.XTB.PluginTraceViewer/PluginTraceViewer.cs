@@ -18,10 +18,6 @@ namespace Cinteros.XTB.PluginTraceViewer
 {
     public partial class PluginTraceViewer : PluginControlBase, IGitHubPlugin, IMessageBusHost, IHelpPlugin
     {
-        private DateTime minDate = DateTime.MinValue;
-        private DateTime maxDate = DateTime.MaxValue;
-        private List<string> plugins = null;
-
         public PluginTraceViewer()
         {
             InitializeComponent();
@@ -61,41 +57,29 @@ namespace Cinteros.XTB.PluginTraceViewer
 
         private void LoadConstraints()
         {
-            if (minDate.Equals(DateTime.MinValue))
+            GetDateConstraint("min", (datemin) =>
             {
-                GetDateConstraint("min", (date) =>
+                dateFrom.MinDate = datemin;
+                dateTo.MinDate = datemin;
+                GetDateConstraint("max", (datemax) =>
                 {
-                    minDate = date;
-                    dateFrom.MinDate = date;
-                    dateTo.MinDate = date;
-                    LoadConstraints();
+                    dateFrom.MaxDate = datemax;
+                    dateTo.MaxDate = datemax;
+                    GetPlugins((pluginlist) =>
+                    {
+                        comboPlugin.Items.Clear();
+                        comboPlugin.Items.AddRange(pluginlist.ToArray());
+                        GetMessages((messagelist) =>
+                        {
+                            comboMessage.Items.Clear();
+                            comboMessage.Items.AddRange(messagelist.ToArray());
+                        });
+                    });
                 });
-                return;
-            }
-            if (maxDate.Equals(DateTime.MaxValue))
-            {
-                GetDateConstraint("max", (date) =>
-                {
-                    maxDate = date;
-                    dateFrom.MaxDate = date;
-                    dateTo.MaxDate = date;
-                    LoadConstraints();
-                });
-                return;
-            }
-            if (plugins == null)
-            {
-                GetPlugins(() =>
-                {
-                    comboPlugin.Items.Clear();
-                    comboPlugin.Items.AddRange(plugins.ToArray());
-                    LoadConstraints();
-                });
-                return;
-            }
+            });
         }
 
-        private void GetPlugins(Action callback)
+        private void GetPlugins(Action<List<string>> callback)
         {
             var QEplugintracelog = new QueryExpression("plugintracelog");
             QEplugintracelog.Distinct = true;
@@ -116,8 +100,37 @@ namespace Cinteros.XTB.PluginTraceViewer
                     else if (args.Result is EntityCollection)
                     {
                         var entities = ((EntityCollection)args.Result).Entities;
-                        plugins = entities.Where(e => e.Attributes.Contains("typename")).Select(e => e.Attributes["typename"].ToString()).ToList();
-                        callback();
+                        var plugins = entities.Where(e => e.Attributes.Contains("typename")).Select(e => e.Attributes["typename"].ToString()).ToList();
+                        callback(plugins);
+                    }
+                }
+            };
+            WorkAsync(asyncinfo);
+        }
+
+        private void GetMessages(Action<List<string>> callback)
+        {
+            var QEplugintracelog = new QueryExpression("plugintracelog");
+            QEplugintracelog.Distinct = true;
+            QEplugintracelog.ColumnSet.AddColumns("messagename");
+            var asyncinfo = new WorkAsyncInfo()
+            {
+                Message = "Loading messages",
+                Work = (a, args) =>
+                {
+                    args.Result = Service.RetrieveMultiple(QEplugintracelog);
+                },
+                PostWorkCallBack = (args) =>
+                {
+                    if (args.Error != null)
+                    {
+                        MessageBox.Show($"Failed to load messages:\n{args.Error.Message}", "Load", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                    else if (args.Result is EntityCollection)
+                    {
+                        var entities = ((EntityCollection)args.Result).Entities;
+                        var messages = entities.Where(e => e.Attributes.Contains("messagename")).Select(e => e.Attributes["messagename"].ToString()).ToList();
+                        callback(messages);
                     }
                 }
             };
@@ -188,6 +201,23 @@ namespace Cinteros.XTB.PluginTraceViewer
                 if (chkPlugin.Checked && !string.IsNullOrWhiteSpace(comboPlugin.Text))
                 {
                     QEplugintracelog.Criteria.AddCondition("typename", comboPlugin.Text.Contains("*") ? ConditionOperator.Like : ConditionOperator.Equal, comboPlugin.Text.Replace("*", "%"));
+                }
+                if (chkMessage.Checked && !string.IsNullOrWhiteSpace(comboMessage.Text))
+                {
+                    QEplugintracelog.Criteria.AddCondition("messagename", ConditionOperator.Equal, comboMessage.Text);
+                }
+                if (chkExceptions.Checked)
+                {
+                    QEplugintracelog.Criteria.AddCondition("exceptiondetails", ConditionOperator.NotNull);
+                    QEplugintracelog.Criteria.AddCondition("exceptiondetails", ConditionOperator.NotEqual, "");
+                }
+                if (rbModeSync.Checked)
+                {
+                    QEplugintracelog.Criteria.AddCondition("mode", ConditionOperator.Equal, 0);
+                }
+                else if (rbModeAsync.Checked)
+                {
+                    QEplugintracelog.Criteria.AddCondition("mode", ConditionOperator.Equal, 1);
                 }
                 QEplugintracelog.AddOrder("performanceexecutionstarttime", OrderType.Descending);
                 var asyncinfo = new WorkAsyncInfo()
@@ -327,6 +357,11 @@ namespace Cinteros.XTB.PluginTraceViewer
         private void tsbCloseThisTab_Click(object sender, EventArgs e)
         {
             CloseTool();
+        }
+
+        private void chkMessage_CheckedChanged(object sender, EventArgs e)
+        {
+            comboMessage.Enabled = chkMessage.Checked;
         }
     }
 }

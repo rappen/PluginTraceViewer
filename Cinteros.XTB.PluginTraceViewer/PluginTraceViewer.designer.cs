@@ -34,6 +34,8 @@
             this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
             this.tsbAbout = new System.Windows.Forms.ToolStripButton();
             this.groupFilter = new System.Windows.Forms.GroupBox();
+            this.comboMessage = new System.Windows.Forms.ComboBox();
+            this.chkMessage = new System.Windows.Forms.CheckBox();
             this.comboPlugin = new System.Windows.Forms.ComboBox();
             this.chkPlugin = new System.Windows.Forms.CheckBox();
             this.checkDateTo = new System.Windows.Forms.CheckBox();
@@ -64,6 +66,10 @@
             this.panelDetailsTop = new System.Windows.Forms.Panel();
             this.buttonOpenRecord = new System.Windows.Forms.Button();
             this.splitterDetailsWidth = new System.Windows.Forms.Splitter();
+            this.chkExceptions = new System.Windows.Forms.CheckBox();
+            this.rbModeAll = new System.Windows.Forms.RadioButton();
+            this.rbModeSync = new System.Windows.Forms.RadioButton();
+            this.rbModeAsync = new System.Windows.Forms.RadioButton();
             this.toolStripMain.SuspendLayout();
             this.groupFilter.SuspendLayout();
             this.panelData.SuspendLayout();
@@ -82,7 +88,7 @@
             this.tsbAbout});
             this.toolStripMain.Location = new System.Drawing.Point(0, 0);
             this.toolStripMain.Name = "toolStripMain";
-            this.toolStripMain.Size = new System.Drawing.Size(957, 25);
+            this.toolStripMain.Size = new System.Drawing.Size(1255, 25);
             this.toolStripMain.TabIndex = 24;
             this.toolStripMain.Text = "toolStrip1";
             // 
@@ -113,6 +119,12 @@
             // 
             // groupFilter
             // 
+            this.groupFilter.Controls.Add(this.rbModeAsync);
+            this.groupFilter.Controls.Add(this.rbModeSync);
+            this.groupFilter.Controls.Add(this.rbModeAll);
+            this.groupFilter.Controls.Add(this.chkExceptions);
+            this.groupFilter.Controls.Add(this.comboMessage);
+            this.groupFilter.Controls.Add(this.chkMessage);
             this.groupFilter.Controls.Add(this.comboPlugin);
             this.groupFilter.Controls.Add(this.chkPlugin);
             this.groupFilter.Controls.Add(this.checkDateTo);
@@ -123,16 +135,37 @@
             this.groupFilter.Dock = System.Windows.Forms.DockStyle.Top;
             this.groupFilter.Location = new System.Drawing.Point(0, 25);
             this.groupFilter.Name = "groupFilter";
-            this.groupFilter.Size = new System.Drawing.Size(527, 101);
+            this.groupFilter.Size = new System.Drawing.Size(825, 127);
             this.groupFilter.TabIndex = 26;
             this.groupFilter.TabStop = false;
             this.groupFilter.Text = "Filter";
+            // 
+            // comboMessage
+            // 
+            this.comboMessage.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboMessage.Enabled = false;
+            this.comboMessage.FormattingEnabled = true;
+            this.comboMessage.Location = new System.Drawing.Point(88, 87);
+            this.comboMessage.Name = "comboMessage";
+            this.comboMessage.Size = new System.Drawing.Size(287, 21);
+            this.comboMessage.TabIndex = 10;
+            // 
+            // chkMessage
+            // 
+            this.chkMessage.AutoSize = true;
+            this.chkMessage.Location = new System.Drawing.Point(7, 89);
+            this.chkMessage.Name = "chkMessage";
+            this.chkMessage.Size = new System.Drawing.Size(69, 17);
+            this.chkMessage.TabIndex = 9;
+            this.chkMessage.Text = "Message";
+            this.chkMessage.UseVisualStyleBackColor = true;
+            this.chkMessage.CheckedChanged += new System.EventHandler(this.chkMessage_CheckedChanged);
             // 
             // comboPlugin
             // 
             this.comboPlugin.Enabled = false;
             this.comboPlugin.FormattingEnabled = true;
-            this.comboPlugin.Location = new System.Drawing.Point(88, 64);
+            this.comboPlugin.Location = new System.Drawing.Point(88, 63);
             this.comboPlugin.Name = "comboPlugin";
             this.comboPlugin.Size = new System.Drawing.Size(287, 21);
             this.comboPlugin.TabIndex = 8;
@@ -140,7 +173,7 @@
             // chkPlugin
             // 
             this.chkPlugin.AutoSize = true;
-            this.chkPlugin.Location = new System.Drawing.Point(7, 66);
+            this.chkPlugin.Location = new System.Drawing.Point(7, 65);
             this.chkPlugin.Name = "chkPlugin";
             this.chkPlugin.Size = new System.Drawing.Size(55, 17);
             this.chkPlugin.TabIndex = 7;
@@ -173,7 +206,7 @@
             // buttonRetrieveLogs
             // 
             this.buttonRetrieveLogs.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonRetrieveLogs.Location = new System.Drawing.Point(434, 19);
+            this.buttonRetrieveLogs.Location = new System.Drawing.Point(732, 19);
             this.buttonRetrieveLogs.Name = "buttonRetrieveLogs";
             this.buttonRetrieveLogs.Size = new System.Drawing.Size(87, 23);
             this.buttonRetrieveLogs.TabIndex = 4;
@@ -208,9 +241,9 @@
             this.panelData.Controls.Add(this.crmGridView);
             this.panelData.Controls.Add(this.panelDataTop);
             this.panelData.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panelData.Location = new System.Drawing.Point(0, 126);
+            this.panelData.Location = new System.Drawing.Point(0, 152);
             this.panelData.Name = "panelData";
-            this.panelData.Size = new System.Drawing.Size(527, 386);
+            this.panelData.Size = new System.Drawing.Size(825, 402);
             this.panelData.TabIndex = 27;
             // 
             // crmGridView
@@ -241,7 +274,7 @@
             this.crmGridView.ShowFriendlyNames = true;
             this.crmGridView.ShowIdColumn = false;
             this.crmGridView.ShowIndexColumn = false;
-            this.crmGridView.Size = new System.Drawing.Size(527, 354);
+            this.crmGridView.Size = new System.Drawing.Size(825, 370);
             this.crmGridView.TabIndex = 25;
             this.crmGridView.RecordEnter += new Cinteros.Xrm.CRMWinForm.CRMRecordEventHandler(this.crmGridView_RecordEnter);
             // 
@@ -322,7 +355,7 @@
             this.panelDataTop.Dock = System.Windows.Forms.DockStyle.Top;
             this.panelDataTop.Location = new System.Drawing.Point(0, 0);
             this.panelDataTop.Name = "panelDataTop";
-            this.panelDataTop.Size = new System.Drawing.Size(527, 32);
+            this.panelDataTop.Size = new System.Drawing.Size(825, 32);
             this.panelDataTop.TabIndex = 26;
             // 
             // groupDetails
@@ -333,9 +366,9 @@
             this.groupDetails.Controls.Add(this.labelMessage);
             this.groupDetails.Controls.Add(this.panelDetailsTop);
             this.groupDetails.Dock = System.Windows.Forms.DockStyle.Right;
-            this.groupDetails.Location = new System.Drawing.Point(530, 25);
+            this.groupDetails.Location = new System.Drawing.Point(828, 25);
             this.groupDetails.Name = "groupDetails";
-            this.groupDetails.Size = new System.Drawing.Size(427, 487);
+            this.groupDetails.Size = new System.Drawing.Size(427, 529);
             this.groupDetails.TabIndex = 28;
             this.groupDetails.TabStop = false;
             this.groupDetails.Text = "Details";
@@ -347,7 +380,7 @@
             this.panelException.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelException.Location = new System.Drawing.Point(3, 212);
             this.panelException.Name = "panelException";
-            this.panelException.Size = new System.Drawing.Size(421, 272);
+            this.panelException.Size = new System.Drawing.Size(421, 314);
             this.panelException.TabIndex = 6;
             // 
             // textException
@@ -358,7 +391,7 @@
             this.textException.Name = "textException";
             this.textException.ReadOnly = true;
             this.textException.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.textException.Size = new System.Drawing.Size(421, 259);
+            this.textException.Size = new System.Drawing.Size(421, 301);
             this.textException.TabIndex = 5;
             // 
             // labelException
@@ -424,11 +457,55 @@
             // splitterDetailsWidth
             // 
             this.splitterDetailsWidth.Dock = System.Windows.Forms.DockStyle.Right;
-            this.splitterDetailsWidth.Location = new System.Drawing.Point(527, 25);
+            this.splitterDetailsWidth.Location = new System.Drawing.Point(825, 25);
             this.splitterDetailsWidth.Name = "splitterDetailsWidth";
-            this.splitterDetailsWidth.Size = new System.Drawing.Size(3, 487);
+            this.splitterDetailsWidth.Size = new System.Drawing.Size(3, 529);
             this.splitterDetailsWidth.TabIndex = 29;
             this.splitterDetailsWidth.TabStop = false;
+            // 
+            // chkExceptions
+            // 
+            this.chkExceptions.AutoSize = true;
+            this.chkExceptions.Location = new System.Drawing.Point(387, 18);
+            this.chkExceptions.Name = "chkExceptions";
+            this.chkExceptions.Size = new System.Drawing.Size(100, 17);
+            this.chkExceptions.TabIndex = 11;
+            this.chkExceptions.Text = "Exceptions only";
+            this.chkExceptions.UseVisualStyleBackColor = true;
+            // 
+            // rbModeAll
+            // 
+            this.rbModeAll.AutoSize = true;
+            this.rbModeAll.Checked = true;
+            this.rbModeAll.Location = new System.Drawing.Point(387, 42);
+            this.rbModeAll.Name = "rbModeAll";
+            this.rbModeAll.Size = new System.Drawing.Size(70, 17);
+            this.rbModeAll.TabIndex = 12;
+            this.rbModeAll.TabStop = true;
+            this.rbModeAll.Text = "All modes";
+            this.rbModeAll.UseVisualStyleBackColor = true;
+            // 
+            // rbModeSync
+            // 
+            this.rbModeSync.AutoSize = true;
+            this.rbModeSync.Location = new System.Drawing.Point(464, 42);
+            this.rbModeSync.Name = "rbModeSync";
+            this.rbModeSync.Size = new System.Drawing.Size(71, 17);
+            this.rbModeSync.TabIndex = 13;
+            this.rbModeSync.TabStop = true;
+            this.rbModeSync.Text = "Sync only";
+            this.rbModeSync.UseVisualStyleBackColor = true;
+            // 
+            // rbModeAsync
+            // 
+            this.rbModeAsync.AutoSize = true;
+            this.rbModeAsync.Location = new System.Drawing.Point(542, 42);
+            this.rbModeAsync.Name = "rbModeAsync";
+            this.rbModeAsync.Size = new System.Drawing.Size(76, 17);
+            this.rbModeAsync.TabIndex = 14;
+            this.rbModeAsync.TabStop = true;
+            this.rbModeAsync.Text = "Async only";
+            this.rbModeAsync.UseVisualStyleBackColor = true;
             // 
             // PluginTraceViewer
             // 
@@ -440,7 +517,7 @@
             this.Controls.Add(this.groupDetails);
             this.Controls.Add(this.toolStripMain);
             this.Name = "PluginTraceViewer";
-            this.Size = new System.Drawing.Size(957, 512);
+            this.Size = new System.Drawing.Size(1255, 554);
             this.ConnectionUpdated += new XrmToolBox.Extensibility.PluginControlBase.ConnectionUpdatedHandler(this.PluginTraceViewer_ConnectionUpdated);
             this.Load += new System.EventHandler(this.PluginTraceViewer_Load);
             this.toolStripMain.ResumeLayout(false);
@@ -495,5 +572,11 @@
         private System.Windows.Forms.Button buttonOpenRecord;
         private System.Windows.Forms.ComboBox comboPlugin;
         private System.Windows.Forms.CheckBox chkPlugin;
+        private System.Windows.Forms.ComboBox comboMessage;
+        private System.Windows.Forms.CheckBox chkMessage;
+        private System.Windows.Forms.RadioButton rbModeAsync;
+        private System.Windows.Forms.RadioButton rbModeSync;
+        private System.Windows.Forms.RadioButton rbModeAll;
+        private System.Windows.Forms.CheckBox chkExceptions;
     }
 }
