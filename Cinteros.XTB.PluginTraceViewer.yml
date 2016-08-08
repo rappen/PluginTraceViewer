@@ -24,6 +24,8 @@ after_build:
 
     7z a Cinteros.XTB.PluginTraceViewer_%APPVEYOR_BUILD_VERSION%.zip %APPVEYOR_BUILD_FOLDER%\Cinteros.XTB.PluginTraceViewer\bin\%CONFIGURATION%\Cinteros.XTB.PluginTraceViewer.dll
 
+    7z a Cinteros.XTB.PluginTraceViewer_%APPVEYOR_BUILD_VERSION%.zip %APPVEYOR_BUILD_FOLDER%\Cinteros.XTB.PluginTraceViewer\bin\%CONFIGURATION%\Cinteros.Xrm.CRMWinForm.dll
+
     appveyor PushArtifact Cinteros.XTB.PluginTraceViewer_%APPVEYOR_BUILD_VERSION%.zip
 artifacts:
 - path: '**\Cinteros.XrmToolBox.PluginTraceViewer.*.nupkg'

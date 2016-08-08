@@ -11,8 +11,7 @@
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>Inspect and filter the Plug-in Trace Log</description>
     <summary>Inspect and filter the Plug-in Trace Log</summary>
-    <releaseNotes>Please note: This plugin requires the FetchXML Builder to be installed to work properly!
-    
+    <releaseNotes>    
     Enables you to filter and find information from the Plug-in Trace Log in CRM.
     
     Currently in ALPHA version!
@@ -25,5 +24,6 @@
   </metadata>
   <files>
     <file src="Cinteros.XTB.PluginTraceViewer\bin\Release\Cinteros.XTB.PluginTraceViewer.dll" target="lib\net452\Plugins" />
+    <file src="Cinteros.XTB.PluginTraceViewer\bin\Release\Cinteros.Xrm.CRMWinForm.dll" target="lib\net452\Plugins" />
   </files>
 </package>
