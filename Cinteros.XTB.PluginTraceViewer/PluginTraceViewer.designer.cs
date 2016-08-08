@@ -472,6 +472,7 @@
             // textException
             // 
             this.textException.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.textException.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textException.Location = new System.Drawing.Point(0, 13);
             this.textException.Multiline = true;
             this.textException.Name = "textException";
@@ -503,6 +504,7 @@
             // 
             this.textMessage.AcceptsReturn = true;
             this.textMessage.Dock = System.Windows.Forms.DockStyle.Top;
+            this.textMessage.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textMessage.Location = new System.Drawing.Point(3, 59);
             this.textMessage.Multiline = true;
             this.textMessage.Name = "textMessage";
