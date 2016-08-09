@@ -9,8 +9,8 @@
     <projectUrl>http://cinteros.xrmtoolbox.com</projectUrl>
     <iconUrl>http://rappen.net/Cinteros/innofactor.png</iconUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
-    <description>Inspect and filter the Plug-in Trace Log</description>
-    <summary>Inspect and filter the Plug-in Trace Log</summary>
+    <description>Investigate the Plug-in Trace Log with easy filtering and display possibilities</description>
+    <summary>Investigate the Plug-in Trace Log with easy filtering and display possibilities</summary>
     <releaseNotes>    
     Enables you to filter and find information from the Plug-in Trace Log in CRM.
     

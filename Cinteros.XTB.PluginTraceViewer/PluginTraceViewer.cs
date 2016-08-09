@@ -16,7 +16,7 @@ using XrmToolBox.Extensibility.Interfaces;
 
 namespace Cinteros.XTB.PluginTraceViewer
 {
-    public partial class PluginTraceViewer : PluginControlBase, IGitHubPlugin, IMessageBusHost, IHelpPlugin
+    public partial class PluginTraceViewer : PluginControlBase, IGitHubPlugin, IMessageBusHost, IHelpPlugin, IPayPalPlugin
     {
         private int lastRecordCount = 100;
 
@@ -25,11 +25,21 @@ namespace Cinteros.XTB.PluginTraceViewer
             InitializeComponent();
         }
 
-        public string HelpUrl { get { return "http://cinteros.xrmtoolbox.com/"; } }
+        public string HelpUrl { get { return "https://github.com/Innofactor/XrmToolBox.PluginTraceViewer"; } }
 
-        public string RepositoryName { get { return "XrmToolBox.Plugins"; } }
+        public string RepositoryName { get { return "XrmToolBox.PluginTraceViewer"; } }
 
-        public string UserName { get { return "Cinteros"; } }
+        public string UserName { get { return "Innofactor"; } }
+
+        public string DonationDescription
+        {
+            get { return "Plug-in Trace Viewer Fan Club"; }
+        }
+
+        public string EmailAccount
+        {
+            get { return "jonas@rappen.net"; }
+        }
 
         public event EventHandler<MessageBusEventArgs> OnOutgoingMessage;
 

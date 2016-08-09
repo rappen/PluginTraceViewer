@@ -7,7 +7,7 @@
 
     [Export(typeof(IXrmToolBoxPlugin)),
     ExportMetadata("Name", "Plugin Trace Viewer BETA"),
-    ExportMetadata("Description", "Investigate the Plug-in Trace Log"),
+    ExportMetadata("Description", "Investigate the Plug-in Trace Log with easy filtering and display possibilities"),
     ExportMetadata("SmallImageBase64", Constants.B64_IMAGE_SMALL), 
     ExportMetadata("BigImageBase64", Constants.B64_IMAGE_LARGE), 
     ExportMetadata("BackgroundColor", "#ffffff"), // Use a HTML color name
