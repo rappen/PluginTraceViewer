@@ -8,7 +8,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTitle("Plug-in Trace Viewer")]
 [assembly: AssemblyDescription("XrmToolBox plugin to inspect and filter the Plug-in Trace Log")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("JOnas Rapp, Innofactor AB")]
+[assembly: AssemblyCompany("Jonas Rapp, Innofactor AB")]
 [assembly: AssemblyProduct("Cinteros.XTB.PluginTraceViewer")]
 [assembly: AssemblyCopyright("Copyright © Innofactor AB 2016")]
 [assembly: AssemblyTrademark("")]
