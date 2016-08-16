@@ -61,7 +61,7 @@ namespace Cinteros.XTB.PluginTraceViewer
         {
             if (crmGridView.DataSource != null)
             {
-                crmGridView.GetDataSource<DataTable>().Rows.Clear();
+                crmGridView.DataSource = null;
             }
             crmGridView.OrganizationService = e.Service;
             LoadConstraints();
