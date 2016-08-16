@@ -75,6 +75,7 @@
             this.panelDetailsTop = new System.Windows.Forms.Panel();
             this.buttonOpenRecord = new System.Windows.Forms.Button();
             this.splitterDetailsWidth = new System.Windows.Forms.Splitter();
+            this.checkWordWrap = new System.Windows.Forms.CheckBox();
             this.toolStripMain.SuspendLayout();
             this.groupFilter.SuspendLayout();
             this.panelFilter.SuspendLayout();
@@ -517,6 +518,7 @@
             this.textException.ScrollBars = System.Windows.Forms.ScrollBars.Both;
             this.textException.Size = new System.Drawing.Size(421, 172);
             this.textException.TabIndex = 5;
+            this.textException.WordWrap = false;
             // 
             // labelException
             // 
@@ -549,6 +551,7 @@
             this.textMessage.ScrollBars = System.Windows.Forms.ScrollBars.Both;
             this.textMessage.Size = new System.Drawing.Size(421, 150);
             this.textMessage.TabIndex = 2;
+            this.textMessage.WordWrap = false;
             // 
             // labelMessage
             // 
@@ -562,6 +565,7 @@
             // 
             // panelDetailsTop
             // 
+            this.panelDetailsTop.Controls.Add(this.checkWordWrap);
             this.panelDetailsTop.Controls.Add(this.buttonOpenRecord);
             this.panelDetailsTop.Dock = System.Windows.Forms.DockStyle.Top;
             this.panelDetailsTop.Location = new System.Drawing.Point(3, 16);
@@ -587,6 +591,18 @@
             this.splitterDetailsWidth.Size = new System.Drawing.Size(3, 400);
             this.splitterDetailsWidth.TabIndex = 29;
             this.splitterDetailsWidth.TabStop = false;
+            // 
+            // checkWordWrap
+            // 
+            this.checkWordWrap.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.checkWordWrap.AutoSize = true;
+            this.checkWordWrap.Location = new System.Drawing.Point(346, 5);
+            this.checkWordWrap.Name = "checkWordWrap";
+            this.checkWordWrap.Size = new System.Drawing.Size(72, 17);
+            this.checkWordWrap.TabIndex = 1;
+            this.checkWordWrap.Text = "Wrap text";
+            this.checkWordWrap.UseVisualStyleBackColor = true;
+            this.checkWordWrap.CheckedChanged += new System.EventHandler(this.checkWordWrap_CheckedChanged);
             // 
             // PluginTraceViewer
             // 
@@ -618,6 +634,7 @@
             this.panelException.ResumeLayout(false);
             this.panelException.PerformLayout();
             this.panelDetailsTop.ResumeLayout(false);
+            this.panelDetailsTop.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -670,5 +687,6 @@
         private System.Windows.Forms.DateTimePicker dateTo;
         private System.Windows.Forms.DateTimePicker dateFrom;
         private System.Windows.Forms.Label labelInfo;
+        private System.Windows.Forms.CheckBox checkWordWrap;
     }
 }

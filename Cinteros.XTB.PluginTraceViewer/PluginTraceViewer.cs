@@ -390,5 +390,11 @@ namespace Cinteros.XTB.PluginTraceViewer
             else numRecords.Increment = 1000;
             lastRecordCount = (int)numRecords.Value;
         }
+
+        private void checkWordWrap_CheckedChanged(object sender, EventArgs e)
+        {
+            textMessage.WordWrap = checkWordWrap.Checked;
+            textException.WordWrap = checkWordWrap.Checked;
+        }
     }
 }
