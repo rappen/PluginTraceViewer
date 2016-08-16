@@ -272,6 +272,7 @@ namespace Cinteros.XTB.PluginTraceViewer
                             dt.Columns.Add("Exception", typeof(bool), "exceptiondetails <> ''");
                         }
                         labelInfo.Text = $"Loaded {results.Entities.Count} trace records";
+                        crmGridView.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells);
                     };
                     if (InvokeRequired)
                     {

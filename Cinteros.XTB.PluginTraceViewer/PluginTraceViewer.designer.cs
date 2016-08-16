@@ -365,7 +365,7 @@
             this.crmGridView.AllowUserToDeleteRows = false;
             this.crmGridView.AllowUserToOrderColumns = true;
             this.crmGridView.AllowUserToResizeRows = false;
-            this.crmGridView.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
+            this.crmGridView.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCellsExceptHeaders;
             this.crmGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.crmGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.performanceexecutionstarttime,
