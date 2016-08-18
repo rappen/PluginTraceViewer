@@ -35,6 +35,8 @@
             this.tsbAbout = new System.Windows.Forms.ToolStripButton();
             this.groupFilter = new System.Windows.Forms.GroupBox();
             this.panelFilter = new System.Windows.Forms.Panel();
+            this.comboEntity = new System.Windows.Forms.ComboBox();
+            this.chkEntity = new System.Windows.Forms.CheckBox();
             this.comboMessage = new System.Windows.Forms.ComboBox();
             this.chkMessage = new System.Windows.Forms.CheckBox();
             this.comboPlugin = new System.Windows.Forms.ComboBox();
@@ -73,9 +75,9 @@
             this.textMessage = new System.Windows.Forms.TextBox();
             this.labelMessage = new System.Windows.Forms.Label();
             this.panelDetailsTop = new System.Windows.Forms.Panel();
+            this.chkWordWrap = new System.Windows.Forms.CheckBox();
             this.buttonOpenRecord = new System.Windows.Forms.Button();
             this.splitterDetailsWidth = new System.Windows.Forms.Splitter();
-            this.checkWordWrap = new System.Windows.Forms.CheckBox();
             this.toolStripMain.SuspendLayout();
             this.groupFilter.SuspendLayout();
             this.panelFilter.SuspendLayout();
@@ -134,13 +136,15 @@
             this.groupFilter.Dock = System.Windows.Forms.DockStyle.Top;
             this.groupFilter.Location = new System.Drawing.Point(0, 25);
             this.groupFilter.Name = "groupFilter";
-            this.groupFilter.Size = new System.Drawing.Size(600, 131);
+            this.groupFilter.Size = new System.Drawing.Size(600, 142);
             this.groupFilter.TabIndex = 26;
             this.groupFilter.TabStop = false;
             this.groupFilter.Text = "Filter";
             // 
             // panelFilter
             // 
+            this.panelFilter.Controls.Add(this.comboEntity);
+            this.panelFilter.Controls.Add(this.chkEntity);
             this.panelFilter.Controls.Add(this.comboMessage);
             this.panelFilter.Controls.Add(this.chkMessage);
             this.panelFilter.Controls.Add(this.comboPlugin);
@@ -152,8 +156,30 @@
             this.panelFilter.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelFilter.Location = new System.Drawing.Point(3, 16);
             this.panelFilter.Name = "panelFilter";
-            this.panelFilter.Size = new System.Drawing.Size(334, 112);
-            this.panelFilter.TabIndex = 17;
+            this.panelFilter.Size = new System.Drawing.Size(334, 123);
+            this.panelFilter.TabIndex = 1;
+            // 
+            // comboEntity
+            // 
+            this.comboEntity.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.comboEntity.Enabled = false;
+            this.comboEntity.FormattingEnabled = true;
+            this.comboEntity.Location = new System.Drawing.Point(84, 96);
+            this.comboEntity.Name = "comboEntity";
+            this.comboEntity.Size = new System.Drawing.Size(243, 21);
+            this.comboEntity.TabIndex = 10;
+            // 
+            // chkEntity
+            // 
+            this.chkEntity.AutoSize = true;
+            this.chkEntity.Location = new System.Drawing.Point(3, 98);
+            this.chkEntity.Name = "chkEntity";
+            this.chkEntity.Size = new System.Drawing.Size(52, 17);
+            this.chkEntity.TabIndex = 9;
+            this.chkEntity.Text = "Entity";
+            this.chkEntity.UseVisualStyleBackColor = true;
+            this.chkEntity.CheckedChanged += new System.EventHandler(this.chkEntity_CheckedChanged);
             // 
             // comboMessage
             // 
@@ -165,7 +191,7 @@
             this.comboMessage.Location = new System.Drawing.Point(84, 72);
             this.comboMessage.Name = "comboMessage";
             this.comboMessage.Size = new System.Drawing.Size(243, 21);
-            this.comboMessage.TabIndex = 18;
+            this.comboMessage.TabIndex = 8;
             // 
             // chkMessage
             // 
@@ -173,7 +199,7 @@
             this.chkMessage.Location = new System.Drawing.Point(3, 74);
             this.chkMessage.Name = "chkMessage";
             this.chkMessage.Size = new System.Drawing.Size(69, 17);
-            this.chkMessage.TabIndex = 17;
+            this.chkMessage.TabIndex = 7;
             this.chkMessage.Text = "Message";
             this.chkMessage.UseVisualStyleBackColor = true;
             this.chkMessage.CheckedChanged += new System.EventHandler(this.chkMessage_CheckedChanged);
@@ -187,7 +213,7 @@
             this.comboPlugin.Location = new System.Drawing.Point(84, 48);
             this.comboPlugin.Name = "comboPlugin";
             this.comboPlugin.Size = new System.Drawing.Size(243, 21);
-            this.comboPlugin.TabIndex = 16;
+            this.comboPlugin.TabIndex = 6;
             // 
             // chkPlugin
             // 
@@ -195,7 +221,7 @@
             this.chkPlugin.Location = new System.Drawing.Point(3, 50);
             this.chkPlugin.Name = "chkPlugin";
             this.chkPlugin.Size = new System.Drawing.Size(55, 17);
-            this.chkPlugin.TabIndex = 15;
+            this.chkPlugin.TabIndex = 5;
             this.chkPlugin.Text = "Plugin";
             this.chkPlugin.UseVisualStyleBackColor = true;
             this.chkPlugin.CheckedChanged += new System.EventHandler(this.chkPlugin_CheckedChanged);
@@ -206,7 +232,7 @@
             this.checkDateTo.Location = new System.Drawing.Point(3, 27);
             this.checkDateTo.Name = "checkDateTo";
             this.checkDateTo.Size = new System.Drawing.Size(65, 17);
-            this.checkDateTo.TabIndex = 14;
+            this.checkDateTo.TabIndex = 3;
             this.checkDateTo.Text = "Date To";
             this.checkDateTo.UseVisualStyleBackColor = true;
             this.checkDateTo.CheckedChanged += new System.EventHandler(this.checkDateTo_CheckedChanged);
@@ -217,7 +243,7 @@
             this.checkDateFrom.Location = new System.Drawing.Point(3, 3);
             this.checkDateFrom.Name = "checkDateFrom";
             this.checkDateFrom.Size = new System.Drawing.Size(75, 17);
-            this.checkDateFrom.TabIndex = 13;
+            this.checkDateFrom.TabIndex = 1;
             this.checkDateFrom.Text = "Date From";
             this.checkDateFrom.UseVisualStyleBackColor = true;
             this.checkDateFrom.CheckedChanged += new System.EventHandler(this.checkDateFrom_CheckedChanged);
@@ -231,7 +257,7 @@
             this.dateTo.MinDate = new System.DateTime(2000, 1, 1, 0, 0, 0, 0);
             this.dateTo.Name = "dateTo";
             this.dateTo.Size = new System.Drawing.Size(100, 20);
-            this.dateTo.TabIndex = 12;
+            this.dateTo.TabIndex = 4;
             // 
             // dateFrom
             // 
@@ -242,7 +268,7 @@
             this.dateFrom.MinDate = new System.DateTime(2000, 1, 1, 0, 0, 0, 0);
             this.dateFrom.Name = "dateFrom";
             this.dateFrom.Size = new System.Drawing.Size(100, 20);
-            this.dateFrom.TabIndex = 11;
+            this.dateFrom.TabIndex = 2;
             // 
             // panelOptions
             // 
@@ -256,12 +282,12 @@
             this.panelOptions.Dock = System.Windows.Forms.DockStyle.Right;
             this.panelOptions.Location = new System.Drawing.Point(337, 16);
             this.panelOptions.Name = "panelOptions";
-            this.panelOptions.Size = new System.Drawing.Size(260, 112);
-            this.panelOptions.TabIndex = 18;
+            this.panelOptions.Size = new System.Drawing.Size(260, 123);
+            this.panelOptions.TabIndex = 2;
             // 
             // buttonRetrieveLogs
             // 
-            this.buttonRetrieveLogs.Location = new System.Drawing.Point(158, 69);
+            this.buttonRetrieveLogs.Location = new System.Drawing.Point(158, 93);
             this.buttonRetrieveLogs.Name = "buttonRetrieveLogs";
             this.buttonRetrieveLogs.Size = new System.Drawing.Size(93, 27);
             this.buttonRetrieveLogs.TabIndex = 23;
@@ -272,7 +298,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(5, 75);
+            this.label1.Location = new System.Drawing.Point(5, 99);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(49, 13);
             this.label1.TabIndex = 22;
@@ -285,7 +311,7 @@
             0,
             0,
             0});
-            this.numRecords.Location = new System.Drawing.Point(60, 73);
+            this.numRecords.Location = new System.Drawing.Point(60, 97);
             this.numRecords.Maximum = new decimal(new int[] {
             5000,
             0,
@@ -312,7 +338,7 @@
             this.rbModeAsync.Location = new System.Drawing.Point(158, 27);
             this.rbModeAsync.Name = "rbModeAsync";
             this.rbModeAsync.Size = new System.Drawing.Size(76, 17);
-            this.rbModeAsync.TabIndex = 20;
+            this.rbModeAsync.TabIndex = 4;
             this.rbModeAsync.TabStop = true;
             this.rbModeAsync.Text = "Async only";
             this.rbModeAsync.UseVisualStyleBackColor = true;
@@ -323,7 +349,7 @@
             this.rbModeSync.Location = new System.Drawing.Point(80, 27);
             this.rbModeSync.Name = "rbModeSync";
             this.rbModeSync.Size = new System.Drawing.Size(71, 17);
-            this.rbModeSync.TabIndex = 19;
+            this.rbModeSync.TabIndex = 3;
             this.rbModeSync.TabStop = true;
             this.rbModeSync.Text = "Sync only";
             this.rbModeSync.UseVisualStyleBackColor = true;
@@ -335,7 +361,7 @@
             this.rbModeAll.Location = new System.Drawing.Point(3, 27);
             this.rbModeAll.Name = "rbModeAll";
             this.rbModeAll.Size = new System.Drawing.Size(70, 17);
-            this.rbModeAll.TabIndex = 18;
+            this.rbModeAll.TabIndex = 2;
             this.rbModeAll.TabStop = true;
             this.rbModeAll.Text = "All modes";
             this.rbModeAll.UseVisualStyleBackColor = true;
@@ -346,7 +372,7 @@
             this.chkExceptions.Location = new System.Drawing.Point(3, 3);
             this.chkExceptions.Name = "chkExceptions";
             this.chkExceptions.Size = new System.Drawing.Size(100, 17);
-            this.chkExceptions.TabIndex = 17;
+            this.chkExceptions.TabIndex = 1;
             this.chkExceptions.Text = "Exceptions only";
             this.chkExceptions.UseVisualStyleBackColor = true;
             // 
@@ -355,9 +381,9 @@
             this.panelData.Controls.Add(this.crmGridView);
             this.panelData.Controls.Add(this.panelDataTop);
             this.panelData.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panelData.Location = new System.Drawing.Point(0, 156);
+            this.panelData.Location = new System.Drawing.Point(0, 167);
             this.panelData.Name = "panelData";
-            this.panelData.Size = new System.Drawing.Size(600, 269);
+            this.panelData.Size = new System.Drawing.Size(600, 258);
             this.panelData.TabIndex = 27;
             // 
             // crmGridView
@@ -388,7 +414,7 @@
             this.crmGridView.ShowFriendlyNames = true;
             this.crmGridView.ShowIdColumn = false;
             this.crmGridView.ShowIndexColumn = false;
-            this.crmGridView.Size = new System.Drawing.Size(600, 237);
+            this.crmGridView.Size = new System.Drawing.Size(600, 226);
             this.crmGridView.TabIndex = 25;
             this.crmGridView.RecordEnter += new Cinteros.Xrm.CRMWinForm.CRMRecordEventHandler(this.crmGridView_RecordEnter);
             // 
@@ -550,7 +576,7 @@
             this.textMessage.ReadOnly = true;
             this.textMessage.ScrollBars = System.Windows.Forms.ScrollBars.Both;
             this.textMessage.Size = new System.Drawing.Size(421, 150);
-            this.textMessage.TabIndex = 2;
+            this.textMessage.TabIndex = 4;
             this.textMessage.WordWrap = false;
             // 
             // labelMessage
@@ -565,13 +591,25 @@
             // 
             // panelDetailsTop
             // 
-            this.panelDetailsTop.Controls.Add(this.checkWordWrap);
+            this.panelDetailsTop.Controls.Add(this.chkWordWrap);
             this.panelDetailsTop.Controls.Add(this.buttonOpenRecord);
             this.panelDetailsTop.Dock = System.Windows.Forms.DockStyle.Top;
             this.panelDetailsTop.Location = new System.Drawing.Point(3, 16);
             this.panelDetailsTop.Name = "panelDetailsTop";
             this.panelDetailsTop.Size = new System.Drawing.Size(421, 30);
-            this.panelDetailsTop.TabIndex = 0;
+            this.panelDetailsTop.TabIndex = 3;
+            // 
+            // chkWordWrap
+            // 
+            this.chkWordWrap.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.chkWordWrap.AutoSize = true;
+            this.chkWordWrap.Location = new System.Drawing.Point(346, 5);
+            this.chkWordWrap.Name = "chkWordWrap";
+            this.chkWordWrap.Size = new System.Drawing.Size(72, 17);
+            this.chkWordWrap.TabIndex = 1;
+            this.chkWordWrap.Text = "Wrap text";
+            this.chkWordWrap.UseVisualStyleBackColor = true;
+            this.chkWordWrap.CheckedChanged += new System.EventHandler(this.checkWordWrap_CheckedChanged);
             // 
             // buttonOpenRecord
             // 
@@ -591,18 +629,6 @@
             this.splitterDetailsWidth.Size = new System.Drawing.Size(3, 400);
             this.splitterDetailsWidth.TabIndex = 29;
             this.splitterDetailsWidth.TabStop = false;
-            // 
-            // checkWordWrap
-            // 
-            this.checkWordWrap.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.checkWordWrap.AutoSize = true;
-            this.checkWordWrap.Location = new System.Drawing.Point(346, 5);
-            this.checkWordWrap.Name = "checkWordWrap";
-            this.checkWordWrap.Size = new System.Drawing.Size(72, 17);
-            this.checkWordWrap.TabIndex = 1;
-            this.checkWordWrap.Text = "Wrap text";
-            this.checkWordWrap.UseVisualStyleBackColor = true;
-            this.checkWordWrap.CheckedChanged += new System.EventHandler(this.checkWordWrap_CheckedChanged);
             // 
             // PluginTraceViewer
             // 
@@ -687,6 +713,8 @@
         private System.Windows.Forms.DateTimePicker dateTo;
         private System.Windows.Forms.DateTimePicker dateFrom;
         private System.Windows.Forms.Label labelInfo;
-        private System.Windows.Forms.CheckBox checkWordWrap;
+        private System.Windows.Forms.CheckBox chkWordWrap;
+        private System.Windows.Forms.ComboBox comboEntity;
+        private System.Windows.Forms.CheckBox chkEntity;
     }
 }

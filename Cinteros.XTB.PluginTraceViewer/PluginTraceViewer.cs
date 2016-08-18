@@ -85,6 +85,11 @@ namespace Cinteros.XTB.PluginTraceViewer
                         {
                             comboMessage.Items.Clear();
                             comboMessage.Items.AddRange(messagelist.ToArray());
+                            GetEntities((entitylist) =>
+                            {
+                                comboEntity.Items.Clear();
+                                comboEntity.Items.AddRange(entitylist.ToArray());
+                            });
                         });
                     });
                 });
@@ -149,6 +154,35 @@ namespace Cinteros.XTB.PluginTraceViewer
             WorkAsync(asyncinfo);
         }
 
+        private void GetEntities(Action<List<string>> callback)
+        {
+            var QEplugintracelog = new QueryExpression("plugintracelog");
+            QEplugintracelog.Distinct = true;
+            QEplugintracelog.ColumnSet.AddColumns("primaryentity");
+            var asyncinfo = new WorkAsyncInfo()
+            {
+                Message = "Loading entities",
+                Work = (a, args) =>
+                {
+                    args.Result = Service.RetrieveMultiple(QEplugintracelog);
+                },
+                PostWorkCallBack = (args) =>
+                {
+                    if (args.Error != null)
+                    {
+                        MessageBox.Show($"Failed to load entities:\n{args.Error.Message}", "Load", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                    else if (args.Result is EntityCollection)
+                    {
+                        var entities = ((EntityCollection)args.Result).Entities;
+                        var entitylist = entities.Where(e => e.Attributes.Contains("primaryentity")).Select(e => e.Attributes["primaryentity"].ToString()).ToList();
+                        callback(entitylist);
+                    }
+                }
+            };
+            WorkAsync(asyncinfo);
+        }
+
         private void GetDateConstraint(string aggregate, Action<DateTime> callback)
         {
             var date = DateTime.Today;
@@ -203,11 +237,11 @@ namespace Cinteros.XTB.PluginTraceViewer
                                 "depth",
                                 "mode");
                 QEplugintracelog.TopCount = (int)numRecords.Value;
-                if (dateFrom.Checked)
+                if (checkDateFrom.Checked)
                 {
                     QEplugintracelog.Criteria.AddCondition("createdon", ConditionOperator.OnOrAfter, dateFrom.Value.Date);
                 }
-                if (dateTo.Checked)
+                if (checkDateTo.Checked)
                 {
                     QEplugintracelog.Criteria.AddCondition("createdon", ConditionOperator.OnOrBefore, dateTo.Value.Date);
                 }
@@ -218,6 +252,10 @@ namespace Cinteros.XTB.PluginTraceViewer
                 if (chkMessage.Checked && !string.IsNullOrWhiteSpace(comboMessage.Text))
                 {
                     QEplugintracelog.Criteria.AddCondition("messagename", ConditionOperator.Equal, comboMessage.Text);
+                }
+                if (chkEntity.Checked && !string.IsNullOrWhiteSpace(comboEntity.Text))
+                {
+                    QEplugintracelog.Criteria.AddCondition("primaryentity", comboEntity.Text.Contains("*") ? ConditionOperator.Like : ConditionOperator.Equal, comboEntity.Text.Replace("*", "%"));
                 }
                 if (chkExceptions.Checked)
                 {
@@ -393,8 +431,13 @@ namespace Cinteros.XTB.PluginTraceViewer
 
         private void checkWordWrap_CheckedChanged(object sender, EventArgs e)
         {
-            textMessage.WordWrap = checkWordWrap.Checked;
-            textException.WordWrap = checkWordWrap.Checked;
+            textMessage.WordWrap = chkWordWrap.Checked;
+            textException.WordWrap = chkWordWrap.Checked;
+        }
+
+        private void chkEntity_CheckedChanged(object sender, EventArgs e)
+        {
+            comboEntity.Enabled = chkEntity.Checked;
         }
     }
 }
