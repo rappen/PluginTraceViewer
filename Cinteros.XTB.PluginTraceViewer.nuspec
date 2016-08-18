@@ -3,7 +3,7 @@
   <metadata>
     <id>Cinteros.XrmToolBox.PluginTraceViewer</id>
     <version>1.0.0</version>
-    <title>Plug-in Trace Viewer BETA</title>
+    <title>Plug-in Trace Viewer</title>
     <authors>Jonas Rapp, Innofactor AB</authors>
     <owners>Innofactor</owners>
     <projectUrl>http://cinteros.xrmtoolbox.com</projectUrl>
@@ -13,8 +13,6 @@
     <summary>Investigate the Plug-in Trace Log with easy filtering and display possibilities</summary>
     <releaseNotes>    
     Enables you to filter and find information from the Plug-in Trace Log in CRM.
-    
-    Currently in BETA version!
     </releaseNotes>
     <copyright>Copyright 2016 Innofactor AB</copyright>
     <tags>XrmToolBox Plugins PluginTraceViewer</tags>
