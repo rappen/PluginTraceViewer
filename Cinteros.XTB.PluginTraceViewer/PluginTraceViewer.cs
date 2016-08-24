@@ -64,6 +64,7 @@ namespace Cinteros.XTB.PluginTraceViewer
                 crmGridView.DataSource = null;
             }
             crmGridView.OrganizationService = e.Service;
+            buttonRetrieveLogs.Enabled = e.Service != null;
             LoadConstraints();
         }
 
@@ -420,12 +421,18 @@ namespace Cinteros.XTB.PluginTraceViewer
         private void numRecords_ValueChanged(object sender, EventArgs e)
         {
             var compareValue = numRecords.Value - lastRecordCount.CompareTo((int)numRecords.Value);
-            if (compareValue < 10) numRecords.Increment = 1;
-            else if (compareValue < 20) numRecords.Increment = 5;
-            else if (compareValue < 50) numRecords.Increment = 10;
-            else if (compareValue < 200) numRecords.Increment = 25;
-            else if (compareValue < 1000) numRecords.Increment = 100;
-            else numRecords.Increment = 1000;
+            var increment = 1;
+            if (compareValue < 10) increment = 1;
+            else if (compareValue < 20) increment = 5;
+            else if (compareValue < 50) increment = 10;
+            else if (compareValue < 200) increment = 25;
+            else if (compareValue < 1000) increment = 100;
+            else increment = 1000;
+            if (numRecords.Value % increment != 0)
+            {
+                numRecords.Value = Math.Round(numRecords.Value / increment) * increment;
+            }
+            numRecords.Increment = increment;
             lastRecordCount = (int)numRecords.Value;
         }
 

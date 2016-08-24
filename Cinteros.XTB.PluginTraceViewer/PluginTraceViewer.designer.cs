@@ -287,6 +287,7 @@
             // 
             // buttonRetrieveLogs
             // 
+            this.buttonRetrieveLogs.Enabled = false;
             this.buttonRetrieveLogs.Location = new System.Drawing.Point(158, 93);
             this.buttonRetrieveLogs.Name = "buttonRetrieveLogs";
             this.buttonRetrieveLogs.Size = new System.Drawing.Size(93, 27);
