@@ -59,10 +59,19 @@ namespace Cinteros.XTB.PluginTraceViewer
             {
                 crmGridView.DataSource = null;
             }
-            crmGridView.OrganizationService = e.Service;
-            buttonRetrieveLogs.Enabled = e.Service != null;
-            buttonRefreshFilter.Enabled = e.Service != null;
-            LoadConstraints();
+            var orgver = new Version(e.ConnectionDetail.OrganizationVersion);
+            var orgok = orgver >= new Version(7, 1);
+            crmGridView.OrganizationService = orgok ? e.Service : null;
+            buttonRetrieveLogs.Enabled = orgok;
+            buttonRefreshFilter.Enabled = orgok;
+            if (orgok)
+            {
+                LoadConstraints();
+            }
+            else
+            {
+                MessageBox.Show("Plug-in Trace Log was introduced in\nMicrosoft Dynamics CRM 2015 Update 1 (7.1.0.0)\n\nPlease connect to a newer organization to use this cool tool.", "Organization too old", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
         }
 
         private void LoadConstraints()
