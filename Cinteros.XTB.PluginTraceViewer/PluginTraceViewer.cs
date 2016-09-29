@@ -61,6 +61,7 @@ namespace Cinteros.XTB.PluginTraceViewer
             }
             crmGridView.OrganizationService = e.Service;
             buttonRetrieveLogs.Enabled = e.Service != null;
+            buttonRefreshFilter.Enabled = e.Service != null;
             LoadConstraints();
         }
 
@@ -473,6 +474,11 @@ namespace Cinteros.XTB.PluginTraceViewer
         {
             buttonShowHideFilter.Text = buttonShowHideFilter.Checked ? "Hide Filter" : "Show Filter";
             groupFilter.Visible = buttonShowHideFilter.Checked;
+        }
+
+        private void buttonRefreshFilter_Click(object sender, EventArgs e)
+        {
+            LoadConstraints();
         }
     }
 }

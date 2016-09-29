@@ -86,6 +86,8 @@
             this.chkWordWrap = new System.Windows.Forms.CheckBox();
             this.buttonOpenRecord = new System.Windows.Forms.Button();
             this.splitterDetailsWidth = new System.Windows.Forms.Splitter();
+            this.buttonRefreshFilter = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripMain.SuspendLayout();
             this.groupFilter.SuspendLayout();
             this.panelFilter.SuspendLayout();
@@ -111,7 +113,9 @@
             this.buttonRetrieveLogs,
             this.toolStripDropDownButton1,
             this.toolStripSeparator1,
-            this.buttonShowHideFilter});
+            this.buttonShowHideFilter,
+            this.toolStripSeparator2,
+            this.buttonRefreshFilter});
             this.toolStripMain.Location = new System.Drawing.Point(0, 0);
             this.toolStripMain.Name = "toolStripMain";
             this.toolStripMain.Size = new System.Drawing.Size(935, 25);
@@ -751,6 +755,21 @@
             this.splitterDetailsWidth.TabIndex = 29;
             this.splitterDetailsWidth.TabStop = false;
             // 
+            // buttonRefreshFilter
+            // 
+            this.buttonRefreshFilter.Enabled = false;
+            this.buttonRefreshFilter.Image = ((System.Drawing.Image)(resources.GetObject("buttonRefreshFilter.Image")));
+            this.buttonRefreshFilter.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.buttonRefreshFilter.Name = "buttonRefreshFilter";
+            this.buttonRefreshFilter.Size = new System.Drawing.Size(140, 22);
+            this.buttonRefreshFilter.Text = "Refresh Filter Options";
+            this.buttonRefreshFilter.Click += new System.EventHandler(this.buttonRefreshFilter_Click);
+            // 
+            // toolStripSeparator2
+            // 
+            this.toolStripSeparator2.Name = "toolStripSeparator2";
+            this.toolStripSeparator2.Size = new System.Drawing.Size(6, 25);
+            // 
             // PluginTraceViewer
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -847,5 +866,7 @@
         private System.Windows.Forms.ToolStripMenuItem hejToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.Windows.Forms.ToolStripButton buttonShowHideFilter;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
+        private System.Windows.Forms.ToolStripButton buttonRefreshFilter;
     }
 }
