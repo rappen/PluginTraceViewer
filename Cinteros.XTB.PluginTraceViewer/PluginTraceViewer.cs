@@ -2,14 +2,10 @@
 using Microsoft.Xrm.Sdk.Query;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
 using System.Diagnostics;
-using System.Drawing;
 using System.Linq;
 using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using XrmToolBox.Extensibility;
 using XrmToolBox.Extensibility.Interfaces;
@@ -237,7 +233,10 @@ namespace Cinteros.XTB.PluginTraceViewer
                                 "typename",
                                 "depth",
                                 "mode");
-                QEplugintracelog.TopCount = (int)numRecords.Value;
+                if (chkRecords.Checked)
+                {
+                    QEplugintracelog.TopCount = (int)numRecords.Value;
+                }
                 if (checkDateFrom.Checked)
                 {
                     QEplugintracelog.Criteria.AddCondition("createdon", ConditionOperator.OnOrAfter, dateFrom.Value.Date);
@@ -270,6 +269,14 @@ namespace Cinteros.XTB.PluginTraceViewer
                 else if (rbModeAsync.Checked)
                 {
                     QEplugintracelog.Criteria.AddCondition("mode", ConditionOperator.Equal, 1);
+                }
+                if (chkDurationMin.Checked)
+                {
+                    QEplugintracelog.Criteria.AddCondition("performanceexecutionduration", ConditionOperator.GreaterEqual, (int)numDurationMin.Value);
+                }
+                if (chkDurationMax.Checked)
+                {
+                    QEplugintracelog.Criteria.AddCondition("performanceexecutionduration", ConditionOperator.LessEqual, (int)numDurationMax.Value);
                 }
                 QEplugintracelog.AddOrder("performanceexecutionstarttime", OrderType.Descending);
                 var asyncinfo = new WorkAsyncInfo()
@@ -445,6 +452,27 @@ namespace Cinteros.XTB.PluginTraceViewer
         private void chkEntity_CheckedChanged(object sender, EventArgs e)
         {
             comboEntity.Enabled = chkEntity.Checked;
+        }
+
+        private void chkDurationMin_CheckedChanged(object sender, EventArgs e)
+        {
+            numDurationMin.Enabled = chkDurationMin.Checked;
+        }
+
+        private void chkDurationMax_CheckedChanged(object sender, EventArgs e)
+        {
+            numDurationMax.Enabled = chkDurationMax.Checked;
+        }
+
+        private void chkRecords_CheckedChanged(object sender, EventArgs e)
+        {
+            numRecords.Enabled = chkRecords.Checked;
+        }
+
+        private void buttonShowHideFilter_Click(object sender, EventArgs e)
+        {
+            buttonShowHideFilter.Text = buttonShowHideFilter.Checked ? "Hide Filter" : "Show Filter";
+            groupFilter.Visible = buttonShowHideFilter.Checked;
         }
     }
 }
