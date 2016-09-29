@@ -38,6 +38,8 @@
             this.hejToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.buttonShowHideFilter = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
+            this.buttonRefreshFilter = new System.Windows.Forms.ToolStripButton();
             this.groupFilter = new System.Windows.Forms.GroupBox();
             this.panelFilter = new System.Windows.Forms.Panel();
             this.comboEntity = new System.Windows.Forms.ComboBox();
@@ -86,8 +88,6 @@
             this.chkWordWrap = new System.Windows.Forms.CheckBox();
             this.buttonOpenRecord = new System.Windows.Forms.Button();
             this.splitterDetailsWidth = new System.Windows.Forms.Splitter();
-            this.buttonRefreshFilter = new System.Windows.Forms.ToolStripButton();
-            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripMain.SuspendLayout();
             this.groupFilter.SuspendLayout();
             this.panelFilter.SuspendLayout();
@@ -197,6 +197,21 @@
             this.buttonShowHideFilter.Text = "Hide Filter";
             this.buttonShowHideFilter.ToolTipText = "Click this button to toggle the Filter panel";
             this.buttonShowHideFilter.Click += new System.EventHandler(this.buttonShowHideFilter_Click);
+            // 
+            // toolStripSeparator2
+            // 
+            this.toolStripSeparator2.Name = "toolStripSeparator2";
+            this.toolStripSeparator2.Size = new System.Drawing.Size(6, 25);
+            // 
+            // buttonRefreshFilter
+            // 
+            this.buttonRefreshFilter.Enabled = false;
+            this.buttonRefreshFilter.Image = ((System.Drawing.Image)(resources.GetObject("buttonRefreshFilter.Image")));
+            this.buttonRefreshFilter.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.buttonRefreshFilter.Name = "buttonRefreshFilter";
+            this.buttonRefreshFilter.Size = new System.Drawing.Size(140, 22);
+            this.buttonRefreshFilter.Text = "Refresh Filter Options";
+            this.buttonRefreshFilter.Click += new System.EventHandler(this.buttonRefreshFilter_Click);
             // 
             // groupFilter
             // 
@@ -740,9 +755,9 @@
             // 
             this.buttonOpenRecord.Location = new System.Drawing.Point(3, 3);
             this.buttonOpenRecord.Name = "buttonOpenRecord";
-            this.buttonOpenRecord.Size = new System.Drawing.Size(87, 23);
+            this.buttonOpenRecord.Size = new System.Drawing.Size(146, 23);
             this.buttonOpenRecord.TabIndex = 0;
-            this.buttonOpenRecord.Text = "Open in CRM";
+            this.buttonOpenRecord.Text = "Open log record in CRM";
             this.buttonOpenRecord.UseVisualStyleBackColor = true;
             this.buttonOpenRecord.Click += new System.EventHandler(this.buttonOpenRecord_Click);
             // 
@@ -754,21 +769,6 @@
             this.splitterDetailsWidth.Size = new System.Drawing.Size(3, 380);
             this.splitterDetailsWidth.TabIndex = 29;
             this.splitterDetailsWidth.TabStop = false;
-            // 
-            // buttonRefreshFilter
-            // 
-            this.buttonRefreshFilter.Enabled = false;
-            this.buttonRefreshFilter.Image = ((System.Drawing.Image)(resources.GetObject("buttonRefreshFilter.Image")));
-            this.buttonRefreshFilter.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.buttonRefreshFilter.Name = "buttonRefreshFilter";
-            this.buttonRefreshFilter.Size = new System.Drawing.Size(140, 22);
-            this.buttonRefreshFilter.Text = "Refresh Filter Options";
-            this.buttonRefreshFilter.Click += new System.EventHandler(this.buttonRefreshFilter_Click);
-            // 
-            // toolStripSeparator2
-            // 
-            this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(6, 25);
             // 
             // PluginTraceViewer
             // 
