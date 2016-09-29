@@ -36,6 +36,8 @@
             this.buttonRetrieveLogs = new System.Windows.Forms.ToolStripButton();
             this.toolStripDropDownButton1 = new System.Windows.Forms.ToolStripDropDownButton();
             this.hejToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.buttonShowHideFilter = new System.Windows.Forms.ToolStripButton();
             this.groupFilter = new System.Windows.Forms.GroupBox();
             this.panelFilter = new System.Windows.Forms.Panel();
             this.comboEntity = new System.Windows.Forms.ComboBox();
@@ -84,8 +86,6 @@
             this.chkWordWrap = new System.Windows.Forms.CheckBox();
             this.buttonOpenRecord = new System.Windows.Forms.Button();
             this.splitterDetailsWidth = new System.Windows.Forms.Splitter();
-            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
-            this.buttonShowHideFilter = new System.Windows.Forms.ToolStripButton();
             this.toolStripMain.SuspendLayout();
             this.groupFilter.SuspendLayout();
             this.panelFilter.SuspendLayout();
@@ -176,6 +176,24 @@
             this.hejToolStripMenuItem.Text = "HiddenRetrieveButton used for shortcut";
             this.hejToolStripMenuItem.Click += new System.EventHandler(this.buttonRetrieveLogs_Click);
             // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 25);
+            // 
+            // buttonShowHideFilter
+            // 
+            this.buttonShowHideFilter.Checked = true;
+            this.buttonShowHideFilter.CheckOnClick = true;
+            this.buttonShowHideFilter.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.buttonShowHideFilter.Image = ((System.Drawing.Image)(resources.GetObject("buttonShowHideFilter.Image")));
+            this.buttonShowHideFilter.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.buttonShowHideFilter.Name = "buttonShowHideFilter";
+            this.buttonShowHideFilter.Size = new System.Drawing.Size(81, 22);
+            this.buttonShowHideFilter.Text = "Hide Filter";
+            this.buttonShowHideFilter.ToolTipText = "Click this button to toggle the Filter panel";
+            this.buttonShowHideFilter.Click += new System.EventHandler(this.buttonShowHideFilter_Click);
+            // 
             // groupFilter
             // 
             this.groupFilter.Controls.Add(this.panelFilter);
@@ -215,6 +233,7 @@
             this.comboEntity.Location = new System.Drawing.Point(84, 96);
             this.comboEntity.Name = "comboEntity";
             this.comboEntity.Size = new System.Drawing.Size(169, 21);
+            this.comboEntity.Sorted = true;
             this.comboEntity.TabIndex = 10;
             // 
             // chkEntity
@@ -731,24 +750,6 @@
             this.splitterDetailsWidth.Size = new System.Drawing.Size(3, 380);
             this.splitterDetailsWidth.TabIndex = 29;
             this.splitterDetailsWidth.TabStop = false;
-            // 
-            // toolStripSeparator1
-            // 
-            this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 25);
-            // 
-            // buttonShowHideFilter
-            // 
-            this.buttonShowHideFilter.Checked = true;
-            this.buttonShowHideFilter.CheckOnClick = true;
-            this.buttonShowHideFilter.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.buttonShowHideFilter.Image = ((System.Drawing.Image)(resources.GetObject("buttonShowHideFilter.Image")));
-            this.buttonShowHideFilter.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.buttonShowHideFilter.Name = "buttonShowHideFilter";
-            this.buttonShowHideFilter.Size = new System.Drawing.Size(81, 22);
-            this.buttonShowHideFilter.Text = "Hide Filter";
-            this.buttonShowHideFilter.ToolTipText = "Click this button to toggle the Filter panel";
-            this.buttonShowHideFilter.Click += new System.EventHandler(this.buttonShowHideFilter_Click);
             // 
             // PluginTraceViewer
             // 
