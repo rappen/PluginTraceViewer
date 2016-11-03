@@ -89,6 +89,7 @@
             this.buttonOpenRecord = new System.Windows.Forms.Button();
             this.splitterDetailsWidth = new System.Windows.Forms.Splitter();
             this.panelLeft = new System.Windows.Forms.Panel();
+            this.btnSaveLogs = new System.Windows.Forms.Button();
             this.toolStripMain.SuspendLayout();
             this.groupFilter.SuspendLayout();
             this.panelFilter.SuspendLayout();
@@ -634,6 +635,7 @@
             // 
             // panelDataTop
             // 
+            this.panelDataTop.Controls.Add(this.btnSaveLogs);
             this.panelDataTop.Controls.Add(this.labelInfo);
             this.panelDataTop.Dock = System.Windows.Forms.DockStyle.Top;
             this.panelDataTop.Location = new System.Drawing.Point(0, 0);
@@ -783,6 +785,17 @@
             this.panelLeft.Size = new System.Drawing.Size(614, 833);
             this.panelLeft.TabIndex = 30;
             // 
+            // btnSaveLogs
+            // 
+            this.btnSaveLogs.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnSaveLogs.Location = new System.Drawing.Point(484, 4);
+            this.btnSaveLogs.Name = "btnSaveLogs";
+            this.btnSaveLogs.Size = new System.Drawing.Size(126, 23);
+            this.btnSaveLogs.TabIndex = 1;
+            this.btnSaveLogs.Text = "Save logs to file";
+            this.btnSaveLogs.UseVisualStyleBackColor = true;
+            this.btnSaveLogs.Click += new System.EventHandler(this.btnSaveLogs_Click);
+            // 
             // PluginTraceViewer
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -882,5 +895,6 @@
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
         private System.Windows.Forms.ToolStripButton buttonRefreshFilter;
         private System.Windows.Forms.Panel panelLeft;
+        private System.Windows.Forms.Button btnSaveLogs;
     }
 }

@@ -1,4 +1,5 @@
-﻿using Microsoft.Xrm.Sdk;
+﻿using Cinteros.Xrm.CRMWinForm;
+using Microsoft.Xrm.Sdk;
 using Microsoft.Xrm.Sdk.Query;
 using System;
 using System.Collections.Generic;
@@ -488,6 +489,30 @@ namespace Cinteros.XTB.PluginTraceViewer
         private void buttonRefreshFilter_Click(object sender, EventArgs e)
         {
             LoadConstraints();
+        }
+
+        private void btnSaveLogs_Click(object sender, EventArgs e)
+        {
+            SaveLogs();
+        }
+
+        private void SaveLogs()
+        {
+            var sfd = new SaveFileDialog
+            {
+                Title = "Select a location to save the logs",
+                Filter = "XML file (*.xml)|*.xml"
+            };
+            if (sfd.ShowDialog() == DialogResult.OK)
+            {
+                var newfile = sfd.FileName;
+                if (!string.IsNullOrEmpty(newfile))
+                {
+                    var serialized = EntityCollectionSerializer.Serialize((EntityCollection)crmGridView.GetDataSource<EntityCollection>(), SerializationStyle.Explicit);
+                    serialized.Save(newfile);
+                    MessageBox.Show(this, "Logs saved!", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+            }
         }
     }
 }
