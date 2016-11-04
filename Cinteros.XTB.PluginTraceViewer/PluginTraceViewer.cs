@@ -517,7 +517,7 @@ namespace Cinteros.XTB.PluginTraceViewer
 
         private void deleteSelectedToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            var menu = (ContextMenuStrip)sender;
+            var menu = (ContextMenuStrip)((ToolStripDropDownItem)sender).GetCurrentParent();
             var grid = (CRMGridView)menu?.SourceControl;
             var entities = grid?.SelectedCellRecords?.Entities;
 
