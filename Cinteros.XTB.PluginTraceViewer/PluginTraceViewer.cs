@@ -528,26 +528,7 @@ namespace Cinteros.XTB.PluginTraceViewer
             if (entities?.Count == 1)
             {
                 // Execute one 'Delete' request
-                var entity = entities.FirstOrDefault();
-
-                var task = new Task(() =>
-                {
-                    try
-                    {
-                        NotifyUser($"Deleting log record id {entity.Id}");
-                        Service.Delete(entity.LogicalName, entity.Id);
-                    }
-                    catch (Exception)
-                    {
-                        // Hiding exception if something will go wrong
-                    }
-                    finally
-                    {
-                        NotifyUser();
-                    }
-                });
-
-                task.Start();
+                DeleteOne(entities.FirstOrDefault());
             }
             else
             {
@@ -614,6 +595,28 @@ namespace Cinteros.XTB.PluginTraceViewer
             {
                 SendMessageToStatusBar(this, new StatusBarMessageEventArgs(text));
             }));
+        }
+
+        private void DeleteOne(Entity entity)
+        {
+            var task = new Task(() =>
+            {
+                try
+                {
+                    NotifyUser($"Deleting log record id {entity.Id}");
+                    Service.Delete(entity.LogicalName, entity.Id);
+                }
+                catch (Exception)
+                {
+                    // Hiding exception if something will go wrong
+                }
+                finally
+                {
+                    NotifyUser();
+                }
+            });
+
+            task.Start();
         }
     }
 }
