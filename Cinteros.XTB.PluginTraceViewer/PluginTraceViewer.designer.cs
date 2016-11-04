@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(PluginTraceViewer));
             this.toolStripMain = new System.Windows.Forms.ToolStrip();
             this.tsbCloseThisTab = new System.Windows.Forms.ToolStripButton();
@@ -76,6 +77,7 @@
             this.exceptiondetails = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.messagebody = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.panelDataTop = new System.Windows.Forms.Panel();
+            this.btnSaveLogs = new System.Windows.Forms.Button();
             this.labelInfo = new System.Windows.Forms.Label();
             this.groupDetails = new System.Windows.Forms.GroupBox();
             this.textMessage = new System.Windows.Forms.TextBox();
@@ -89,7 +91,7 @@
             this.buttonOpenRecord = new System.Windows.Forms.Button();
             this.splitterDetailsWidth = new System.Windows.Forms.Splitter();
             this.panelLeft = new System.Windows.Forms.Panel();
-            this.btnSaveLogs = new System.Windows.Forms.Button();
+            this.contextStripMain = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.toolStripMain.SuspendLayout();
             this.groupFilter.SuspendLayout();
             this.panelFilter.SuspendLayout();
@@ -548,6 +550,7 @@
             this.primaryentity,
             this.exceptiondetails,
             this.messagebody});
+            this.crmGridView.ContextMenuStrip = this.contextStripMain;
             this.crmGridView.Dock = System.Windows.Forms.DockStyle.Fill;
             this.crmGridView.EnableHeadersVisualStyles = false;
             this.crmGridView.Location = new System.Drawing.Point(0, 32);
@@ -642,6 +645,17 @@
             this.panelDataTop.Name = "panelDataTop";
             this.panelDataTop.Size = new System.Drawing.Size(614, 32);
             this.panelDataTop.TabIndex = 26;
+            // 
+            // btnSaveLogs
+            // 
+            this.btnSaveLogs.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnSaveLogs.Location = new System.Drawing.Point(484, 4);
+            this.btnSaveLogs.Name = "btnSaveLogs";
+            this.btnSaveLogs.Size = new System.Drawing.Size(126, 23);
+            this.btnSaveLogs.TabIndex = 1;
+            this.btnSaveLogs.Text = "Save logs to file";
+            this.btnSaveLogs.UseVisualStyleBackColor = true;
+            this.btnSaveLogs.Click += new System.EventHandler(this.btnSaveLogs_Click);
             // 
             // labelInfo
             // 
@@ -785,16 +799,10 @@
             this.panelLeft.Size = new System.Drawing.Size(614, 833);
             this.panelLeft.TabIndex = 30;
             // 
-            // btnSaveLogs
+            // contextStripMain
             // 
-            this.btnSaveLogs.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnSaveLogs.Location = new System.Drawing.Point(484, 4);
-            this.btnSaveLogs.Name = "btnSaveLogs";
-            this.btnSaveLogs.Size = new System.Drawing.Size(126, 23);
-            this.btnSaveLogs.TabIndex = 1;
-            this.btnSaveLogs.Text = "Save logs to file";
-            this.btnSaveLogs.UseVisualStyleBackColor = true;
-            this.btnSaveLogs.Click += new System.EventHandler(this.btnSaveLogs_Click);
+            this.contextStripMain.Name = "contextStripMain";
+            this.contextStripMain.Size = new System.Drawing.Size(61, 4);
             // 
             // PluginTraceViewer
             // 
@@ -896,5 +904,6 @@
         private System.Windows.Forms.ToolStripButton buttonRefreshFilter;
         private System.Windows.Forms.Panel panelLeft;
         private System.Windows.Forms.Button btnSaveLogs;
+        private System.Windows.Forms.ContextMenuStrip contextStripMain;
     }
 }
