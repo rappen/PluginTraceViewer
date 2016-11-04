@@ -76,6 +76,9 @@
             this.primaryentity = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.exceptiondetails = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.messagebody = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.contextStripMain = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.deleteSelectedToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.deleteAllToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.panelDataTop = new System.Windows.Forms.Panel();
             this.btnSaveLogs = new System.Windows.Forms.Button();
             this.labelInfo = new System.Windows.Forms.Label();
@@ -91,9 +94,6 @@
             this.buttonOpenRecord = new System.Windows.Forms.Button();
             this.splitterDetailsWidth = new System.Windows.Forms.Splitter();
             this.panelLeft = new System.Windows.Forms.Panel();
-            this.contextStripMain = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.deleteSelectedToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.deleteAllToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMain.SuspendLayout();
             this.groupFilter.SuspendLayout();
             this.panelFilter.SuspendLayout();
@@ -103,12 +103,12 @@
             ((System.ComponentModel.ISupportInitialize)(this.numRecords)).BeginInit();
             this.panelData.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.crmGridView)).BeginInit();
+            this.contextStripMain.SuspendLayout();
             this.panelDataTop.SuspendLayout();
             this.groupDetails.SuspendLayout();
             this.panelException.SuspendLayout();
             this.panelDetailsTop.SuspendLayout();
             this.panelLeft.SuspendLayout();
-            this.contextStripMain.SuspendLayout();
             this.SuspendLayout();
             // 
             // toolStripMain
@@ -639,6 +639,27 @@
             this.messagebody.Visible = false;
             this.messagebody.Width = 75;
             // 
+            // contextStripMain
+            // 
+            this.contextStripMain.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.deleteSelectedToolStripMenuItem,
+            this.deleteAllToolStripMenuItem});
+            this.contextStripMain.Name = "contextStripMain";
+            this.contextStripMain.Size = new System.Drawing.Size(155, 70);
+            // 
+            // deleteSelectedToolStripMenuItem
+            // 
+            this.deleteSelectedToolStripMenuItem.Name = "deleteSelectedToolStripMenuItem";
+            this.deleteSelectedToolStripMenuItem.Size = new System.Drawing.Size(154, 22);
+            this.deleteSelectedToolStripMenuItem.Text = "Delete Selected";
+            this.deleteSelectedToolStripMenuItem.Click += new System.EventHandler(this.deleteSelectedToolStripMenuItem_Click);
+            // 
+            // deleteAllToolStripMenuItem
+            // 
+            this.deleteAllToolStripMenuItem.Name = "deleteAllToolStripMenuItem";
+            this.deleteAllToolStripMenuItem.Size = new System.Drawing.Size(154, 22);
+            this.deleteAllToolStripMenuItem.Text = "Delete All...";
+            // 
             // panelDataTop
             // 
             this.panelDataTop.Controls.Add(this.btnSaveLogs);
@@ -802,27 +823,6 @@
             this.panelLeft.Size = new System.Drawing.Size(614, 833);
             this.panelLeft.TabIndex = 30;
             // 
-            // contextStripMain
-            // 
-            this.contextStripMain.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.deleteSelectedToolStripMenuItem,
-            this.deleteAllToolStripMenuItem});
-            this.contextStripMain.Name = "contextStripMain";
-            this.contextStripMain.Size = new System.Drawing.Size(155, 70);
-            this.contextStripMain.Opening += new System.ComponentModel.CancelEventHandler(this.contextStripMain_Opening);
-            // 
-            // deleteSelectedToolStripMenuItem
-            // 
-            this.deleteSelectedToolStripMenuItem.Name = "deleteSelectedToolStripMenuItem";
-            this.deleteSelectedToolStripMenuItem.Size = new System.Drawing.Size(154, 22);
-            this.deleteSelectedToolStripMenuItem.Text = "Delete Selected";
-            // 
-            // deleteAllToolStripMenuItem
-            // 
-            this.deleteAllToolStripMenuItem.Name = "deleteAllToolStripMenuItem";
-            this.deleteAllToolStripMenuItem.Size = new System.Drawing.Size(154, 22);
-            this.deleteAllToolStripMenuItem.Text = "Delete All...";
-            // 
             // PluginTraceViewer
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -847,6 +847,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.numRecords)).EndInit();
             this.panelData.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.crmGridView)).EndInit();
+            this.contextStripMain.ResumeLayout(false);
             this.panelDataTop.ResumeLayout(false);
             this.panelDataTop.PerformLayout();
             this.groupDetails.ResumeLayout(false);
@@ -856,7 +857,6 @@
             this.panelDetailsTop.ResumeLayout(false);
             this.panelDetailsTop.PerformLayout();
             this.panelLeft.ResumeLayout(false);
-            this.contextStripMain.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }

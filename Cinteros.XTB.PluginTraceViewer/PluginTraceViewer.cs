@@ -515,18 +515,18 @@ namespace Cinteros.XTB.PluginTraceViewer
             }
         }
 
-        private void contextStripMain_Opening(object sender, System.ComponentModel.CancelEventArgs e)
+        private void deleteSelectedToolStripMenuItem_Click(object sender, EventArgs e)
         {
             var menu = (ContextMenuStrip)sender;
             var grid = (CRMGridView)menu?.SourceControl;
 
-            if (grid?.SelectedCellRecords?.Entities?.Count == 0)
+            if (grid?.SelectedCellRecords?.Entities?.Count == 1)
             {
-                // Hide menu item "Delete Selected"
+                // Execute one 'Delete' request
             }
             else
             {
-                // Ensure that menu item "Delete Selected" is visible
+                // Use 'Execute Multiple' request
             }
         }
     }
