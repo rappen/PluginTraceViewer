@@ -12,6 +12,7 @@ using XrmToolBox.Extensibility;
 using XrmToolBox.Extensibility.Interfaces;
 using XrmToolBox.Extensibility.Args;
 using System.Threading.Tasks;
+using Microsoft.Xrm.Sdk.Messages;
 
 namespace Cinteros.XTB.PluginTraceViewer
 {
@@ -554,6 +555,28 @@ namespace Cinteros.XTB.PluginTraceViewer
                 if (entities?.Count < 1000)
                 {
                     // Only one batch will be needed
+                    var request = new ExecuteMultipleRequest
+                    {
+                        Requests = new OrganizationRequestCollection(),
+                        Settings = new ExecuteMultipleSettings()
+                    };
+
+                    foreach(var entity in entities)
+                    {
+                        request.Requests.Add(new DeleteRequest
+                        {
+                            Target = entity.ToEntityReference()
+                        });
+                    }
+
+                    request.Settings.ContinueOnError = true;
+                    request.Settings.ReturnResponses = false;
+
+                    NotifyUser($"Deleting {request.Requests.Count} log records");
+
+                    Service.Execute(request);
+
+                    NotifyUser();
                 }
                 else
                 {
