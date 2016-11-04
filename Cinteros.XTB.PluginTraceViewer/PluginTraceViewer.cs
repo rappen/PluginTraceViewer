@@ -521,6 +521,8 @@ namespace Cinteros.XTB.PluginTraceViewer
 
         private void deleteSelectedToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            const int PAGE_SIZE = 1000;
+
             var menu = (ContextMenuStrip)((ToolStripDropDownItem)sender).GetCurrentParent();
             var grid = (CRMGridView)menu?.SourceControl;
             var entities = grid?.SelectedCellRecords?.Entities;
@@ -528,18 +530,29 @@ namespace Cinteros.XTB.PluginTraceViewer
             if (entities?.Count == 1)
             {
                 // Execute one 'Delete' request
-                DeleteOne(entities.FirstOrDefault());
+                Delete(entities.FirstOrDefault());
             }
             else
             {
                 // Use 'Execute Multiple' request
-                if (entities?.Count < 1000)
+                if (entities?.Count < PAGE_SIZE)
                 {
-                    DeleteBatch(entities);
+                    // Only one batch will be needed
+                    var batch = CreateBatch(entities);
+                    Delete(batch);
                 }
                 else
                 {
                     // Several batches need to be run
+                    var pages = Math.Ceiling((decimal)entities.Count / PAGE_SIZE);
+                    var batches = new List<ExecuteMultipleRequest>();
+
+                    for (var i = 0; i < pages; i++)
+                    {
+                        batches.Add(CreateBatch(entities.Skip(i * PAGE_SIZE).Take(PAGE_SIZE)));
+                    }
+
+                    Delete(batches);
                 }
             }
         }
@@ -575,9 +588,9 @@ namespace Cinteros.XTB.PluginTraceViewer
             }));
         }
 
-        private void DeleteOne(Entity entity)
+        private void Delete(Entity entity)
         {
-            var task = new Task(() =>
+            new Task(() =>
             {
                 try
                 {
@@ -592,15 +605,37 @@ namespace Cinteros.XTB.PluginTraceViewer
                 {
                     NotifyUser();
                 }
-            });
-
-            task.Start();
+            }).Start();
         }
 
-        private void DeleteBatch(DataCollection<Entity> entities)
+        private void Delete(ExecuteMultipleRequest batch)
         {
-            // Only one batch will be needed
-            var request = new ExecuteMultipleRequest
+            new Task(() =>
+            {
+                try
+                {
+                    NotifyUser($"Deleting {batch.Requests.Count} log records");
+                    Service.Execute(batch);
+                }
+                catch (Exception)
+                {
+                    // Hiding exception if something will go wrong
+                }
+                finally
+                {
+                    NotifyUser();
+                }
+            }).Start();
+        }
+
+        private void Delete(List<ExecuteMultipleRequest> batches)
+        {
+            throw new NotImplementedException();
+        }
+
+        private static ExecuteMultipleRequest CreateBatch(IEnumerable<Entity> entities)
+        {
+            var batch = new ExecuteMultipleRequest
             {
                 Requests = new OrganizationRequestCollection(),
                 Settings = new ExecuteMultipleSettings()
@@ -608,20 +643,16 @@ namespace Cinteros.XTB.PluginTraceViewer
 
             foreach (var entity in entities)
             {
-                request.Requests.Add(new DeleteRequest
+                batch.Requests.Add(new DeleteRequest
                 {
                     Target = entity.ToEntityReference()
                 });
             }
 
-            request.Settings.ContinueOnError = true;
-            request.Settings.ReturnResponses = false;
+            batch.Settings.ContinueOnError = true;
+            batch.Settings.ReturnResponses = false;
 
-            NotifyUser($"Deleting {request.Requests.Count} log records");
-
-            Service.Execute(request);
-
-            NotifyUser();
+            return batch;
         }
     }
 }
