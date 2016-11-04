@@ -10,10 +10,12 @@ using System.Reflection;
 using System.Windows.Forms;
 using XrmToolBox.Extensibility;
 using XrmToolBox.Extensibility.Interfaces;
+using XrmToolBox.Extensibility.Args;
+using System.Threading.Tasks;
 
 namespace Cinteros.XTB.PluginTraceViewer
 {
-    public partial class PluginTraceViewer : PluginControlBase, IGitHubPlugin, IMessageBusHost, IHelpPlugin, IPayPalPlugin
+    public partial class PluginTraceViewer : PluginControlBase, IGitHubPlugin, IMessageBusHost, IHelpPlugin, IPayPalPlugin, IStatusBarMessenger
     {
         private int lastRecordCount = 100;
 
@@ -39,6 +41,7 @@ namespace Cinteros.XTB.PluginTraceViewer
         }
 
         public event EventHandler<MessageBusEventArgs> OnOutgoingMessage;
+        public event EventHandler<StatusBarMessageEventArgs> SendMessageToStatusBar;
 
         public void OnIncomingMessage(MessageBusEventArgs message)
         {
@@ -526,12 +529,42 @@ namespace Cinteros.XTB.PluginTraceViewer
                 // Execute one 'Delete' request
                 var entity = entities.FirstOrDefault();
 
-                Service.Delete(entity.LogicalName, entity.Id);
+                var task = new Task(() =>
+                {
+                    try
+                    {
+                        NotifyUser($"Deleting log record id {entity.Id}");
+                        Service.Delete(entity.LogicalName, entity.Id);
+                    }
+                    catch (Exception)
+                    {
+                        // Hiding exception if something will go wrong
+                    }
+                    finally
+                    {
+                        NotifyUser();
+                    }
+                });
+
+                task.Start();
             }
             else
             {
                 // Use 'Execute Multiple' request
             }
+        }
+
+        private void NotifyUser()
+        {
+            NotifyUser(string.Empty);
+        }
+
+        private void NotifyUser(string text)
+        {
+            Invoke(new Action(() =>
+            {
+                SendMessageToStatusBar(this, new StatusBarMessageEventArgs(text));
+            }));
         }
 
         private void contextStripMain_Opening(object sender, System.ComponentModel.CancelEventArgs e)
