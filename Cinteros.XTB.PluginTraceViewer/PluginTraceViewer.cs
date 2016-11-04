@@ -519,10 +519,14 @@ namespace Cinteros.XTB.PluginTraceViewer
         {
             var menu = (ContextMenuStrip)sender;
             var grid = (CRMGridView)menu?.SourceControl;
+            var entities = grid?.SelectedCellRecords?.Entities;
 
-            if (grid?.SelectedCellRecords?.Entities?.Count == 1)
+            if (entities?.Count == 1)
             {
                 // Execute one 'Delete' request
+                var entity = entities.FirstOrDefault();
+
+                Service.Delete(entity.LogicalName, entity.Id);
             }
             else
             {
