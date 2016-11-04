@@ -92,6 +92,8 @@
             this.splitterDetailsWidth = new System.Windows.Forms.Splitter();
             this.panelLeft = new System.Windows.Forms.Panel();
             this.contextStripMain = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.deleteSelectedToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.deleteAllToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMain.SuspendLayout();
             this.groupFilter.SuspendLayout();
             this.panelFilter.SuspendLayout();
@@ -106,6 +108,7 @@
             this.panelException.SuspendLayout();
             this.panelDetailsTop.SuspendLayout();
             this.panelLeft.SuspendLayout();
+            this.contextStripMain.SuspendLayout();
             this.SuspendLayout();
             // 
             // toolStripMain
@@ -801,8 +804,24 @@
             // 
             // contextStripMain
             // 
+            this.contextStripMain.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.deleteSelectedToolStripMenuItem,
+            this.deleteAllToolStripMenuItem});
             this.contextStripMain.Name = "contextStripMain";
-            this.contextStripMain.Size = new System.Drawing.Size(61, 4);
+            this.contextStripMain.Size = new System.Drawing.Size(155, 70);
+            this.contextStripMain.Opening += new System.ComponentModel.CancelEventHandler(this.contextStripMain_Opening);
+            // 
+            // deleteSelectedToolStripMenuItem
+            // 
+            this.deleteSelectedToolStripMenuItem.Name = "deleteSelectedToolStripMenuItem";
+            this.deleteSelectedToolStripMenuItem.Size = new System.Drawing.Size(154, 22);
+            this.deleteSelectedToolStripMenuItem.Text = "Delete Selected";
+            // 
+            // deleteAllToolStripMenuItem
+            // 
+            this.deleteAllToolStripMenuItem.Name = "deleteAllToolStripMenuItem";
+            this.deleteAllToolStripMenuItem.Size = new System.Drawing.Size(154, 22);
+            this.deleteAllToolStripMenuItem.Text = "Delete All...";
             // 
             // PluginTraceViewer
             // 
@@ -837,6 +856,7 @@
             this.panelDetailsTop.ResumeLayout(false);
             this.panelDetailsTop.PerformLayout();
             this.panelLeft.ResumeLayout(false);
+            this.contextStripMain.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -905,5 +925,7 @@
         private System.Windows.Forms.Panel panelLeft;
         private System.Windows.Forms.Button btnSaveLogs;
         private System.Windows.Forms.ContextMenuStrip contextStripMain;
+        private System.Windows.Forms.ToolStripMenuItem deleteSelectedToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem deleteAllToolStripMenuItem;
     }
 }

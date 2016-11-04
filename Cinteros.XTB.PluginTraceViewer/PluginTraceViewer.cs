@@ -514,5 +514,20 @@ namespace Cinteros.XTB.PluginTraceViewer
                 }
             }
         }
+
+        private void contextStripMain_Opening(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            var menu = (ContextMenuStrip)sender;
+            var grid = (CRMGridView)menu?.SourceControl;
+
+            if (grid?.SelectedCellRecords?.Entities?.Count == 0)
+            {
+                // Hide menu item "Delete Selected"
+            }
+            else
+            {
+                // Ensure that menu item "Delete Selected" is visible
+            }
+        }
     }
 }
