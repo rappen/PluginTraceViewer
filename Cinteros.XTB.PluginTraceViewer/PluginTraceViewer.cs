@@ -551,20 +551,15 @@ namespace Cinteros.XTB.PluginTraceViewer
             else
             {
                 // Use 'Execute Multiple' request
+                if (entities?.Count < 1000)
+                {
+                    // Only one batch will be needed
+                }
+                else
+                {
+                    // Several batches need to be run
+                }
             }
-        }
-
-        private void NotifyUser()
-        {
-            NotifyUser(string.Empty);
-        }
-
-        private void NotifyUser(string text)
-        {
-            Invoke(new Action(() =>
-            {
-                SendMessageToStatusBar(this, new StatusBarMessageEventArgs(text));
-            }));
         }
 
         private void contextStripMain_Opening(object sender, System.ComponentModel.CancelEventArgs e)
@@ -583,6 +578,19 @@ namespace Cinteros.XTB.PluginTraceViewer
                 // If there are no records selected — disable 'Delete Selected' action
                 deleteSelectedToolStripMenuItem.Enabled = false;
             }
+        }
+
+        private void NotifyUser()
+        {
+            NotifyUser(string.Empty);
+        }
+
+        private void NotifyUser(string text)
+        {
+            Invoke(new Action(() =>
+            {
+                SendMessageToStatusBar(this, new StatusBarMessageEventArgs(text));
+            }));
         }
     }
 }
