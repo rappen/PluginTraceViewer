@@ -535,29 +535,7 @@ namespace Cinteros.XTB.PluginTraceViewer
                 // Use 'Execute Multiple' request
                 if (entities?.Count < 1000)
                 {
-                    // Only one batch will be needed
-                    var request = new ExecuteMultipleRequest
-                    {
-                        Requests = new OrganizationRequestCollection(),
-                        Settings = new ExecuteMultipleSettings()
-                    };
-
-                    foreach(var entity in entities)
-                    {
-                        request.Requests.Add(new DeleteRequest
-                        {
-                            Target = entity.ToEntityReference()
-                        });
-                    }
-
-                    request.Settings.ContinueOnError = true;
-                    request.Settings.ReturnResponses = false;
-
-                    NotifyUser($"Deleting {request.Requests.Count} log records");
-
-                    Service.Execute(request);
-
-                    NotifyUser();
+                    DeleteBatch(entities);
                 }
                 else
                 {
@@ -617,6 +595,33 @@ namespace Cinteros.XTB.PluginTraceViewer
             });
 
             task.Start();
+        }
+
+        private void DeleteBatch(DataCollection<Entity> entities)
+        {
+            // Only one batch will be needed
+            var request = new ExecuteMultipleRequest
+            {
+                Requests = new OrganizationRequestCollection(),
+                Settings = new ExecuteMultipleSettings()
+            };
+
+            foreach (var entity in entities)
+            {
+                request.Requests.Add(new DeleteRequest
+                {
+                    Target = entity.ToEntityReference()
+                });
+            }
+
+            request.Settings.ContinueOnError = true;
+            request.Settings.ReturnResponses = false;
+
+            NotifyUser($"Deleting {request.Requests.Count} log records");
+
+            Service.Execute(request);
+
+            NotifyUser();
         }
     }
 }
