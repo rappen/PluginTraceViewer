@@ -533,5 +533,23 @@ namespace Cinteros.XTB.PluginTraceViewer
                 // Use 'Execute Multiple' request
             }
         }
+
+        private void contextStripMain_Opening(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            var menu = (ContextMenuStrip)sender;
+            var grid = (CRMGridView)menu?.SourceControl;
+            var entities = grid?.SelectedCellRecords?.Entities;
+
+            if (entities?.Count > 0)
+            {
+                // If there are records selected — enable 'Delete Selected' action
+                deleteSelectedToolStripMenuItem.Enabled = true;
+            }
+            else
+            {
+                // If there are no records selected — disable 'Delete Selected' action
+                deleteSelectedToolStripMenuItem.Enabled = false;
+            }
+        }
     }
 }

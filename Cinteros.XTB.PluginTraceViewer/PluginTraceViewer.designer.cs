@@ -646,6 +646,7 @@
             this.deleteAllToolStripMenuItem});
             this.contextStripMain.Name = "contextStripMain";
             this.contextStripMain.Size = new System.Drawing.Size(155, 70);
+            this.contextStripMain.Opening += new System.ComponentModel.CancelEventHandler(this.contextStripMain_Opening);
             // 
             // deleteSelectedToolStripMenuItem
             // 
