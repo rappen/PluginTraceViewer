@@ -660,6 +660,7 @@
             this.deleteAllToolStripMenuItem.Name = "deleteAllToolStripMenuItem";
             this.deleteAllToolStripMenuItem.Size = new System.Drawing.Size(154, 22);
             this.deleteAllToolStripMenuItem.Text = "Delete All...";
+            this.deleteAllToolStripMenuItem.Click += new System.EventHandler(this.deleteAllToolStripMenuItem_Click);
             // 
             // panelDataTop
             // 

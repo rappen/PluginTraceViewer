@@ -20,6 +20,9 @@ namespace Cinteros.XTB.PluginTraceViewer
     {
         private int lastRecordCount = 100;
 
+        private const int PAGE_SIZE = 1000;
+        private const int MAX_BATCH = 2;
+
         public PluginTraceViewer()
         {
             InitializeComponent();
@@ -521,40 +524,29 @@ namespace Cinteros.XTB.PluginTraceViewer
 
         private void deleteSelectedToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            const int PAGE_SIZE = 1000;
-
             var menu = (ContextMenuStrip)((ToolStripDropDownItem)sender).GetCurrentParent();
             var grid = (CRMGridView)menu?.SourceControl;
             var entities = grid?.SelectedCellRecords?.Entities;
 
-            if (entities?.Count == 1)
+            if (entities?.Count > 0)
             {
-                // Execute one 'Delete' request
-                Delete(entities.FirstOrDefault());
+                Delete(Bundle(entities)).Start();
             }
-            else
+        }
+
+        private void deleteAllToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var query = new QueryExpression("plugintracelog");
+            var batches = new List<ExecuteMultipleRequest>();
+            EntityCollection result;
+
+            do
             {
-                // Use 'Execute Multiple' request
-                if (entities?.Count < PAGE_SIZE)
-                {
-                    // Only one batch will be needed
-                    var batch = CreateBatch(entities);
-                    Delete(batch);
-                }
-                else
-                {
-                    // Several batches need to be run
-                    var pages = Math.Ceiling((decimal)entities.Count / PAGE_SIZE);
-                    var batches = new List<ExecuteMultipleRequest>();
+                result = Service.RetrieveMultiple(query);
 
-                    for (var i = 0; i < pages; i++)
-                    {
-                        batches.Add(CreateBatch(entities.Skip(i * PAGE_SIZE).Take(PAGE_SIZE)));
-                    }
-
-                    Delete(batches);
-                }
-            }
+                Delete(batches).Start();
+            } while (result.MoreRecords == true);
+            
         }
 
         private void contextStripMain_Opening(object sender, System.ComponentModel.CancelEventArgs e)
@@ -588,13 +580,13 @@ namespace Cinteros.XTB.PluginTraceViewer
             }));
         }
 
-        private void Delete(Entity entity)
+        private Task Delete(Entity entity)
         {
-            new Task(() =>
+            return new Task(() =>
             {
                 try
                 {
-                    NotifyUser($"Deleting log record id {entity.Id}");
+                    NotifyUser($"Deleting log record id {entity.Id}...");
                     Service.Delete(entity.LogicalName, entity.Id);
                 }
                 catch (Exception)
@@ -605,16 +597,16 @@ namespace Cinteros.XTB.PluginTraceViewer
                 {
                     NotifyUser();
                 }
-            }).Start();
+            });
         }
 
-        private void Delete(ExecuteMultipleRequest batch)
+        private Task Delete(ExecuteMultipleRequest batch)
         {
-            new Task(() =>
+            return new Task(() =>
             {
                 try
                 {
-                    NotifyUser($"Deleting {batch.Requests.Count} log records");
+                    NotifyUser($"Deleting {batch.Requests.Count} log records...");
                     Service.Execute(batch);
                 }
                 catch (Exception)
@@ -625,34 +617,72 @@ namespace Cinteros.XTB.PluginTraceViewer
                 {
                     NotifyUser();
                 }
-            }).Start();
+            });
         }
 
-        private void Delete(List<ExecuteMultipleRequest> batches)
+        private Task Delete(List<ExecuteMultipleRequest> batches)
         {
-            throw new NotImplementedException();
-        }
+            var total = batches.Select(x => x.Requests.Count).Sum();
 
-        private static ExecuteMultipleRequest CreateBatch(IEnumerable<Entity> entities)
-        {
-            var batch = new ExecuteMultipleRequest
-            {
-                Requests = new OrganizationRequestCollection(),
-                Settings = new ExecuteMultipleSettings()
-            };
+            NotifyUser($"{total} records going to be deleted in {batches} batches...");
 
-            foreach (var entity in entities)
+            var tasks = new List<Task>();
+            foreach (var batch in batches)
             {
-                batch.Requests.Add(new DeleteRequest
-                {
-                    Target = entity.ToEntityReference()
-                });
+                tasks.Add(Delete(batch));
             }
 
-            batch.Settings.ContinueOnError = true;
-            batch.Settings.ReturnResponses = false;
+            return new Task(async () =>
+            {
+                while (tasks.Count > 0)
+                {
+                    var number = MAX_BATCH - tasks.Count(x => x.Status == TaskStatus.Running);
 
-            return batch;
+                    NotifyUser($"Statrting {number} new batches...");
+
+                    tasks.Where(x => x.Status == TaskStatus.Created).Take(number).ToList().ForEach(x => x.Start());
+
+                    await Task.WhenAny(tasks);
+
+                    foreach (var task in tasks.Where(x => x.Status == TaskStatus.RanToCompletion).ToList())
+                    {
+                        tasks.Remove(task);
+                    }
+                }
+
+                NotifyUser($"{total} log records was removed.");
+                await Task.Delay(10000);
+                NotifyUser();
+            }); 
+        }
+
+        private static List<ExecuteMultipleRequest> Bundle(IEnumerable<Entity> entities)
+        {
+            var result = new List<ExecuteMultipleRequest>();
+
+            for (var i = 0; i < Math.Ceiling((decimal)entities.Count() / PAGE_SIZE); i++)
+            {
+                var batch = new ExecuteMultipleRequest
+                {
+                    Requests = new OrganizationRequestCollection(),
+                    Settings = new ExecuteMultipleSettings()
+                };
+
+                foreach (var entity in entities.Skip(i * PAGE_SIZE).Take(PAGE_SIZE))
+                {
+                    batch.Requests.Add(new DeleteRequest
+                    {
+                        Target = entity.ToEntityReference()
+                    });
+                }
+
+                batch.Settings.ContinueOnError = true;
+                batch.Settings.ReturnResponses = false;
+
+                result.Add(batch);
+            }
+
+            return result;
         }
     }
 }
