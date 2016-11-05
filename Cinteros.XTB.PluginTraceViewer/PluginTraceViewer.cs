@@ -538,15 +538,24 @@ namespace Cinteros.XTB.PluginTraceViewer
         {
             var query = new QueryExpression("plugintracelog");
             var batches = new List<ExecuteMultipleRequest>();
-            EntityCollection result;
+            EntityCollection result = null;
 
             do
             {
-                result = Service.RetrieveMultiple(query);
+                query.PageInfo = new PagingInfo();
 
-                Delete(batches).Start();
+                if (result != null)
+                {
+                    query.PageInfo.PagingCookie = result.PagingCookie;
+                }
+                
+                // Getting all log records in the loop
+                result = Service.RetrieveMultiple(query);
+                batches.AddRange(Bundle(result.Entities));
             } while (result.MoreRecords == true);
-            
+
+            // Deleting log records
+            Delete(batches).Start();
         }
 
         private void contextStripMain_Opening(object sender, System.ComponentModel.CancelEventArgs e)
