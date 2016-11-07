@@ -522,7 +522,7 @@ namespace Cinteros.XTB.PluginTraceViewer
             }
         }
 
-        private void deleteSelectedToolStripMenuItem_Click(object sender, EventArgs e)
+        private void tsmiDeleteSelected_Click(object sender, EventArgs e)
         {
             var menu = (ContextMenuStrip)((ToolStripDropDownItem)sender).GetCurrentParent();
             var grid = (CRMGridView)menu?.SourceControl;
@@ -544,7 +544,7 @@ namespace Cinteros.XTB.PluginTraceViewer
             }
         }
 
-        private void deleteAllToolStripMenuItem_Click(object sender, EventArgs e)
+        private void tsmiDeleteAll_Click(object sender, EventArgs e)
         {
             var query = new QueryExpression("plugintracelog");
             var batches = new List<ExecuteMultipleRequest>();
@@ -583,7 +583,7 @@ namespace Cinteros.XTB.PluginTraceViewer
             }
         }
 
-        private void contextStripMain_Opening(object sender, System.ComponentModel.CancelEventArgs e)
+        private void contextMenuGridView_Opening(object sender, System.ComponentModel.CancelEventArgs e)
         {
             var menu = (ContextMenuStrip)sender;
             var grid = (CRMGridView)menu?.SourceControl;
@@ -592,12 +592,12 @@ namespace Cinteros.XTB.PluginTraceViewer
             if (entities?.Count > 0)
             {
                 // If there are records selected — enable 'Delete Selected' action
-                deleteSelectedToolStripMenuItem.Enabled = true;
+                tsmiDeleteSelected.Enabled = true;
             }
             else
             {
                 // If there are no records selected — disable 'Delete Selected' action
-                deleteSelectedToolStripMenuItem.Enabled = false;
+                tsmiDeleteSelected.Enabled = false;
             }
         }
 
