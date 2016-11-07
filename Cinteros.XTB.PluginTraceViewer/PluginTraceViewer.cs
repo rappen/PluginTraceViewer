@@ -320,7 +320,7 @@ namespace Cinteros.XTB.PluginTraceViewer
                 Message = "Populating result view",
                 Work = (a, args) =>
                 {
-                    MethodInvoker mi = delegate
+                    UpdateUI(() =>
                     {
                         crmGridView.DataSource = results;
                         var dt = crmGridView.GetDataSource<DataTable>();
@@ -330,15 +330,7 @@ namespace Cinteros.XTB.PluginTraceViewer
                         }
                         labelInfo.Text = $"Loaded {results.Entities.Count} trace records";
                         crmGridView.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells);
-                    };
-                    if (InvokeRequired)
-                    {
-                        Invoke(mi);
-                    }
-                    else
-                    {
-                        mi();
-                    }
+                    });
                 },
                 PostWorkCallBack = (args) =>
                 {
@@ -512,6 +504,22 @@ namespace Cinteros.XTB.PluginTraceViewer
                     serialized.Save(newfile);
                     MessageBox.Show(this, "Logs saved!", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
+            }
+        }
+
+        private void UpdateUI(Action action)
+        {
+            MethodInvoker mi = delegate
+            {
+                action();
+            };
+            if (InvokeRequired)
+            {
+                Invoke(mi);
+            }
+            else
+            {
+                mi();
             }
         }
     }
