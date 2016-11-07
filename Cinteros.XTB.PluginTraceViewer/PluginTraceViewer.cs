@@ -258,7 +258,15 @@ namespace Cinteros.XTB.PluginTraceViewer
                 }
                 if (chkPlugin.Checked && !string.IsNullOrWhiteSpace(comboPlugin.Text))
                 {
-                    QEplugintracelog.Criteria.AddCondition("typename", comboPlugin.Text.Contains("*") ? ConditionOperator.Like : ConditionOperator.Equal, comboPlugin.Text.Replace("*", "%"));
+                    var pluginFilter = QEplugintracelog.Criteria.AddFilter(LogicalOperator.Or);
+                    foreach (var plugin in comboPlugin.Text.Split(','))
+                    {
+                        if (string.IsNullOrWhiteSpace(plugin))
+                        {
+                            continue;
+                        }
+                        pluginFilter.AddCondition("typename", plugin.Contains("*") ? ConditionOperator.Like : ConditionOperator.Equal, plugin.Replace("*", "%").Trim());
+                    }
                 }
                 if (chkMessage.Checked && !string.IsNullOrWhiteSpace(comboMessage.Text))
                 {
@@ -266,7 +274,15 @@ namespace Cinteros.XTB.PluginTraceViewer
                 }
                 if (chkEntity.Checked && !string.IsNullOrWhiteSpace(comboEntity.Text))
                 {
-                    QEplugintracelog.Criteria.AddCondition("primaryentity", comboEntity.Text.Contains("*") ? ConditionOperator.Like : ConditionOperator.Equal, comboEntity.Text.Replace("*", "%"));
+                    var entityFilter = QEplugintracelog.Criteria.AddFilter(LogicalOperator.Or);
+                    foreach (var entity in comboEntity.Text.Split(','))
+                    {
+                        if (string.IsNullOrWhiteSpace(entity))
+                        {
+                            continue;
+                        }
+                        entityFilter.AddCondition("primaryentity", entity.Contains("*") ? ConditionOperator.Like : ConditionOperator.Equal, entity.Replace("*", "%").Trim());
+                    }
                 }
                 if (chkExceptions.Checked)
                 {
