@@ -531,6 +531,16 @@ namespace Cinteros.XTB.PluginTraceViewer
             if (entities?.Count > 0)
             {
                 Delete(Bundle(entities)).Start();
+                
+                // Deleting log records from the list
+                var source = (EntityCollection)grid.DataSource;
+
+                foreach(var entity in entities)
+                {
+                    source.Entities.Remove(entity);
+                }
+
+                grid.DataSource = source;
             }
         }
 
@@ -556,6 +566,21 @@ namespace Cinteros.XTB.PluginTraceViewer
 
             // Deleting log records
             Delete(batches).Start();
+
+            var menu = (ContextMenuStrip)((ToolStripDropDownItem)sender).GetCurrentParent();
+            var grid = (CRMGridView)menu?.SourceControl;
+            var source = (EntityCollection)grid.DataSource;
+
+            if (source != null)
+            {
+                // Blanking log records list
+                foreach (var entity in source.Entities.ToArray())
+                {
+                    source.Entities.Remove(entity);
+                }
+
+                grid.DataSource = source;
+            }
         }
 
         private void contextStripMain_Opening(object sender, System.ComponentModel.CancelEventArgs e)

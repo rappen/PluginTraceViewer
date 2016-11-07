@@ -126,7 +126,8 @@
             this.buttonRefreshFilter});
             this.toolStripMain.Location = new System.Drawing.Point(0, 0);
             this.toolStripMain.Name = "toolStripMain";
-            this.toolStripMain.Size = new System.Drawing.Size(1105, 25);
+            this.toolStripMain.Padding = new System.Windows.Forms.Padding(0, 0, 2, 0);
+            this.toolStripMain.Size = new System.Drawing.Size(1658, 38);
             this.toolStripMain.TabIndex = 24;
             this.toolStripMain.Text = "toolStrip1";
             // 
@@ -136,14 +137,14 @@
             this.tsbCloseThisTab.Image = ((System.Drawing.Image)(resources.GetObject("tsbCloseThisTab.Image")));
             this.tsbCloseThisTab.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsbCloseThisTab.Name = "tsbCloseThisTab";
-            this.tsbCloseThisTab.Size = new System.Drawing.Size(23, 22);
+            this.tsbCloseThisTab.Size = new System.Drawing.Size(23, 35);
             this.tsbCloseThisTab.Text = "Close this tab";
             this.tsbCloseThisTab.Click += new System.EventHandler(this.tsbCloseThisTab_Click);
             // 
             // toolStripSeparator4
             // 
             this.toolStripSeparator4.Name = "toolStripSeparator4";
-            this.toolStripSeparator4.Size = new System.Drawing.Size(6, 25);
+            this.toolStripSeparator4.Size = new System.Drawing.Size(6, 38);
             // 
             // tsbAbout
             // 
@@ -154,7 +155,7 @@
             this.tsbAbout.Image = ((System.Drawing.Image)(resources.GetObject("tsbAbout.Image")));
             this.tsbAbout.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsbAbout.Name = "tsbAbout";
-            this.tsbAbout.Size = new System.Drawing.Size(60, 22);
+            this.tsbAbout.Size = new System.Drawing.Size(60, 35);
             this.tsbAbout.Text = "About";
             this.tsbAbout.Click += new System.EventHandler(this.tsbAbout_Click);
             // 
@@ -164,7 +165,7 @@
             this.buttonRetrieveLogs.Image = ((System.Drawing.Image)(resources.GetObject("buttonRetrieveLogs.Image")));
             this.buttonRetrieveLogs.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.buttonRetrieveLogs.Name = "buttonRetrieveLogs";
-            this.buttonRetrieveLogs.Size = new System.Drawing.Size(120, 22);
+            this.buttonRetrieveLogs.Size = new System.Drawing.Size(120, 35);
             this.buttonRetrieveLogs.Text = "Retrieve Logs (F5)";
             this.buttonRetrieveLogs.Click += new System.EventHandler(this.buttonRetrieveLogs_Click);
             // 
@@ -176,7 +177,7 @@
             this.toolStripDropDownButton1.Image = ((System.Drawing.Image)(resources.GetObject("toolStripDropDownButton1.Image")));
             this.toolStripDropDownButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripDropDownButton1.Name = "toolStripDropDownButton1";
-            this.toolStripDropDownButton1.Size = new System.Drawing.Size(29, 22);
+            this.toolStripDropDownButton1.Size = new System.Drawing.Size(29, 35);
             this.toolStripDropDownButton1.Text = "toolStripDropDownButton1";
             this.toolStripDropDownButton1.Visible = false;
             // 
@@ -191,7 +192,7 @@
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 25);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 38);
             // 
             // buttonShowHideFilter
             // 
@@ -201,7 +202,7 @@
             this.buttonShowHideFilter.Image = ((System.Drawing.Image)(resources.GetObject("buttonShowHideFilter.Image")));
             this.buttonShowHideFilter.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.buttonShowHideFilter.Name = "buttonShowHideFilter";
-            this.buttonShowHideFilter.Size = new System.Drawing.Size(81, 22);
+            this.buttonShowHideFilter.Size = new System.Drawing.Size(81, 35);
             this.buttonShowHideFilter.Text = "Hide Filter";
             this.buttonShowHideFilter.ToolTipText = "Click this button to toggle the Filter panel";
             this.buttonShowHideFilter.Click += new System.EventHandler(this.buttonShowHideFilter_Click);
@@ -209,7 +210,7 @@
             // toolStripSeparator2
             // 
             this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(6, 25);
+            this.toolStripSeparator2.Size = new System.Drawing.Size(6, 38);
             // 
             // buttonRefreshFilter
             // 
@@ -217,7 +218,7 @@
             this.buttonRefreshFilter.Image = ((System.Drawing.Image)(resources.GetObject("buttonRefreshFilter.Image")));
             this.buttonRefreshFilter.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.buttonRefreshFilter.Name = "buttonRefreshFilter";
-            this.buttonRefreshFilter.Size = new System.Drawing.Size(140, 22);
+            this.buttonRefreshFilter.Size = new System.Drawing.Size(140, 35);
             this.buttonRefreshFilter.Text = "Refresh Filter Options";
             this.buttonRefreshFilter.Click += new System.EventHandler(this.buttonRefreshFilter_Click);
             // 
@@ -227,8 +228,10 @@
             this.groupFilter.Controls.Add(this.panelOptions);
             this.groupFilter.Dock = System.Windows.Forms.DockStyle.Top;
             this.groupFilter.Location = new System.Drawing.Point(0, 0);
+            this.groupFilter.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.groupFilter.Name = "groupFilter";
-            this.groupFilter.Size = new System.Drawing.Size(614, 142);
+            this.groupFilter.Padding = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.groupFilter.Size = new System.Drawing.Size(921, 218);
             this.groupFilter.TabIndex = 26;
             this.groupFilter.TabStop = false;
             this.groupFilter.Text = "Filter";
@@ -246,9 +249,10 @@
             this.panelFilter.Controls.Add(this.dateTo);
             this.panelFilter.Controls.Add(this.dateFrom);
             this.panelFilter.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panelFilter.Location = new System.Drawing.Point(3, 16);
+            this.panelFilter.Location = new System.Drawing.Point(4, 24);
+            this.panelFilter.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.panelFilter.Name = "panelFilter";
-            this.panelFilter.Size = new System.Drawing.Size(345, 123);
+            this.panelFilter.Size = new System.Drawing.Size(519, 189);
             this.panelFilter.TabIndex = 1;
             // 
             // comboEntity
@@ -257,18 +261,20 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.comboEntity.Enabled = false;
             this.comboEntity.FormattingEnabled = true;
-            this.comboEntity.Location = new System.Drawing.Point(84, 96);
+            this.comboEntity.Location = new System.Drawing.Point(126, 148);
+            this.comboEntity.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.comboEntity.Name = "comboEntity";
-            this.comboEntity.Size = new System.Drawing.Size(254, 21);
+            this.comboEntity.Size = new System.Drawing.Size(380, 28);
             this.comboEntity.Sorted = true;
             this.comboEntity.TabIndex = 10;
             // 
             // chkEntity
             // 
             this.chkEntity.AutoSize = true;
-            this.chkEntity.Location = new System.Drawing.Point(3, 98);
+            this.chkEntity.Location = new System.Drawing.Point(4, 151);
+            this.chkEntity.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.chkEntity.Name = "chkEntity";
-            this.chkEntity.Size = new System.Drawing.Size(52, 17);
+            this.chkEntity.Size = new System.Drawing.Size(68, 24);
             this.chkEntity.TabIndex = 9;
             this.chkEntity.Text = "Entity";
             this.chkEntity.UseVisualStyleBackColor = true;
@@ -281,17 +287,19 @@
             this.comboMessage.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboMessage.Enabled = false;
             this.comboMessage.FormattingEnabled = true;
-            this.comboMessage.Location = new System.Drawing.Point(84, 72);
+            this.comboMessage.Location = new System.Drawing.Point(126, 111);
+            this.comboMessage.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.comboMessage.Name = "comboMessage";
-            this.comboMessage.Size = new System.Drawing.Size(254, 21);
+            this.comboMessage.Size = new System.Drawing.Size(380, 28);
             this.comboMessage.TabIndex = 8;
             // 
             // chkMessage
             // 
             this.chkMessage.AutoSize = true;
-            this.chkMessage.Location = new System.Drawing.Point(3, 74);
+            this.chkMessage.Location = new System.Drawing.Point(4, 114);
+            this.chkMessage.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.chkMessage.Name = "chkMessage";
-            this.chkMessage.Size = new System.Drawing.Size(69, 17);
+            this.chkMessage.Size = new System.Drawing.Size(93, 24);
             this.chkMessage.TabIndex = 7;
             this.chkMessage.Text = "Message";
             this.chkMessage.UseVisualStyleBackColor = true;
@@ -303,17 +311,19 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.comboPlugin.Enabled = false;
             this.comboPlugin.FormattingEnabled = true;
-            this.comboPlugin.Location = new System.Drawing.Point(84, 48);
+            this.comboPlugin.Location = new System.Drawing.Point(126, 74);
+            this.comboPlugin.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.comboPlugin.Name = "comboPlugin";
-            this.comboPlugin.Size = new System.Drawing.Size(254, 21);
+            this.comboPlugin.Size = new System.Drawing.Size(380, 28);
             this.comboPlugin.TabIndex = 6;
             // 
             // chkPlugin
             // 
             this.chkPlugin.AutoSize = true;
-            this.chkPlugin.Location = new System.Drawing.Point(3, 50);
+            this.chkPlugin.Location = new System.Drawing.Point(4, 77);
+            this.chkPlugin.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.chkPlugin.Name = "chkPlugin";
-            this.chkPlugin.Size = new System.Drawing.Size(55, 17);
+            this.chkPlugin.Size = new System.Drawing.Size(71, 24);
             this.chkPlugin.TabIndex = 5;
             this.chkPlugin.Text = "Plugin";
             this.chkPlugin.UseVisualStyleBackColor = true;
@@ -322,9 +332,10 @@
             // checkDateTo
             // 
             this.checkDateTo.AutoSize = true;
-            this.checkDateTo.Location = new System.Drawing.Point(3, 27);
+            this.checkDateTo.Location = new System.Drawing.Point(4, 42);
+            this.checkDateTo.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.checkDateTo.Name = "checkDateTo";
-            this.checkDateTo.Size = new System.Drawing.Size(65, 17);
+            this.checkDateTo.Size = new System.Drawing.Size(85, 24);
             this.checkDateTo.TabIndex = 3;
             this.checkDateTo.Text = "Date To";
             this.checkDateTo.UseVisualStyleBackColor = true;
@@ -333,9 +344,10 @@
             // checkDateFrom
             // 
             this.checkDateFrom.AutoSize = true;
-            this.checkDateFrom.Location = new System.Drawing.Point(3, 3);
+            this.checkDateFrom.Location = new System.Drawing.Point(4, 5);
+            this.checkDateFrom.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.checkDateFrom.Name = "checkDateFrom";
-            this.checkDateFrom.Size = new System.Drawing.Size(75, 17);
+            this.checkDateFrom.Size = new System.Drawing.Size(104, 24);
             this.checkDateFrom.TabIndex = 1;
             this.checkDateFrom.Text = "Date From";
             this.checkDateFrom.UseVisualStyleBackColor = true;
@@ -345,22 +357,24 @@
             // 
             this.dateTo.Enabled = false;
             this.dateTo.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dateTo.Location = new System.Drawing.Point(84, 24);
+            this.dateTo.Location = new System.Drawing.Point(126, 37);
+            this.dateTo.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.dateTo.MaxDate = new System.DateTime(2099, 12, 31, 0, 0, 0, 0);
             this.dateTo.MinDate = new System.DateTime(2000, 1, 1, 0, 0, 0, 0);
             this.dateTo.Name = "dateTo";
-            this.dateTo.Size = new System.Drawing.Size(100, 20);
+            this.dateTo.Size = new System.Drawing.Size(148, 26);
             this.dateTo.TabIndex = 4;
             // 
             // dateFrom
             // 
             this.dateFrom.Enabled = false;
             this.dateFrom.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dateFrom.Location = new System.Drawing.Point(84, 0);
+            this.dateFrom.Location = new System.Drawing.Point(126, 0);
+            this.dateFrom.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.dateFrom.MaxDate = new System.DateTime(2099, 12, 31, 0, 0, 0, 0);
             this.dateFrom.MinDate = new System.DateTime(2000, 1, 1, 0, 0, 0, 0);
             this.dateFrom.Name = "dateFrom";
-            this.dateFrom.Size = new System.Drawing.Size(100, 20);
+            this.dateFrom.Size = new System.Drawing.Size(148, 26);
             this.dateFrom.TabIndex = 2;
             // 
             // panelOptions
@@ -376,9 +390,10 @@
             this.panelOptions.Controls.Add(this.rbModeAll);
             this.panelOptions.Controls.Add(this.chkExceptions);
             this.panelOptions.Dock = System.Windows.Forms.DockStyle.Right;
-            this.panelOptions.Location = new System.Drawing.Point(348, 16);
+            this.panelOptions.Location = new System.Drawing.Point(523, 24);
+            this.panelOptions.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.panelOptions.Name = "panelOptions";
-            this.panelOptions.Size = new System.Drawing.Size(263, 123);
+            this.panelOptions.Size = new System.Drawing.Size(394, 189);
             this.panelOptions.TabIndex = 2;
             // 
             // chkRecords
@@ -386,9 +401,10 @@
             this.chkRecords.AutoSize = true;
             this.chkRecords.Checked = true;
             this.chkRecords.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkRecords.Location = new System.Drawing.Point(3, 98);
+            this.chkRecords.Location = new System.Drawing.Point(4, 151);
+            this.chkRecords.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.chkRecords.Name = "chkRecords";
-            this.chkRecords.Size = new System.Drawing.Size(91, 17);
+            this.chkRecords.Size = new System.Drawing.Size(124, 24);
             this.chkRecords.TabIndex = 9;
             this.chkRecords.Text = "Record count";
             this.chkRecords.UseVisualStyleBackColor = true;
@@ -397,9 +413,10 @@
             // chkDurationMax
             // 
             this.chkDurationMax.AutoSize = true;
-            this.chkDurationMax.Location = new System.Drawing.Point(3, 74);
+            this.chkDurationMax.Location = new System.Drawing.Point(4, 114);
+            this.chkDurationMax.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.chkDurationMax.Name = "chkDurationMax";
-            this.chkDurationMax.Size = new System.Drawing.Size(89, 17);
+            this.chkDurationMax.Size = new System.Drawing.Size(122, 24);
             this.chkDurationMax.TabIndex = 7;
             this.chkDurationMax.Text = "Duration Max";
             this.chkDurationMax.UseVisualStyleBackColor = true;
@@ -408,9 +425,10 @@
             // chkDurationMin
             // 
             this.chkDurationMin.AutoSize = true;
-            this.chkDurationMin.Location = new System.Drawing.Point(3, 50);
+            this.chkDurationMin.Location = new System.Drawing.Point(4, 77);
+            this.chkDurationMin.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.chkDurationMin.Name = "chkDurationMin";
-            this.chkDurationMin.Size = new System.Drawing.Size(86, 17);
+            this.chkDurationMin.Size = new System.Drawing.Size(118, 24);
             this.chkDurationMin.TabIndex = 5;
             this.chkDurationMin.Text = "Duration Min";
             this.chkDurationMin.UseVisualStyleBackColor = true;
@@ -424,14 +442,15 @@
             0,
             0,
             0});
-            this.numDurationMax.Location = new System.Drawing.Point(158, 73);
+            this.numDurationMax.Location = new System.Drawing.Point(237, 112);
+            this.numDurationMax.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.numDurationMax.Maximum = new decimal(new int[] {
             100000,
             0,
             0,
             0});
             this.numDurationMax.Name = "numDurationMax";
-            this.numDurationMax.Size = new System.Drawing.Size(76, 20);
+            this.numDurationMax.Size = new System.Drawing.Size(114, 26);
             this.numDurationMax.TabIndex = 8;
             // 
             // numDurationMin
@@ -442,14 +461,15 @@
             0,
             0,
             0});
-            this.numDurationMin.Location = new System.Drawing.Point(158, 49);
+            this.numDurationMin.Location = new System.Drawing.Point(237, 75);
+            this.numDurationMin.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.numDurationMin.Maximum = new decimal(new int[] {
             100000,
             0,
             0,
             0});
             this.numDurationMin.Name = "numDurationMin";
-            this.numDurationMin.Size = new System.Drawing.Size(76, 20);
+            this.numDurationMin.Size = new System.Drawing.Size(114, 26);
             this.numDurationMin.TabIndex = 6;
             // 
             // numRecords
@@ -459,7 +479,8 @@
             0,
             0,
             0});
-            this.numRecords.Location = new System.Drawing.Point(158, 97);
+            this.numRecords.Location = new System.Drawing.Point(237, 149);
+            this.numRecords.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.numRecords.Maximum = new decimal(new int[] {
             5000,
             0,
@@ -471,7 +492,7 @@
             0,
             0});
             this.numRecords.Name = "numRecords";
-            this.numRecords.Size = new System.Drawing.Size(76, 20);
+            this.numRecords.Size = new System.Drawing.Size(114, 26);
             this.numRecords.TabIndex = 10;
             this.numRecords.Value = new decimal(new int[] {
             100,
@@ -483,9 +504,10 @@
             // rbModeAsync
             // 
             this.rbModeAsync.AutoSize = true;
-            this.rbModeAsync.Location = new System.Drawing.Point(158, 25);
+            this.rbModeAsync.Location = new System.Drawing.Point(237, 38);
+            this.rbModeAsync.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.rbModeAsync.Name = "rbModeAsync";
-            this.rbModeAsync.Size = new System.Drawing.Size(76, 17);
+            this.rbModeAsync.Size = new System.Drawing.Size(102, 24);
             this.rbModeAsync.TabIndex = 4;
             this.rbModeAsync.TabStop = true;
             this.rbModeAsync.Text = "Async only";
@@ -494,9 +516,10 @@
             // rbModeSync
             // 
             this.rbModeSync.AutoSize = true;
-            this.rbModeSync.Location = new System.Drawing.Point(80, 25);
+            this.rbModeSync.Location = new System.Drawing.Point(120, 38);
+            this.rbModeSync.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.rbModeSync.Name = "rbModeSync";
-            this.rbModeSync.Size = new System.Drawing.Size(71, 17);
+            this.rbModeSync.Size = new System.Drawing.Size(94, 24);
             this.rbModeSync.TabIndex = 3;
             this.rbModeSync.TabStop = true;
             this.rbModeSync.Text = "Sync only";
@@ -506,9 +529,10 @@
             // 
             this.rbModeAll.AutoSize = true;
             this.rbModeAll.Checked = true;
-            this.rbModeAll.Location = new System.Drawing.Point(3, 25);
+            this.rbModeAll.Location = new System.Drawing.Point(4, 38);
+            this.rbModeAll.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.rbModeAll.Name = "rbModeAll";
-            this.rbModeAll.Size = new System.Drawing.Size(70, 17);
+            this.rbModeAll.Size = new System.Drawing.Size(96, 24);
             this.rbModeAll.TabIndex = 2;
             this.rbModeAll.TabStop = true;
             this.rbModeAll.Text = "All modes";
@@ -517,9 +541,10 @@
             // chkExceptions
             // 
             this.chkExceptions.AutoSize = true;
-            this.chkExceptions.Location = new System.Drawing.Point(3, 3);
+            this.chkExceptions.Location = new System.Drawing.Point(4, 5);
+            this.chkExceptions.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.chkExceptions.Name = "chkExceptions";
-            this.chkExceptions.Size = new System.Drawing.Size(100, 17);
+            this.chkExceptions.Size = new System.Drawing.Size(138, 24);
             this.chkExceptions.TabIndex = 1;
             this.chkExceptions.Text = "Exceptions only";
             this.chkExceptions.UseVisualStyleBackColor = true;
@@ -529,9 +554,10 @@
             this.panelData.Controls.Add(this.crmGridView);
             this.panelData.Controls.Add(this.panelDataTop);
             this.panelData.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panelData.Location = new System.Drawing.Point(0, 142);
+            this.panelData.Location = new System.Drawing.Point(0, 218);
+            this.panelData.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.panelData.Name = "panelData";
-            this.panelData.Size = new System.Drawing.Size(614, 691);
+            this.panelData.Size = new System.Drawing.Size(921, 1064);
             this.panelData.TabIndex = 27;
             // 
             // crmGridView
@@ -556,14 +582,15 @@
             this.crmGridView.ContextMenuStrip = this.contextStripMain;
             this.crmGridView.Dock = System.Windows.Forms.DockStyle.Fill;
             this.crmGridView.EnableHeadersVisualStyles = false;
-            this.crmGridView.Location = new System.Drawing.Point(0, 32);
+            this.crmGridView.Location = new System.Drawing.Point(0, 49);
+            this.crmGridView.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.crmGridView.Name = "crmGridView";
             this.crmGridView.ReadOnly = true;
             this.crmGridView.RowHeadersWidth = 20;
             this.crmGridView.ShowFriendlyNames = true;
             this.crmGridView.ShowIdColumn = false;
             this.crmGridView.ShowIndexColumn = false;
-            this.crmGridView.Size = new System.Drawing.Size(614, 659);
+            this.crmGridView.Size = new System.Drawing.Size(921, 1015);
             this.crmGridView.TabIndex = 25;
             this.crmGridView.RecordEnter += new Cinteros.Xrm.CRMWinForm.CRMRecordEventHandler(this.crmGridView_RecordEnter);
             // 
@@ -645,7 +672,7 @@
             this.deleteSelectedToolStripMenuItem,
             this.deleteAllToolStripMenuItem});
             this.contextStripMain.Name = "contextStripMain";
-            this.contextStripMain.Size = new System.Drawing.Size(155, 70);
+            this.contextStripMain.Size = new System.Drawing.Size(155, 48);
             this.contextStripMain.Opening += new System.ComponentModel.CancelEventHandler(this.contextStripMain_Opening);
             // 
             // deleteSelectedToolStripMenuItem
@@ -668,16 +695,18 @@
             this.panelDataTop.Controls.Add(this.labelInfo);
             this.panelDataTop.Dock = System.Windows.Forms.DockStyle.Top;
             this.panelDataTop.Location = new System.Drawing.Point(0, 0);
+            this.panelDataTop.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.panelDataTop.Name = "panelDataTop";
-            this.panelDataTop.Size = new System.Drawing.Size(614, 32);
+            this.panelDataTop.Size = new System.Drawing.Size(921, 49);
             this.panelDataTop.TabIndex = 26;
             // 
             // btnSaveLogs
             // 
             this.btnSaveLogs.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnSaveLogs.Location = new System.Drawing.Point(484, 4);
+            this.btnSaveLogs.Location = new System.Drawing.Point(726, 6);
+            this.btnSaveLogs.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.btnSaveLogs.Name = "btnSaveLogs";
-            this.btnSaveLogs.Size = new System.Drawing.Size(126, 23);
+            this.btnSaveLogs.Size = new System.Drawing.Size(189, 35);
             this.btnSaveLogs.TabIndex = 1;
             this.btnSaveLogs.Text = "Save logs to file";
             this.btnSaveLogs.UseVisualStyleBackColor = true;
@@ -686,9 +715,10 @@
             // labelInfo
             // 
             this.labelInfo.AutoSize = true;
-            this.labelInfo.Location = new System.Drawing.Point(25, 10);
+            this.labelInfo.Location = new System.Drawing.Point(38, 15);
+            this.labelInfo.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.labelInfo.Name = "labelInfo";
-            this.labelInfo.Size = new System.Drawing.Size(182, 13);
+            this.labelInfo.Size = new System.Drawing.Size(270, 20);
             this.labelInfo.TabIndex = 0;
             this.labelInfo.Text = "Select filter criteria and Retrieve logs!";
             // 
@@ -700,10 +730,12 @@
             this.groupDetails.Controls.Add(this.labelMessage);
             this.groupDetails.Controls.Add(this.panelDetailsTop);
             this.groupDetails.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupDetails.Location = new System.Drawing.Point(617, 25);
-            this.groupDetails.MinimumSize = new System.Drawing.Size(100, 0);
+            this.groupDetails.Location = new System.Drawing.Point(925, 38);
+            this.groupDetails.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.groupDetails.MinimumSize = new System.Drawing.Size(150, 0);
             this.groupDetails.Name = "groupDetails";
-            this.groupDetails.Size = new System.Drawing.Size(488, 833);
+            this.groupDetails.Padding = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.groupDetails.Size = new System.Drawing.Size(733, 1282);
             this.groupDetails.TabIndex = 28;
             this.groupDetails.TabStop = false;
             this.groupDetails.Text = "Details";
@@ -713,22 +745,24 @@
             this.textMessage.AcceptsReturn = true;
             this.textMessage.Dock = System.Windows.Forms.DockStyle.Fill;
             this.textMessage.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textMessage.Location = new System.Drawing.Point(3, 59);
-            this.textMessage.MinimumSize = new System.Drawing.Size(4, 100);
+            this.textMessage.Location = new System.Drawing.Point(4, 90);
+            this.textMessage.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.textMessage.MinimumSize = new System.Drawing.Size(4, 152);
             this.textMessage.Multiline = true;
             this.textMessage.Name = "textMessage";
             this.textMessage.ReadOnly = true;
             this.textMessage.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.textMessage.Size = new System.Drawing.Size(482, 559);
+            this.textMessage.Size = new System.Drawing.Size(725, 860);
             this.textMessage.TabIndex = 4;
             this.textMessage.WordWrap = false;
             // 
             // splitterMessageHeight
             // 
             this.splitterMessageHeight.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.splitterMessageHeight.Location = new System.Drawing.Point(3, 618);
+            this.splitterMessageHeight.Location = new System.Drawing.Point(4, 950);
+            this.splitterMessageHeight.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.splitterMessageHeight.Name = "splitterMessageHeight";
-            this.splitterMessageHeight.Size = new System.Drawing.Size(482, 3);
+            this.splitterMessageHeight.Size = new System.Drawing.Size(725, 5);
             this.splitterMessageHeight.TabIndex = 5;
             this.splitterMessageHeight.TabStop = false;
             // 
@@ -737,21 +771,23 @@
             this.panelException.Controls.Add(this.textException);
             this.panelException.Controls.Add(this.labelException);
             this.panelException.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panelException.Location = new System.Drawing.Point(3, 621);
+            this.panelException.Location = new System.Drawing.Point(4, 955);
+            this.panelException.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.panelException.Name = "panelException";
-            this.panelException.Size = new System.Drawing.Size(482, 209);
+            this.panelException.Size = new System.Drawing.Size(725, 322);
             this.panelException.TabIndex = 6;
             // 
             // textException
             // 
             this.textException.Dock = System.Windows.Forms.DockStyle.Fill;
             this.textException.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textException.Location = new System.Drawing.Point(0, 13);
+            this.textException.Location = new System.Drawing.Point(0, 20);
+            this.textException.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.textException.Multiline = true;
             this.textException.Name = "textException";
             this.textException.ReadOnly = true;
             this.textException.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.textException.Size = new System.Drawing.Size(482, 196);
+            this.textException.Size = new System.Drawing.Size(725, 302);
             this.textException.TabIndex = 5;
             this.textException.WordWrap = false;
             // 
@@ -760,8 +796,9 @@
             this.labelException.AutoSize = true;
             this.labelException.Dock = System.Windows.Forms.DockStyle.Top;
             this.labelException.Location = new System.Drawing.Point(0, 0);
+            this.labelException.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.labelException.Name = "labelException";
-            this.labelException.Size = new System.Drawing.Size(54, 13);
+            this.labelException.Size = new System.Drawing.Size(79, 20);
             this.labelException.TabIndex = 4;
             this.labelException.Text = "Exception";
             // 
@@ -769,9 +806,10 @@
             // 
             this.labelMessage.AutoSize = true;
             this.labelMessage.Dock = System.Windows.Forms.DockStyle.Top;
-            this.labelMessage.Location = new System.Drawing.Point(3, 46);
+            this.labelMessage.Location = new System.Drawing.Point(4, 70);
+            this.labelMessage.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.labelMessage.Name = "labelMessage";
-            this.labelMessage.Size = new System.Drawing.Size(50, 13);
+            this.labelMessage.Size = new System.Drawing.Size(74, 20);
             this.labelMessage.TabIndex = 1;
             this.labelMessage.Text = "Message";
             // 
@@ -780,18 +818,20 @@
             this.panelDetailsTop.Controls.Add(this.chkWordWrap);
             this.panelDetailsTop.Controls.Add(this.buttonOpenRecord);
             this.panelDetailsTop.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panelDetailsTop.Location = new System.Drawing.Point(3, 16);
+            this.panelDetailsTop.Location = new System.Drawing.Point(4, 24);
+            this.panelDetailsTop.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.panelDetailsTop.Name = "panelDetailsTop";
-            this.panelDetailsTop.Size = new System.Drawing.Size(482, 30);
+            this.panelDetailsTop.Size = new System.Drawing.Size(725, 46);
             this.panelDetailsTop.TabIndex = 3;
             // 
             // chkWordWrap
             // 
             this.chkWordWrap.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.chkWordWrap.AutoSize = true;
-            this.chkWordWrap.Location = new System.Drawing.Point(407, 5);
+            this.chkWordWrap.Location = new System.Drawing.Point(624, 8);
+            this.chkWordWrap.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.chkWordWrap.Name = "chkWordWrap";
-            this.chkWordWrap.Size = new System.Drawing.Size(72, 17);
+            this.chkWordWrap.Size = new System.Drawing.Size(96, 24);
             this.chkWordWrap.TabIndex = 1;
             this.chkWordWrap.Text = "Wrap text";
             this.chkWordWrap.UseVisualStyleBackColor = true;
@@ -799,9 +839,10 @@
             // 
             // buttonOpenRecord
             // 
-            this.buttonOpenRecord.Location = new System.Drawing.Point(3, 3);
+            this.buttonOpenRecord.Location = new System.Drawing.Point(4, 5);
+            this.buttonOpenRecord.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.buttonOpenRecord.Name = "buttonOpenRecord";
-            this.buttonOpenRecord.Size = new System.Drawing.Size(146, 23);
+            this.buttonOpenRecord.Size = new System.Drawing.Size(219, 35);
             this.buttonOpenRecord.TabIndex = 0;
             this.buttonOpenRecord.Text = "Open log record in CRM";
             this.buttonOpenRecord.UseVisualStyleBackColor = true;
@@ -809,9 +850,10 @@
             // 
             // splitterDetailsWidth
             // 
-            this.splitterDetailsWidth.Location = new System.Drawing.Point(614, 25);
+            this.splitterDetailsWidth.Location = new System.Drawing.Point(921, 38);
+            this.splitterDetailsWidth.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.splitterDetailsWidth.Name = "splitterDetailsWidth";
-            this.splitterDetailsWidth.Size = new System.Drawing.Size(3, 833);
+            this.splitterDetailsWidth.Size = new System.Drawing.Size(4, 1282);
             this.splitterDetailsWidth.TabIndex = 29;
             this.splitterDetailsWidth.TabStop = false;
             // 
@@ -820,21 +862,23 @@
             this.panelLeft.Controls.Add(this.panelData);
             this.panelLeft.Controls.Add(this.groupFilter);
             this.panelLeft.Dock = System.Windows.Forms.DockStyle.Left;
-            this.panelLeft.Location = new System.Drawing.Point(0, 25);
+            this.panelLeft.Location = new System.Drawing.Point(0, 38);
+            this.panelLeft.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.panelLeft.Name = "panelLeft";
-            this.panelLeft.Size = new System.Drawing.Size(614, 833);
+            this.panelLeft.Size = new System.Drawing.Size(921, 1282);
             this.panelLeft.TabIndex = 30;
             // 
             // PluginTraceViewer
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.groupDetails);
             this.Controls.Add(this.splitterDetailsWidth);
             this.Controls.Add(this.panelLeft);
             this.Controls.Add(this.toolStripMain);
+            this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.Name = "PluginTraceViewer";
-            this.Size = new System.Drawing.Size(1105, 858);
+            this.Size = new System.Drawing.Size(1658, 1320);
             this.ConnectionUpdated += new XrmToolBox.Extensibility.PluginControlBase.ConnectionUpdatedHandler(this.PluginTraceViewer_ConnectionUpdated);
             this.Load += new System.EventHandler(this.PluginTraceViewer_Load);
             this.toolStripMain.ResumeLayout(false);
