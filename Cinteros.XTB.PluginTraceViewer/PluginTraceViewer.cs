@@ -360,6 +360,7 @@ namespace Cinteros.XTB.PluginTraceViewer
 
         private void crmGridView_RecordEnter(object sender, Xrm.CRMWinForm.CRMRecordEventArgs e)
         {
+            buttonOpenRecord.Enabled = e.Entity != null;
             textMessage.Text = FixLineBreaks(e.Entity != null && e.Entity.Contains("messageblock") ? e.Entity["messageblock"].ToString() : "");
             textException.Text = FixLineBreaks(e.Entity != null && e.Entity.Contains("exceptiondetails") ? e.Entity["exceptiondetails"].ToString() : "");
         }

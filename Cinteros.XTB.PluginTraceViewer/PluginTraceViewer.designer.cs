@@ -770,6 +770,7 @@
             // 
             // buttonOpenRecord
             // 
+            this.buttonOpenRecord.Enabled = false;
             this.buttonOpenRecord.Location = new System.Drawing.Point(3, 3);
             this.buttonOpenRecord.Name = "buttonOpenRecord";
             this.buttonOpenRecord.Size = new System.Drawing.Size(146, 23);
