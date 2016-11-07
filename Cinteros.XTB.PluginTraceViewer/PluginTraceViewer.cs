@@ -528,19 +528,21 @@ namespace Cinteros.XTB.PluginTraceViewer
             var grid = (CRMGridView)menu?.SourceControl;
             var entities = grid?.SelectedCellRecords?.Entities;
 
-            if (entities?.Count > 0)
+            if (entities != null && entities.Count > 0)
             {
                 Delete(Bundle(entities)).Start();
-                
+
                 // Deleting log records from the list
                 var source = (EntityCollection)grid.DataSource;
 
-                foreach(var entity in entities)
+                foreach (var entity in entities)
                 {
                     source.Entities.Remove(entity);
                 }
 
-                grid.DataSource = source;
+                // Refresh unfortunately crashes with InvalidAsynchronousStateException "Target thread does not exist anymore
+                // grid.Refresh();
+                PopulateGrid(source);
             }
         }
 
@@ -558,7 +560,7 @@ namespace Cinteros.XTB.PluginTraceViewer
                 {
                     query.PageInfo.PagingCookie = result.PagingCookie;
                 }
-                
+
                 // Getting all log records in the loop
                 result = Service.RetrieveMultiple(query);
                 batches.AddRange(Bundle(result.Entities));
@@ -571,15 +573,14 @@ namespace Cinteros.XTB.PluginTraceViewer
             var grid = (CRMGridView)menu?.SourceControl;
             var source = (EntityCollection)grid.DataSource;
 
+            // TODO: Prompt user - reload logs? Otherwise just clear the list
             if (source != null)
             {
-                // Blanking log records list
-                foreach (var entity in source.Entities.ToArray())
-                {
-                    source.Entities.Remove(entity);
-                }
+                source.Entities.Clear();
 
-                grid.DataSource = source;
+                // Refresh unfortunately crashes with InvalidAsynchronousStateException "Target thread does not exist anymore
+                // grid.Refresh();
+                PopulateGrid(source);
             }
         }
 
@@ -687,7 +688,7 @@ namespace Cinteros.XTB.PluginTraceViewer
                 NotifyUser($"{total} log records was removed.");
                 await Task.Delay(10000);
                 NotifyUser();
-            }); 
+            });
         }
 
         private static List<ExecuteMultipleRequest> Bundle(IEnumerable<Entity> entities)
