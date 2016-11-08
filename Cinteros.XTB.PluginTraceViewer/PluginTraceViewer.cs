@@ -404,12 +404,6 @@ namespace Cinteros.XTB.PluginTraceViewer
             return text;
         }
 
-        private void PluginTraceViewer_Load(object sender, EventArgs e)
-        {
-            panelLeft.Width = Width / 2;
-            textException.Height = Math.Max(textException.Height, 100);
-        }
-
         private void OpenLogRecord()
         {
             var firstselected = crmGridView.SelectedCellRecords.Entities.FirstOrDefault();

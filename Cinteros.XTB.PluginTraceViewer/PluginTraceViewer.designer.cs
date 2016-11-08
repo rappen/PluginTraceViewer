@@ -51,6 +51,7 @@
             this.buttonRefreshFilter = new System.Windows.Forms.ToolStripButton();
             this.groupFilter = new System.Windows.Forms.GroupBox();
             this.panelFilter = new System.Windows.Forms.Panel();
+            this.label1 = new System.Windows.Forms.Label();
             this.comboEntity = new System.Windows.Forms.ComboBox();
             this.chkEntity = new System.Windows.Forms.CheckBox();
             this.comboMessage = new System.Windows.Forms.ComboBox();
@@ -72,7 +73,6 @@
             this.rbModeSync = new System.Windows.Forms.RadioButton();
             this.rbModeAll = new System.Windows.Forms.RadioButton();
             this.chkExceptions = new System.Windows.Forms.CheckBox();
-            this.panelData = new System.Windows.Forms.Panel();
             this.crmGridView = new Cinteros.Xrm.CRMWinForm.CRMGridView();
             this.performanceexecutionstarttime = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.performanceexecutionduration = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -89,17 +89,15 @@
             this.tsmiDeleteAll = new System.Windows.Forms.ToolStripMenuItem();
             this.panelDataTop = new System.Windows.Forms.Panel();
             this.labelInfo = new System.Windows.Forms.Label();
-            this.groupDetails = new System.Windows.Forms.GroupBox();
-            this.chkWordWrap = new System.Windows.Forms.CheckBox();
-            this.textMessage = new System.Windows.Forms.TextBox();
-            this.splitterMessageHeight = new System.Windows.Forms.Splitter();
-            this.panelException = new System.Windows.Forms.Panel();
-            this.textException = new System.Windows.Forms.TextBox();
-            this.labelException = new System.Windows.Forms.Label();
             this.labelMessage = new System.Windows.Forms.Label();
-            this.splitterDetailsWidth = new System.Windows.Forms.Splitter();
-            this.panelLeft = new System.Windows.Forms.Panel();
-            this.label1 = new System.Windows.Forms.Label();
+            this.chkWordWrap = new System.Windows.Forms.CheckBox();
+            this.splitContainerRight = new System.Windows.Forms.SplitContainer();
+            this.textMessage = new System.Windows.Forms.TextBox();
+            this.panelMessageLabel = new System.Windows.Forms.Panel();
+            this.textException = new System.Windows.Forms.TextBox();
+            this.panelExceptionLabel = new System.Windows.Forms.Panel();
+            this.labelException = new System.Windows.Forms.Label();
+            this.splitContainerMain = new System.Windows.Forms.SplitContainer();
             this.toolStripMain.SuspendLayout();
             this.groupFilter.SuspendLayout();
             this.panelFilter.SuspendLayout();
@@ -107,13 +105,19 @@
             ((System.ComponentModel.ISupportInitialize)(this.numDurationMax)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numDurationMin)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numRecords)).BeginInit();
-            this.panelData.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.crmGridView)).BeginInit();
             this.contextMenuGridView.SuspendLayout();
             this.panelDataTop.SuspendLayout();
-            this.groupDetails.SuspendLayout();
-            this.panelException.SuspendLayout();
-            this.panelLeft.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainerRight)).BeginInit();
+            this.splitContainerRight.Panel1.SuspendLayout();
+            this.splitContainerRight.Panel2.SuspendLayout();
+            this.splitContainerRight.SuspendLayout();
+            this.panelMessageLabel.SuspendLayout();
+            this.panelExceptionLabel.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainerMain)).BeginInit();
+            this.splitContainerMain.Panel1.SuspendLayout();
+            this.splitContainerMain.Panel2.SuspendLayout();
+            this.splitContainerMain.SuspendLayout();
             this.SuspendLayout();
             // 
             // toolStripMain
@@ -134,7 +138,7 @@
             this.buttonRefreshFilter});
             this.toolStripMain.Location = new System.Drawing.Point(0, 0);
             this.toolStripMain.Name = "toolStripMain";
-            this.toolStripMain.Size = new System.Drawing.Size(1103, 25);
+            this.toolStripMain.Size = new System.Drawing.Size(1077, 25);
             this.toolStripMain.TabIndex = 24;
             this.toolStripMain.Text = "toolStrip1";
             // 
@@ -156,9 +160,6 @@
             // tsbAbout
             // 
             this.tsbAbout.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
-            this.tsbAbout.Checked = true;
-            this.tsbAbout.CheckOnClick = true;
-            this.tsbAbout.CheckState = System.Windows.Forms.CheckState.Checked;
             this.tsbAbout.Image = ((System.Drawing.Image)(resources.GetObject("tsbAbout.Image")));
             this.tsbAbout.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsbAbout.Name = "tsbAbout";
@@ -298,7 +299,7 @@
             this.groupFilter.Dock = System.Windows.Forms.DockStyle.Top;
             this.groupFilter.Location = new System.Drawing.Point(0, 0);
             this.groupFilter.Name = "groupFilter";
-            this.groupFilter.Size = new System.Drawing.Size(734, 142);
+            this.groupFilter.Size = new System.Drawing.Size(597, 142);
             this.groupFilter.TabIndex = 26;
             this.groupFilter.TabStop = false;
             this.groupFilter.Text = "Filter";
@@ -319,8 +320,17 @@
             this.panelFilter.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelFilter.Location = new System.Drawing.Point(3, 16);
             this.panelFilter.Name = "panelFilter";
-            this.panelFilter.Size = new System.Drawing.Size(465, 123);
+            this.panelFilter.Size = new System.Drawing.Size(328, 123);
             this.panelFilter.TabIndex = 1;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(220, 4);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(100, 13);
+            this.label1.TabIndex = 11;
+            this.label1.Text = "Note: Times in UTC";
             // 
             // comboEntity
             // 
@@ -330,7 +340,7 @@
             this.comboEntity.FormattingEnabled = true;
             this.comboEntity.Location = new System.Drawing.Point(84, 96);
             this.comboEntity.Name = "comboEntity";
-            this.comboEntity.Size = new System.Drawing.Size(374, 21);
+            this.comboEntity.Size = new System.Drawing.Size(237, 21);
             this.comboEntity.Sorted = true;
             this.comboEntity.TabIndex = 10;
             // 
@@ -354,7 +364,7 @@
             this.comboMessage.FormattingEnabled = true;
             this.comboMessage.Location = new System.Drawing.Point(84, 72);
             this.comboMessage.Name = "comboMessage";
-            this.comboMessage.Size = new System.Drawing.Size(374, 21);
+            this.comboMessage.Size = new System.Drawing.Size(237, 21);
             this.comboMessage.TabIndex = 8;
             // 
             // chkMessage
@@ -376,7 +386,7 @@
             this.comboPlugin.FormattingEnabled = true;
             this.comboPlugin.Location = new System.Drawing.Point(84, 48);
             this.comboPlugin.Name = "comboPlugin";
-            this.comboPlugin.Size = new System.Drawing.Size(374, 21);
+            this.comboPlugin.Size = new System.Drawing.Size(237, 21);
             this.comboPlugin.TabIndex = 6;
             // 
             // chkPlugin
@@ -449,7 +459,7 @@
             this.panelOptions.Controls.Add(this.rbModeAll);
             this.panelOptions.Controls.Add(this.chkExceptions);
             this.panelOptions.Dock = System.Windows.Forms.DockStyle.Right;
-            this.panelOptions.Location = new System.Drawing.Point(468, 16);
+            this.panelOptions.Location = new System.Drawing.Point(331, 16);
             this.panelOptions.Name = "panelOptions";
             this.panelOptions.Size = new System.Drawing.Size(263, 123);
             this.panelOptions.TabIndex = 2;
@@ -597,16 +607,6 @@
             this.chkExceptions.Text = "Exceptions only";
             this.chkExceptions.UseVisualStyleBackColor = true;
             // 
-            // panelData
-            // 
-            this.panelData.Controls.Add(this.crmGridView);
-            this.panelData.Controls.Add(this.panelDataTop);
-            this.panelData.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panelData.Location = new System.Drawing.Point(0, 142);
-            this.panelData.Name = "panelData";
-            this.panelData.Size = new System.Drawing.Size(734, 384);
-            this.panelData.TabIndex = 27;
-            // 
             // crmGridView
             // 
             this.crmGridView.AllowUserToAddRows = false;
@@ -629,14 +629,14 @@
             this.crmGridView.ContextMenuStrip = this.contextMenuGridView;
             this.crmGridView.Dock = System.Windows.Forms.DockStyle.Fill;
             this.crmGridView.EnableHeadersVisualStyles = false;
-            this.crmGridView.Location = new System.Drawing.Point(0, 32);
+            this.crmGridView.Location = new System.Drawing.Point(0, 167);
             this.crmGridView.Name = "crmGridView";
             this.crmGridView.ReadOnly = true;
             this.crmGridView.RowHeadersWidth = 20;
             this.crmGridView.ShowFriendlyNames = true;
             this.crmGridView.ShowIdColumn = false;
             this.crmGridView.ShowIndexColumn = false;
-            this.crmGridView.Size = new System.Drawing.Size(734, 352);
+            this.crmGridView.Size = new System.Drawing.Size(597, 288);
             this.crmGridView.TabIndex = 25;
             this.crmGridView.RecordDoubleClick += new Cinteros.Xrm.CRMWinForm.CRMRecordEventHandler(this.crmGridView_RecordDoubleClick);
             this.crmGridView.RecordEnter += new Cinteros.Xrm.CRMWinForm.CRMRecordEventHandler(this.crmGridView_RecordEnter);
@@ -719,7 +719,7 @@
             this.tsmiDeleteSelected,
             this.tsmiDeleteAll});
             this.contextMenuGridView.Name = "contextStripMain";
-            this.contextMenuGridView.Size = new System.Drawing.Size(155, 70);
+            this.contextMenuGridView.Size = new System.Drawing.Size(155, 48);
             this.contextMenuGridView.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuGridView_Opening);
             // 
             // tsmiDeleteSelected
@@ -740,154 +740,152 @@
             // 
             this.panelDataTop.Controls.Add(this.labelInfo);
             this.panelDataTop.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panelDataTop.Location = new System.Drawing.Point(0, 0);
+            this.panelDataTop.Location = new System.Drawing.Point(0, 142);
             this.panelDataTop.Name = "panelDataTop";
-            this.panelDataTop.Size = new System.Drawing.Size(734, 32);
+            this.panelDataTop.Size = new System.Drawing.Size(597, 25);
             this.panelDataTop.TabIndex = 26;
             // 
             // labelInfo
             // 
             this.labelInfo.AutoSize = true;
-            this.labelInfo.Location = new System.Drawing.Point(25, 10);
+            this.labelInfo.Location = new System.Drawing.Point(4, 4);
             this.labelInfo.Name = "labelInfo";
             this.labelInfo.Size = new System.Drawing.Size(182, 13);
             this.labelInfo.TabIndex = 0;
             this.labelInfo.Text = "Select filter criteria and Retrieve logs!";
             // 
-            // groupDetails
+            // labelMessage
             // 
-            this.groupDetails.Controls.Add(this.chkWordWrap);
-            this.groupDetails.Controls.Add(this.textMessage);
-            this.groupDetails.Controls.Add(this.splitterMessageHeight);
-            this.groupDetails.Controls.Add(this.panelException);
-            this.groupDetails.Controls.Add(this.labelMessage);
-            this.groupDetails.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupDetails.Location = new System.Drawing.Point(737, 25);
-            this.groupDetails.MinimumSize = new System.Drawing.Size(100, 0);
-            this.groupDetails.Name = "groupDetails";
-            this.groupDetails.Size = new System.Drawing.Size(366, 526);
-            this.groupDetails.TabIndex = 28;
-            this.groupDetails.TabStop = false;
-            this.groupDetails.Text = "Details";
+            this.labelMessage.AutoSize = true;
+            this.labelMessage.Location = new System.Drawing.Point(4, 4);
+            this.labelMessage.Name = "labelMessage";
+            this.labelMessage.Size = new System.Drawing.Size(50, 13);
+            this.labelMessage.TabIndex = 8;
+            this.labelMessage.Text = "Message";
             // 
             // chkWordWrap
             // 
             this.chkWordWrap.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.chkWordWrap.AutoSize = true;
-            this.chkWordWrap.Location = new System.Drawing.Point(294, 12);
+            this.chkWordWrap.Location = new System.Drawing.Point(397, 3);
             this.chkWordWrap.Name = "chkWordWrap";
             this.chkWordWrap.Size = new System.Drawing.Size(72, 17);
-            this.chkWordWrap.TabIndex = 1;
+            this.chkWordWrap.TabIndex = 7;
             this.chkWordWrap.Text = "Wrap text";
             this.chkWordWrap.UseVisualStyleBackColor = true;
             this.chkWordWrap.CheckedChanged += new System.EventHandler(this.checkWordWrap_CheckedChanged);
+            // 
+            // splitContainerRight
+            // 
+            this.splitContainerRight.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.splitContainerRight.FixedPanel = System.Windows.Forms.FixedPanel.Panel2;
+            this.splitContainerRight.Location = new System.Drawing.Point(0, 0);
+            this.splitContainerRight.Name = "splitContainerRight";
+            this.splitContainerRight.Orientation = System.Windows.Forms.Orientation.Horizontal;
+            // 
+            // splitContainerRight.Panel1
+            // 
+            this.splitContainerRight.Panel1.Controls.Add(this.textMessage);
+            this.splitContainerRight.Panel1.Controls.Add(this.panelMessageLabel);
+            this.splitContainerRight.Panel1MinSize = 23;
+            // 
+            // splitContainerRight.Panel2
+            // 
+            this.splitContainerRight.Panel2.Controls.Add(this.textException);
+            this.splitContainerRight.Panel2.Controls.Add(this.panelExceptionLabel);
+            this.splitContainerRight.Panel2MinSize = 23;
+            this.splitContainerRight.Size = new System.Drawing.Size(472, 455);
+            this.splitContainerRight.SplitterDistance = 266;
+            this.splitContainerRight.SplitterWidth = 8;
+            this.splitContainerRight.TabIndex = 12;
             // 
             // textMessage
             // 
             this.textMessage.AcceptsReturn = true;
             this.textMessage.Dock = System.Windows.Forms.DockStyle.Fill;
             this.textMessage.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textMessage.Location = new System.Drawing.Point(3, 29);
+            this.textMessage.Location = new System.Drawing.Point(0, 25);
             this.textMessage.MinimumSize = new System.Drawing.Size(4, 100);
             this.textMessage.Multiline = true;
             this.textMessage.Name = "textMessage";
             this.textMessage.ReadOnly = true;
             this.textMessage.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.textMessage.Size = new System.Drawing.Size(360, 282);
-            this.textMessage.TabIndex = 4;
+            this.textMessage.Size = new System.Drawing.Size(472, 241);
+            this.textMessage.TabIndex = 10;
             this.textMessage.WordWrap = false;
             // 
-            // splitterMessageHeight
+            // panelMessageLabel
             // 
-            this.splitterMessageHeight.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.splitterMessageHeight.Location = new System.Drawing.Point(3, 311);
-            this.splitterMessageHeight.Name = "splitterMessageHeight";
-            this.splitterMessageHeight.Size = new System.Drawing.Size(360, 3);
-            this.splitterMessageHeight.TabIndex = 5;
-            this.splitterMessageHeight.TabStop = false;
-            // 
-            // panelException
-            // 
-            this.panelException.Controls.Add(this.textException);
-            this.panelException.Controls.Add(this.labelException);
-            this.panelException.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panelException.Location = new System.Drawing.Point(3, 314);
-            this.panelException.Name = "panelException";
-            this.panelException.Size = new System.Drawing.Size(360, 209);
-            this.panelException.TabIndex = 6;
+            this.panelMessageLabel.Controls.Add(this.chkWordWrap);
+            this.panelMessageLabel.Controls.Add(this.labelMessage);
+            this.panelMessageLabel.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panelMessageLabel.Location = new System.Drawing.Point(0, 0);
+            this.panelMessageLabel.Name = "panelMessageLabel";
+            this.panelMessageLabel.Size = new System.Drawing.Size(472, 25);
+            this.panelMessageLabel.TabIndex = 11;
             // 
             // textException
             // 
             this.textException.Dock = System.Windows.Forms.DockStyle.Fill;
             this.textException.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textException.Location = new System.Drawing.Point(0, 13);
+            this.textException.Location = new System.Drawing.Point(0, 25);
             this.textException.Multiline = true;
             this.textException.Name = "textException";
             this.textException.ReadOnly = true;
             this.textException.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.textException.Size = new System.Drawing.Size(360, 196);
-            this.textException.TabIndex = 5;
+            this.textException.Size = new System.Drawing.Size(472, 156);
+            this.textException.TabIndex = 6;
             this.textException.WordWrap = false;
+            // 
+            // panelExceptionLabel
+            // 
+            this.panelExceptionLabel.Controls.Add(this.labelException);
+            this.panelExceptionLabel.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panelExceptionLabel.Location = new System.Drawing.Point(0, 0);
+            this.panelExceptionLabel.Name = "panelExceptionLabel";
+            this.panelExceptionLabel.Size = new System.Drawing.Size(472, 25);
+            this.panelExceptionLabel.TabIndex = 8;
             // 
             // labelException
             // 
             this.labelException.AutoSize = true;
-            this.labelException.Dock = System.Windows.Forms.DockStyle.Top;
-            this.labelException.Location = new System.Drawing.Point(0, 0);
+            this.labelException.Location = new System.Drawing.Point(4, 4);
             this.labelException.Name = "labelException";
             this.labelException.Size = new System.Drawing.Size(54, 13);
-            this.labelException.TabIndex = 4;
+            this.labelException.TabIndex = 7;
             this.labelException.Text = "Exception";
             // 
-            // labelMessage
+            // splitContainerMain
             // 
-            this.labelMessage.AutoSize = true;
-            this.labelMessage.Dock = System.Windows.Forms.DockStyle.Top;
-            this.labelMessage.Location = new System.Drawing.Point(3, 16);
-            this.labelMessage.Name = "labelMessage";
-            this.labelMessage.Size = new System.Drawing.Size(50, 13);
-            this.labelMessage.TabIndex = 1;
-            this.labelMessage.Text = "Message";
+            this.splitContainerMain.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.splitContainerMain.Location = new System.Drawing.Point(0, 25);
+            this.splitContainerMain.Name = "splitContainerMain";
             // 
-            // splitterDetailsWidth
+            // splitContainerMain.Panel1
             // 
-            this.splitterDetailsWidth.Location = new System.Drawing.Point(734, 25);
-            this.splitterDetailsWidth.Name = "splitterDetailsWidth";
-            this.splitterDetailsWidth.Size = new System.Drawing.Size(3, 526);
-            this.splitterDetailsWidth.TabIndex = 29;
-            this.splitterDetailsWidth.TabStop = false;
+            this.splitContainerMain.Panel1.Controls.Add(this.crmGridView);
+            this.splitContainerMain.Panel1.Controls.Add(this.panelDataTop);
+            this.splitContainerMain.Panel1.Controls.Add(this.groupFilter);
+            this.splitContainerMain.Panel1MinSize = 100;
             // 
-            // panelLeft
+            // splitContainerMain.Panel2
             // 
-            this.panelLeft.Controls.Add(this.panelData);
-            this.panelLeft.Controls.Add(this.groupFilter);
-            this.panelLeft.Dock = System.Windows.Forms.DockStyle.Left;
-            this.panelLeft.Location = new System.Drawing.Point(0, 25);
-            this.panelLeft.Name = "panelLeft";
-            this.panelLeft.Size = new System.Drawing.Size(734, 526);
-            this.panelLeft.TabIndex = 30;
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(231, 16);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(128, 13);
-            this.label1.TabIndex = 11;
-            this.label1.Text = "Note: All times are in UTC";
+            this.splitContainerMain.Panel2.Controls.Add(this.splitContainerRight);
+            this.splitContainerMain.Panel2MinSize = 100;
+            this.splitContainerMain.Size = new System.Drawing.Size(1077, 455);
+            this.splitContainerMain.SplitterDistance = 597;
+            this.splitContainerMain.SplitterWidth = 8;
+            this.splitContainerMain.TabIndex = 31;
             // 
             // PluginTraceViewer
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.groupDetails);
-            this.Controls.Add(this.splitterDetailsWidth);
-            this.Controls.Add(this.panelLeft);
+            this.Controls.Add(this.splitContainerMain);
             this.Controls.Add(this.toolStripMain);
             this.Name = "PluginTraceViewer";
-            this.Size = new System.Drawing.Size(1103, 551);
+            this.Size = new System.Drawing.Size(1077, 480);
             this.ConnectionUpdated += new XrmToolBox.Extensibility.PluginControlBase.ConnectionUpdatedHandler(this.PluginTraceViewer_ConnectionUpdated);
-            this.Load += new System.EventHandler(this.PluginTraceViewer_Load);
             this.toolStripMain.ResumeLayout(false);
             this.toolStripMain.PerformLayout();
             this.groupFilter.ResumeLayout(false);
@@ -898,16 +896,24 @@
             ((System.ComponentModel.ISupportInitialize)(this.numDurationMax)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numDurationMin)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numRecords)).EndInit();
-            this.panelData.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.crmGridView)).EndInit();
             this.contextMenuGridView.ResumeLayout(false);
             this.panelDataTop.ResumeLayout(false);
             this.panelDataTop.PerformLayout();
-            this.groupDetails.ResumeLayout(false);
-            this.groupDetails.PerformLayout();
-            this.panelException.ResumeLayout(false);
-            this.panelException.PerformLayout();
-            this.panelLeft.ResumeLayout(false);
+            this.splitContainerRight.Panel1.ResumeLayout(false);
+            this.splitContainerRight.Panel1.PerformLayout();
+            this.splitContainerRight.Panel2.ResumeLayout(false);
+            this.splitContainerRight.Panel2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainerRight)).EndInit();
+            this.splitContainerRight.ResumeLayout(false);
+            this.panelMessageLabel.ResumeLayout(false);
+            this.panelMessageLabel.PerformLayout();
+            this.panelExceptionLabel.ResumeLayout(false);
+            this.panelExceptionLabel.PerformLayout();
+            this.splitContainerMain.Panel1.ResumeLayout(false);
+            this.splitContainerMain.Panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainerMain)).EndInit();
+            this.splitContainerMain.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -920,16 +926,7 @@
         private System.Windows.Forms.ToolStripButton tsbAbout;
         private Xrm.CRMWinForm.CRMGridView crmGridView;
         private System.Windows.Forms.GroupBox groupFilter;
-        private System.Windows.Forms.Panel panelData;
         private System.Windows.Forms.Panel panelDataTop;
-        private System.Windows.Forms.GroupBox groupDetails;
-        private System.Windows.Forms.Splitter splitterDetailsWidth;
-        private System.Windows.Forms.Splitter splitterMessageHeight;
-        private System.Windows.Forms.TextBox textMessage;
-        private System.Windows.Forms.Label labelMessage;
-        private System.Windows.Forms.Panel panelException;
-        private System.Windows.Forms.TextBox textException;
-        private System.Windows.Forms.Label labelException;
         private System.Windows.Forms.DataGridViewTextBoxColumn performanceexecutionstarttime;
         private System.Windows.Forms.DataGridViewTextBoxColumn performanceexecutionduration;
         private System.Windows.Forms.DataGridViewTextBoxColumn operationtype;
@@ -956,7 +953,6 @@
         private System.Windows.Forms.DateTimePicker dateTo;
         private System.Windows.Forms.DateTimePicker dateFrom;
         private System.Windows.Forms.Label labelInfo;
-        private System.Windows.Forms.CheckBox chkWordWrap;
         private System.Windows.Forms.ComboBox comboEntity;
         private System.Windows.Forms.CheckBox chkEntity;
         private System.Windows.Forms.NumericUpDown numDurationMax;
@@ -971,7 +967,6 @@
         private System.Windows.Forms.ToolStripButton buttonShowHideFilter;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
         private System.Windows.Forms.ToolStripButton buttonRefreshFilter;
-        private System.Windows.Forms.Panel panelLeft;
         private System.Windows.Forms.ToolStripDropDownButton dropdownSave;
         private System.Windows.Forms.ToolStripMenuItem buttonSaveFilter;
         private System.Windows.Forms.ToolStripMenuItem buttonSaveLogs;
@@ -984,5 +979,14 @@
         private System.Windows.Forms.ContextMenuStrip contextMenuGridView;
         private System.Windows.Forms.ToolStripMenuItem tsmiDeleteSelected;
         private System.Windows.Forms.ToolStripMenuItem tsmiDeleteAll;
+        private System.Windows.Forms.Label labelMessage;
+        private System.Windows.Forms.CheckBox chkWordWrap;
+        private System.Windows.Forms.SplitContainer splitContainerRight;
+        private System.Windows.Forms.TextBox textMessage;
+        private System.Windows.Forms.Panel panelExceptionLabel;
+        private System.Windows.Forms.Label labelException;
+        private System.Windows.Forms.TextBox textException;
+        private System.Windows.Forms.Panel panelMessageLabel;
+        private System.Windows.Forms.SplitContainer splitContainerMain;
     }
 }
