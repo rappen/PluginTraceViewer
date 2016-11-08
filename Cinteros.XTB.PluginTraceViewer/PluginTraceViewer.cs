@@ -82,11 +82,13 @@ namespace Cinteros.XTB.PluginTraceViewer
             GetDateConstraint("min", (datemin) =>
             {
                 dateFrom.MinDate = datemin;
+                dateFrom.Value = datemin;
                 dateTo.MinDate = datemin;
                 GetDateConstraint("max", (datemax) =>
                 {
                     dateFrom.MaxDate = datemax;
                     dateTo.MaxDate = datemax;
+                    dateTo.Value = datemax;
                     GetPlugins((pluginlist) =>
                     {
                         comboPlugin.Items.Clear();
@@ -252,11 +254,11 @@ namespace Cinteros.XTB.PluginTraceViewer
                 }
                 if (checkDateFrom.Checked)
                 {
-                    QEplugintracelog.Criteria.AddCondition("createdon", ConditionOperator.OnOrAfter, dateFrom.Value.Date);
+                    QEplugintracelog.Criteria.AddCondition("createdon", ConditionOperator.GreaterEqual, GetDateTimeAsUTC(dateFrom.Value));
                 }
                 if (checkDateTo.Checked)
                 {
-                    QEplugintracelog.Criteria.AddCondition("createdon", ConditionOperator.OnOrBefore, dateTo.Value.Date);
+                    QEplugintracelog.Criteria.AddCondition("createdon", ConditionOperator.LessEqual, GetDateTimeAsUTC(dateTo.Value));
                 }
                 if (chkPlugin.Checked && !string.IsNullOrWhiteSpace(comboPlugin.Text))
                 {
@@ -329,6 +331,11 @@ namespace Cinteros.XTB.PluginTraceViewer
                 };
                 WorkAsync(asyncinfo);
             }
+        }
+
+        private DateTime GetDateTimeAsUTC(DateTime source)
+        {
+            return new DateTime(source.Ticks, DateTimeKind.Utc);
         }
 
         private void PopulateGrid(EntityCollection results)

@@ -95,6 +95,7 @@
             this.labelMessage = new System.Windows.Forms.Label();
             this.splitterDetailsWidth = new System.Windows.Forms.Splitter();
             this.panelLeft = new System.Windows.Forms.Panel();
+            this.label1 = new System.Windows.Forms.Label();
             this.toolStripMain.SuspendLayout();
             this.groupFilter.SuspendLayout();
             this.panelFilter.SuspendLayout();
@@ -299,6 +300,7 @@
             // 
             // panelFilter
             // 
+            this.panelFilter.Controls.Add(this.label1);
             this.panelFilter.Controls.Add(this.comboEntity);
             this.panelFilter.Controls.Add(this.chkEntity);
             this.panelFilter.Controls.Add(this.comboMessage);
@@ -407,24 +409,26 @@
             // 
             // dateTo
             // 
+            this.dateTo.CustomFormat = "yyyy-MM-dd HH:mm";
             this.dateTo.Enabled = false;
-            this.dateTo.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+            this.dateTo.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
             this.dateTo.Location = new System.Drawing.Point(84, 24);
             this.dateTo.MaxDate = new System.DateTime(2099, 12, 31, 0, 0, 0, 0);
             this.dateTo.MinDate = new System.DateTime(2000, 1, 1, 0, 0, 0, 0);
             this.dateTo.Name = "dateTo";
-            this.dateTo.Size = new System.Drawing.Size(100, 20);
+            this.dateTo.Size = new System.Drawing.Size(130, 20);
             this.dateTo.TabIndex = 4;
             // 
             // dateFrom
             // 
+            this.dateFrom.CustomFormat = "yyyy-MM-dd HH:mm";
             this.dateFrom.Enabled = false;
-            this.dateFrom.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+            this.dateFrom.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
             this.dateFrom.Location = new System.Drawing.Point(84, 0);
             this.dateFrom.MaxDate = new System.DateTime(2099, 12, 31, 0, 0, 0, 0);
             this.dateFrom.MinDate = new System.DateTime(2000, 1, 1, 0, 0, 0, 0);
             this.dateFrom.Name = "dateFrom";
-            this.dateFrom.Size = new System.Drawing.Size(100, 20);
+            this.dateFrom.Size = new System.Drawing.Size(130, 20);
             this.dateFrom.TabIndex = 2;
             // 
             // panelOptions
@@ -834,6 +838,15 @@
             this.panelLeft.Size = new System.Drawing.Size(734, 526);
             this.panelLeft.TabIndex = 30;
             // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(231, 16);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(128, 13);
+            this.label1.TabIndex = 11;
+            this.label1.Text = "Note: All times are in UTC";
+            // 
             // PluginTraceViewer
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -937,5 +950,6 @@
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator5;
         private System.Windows.Forms.ToolStripMenuItem buttonOpenLogRecord;
+        private System.Windows.Forms.Label label1;
     }
 }
