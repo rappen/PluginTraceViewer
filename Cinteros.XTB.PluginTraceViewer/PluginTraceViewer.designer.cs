@@ -35,6 +35,8 @@
             this.tsbAbout = new System.Windows.Forms.ToolStripButton();
             this.buttonOpen = new System.Windows.Forms.ToolStripDropDownButton();
             this.buttonOpenFilter = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
+            this.buttonOpenLogRecord = new System.Windows.Forms.ToolStripMenuItem();
             this.dropdownSave = new System.Windows.Forms.ToolStripDropDownButton();
             this.buttonSaveFilter = new System.Windows.Forms.ToolStripMenuItem();
             this.buttonSaveLogs = new System.Windows.Forms.ToolStripMenuItem();
@@ -84,17 +86,15 @@
             this.panelDataTop = new System.Windows.Forms.Panel();
             this.labelInfo = new System.Windows.Forms.Label();
             this.groupDetails = new System.Windows.Forms.GroupBox();
+            this.chkWordWrap = new System.Windows.Forms.CheckBox();
             this.textMessage = new System.Windows.Forms.TextBox();
             this.splitterMessageHeight = new System.Windows.Forms.Splitter();
             this.panelException = new System.Windows.Forms.Panel();
             this.textException = new System.Windows.Forms.TextBox();
             this.labelException = new System.Windows.Forms.Label();
             this.labelMessage = new System.Windows.Forms.Label();
-            this.chkWordWrap = new System.Windows.Forms.CheckBox();
             this.splitterDetailsWidth = new System.Windows.Forms.Splitter();
             this.panelLeft = new System.Windows.Forms.Panel();
-            this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
-            this.buttonOpenLogRecord = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMain.SuspendLayout();
             this.groupFilter.SuspendLayout();
             this.panelFilter.SuspendLayout();
@@ -178,6 +178,19 @@
             this.buttonOpenFilter.Size = new System.Drawing.Size(217, 22);
             this.buttonOpenFilter.Text = "Filter...";
             this.buttonOpenFilter.Click += new System.EventHandler(this.buttonOpenFilter_Click);
+            // 
+            // toolStripSeparator5
+            // 
+            this.toolStripSeparator5.Name = "toolStripSeparator5";
+            this.toolStripSeparator5.Size = new System.Drawing.Size(214, 6);
+            // 
+            // buttonOpenLogRecord
+            // 
+            this.buttonOpenLogRecord.Enabled = false;
+            this.buttonOpenLogRecord.Name = "buttonOpenLogRecord";
+            this.buttonOpenLogRecord.Size = new System.Drawing.Size(217, 22);
+            this.buttonOpenLogRecord.Text = "Selected log record in CRM";
+            this.buttonOpenLogRecord.Click += new System.EventHandler(this.buttonOpenLogRecord_Click);
             // 
             // dropdownSave
             // 
@@ -615,6 +628,7 @@
             this.crmGridView.ShowIndexColumn = false;
             this.crmGridView.Size = new System.Drawing.Size(734, 352);
             this.crmGridView.TabIndex = 25;
+            this.crmGridView.RecordDoubleClick += new Cinteros.Xrm.CRMWinForm.CRMRecordEventHandler(this.crmGridView_RecordDoubleClick);
             this.crmGridView.RecordEnter += new Cinteros.Xrm.CRMWinForm.CRMRecordEventHandler(this.crmGridView_RecordEnter);
             // 
             // performanceexecutionstarttime
@@ -723,6 +737,18 @@
             this.groupDetails.TabStop = false;
             this.groupDetails.Text = "Details";
             // 
+            // chkWordWrap
+            // 
+            this.chkWordWrap.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.chkWordWrap.AutoSize = true;
+            this.chkWordWrap.Location = new System.Drawing.Point(294, 12);
+            this.chkWordWrap.Name = "chkWordWrap";
+            this.chkWordWrap.Size = new System.Drawing.Size(72, 17);
+            this.chkWordWrap.TabIndex = 1;
+            this.chkWordWrap.Text = "Wrap text";
+            this.chkWordWrap.UseVisualStyleBackColor = true;
+            this.chkWordWrap.CheckedChanged += new System.EventHandler(this.checkWordWrap_CheckedChanged);
+            // 
             // textMessage
             // 
             this.textMessage.AcceptsReturn = true;
@@ -790,18 +816,6 @@
             this.labelMessage.TabIndex = 1;
             this.labelMessage.Text = "Message";
             // 
-            // chkWordWrap
-            // 
-            this.chkWordWrap.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.chkWordWrap.AutoSize = true;
-            this.chkWordWrap.Location = new System.Drawing.Point(294, 12);
-            this.chkWordWrap.Name = "chkWordWrap";
-            this.chkWordWrap.Size = new System.Drawing.Size(72, 17);
-            this.chkWordWrap.TabIndex = 1;
-            this.chkWordWrap.Text = "Wrap text";
-            this.chkWordWrap.UseVisualStyleBackColor = true;
-            this.chkWordWrap.CheckedChanged += new System.EventHandler(this.checkWordWrap_CheckedChanged);
-            // 
             // splitterDetailsWidth
             // 
             this.splitterDetailsWidth.Location = new System.Drawing.Point(734, 25);
@@ -819,19 +833,6 @@
             this.panelLeft.Name = "panelLeft";
             this.panelLeft.Size = new System.Drawing.Size(734, 526);
             this.panelLeft.TabIndex = 30;
-            // 
-            // toolStripSeparator5
-            // 
-            this.toolStripSeparator5.Name = "toolStripSeparator5";
-            this.toolStripSeparator5.Size = new System.Drawing.Size(214, 6);
-            // 
-            // buttonOpenLogRecord
-            // 
-            this.buttonOpenLogRecord.Enabled = false;
-            this.buttonOpenLogRecord.Name = "buttonOpenLogRecord";
-            this.buttonOpenLogRecord.Size = new System.Drawing.Size(217, 22);
-            this.buttonOpenLogRecord.Text = "Selected log record in CRM";
-            this.buttonOpenLogRecord.Click += new System.EventHandler(this.buttonOpenLogRecord_Click);
             // 
             // PluginTraceViewer
             // 

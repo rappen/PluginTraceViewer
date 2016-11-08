@@ -647,5 +647,10 @@ namespace Cinteros.XTB.PluginTraceViewer
         {
             OpenLogRecord();
         }
+
+        private void crmGridView_RecordDoubleClick(object sender, CRMRecordEventArgs e)
+        {
+            OpenLogRecord();
+        }
     }
 }
