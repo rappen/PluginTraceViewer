@@ -378,7 +378,7 @@ namespace Cinteros.XTB.PluginTraceViewer
 
         private void crmGridView_RecordEnter(object sender, Xrm.CRMWinForm.CRMRecordEventArgs e)
         {
-            buttonOpenRecord.Enabled = e.Entity != null;
+            buttonOpenLogRecord.Enabled = e.Entity != null;
             textMessage.Text = FixLineBreaks(e.Entity != null && e.Entity.Contains("messageblock") ? e.Entity["messageblock"].ToString() : "");
             textException.Text = FixLineBreaks(e.Entity != null && e.Entity.Contains("exceptiondetails") ? e.Entity["exceptiondetails"].ToString() : "");
         }
@@ -392,11 +392,11 @@ namespace Cinteros.XTB.PluginTraceViewer
 
         private void PluginTraceViewer_Load(object sender, EventArgs e)
         {
-            groupDetails.Width = Width / 2;
-            textMessage.Height = (groupDetails.Height - panelDetailsTop.Height - labelMessage.Height - labelException.Height) / 2;
+            panelLeft.Width = Width / 2;
+            textException.Height = Math.Max(textException.Height, 100);
         }
 
-        private void buttonOpenRecord_Click(object sender, EventArgs e)
+        private void OpenLogRecord()
         {
             var firstselected = crmGridView.SelectedCellRecords.Entities.FirstOrDefault();
             if (firstselected != null)
@@ -641,6 +641,11 @@ namespace Cinteros.XTB.PluginTraceViewer
                 }
                 catch { }
             }
+        }
+
+        private void buttonOpenLogRecord_Click(object sender, EventArgs e)
+        {
+            OpenLogRecord();
         }
     }
 }
