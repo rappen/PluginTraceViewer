@@ -1,11 +1,13 @@
 ﻿<!doctype html>
 <html>
+
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="chrome=1">
     <title>Plugin Trace Viewer for XrmToolBox</title>
     <!-- Latest compiled and minified CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7"
+    crossorigin="anonymous">
 
     <link rel="stylesheet" href="stylesheets/styles.css">
     <link rel="stylesheet" href="stylesheets/pygment_trac.css">
@@ -182,6 +184,7 @@
         };
     </script>
 </head>
+
 <body>
     <div class="wrapper">
         <div class="row">
@@ -190,7 +193,9 @@
                     <img src="images/PTV-inno-logo-400.png" /><br />
                 </h1>
                 <p>
-                    <br /><br /><br />
+                    <br />
+                    <br />
+                    <br />
                     <strong>
                         "An <a href="http://www.xrmtoolbox.com">XrmToolBox</a>
                         plugin to investigate the Plugin Trace Log."
@@ -215,14 +220,88 @@
                     <a id="info" class="anchor" href="#info" aria-hidden="true"><span class="octicon octicon-link"></span></a>How-to
                 </h3>
                 <p>
-                    Filter...<br/>
-                    Query....<br/>
-                    Investigate.....<br/>
+                    <h4>Menu</h4>
+                    <img src="images/PTV-menu.jpg">
+                    <br/>
+                    <ul>
+                        <li><strong>Open</strong>
+                            <ul>
+                                <li>saved filter to populate the filter options.</li>
+                                <li>selected log record (opened in CRM).</li>
+                            </ul>
+                        </li>
+                        <li><strong>Save</strong>
+                            <ul>
+                                <li>current filter to file.</li>
+                                <li>retrieved log records (serialized to XML).</li>
+                            </ul>
+                        </li>
+                        <li>
+                            <strong>Retrieve Logs</strong>
+                            <br/> Retrieves trace log records using current filter.
+                        </li>
+                        <li>
+                            <strong>Show (Hide) Filter</strong>
+                            <br/> Toggles section with filter options on / off.
+                        </li>
+                        <li>
+                            <strong>Refresh Filter Options</strong>
+                            <br/> Reloads constraints and options for filter criteria.
+                        </li>
+                    </ul>
+
+                    <h4>Filter</h4>
+                    <img src="images/PTV-filter.jpg">
+                    <br/>
+                    <ul>
+                        <li><strong>Date From/To</strong>
+                            <br/> Defines first and last dates of log records to retrieve.
+                            <br/><em>Note! All times in UTC!</em>
+                        </li>
+                        <li><strong>Plugin</strong>
+                            <br/>Filter by plugin class name.
+                            <br/>Wildcards allowed in beginning and end of name.
+                            <br/>Several names are specified with separating commas.
+                        </li>
+                        <li>
+                            <strong>Message</strong>
+                            <br/> Filter by message name.
+                        </li>
+                        <li><strong>Entity</strong>
+                            <br/>Filter by entity logical name.
+                            <br/>Wildcards allowed in beginning and end of name.
+                            <br/>Several names are specified with separating commas.
+                        </li>
+                        <li>
+                            <strong>Exceptions only</strong>
+                            <br/> Check this to only return logs with exceptions.
+                        </li>
+                        <li>
+                            <strong>Mode</strong>
+                            <br/> Select which modes to return.
+                        </li>
+                        <li>
+                            <strong>Duration Min/Max</strong>
+                            <br/> This can be used to e.g. filter long running plugins.
+                        </li>
+                        <li>
+                            <strong>Records</strong>
+                            <br/> Defines max number of records to return.
+                        </li>
+                    </ul>
+                    <em>Note! Logs are always retrieve sorted by created date descending, so newest records will be at the top of the list.</em>
+
+                    <h4>Filter</h4>
+                    <img src="images/PTV-grid.jpg">
+                    <br/> The table displays trace log records according to the filter.
+                    <br/> Double click a record to open it in CRM.
+                    <br/> Right click to delete selected or all returned records.
                 </p>
                 <h3>
                     <a id="gitter" class="anchor" href="#gitter" aria-hidden="true"><span class="octicon octicon-link"></span></a>Discussion
                 </h3>
-                <p>Click <strong>OPEN CHAT</strong> in the bottom right corner of this web page to ask questions, give feedback, or simply to join the discussion!</p>
+                <p>Click <strong>OPEN CHAT</strong> in the bottom right corner of this web page to ask questions, give feedback,
+                    or simply to join the discussion!</p>
                 <div id="gitter_sidecar">
                     <script>
                         ((window.gitter = {}).chat = {}).options = {
@@ -235,12 +314,14 @@
                     <a id="cinteros" class="anchor" href="#cinteros" aria-hidden="true"><span class="octicon octicon-link"></span></a>Other plugins from Innofactor
                 </h3>
                 <p>
-                    FetchXML Builder can be found here: <a href="http://fxb.xrmtoolbox.com">http://fxb.xrmtoolbox.com</a>.<br/>
-                    Me and some other colleagues at <strong>Innofactor</strong> have developed a few other cool plugins for XrmToolBox.<br />
-                    Have a look at these here: <a href="http://cinteros.xrmtoolbox.com">http://cinteros.xrmtoolbox.com</a>.
+                    FetchXML Builder can be found here: <a href="http://fxb.xrmtoolbox.com">http://fxb.xrmtoolbox.com</a>.
+                    <br/> Me and some other colleagues at <strong>Innofactor</strong> have developed a few other cool plugins
+                    for XrmToolBox.
+                    <br /> Have a look at these here: <a href="http://cinteros.xrmtoolbox.com">http://cinteros.xrmtoolbox.com</a>.
                 </p>
                 <hr />
-                <img src="http://s11.flagcounter.com/count2/hbd/bg_FFFFFF/txt_000000//border_D4D4D4/columns_5/maxflags_250/viewers_PTV+fan+base/labels_1/pageviews_0/flags_0/" alt="Flag Counter" border="0">
+                <img src="http://s11.flagcounter.com/count2/hbd/bg_FFFFFF/txt_000000//border_D4D4D4/columns_5/maxflags_250/viewers_PTV+fan+base/labels_1/pageviews_0/flags_0/"
+                alt="Flag Counter" border="0">
                 <script>
                     (function (i, s, o, g, r, a, m) {
                         i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
@@ -251,8 +332,7 @@
                     ga('create', 'UA-41153925-5', 'auto');
                     ga('send', 'pageview');
                 </script>
-                <br />
-                Visitor count for PTV and <a href="http://fxb.xrmtoolbox.com">FXB</a> since 2015-02-19:
+                <br /> Visitor count for PTV and <a href="http://fxb.xrmtoolbox.com">FXB</a> since 2015-02-19:
                 <!-- Start of StatCounter Code for Default Guide -->
                 <a href="http://statcounter.com/p10300908/summary/" target="_blank">
                     <script type="text/javascript">
@@ -270,17 +350,17 @@
             </div>
             <div class="col-xs-12 col-sm-12 col-lg-3">
                 <div>
-                    <hr />
-                    From the April 2016 release of XrmToolBox, download of plugins is handled in the built-in Plugin Store.<br />
-
-                    Run <a href="http://www.xrmtoolbox.com">XrmToolBox</a> and open the Plugin Store to get the latest version of Plugin Trace Viewer!<br />
-                    Older versions can be downloaded by expanding the Downloads below.<br /><br />
+                    <hr /> From the April 2016 release of XrmToolBox, download of plugins is handled in the built-in Plugin Store.
+                    <br /> Run <a href="http://www.xrmtoolbox.com">XrmToolBox</a> and open the Plugin Store to get the latest version
+                    of Plugin Trace Viewer!
+                    <br /> Older versions can be downloaded by expanding the Downloads below.
+                    <br />
+                    <br />
                 </div>
                 <table border="0">
                     <tr>
                         <th colspan="2" style="padding-top:10px;">
-                            Latest release
-                            &nbsp;&nbsp;
+                            Latest release &nbsp;&nbsp;
                             <a href="https://github.com/Innofactor/XrmToolBox.PluginTraceViewer/releases" target="_blank"><img src="images/open.png" /></a>
                         </th>
                     </tr>
@@ -294,14 +374,14 @@
                     </tr>
                     <tr>
                         <td valign="top" style="border-bottom:0px;">
-                            Downloads (total)
-                            &nbsp;&nbsp;
+                            Downloads (total) &nbsp;&nbsp;
                             <a href="javascript:ShowHideDownloadHistory();" id="showhide-hist" title="Show download count by version">+</a>
                         </td>
                         <td valign="top" style="border-bottom:0px;">
                             <span id="latest-downloads">Loading download count...</span>
                             <span id="total-downloads"></span>
-                            <span><a href="javascript:UpdateRelease();" title="Refresh counters"><img src="images/refresh.png" width="16" height="16" align="right" /></a></span><br />
+                            <span><a href="javascript:UpdateRelease();" title="Refresh counters"><img src="images/refresh.png" width="16" height="16" align="right" /></a></span>
+                            <br />
                         </td>
                     </tr>
                     <tr>
@@ -318,8 +398,7 @@
                     </tr>-->
                     <tr>
                         <th colspan="2" style="padding-top:10px;">
-                            Issues
-                            &nbsp;&nbsp;
+                            Issues &nbsp;&nbsp;
                             <a href="https://github.com/Innofactor/XrmToolBox.PluginTraceViewer/issues" target="_blank"><img src="images/open.png" /></a>
                         </th>
                     </tr>
@@ -344,9 +423,11 @@
         </div>
         <footer>
             <p>
-                <iframe src="https://ghbtns.com/github-btn.html?user=Innofactor&repo=XrmToolBox.PluginTraceViewer&type=star&count=true" frameborder="0" scrolling="0" width="100px" height="20px"></iframe>
+                <iframe src="https://ghbtns.com/github-btn.html?user=Innofactor&repo=XrmToolBox.PluginTraceViewer&type=star&count=true" frameborder="0"
+                scrolling="0" width="100px" height="20px"></iframe>
                 <span id="gazers"></span>
-                <iframe src="https://ghbtns.com/github-btn.html?user=Innofactor&repo=XrmToolBox.PluginTraceViewer&type=watch&count=true&v=2" frameborder="0" scrolling="0" width="100px" height="20px"></iframe>
+                <iframe src="https://ghbtns.com/github-btn.html?user=Innofactor&repo=XrmToolBox.PluginTraceViewer&type=watch&count=true&v=2"
+                frameborder="0" scrolling="0" width="100px" height="20px"></iframe>
                 <span id="watchers"></span>
                 <!--<iframe src="https://ghbtns.com/github-btn.html?user=Innofactor&repo=XrmToolBox.PluginTraceViewer&type=fork&count=true" frameborder="0" scrolling="0" width="100px" height="20px"></iframe>-->
             </p>
@@ -368,4 +449,5 @@
     <script src="javascripts/scale.fix.js"></script>
 
 </body>
+
 </html>
