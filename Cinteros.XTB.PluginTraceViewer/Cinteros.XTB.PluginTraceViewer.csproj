@@ -127,6 +127,7 @@
       <DependentUpon>PluginTraceViewer.cs</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="PTVFilter.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config">

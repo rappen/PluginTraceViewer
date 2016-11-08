@@ -1,4 +1,5 @@
 ﻿using Cinteros.Xrm.CRMWinForm;
+using McTools.Xrm.Connection;
 using Microsoft.Xrm.Sdk;
 using Microsoft.Xrm.Sdk.Query;
 using System;
@@ -8,6 +9,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
 using System.Windows.Forms;
+using System.Xml;
 using XrmToolBox.Extensibility;
 using XrmToolBox.Extensibility.Interfaces;
 
@@ -376,7 +378,7 @@ namespace Cinteros.XTB.PluginTraceViewer
 
         private void crmGridView_RecordEnter(object sender, Xrm.CRMWinForm.CRMRecordEventArgs e)
         {
-            buttonOpenRecord.Enabled = e.Entity != null;
+            buttonOpenLogRecord.Enabled = e.Entity != null;
             textMessage.Text = FixLineBreaks(e.Entity != null && e.Entity.Contains("messageblock") ? e.Entity["messageblock"].ToString() : "");
             textException.Text = FixLineBreaks(e.Entity != null && e.Entity.Contains("exceptiondetails") ? e.Entity["exceptiondetails"].ToString() : "");
         }
@@ -390,11 +392,11 @@ namespace Cinteros.XTB.PluginTraceViewer
 
         private void PluginTraceViewer_Load(object sender, EventArgs e)
         {
-            groupDetails.Width = Width / 2;
-            textMessage.Height = (groupDetails.Height - panelDetailsTop.Height - labelMessage.Height - labelException.Height) / 2;
+            panelLeft.Width = Width / 2;
+            textException.Height = Math.Max(textException.Height, 100);
         }
 
-        private void buttonOpenRecord_Click(object sender, EventArgs e)
+        private void OpenLogRecord()
         {
             var firstselected = crmGridView.SelectedCellRecords.Entities.FirstOrDefault();
             if (firstselected != null)
@@ -500,11 +502,6 @@ namespace Cinteros.XTB.PluginTraceViewer
             LoadConstraints();
         }
 
-        private void btnSaveLogs_Click(object sender, EventArgs e)
-        {
-            SaveLogs();
-        }
-
         private void SaveLogs()
         {
             var sfd = new SaveFileDialog
@@ -538,6 +535,122 @@ namespace Cinteros.XTB.PluginTraceViewer
             {
                 mi();
             }
+        }
+
+        private void buttonSaveLogs_Click(object sender, EventArgs e)
+        {
+            SaveLogs();
+        }
+
+        private void buttonSaveFilter_Click(object sender, EventArgs e)
+        {
+            SaveFilter();
+        }
+
+        private void SaveFilter()
+        {
+            var filter = new PTVFilter
+            {
+                DateFrom = checkDateFrom.Checked ? dateFrom.Value : DateTime.MinValue,
+                DateTo = checkDateTo.Checked ? dateTo.Value : DateTime.MinValue,
+                Plugin = chkPlugin.Checked ? comboPlugin.Text : string.Empty,
+                Message = chkMessage.Checked ? comboMessage.Text : string.Empty,
+                Entity = chkEntity.Checked ? comboEntity.Text : string.Empty,
+                Exceptions = chkExceptions.Checked,
+                Mode = rbModeSync.Checked ? 1 : rbModeAsync.Checked ? 2 : 0,
+                MinDuration = chkDurationMin.Checked ? (int)numDurationMin.Value : -1,
+                MaxDuration = chkDurationMax.Checked ? (int)numDurationMax.Value : -1,
+                Records = chkRecords.Checked ? (int)numRecords.Value : -1
+            };
+            var sfd = new SaveFileDialog
+            {
+                Title = "Select a location to save the filter",
+                Filter = "XML file (*.xml)|*.xml"
+            };
+            if (sfd.ShowDialog() == DialogResult.OK && !string.IsNullOrEmpty(sfd.FileName))
+            {
+                XmlSerializerHelper.SerializeToFile(filter, sfd.FileName);
+                MessageBox.Show(this, "Filter saved!", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+        }
+
+        private void buttonOpenFilter_Click(object sender, EventArgs e)
+        {
+            OpenFilter();
+        }
+
+        private void OpenFilter()
+        {
+            var ofd = new OpenFileDialog
+            {
+                Title = "Select filter file",
+                Filter = "XML file (*.xml)|*.xml"
+            };
+            if (ofd.ShowDialog() == DialogResult.OK && !string.IsNullOrEmpty(ofd.FileName))
+            {
+                var document = new XmlDocument();
+                try
+                {
+                    document.Load(ofd.FileName);
+                    var filter = (PTVFilter)XmlSerializerHelper.Deserialize(document.OuterXml, typeof(PTVFilter));
+                    checkDateFrom.Checked = !filter.DateFrom.Equals(DateTime.MinValue);
+                    if (checkDateFrom.Checked)
+                    {
+                        dateFrom.Value = filter.DateFrom;
+                    }
+                    checkDateTo.Checked = !filter.DateTo.Equals(DateTime.MinValue);
+                    if (checkDateTo.Checked)
+                    {
+                        dateTo.Value = filter.DateTo;
+                    }
+                    chkPlugin.Checked = !string.IsNullOrEmpty(filter.Plugin);
+                    comboPlugin.Text = filter.Plugin;
+                    chkMessage.Checked = !string.IsNullOrEmpty(filter.Message);
+                    comboMessage.SelectedIndex = comboMessage.Items.IndexOf(filter.Message);
+                    chkEntity.Checked = !string.IsNullOrEmpty(filter.Entity);
+                    comboEntity.Text = filter.Entity;
+                    chkExceptions.Checked = filter.Exceptions;
+                    switch (filter.Mode)
+                    {
+                        case 1:
+                            rbModeSync.Checked = true;
+                            break;
+                        case 2:
+                            rbModeAsync.Checked = true;
+                            break;
+                        default:
+                            rbModeAll.Checked = true;
+                            break;
+                    }
+                    chkDurationMin.Checked = filter.MinDuration > -1;
+                    if (chkDurationMin.Checked)
+                    {
+                        numDurationMin.Value = filter.MinDuration;
+                    }
+                    chkDurationMax.Checked = filter.MaxDuration > -1;
+                    if (chkDurationMax.Checked)
+                    {
+                        numDurationMax.Value = filter.MaxDuration;
+                    }
+                    chkRecords.Checked = filter.Records > -1;
+                    if (chkRecords.Checked)
+                    {
+                        numRecords.Value = filter.Records;
+                    }
+                    MessageBox.Show(this, "Filter loaded!", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                catch { }
+            }
+        }
+
+        private void buttonOpenLogRecord_Click(object sender, EventArgs e)
+        {
+            OpenLogRecord();
+        }
+
+        private void crmGridView_RecordDoubleClick(object sender, CRMRecordEventArgs e)
+        {
+            OpenLogRecord();
         }
     }
 }
