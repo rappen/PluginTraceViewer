@@ -40,6 +40,9 @@
             this.buttonShowHideFilter = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.buttonRefreshFilter = new System.Windows.Forms.ToolStripButton();
+            this.dropdownSave = new System.Windows.Forms.ToolStripDropDownButton();
+            this.buttonSaveFilter = new System.Windows.Forms.ToolStripMenuItem();
+            this.buttonSaveLogs = new System.Windows.Forms.ToolStripMenuItem();
             this.groupFilter = new System.Windows.Forms.GroupBox();
             this.panelFilter = new System.Windows.Forms.Panel();
             this.comboEntity = new System.Windows.Forms.ComboBox();
@@ -76,7 +79,6 @@
             this.exceptiondetails = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.messagebody = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.panelDataTop = new System.Windows.Forms.Panel();
-            this.btnSaveLogs = new System.Windows.Forms.Button();
             this.labelInfo = new System.Windows.Forms.Label();
             this.groupDetails = new System.Windows.Forms.GroupBox();
             this.textMessage = new System.Windows.Forms.TextBox();
@@ -90,6 +92,9 @@
             this.buttonOpenRecord = new System.Windows.Forms.Button();
             this.splitterDetailsWidth = new System.Windows.Forms.Splitter();
             this.panelLeft = new System.Windows.Forms.Panel();
+            this.buttonOpen = new System.Windows.Forms.ToolStripDropDownButton();
+            this.buttonOpenFilter = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripMain.SuspendLayout();
             this.groupFilter.SuspendLayout();
             this.panelFilter.SuspendLayout();
@@ -113,6 +118,9 @@
             this.tsbCloseThisTab,
             this.toolStripSeparator4,
             this.tsbAbout,
+            this.buttonOpen,
+            this.dropdownSave,
+            this.toolStripSeparator3,
             this.buttonRetrieveLogs,
             this.toolStripDropDownButton1,
             this.toolStripSeparator1,
@@ -215,6 +223,31 @@
             this.buttonRefreshFilter.Size = new System.Drawing.Size(140, 22);
             this.buttonRefreshFilter.Text = "Refresh Filter Options";
             this.buttonRefreshFilter.Click += new System.EventHandler(this.buttonRefreshFilter_Click);
+            // 
+            // dropdownSave
+            // 
+            this.dropdownSave.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.buttonSaveFilter,
+            this.buttonSaveLogs});
+            this.dropdownSave.Image = ((System.Drawing.Image)(resources.GetObject("dropdownSave.Image")));
+            this.dropdownSave.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.dropdownSave.Name = "dropdownSave";
+            this.dropdownSave.Size = new System.Drawing.Size(60, 22);
+            this.dropdownSave.Text = "Save";
+            // 
+            // buttonSaveFilter
+            // 
+            this.buttonSaveFilter.Name = "buttonSaveFilter";
+            this.buttonSaveFilter.Size = new System.Drawing.Size(152, 22);
+            this.buttonSaveFilter.Text = "Filter...";
+            this.buttonSaveFilter.Click += new System.EventHandler(this.buttonSaveFilter_Click);
+            // 
+            // buttonSaveLogs
+            // 
+            this.buttonSaveLogs.Name = "buttonSaveLogs";
+            this.buttonSaveLogs.Size = new System.Drawing.Size(152, 22);
+            this.buttonSaveLogs.Text = "Logs...";
+            this.buttonSaveLogs.Click += new System.EventHandler(this.buttonSaveLogs_Click);
             // 
             // groupFilter
             // 
@@ -635,24 +668,12 @@
             // 
             // panelDataTop
             // 
-            this.panelDataTop.Controls.Add(this.btnSaveLogs);
             this.panelDataTop.Controls.Add(this.labelInfo);
             this.panelDataTop.Dock = System.Windows.Forms.DockStyle.Top;
             this.panelDataTop.Location = new System.Drawing.Point(0, 0);
             this.panelDataTop.Name = "panelDataTop";
             this.panelDataTop.Size = new System.Drawing.Size(873, 32);
             this.panelDataTop.TabIndex = 26;
-            // 
-            // btnSaveLogs
-            // 
-            this.btnSaveLogs.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnSaveLogs.Location = new System.Drawing.Point(743, 4);
-            this.btnSaveLogs.Name = "btnSaveLogs";
-            this.btnSaveLogs.Size = new System.Drawing.Size(126, 23);
-            this.btnSaveLogs.TabIndex = 1;
-            this.btnSaveLogs.Text = "Save logs to file";
-            this.btnSaveLogs.UseVisualStyleBackColor = true;
-            this.btnSaveLogs.Click += new System.EventHandler(this.btnSaveLogs_Click);
             // 
             // labelInfo
             // 
@@ -797,6 +818,28 @@
             this.panelLeft.Size = new System.Drawing.Size(873, 526);
             this.panelLeft.TabIndex = 30;
             // 
+            // buttonOpen
+            // 
+            this.buttonOpen.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.buttonOpenFilter});
+            this.buttonOpen.Image = ((System.Drawing.Image)(resources.GetObject("buttonOpen.Image")));
+            this.buttonOpen.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.buttonOpen.Name = "buttonOpen";
+            this.buttonOpen.Size = new System.Drawing.Size(65, 22);
+            this.buttonOpen.Text = "Open";
+            // 
+            // buttonOpenFilter
+            // 
+            this.buttonOpenFilter.Name = "buttonOpenFilter";
+            this.buttonOpenFilter.Size = new System.Drawing.Size(152, 22);
+            this.buttonOpenFilter.Text = "Filter...";
+            this.buttonOpenFilter.Click += new System.EventHandler(this.buttonOpenFilter_Click);
+            // 
+            // toolStripSeparator3
+            // 
+            this.toolStripSeparator3.Name = "toolStripSeparator3";
+            this.toolStripSeparator3.Size = new System.Drawing.Size(6, 25);
+            // 
             // PluginTraceViewer
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -896,6 +939,11 @@
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
         private System.Windows.Forms.ToolStripButton buttonRefreshFilter;
         private System.Windows.Forms.Panel panelLeft;
-        private System.Windows.Forms.Button btnSaveLogs;
+        private System.Windows.Forms.ToolStripDropDownButton dropdownSave;
+        private System.Windows.Forms.ToolStripMenuItem buttonSaveFilter;
+        private System.Windows.Forms.ToolStripMenuItem buttonSaveLogs;
+        private System.Windows.Forms.ToolStripDropDownButton buttonOpen;
+        private System.Windows.Forms.ToolStripMenuItem buttonOpenFilter;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
     }
 }
