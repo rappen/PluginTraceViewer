@@ -1,64 +1,371 @@
-<!doctype html>
+﻿<!doctype html>
 <html>
-  <head>
+<head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="chrome=1">
-    <title>Plugin Trace Viewer for XrmToolBox by Innofactor</title>
+    <title>Plugin Trace Viewer for XrmToolBox</title>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
 
     <link rel="stylesheet" href="stylesheets/styles.css">
-    <link rel="stylesheet" href="stylesheets/github-light.css">
-    <meta name="viewport" content="width=device-width">
+    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+    <!--    <script type="text/javascript" src="javascripts/showdown.js"></script>-->
+    <script type="text/javascript" src="javascripts/rappen-gh-api.js"></script>
+    <script type="text/javascript" src="javascripts/rappen-repo-counter.js"></script>
+
+
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
     <!--[if lt IE 9]>
     <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
-  </head>
-  <body>
+    <script>
+        var GH_USER = "Innofactor";
+        var GH_REPO = "XrmToolBox.PluginTraceViewer";
+        var NUGET_PACKAGE = "Cinteros.XrmToolBox.PluginTraceViewer";
+        var nugetInfo = null;
+        var githubInfo = null;
+        var nugetLoading = false;
+        var githubLoading = false;
+        var versionInfo = null;
+
+        var releasenotesshowing = false;
+        var releasenotesloaded = false;
+        var historyshowing = false;
+        var historyloaded = false;
+
+        $(document).ready(function () {
+            UpdateRelease();
+            //LoadPeople("stargazers", "gazers", 3);
+            //LoadPeople("subscribers", "watchers", 3);
+            LoadIssues("issues-open", "issues-total");
+        });
+
+        UpdateRelease = function () {
+            if (!nugetLoading) {
+                nugetInfo = null;
+                githubInfo = null;
+                nugetLoading = true;
+                $("#latest-version").text("Loading stats...");
+                $("#latest-published").text("...from NuGet");
+                $("#latest-downloads").text("");
+                $("#total-downloads").text("");
+                $("#hist-downloads").text("");
+                $("#showhide-hist").text("+");
+                historyshowing = false;
+                historyloaded = false;
+                NugetGetDetails(NUGET_PACKAGE, NuGetInfoRetrieved, InfoLoadError);
+            }
+        }
+
+        NuGetInfoRetrieved = function (info) {
+            nugetInfo = info;
+            if (githubInfo) {
+                var details = CombineDetails(nugetInfo, githubInfo, true);
+                PrintVersionInfo(details);
+            }
+            else if (!githubLoading) {
+                githubLoading = true;
+                $("#latest-version").text("Loading stats...");
+                $("#latest-published").text("...from GitHub");
+                GitHubGetDetails(GH_USER, GH_REPO, GitHubInfoRetrieved, InfoLoadError);
+            }
+            nugetLoading = false;
+        }
+
+        GitHubInfoRetrieved = function (info) {
+            githubInfo = info;
+            if (nugetInfo) {
+                versionInfo = CombineDetails(nugetInfo, githubInfo, true);
+                PrintVersionInfo(versionInfo);
+            }
+            githubLoading = false;
+        }
+
+        InfoLoadError = function (xhr, options, error) {
+            $("#latest-downloads").text("Error: " + error);
+        }
+
+        PrintVersionInfo = function (info) {
+            $("#latest-version").text(info.latestVersion.version);
+            $("#latest-downloads").text(info.latestVersion.downloads);
+            $("#total-downloads").text(" (" + info.totalDownloads + ")");
+            var date = info.latestVersion.published;
+            if (!date) {
+                $(info.versions).each(function (index) {
+                    if (!date && this.published) {
+                        date = this.published;
+                    }
+                });
+            }
+            if (date) {
+                date = new Date(date);
+                $("#latest-published").text(date.toFormattedString('yyyy-mm-dd'));
+            }
+            else {
+                $("#latest-published").text("Not available");
+            }
+        }
+
+        PrintHistoryInfo = function (info, callback) {
+            var counttext = "<u>Version&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Count&nbsp;&nbsp;Released</u><br />";
+            $(info.versions).each(function (index) {
+                var link = "";
+                if (this.url) {
+                    link = this.url;
+                }
+                else if (this.host == "NuGet") {
+                    link = 'http://nuget.org/packages/' + NUGET_PACKAGE + '/' + this.version;
+                }
+                var tag = this.version.padRight(13);
+                if (link) {
+                    tag = '<a href="' + link + '" target=_"blank" alt="' + this.host + '">' + tag + '</a>';
+                }
+                if (this.published) {
+                    var date = new Date(this.published);
+                    date = "&nbsp;&nbsp;" + date.toFormattedString('yyyy-mm-dd ');
+                }
+                else {
+                    date = "&nbsp;&nbsp;<em>" + this.host + "</em>";
+                }
+                var count = this.downloads;
+                counttext += tag + " <strong>" + count.padLeft(5, '&nbsp;') + "</strong>" + date + "<br/>";
+            });
+            counttext += "";
+            $("#hist-downloads").html(counttext);
+            if (callback) {
+                callback();
+            }
+        }
+
+        ShowHideReleaseNotes = function () {
+            if (releasenotesshowing) {
+                $("#release-notes").hide(200);
+                $("#showhide-releasenotes").text("Show");
+                releasenotesshowing = false;
+            }
+            else {
+                if (!releasenotesloaded) {
+                    $("#showhide-releasenotes").text("loading");
+                    $("#release-notes").hide(0);
+                    UpdateReleaseNotes("release-notes", ShowHideReleaseNotes);
+                    releasenotesloaded = true;
+                }
+                else {
+                    $("#release-notes").show(200);
+                    $("#showhide-releasenotes").text("Hide");
+                    releasenotesshowing = true;
+                }
+            }
+        };
+
+        ShowHideDownloadHistory = function () {
+            if (historyshowing) {
+                $("#hist-downloads").hide(200);
+                $("#showhide-hist").text("+");
+                historyshowing = false;
+            }
+            else {
+                if (!historyloaded) {
+                    $("#showhide-hist").text("loading");
+                    $("#hist-downloads").hide(0);
+                    historyloaded = true;
+                    PrintHistoryInfo(versionInfo, ShowHideDownloadHistory);
+                }
+                else {
+                    $("#hist-downloads").show(100);
+                    $("#showhide-hist").text("-");
+                    historyshowing = true;
+                }
+            }
+        };
+    </script>
+</head>
+<body>
     <div class="wrapper">
-      <header>
-        <h1>Plugin Trace Viewer for XrmToolBox</h1>
-        <p>Investigate the Plug-in Trace Log with easy filtering and display possibilities</p>
+        <div class="row">
+            <div class="col-xs-12 col-sm-4 col-lg-3">
+                <h1 onclick="window.location = 'http://ptv.xrmtoolbox.com';" style="cursor:pointer;">
+                    <img src="images/PTV-inno-logo-400.png" /><br />
+                </h1>
+                <p>
+                    <br /><br /><br />
+                    <strong>
+                        "An <a href="http://www.xrmtoolbox.com">XrmToolBox</a>
+                        plugin to investigate the Plugin Trace Log."
+                    </strong>
+                </p>
+                <p align="right">
+                    <i>- Jonas Rapp, Innofactor AB</i>
+                </p>
+                <hr />
+            </div>
+            <div class="col-xs-12 col-sm-8 col-lg-6">
+                <h3>
+                    <a id="introduction" class="anchor" href="#introduction" aria-hidden="true"><span class="octicon octicon-link"></span></a>Introduction
+                </h3>
+                <p>
+                    <em>
+                        The primary goal of the tool is to give developers and administrators of Microsoft Dynamics CRM an easy to use tool to investigate the Plugin Trace Log.
+                        This includes the possibility to filter the logs and display the information in ways not currently possible within the Microsoft Dynamics CRM UI.
+                    </em>
+                </p>
+                <h3>
+                    <a id="info" class="anchor" href="#info" aria-hidden="true"><span class="octicon octicon-link"></span></a>How-to
+                </h3>
+                <p>
+                    Filter...<br/>
+                    Query....<br/>
+                    Investigate.....<br/>
+                </p>
+                <h3>
+                    <a id="gitter" class="anchor" href="#gitter" aria-hidden="true"><span class="octicon octicon-link"></span></a>Discussion
+                </h3>
+                <p>Click <strong>OPEN CHAT</strong> in the bottom right corner of this web page to ask questions, give feedback, or simply to join the discussion!</p>
+                <div id="gitter_sidecar">
+                    <script>
+                        ((window.gitter = {}).chat = {}).options = {
+                            room: 'Innofactor/XrmToolBox.PluginTraceViewer'
+                        };
+                    </script>
+                    <script src="https://sidecar.gitter.im/dist/sidecar.v1.js" async defer></script>
+                </div>
+                <h3>
+                    <a id="cinteros" class="anchor" href="#cinteros" aria-hidden="true"><span class="octicon octicon-link"></span></a>Other plugins from Innofactor
+                </h3>
+                <p>
+                    FetchXML Builder can be found here: <a href="http://fxb.xrmtoolbox.com">http://fxb.xrmtoolbox.com</a>.<br/>
+                    Me and some other colleagues at <strong>Innofactor</strong> have developed a few other cool plugins for XrmToolBox.<br />
+                    Have a look at these here: <a href="http://cinteros.xrmtoolbox.com">http://cinteros.xrmtoolbox.com</a>.
+                </p>
+                <hr />
+                <img src="http://s11.flagcounter.com/count2/hbd/bg_FFFFFF/txt_000000//border_D4D4D4/columns_5/maxflags_250/viewers_FXB+fan+base/labels_1/pageviews_0/flags_0/" alt="Flag Counter" border="0">
+                <script>
+                    (function (i, s, o, g, r, a, m) {
+                        i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
+                            (i[r].q = i[r].q || []).push(arguments)
+                        }, i[r].l = 1 * new Date(); a = s.createElement(o),
+                        m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m)
+                    })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+                    ga('create', 'UA-41153925-5', 'auto');
+                    ga('send', 'pageview');
+                </script>
+                <br />
+                Visitor count for PTV and <a href="http://fxb.xrmtoolbox.com">FXB</a> since 2015-02-19:
+                <!-- Start of StatCounter Code for Default Guide -->
+                <a href="http://statcounter.com/p10300908/summary/" target="_blank">
+                    <script type="text/javascript">
+                        var sc_project = 10300908;
+                        var sc_invisible = 0;
+                        var sc_security = "d1d1a604";
+                        var sc_text = 5;
+                        var sc_https = 1;
+                        var scJsHost = (("https:" == document.location.protocol) ? "https://secure." : "http://www.");
+                        document.write("<sc" + "ript type='text/javascript' src='" + scJsHost + "statcounter.com/counter/counter.js'></" + "script>");
+                    </script>
+                </a>
+                <!-- End of StatCounter Code for Default Guide -->
 
-        <p class="view"><a href="https://github.com/Innofactor/XrmToolBox.PluginTraceViewer">View the Project on GitHub <small>Innofactor/XrmToolBox.PluginTraceViewer</small></a></p>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-lg-3">
+                <div>
+                    <hr />
+                    From the April 2016 release of XrmToolBox, download of plugins is handled in the built-in Plugin Store.<br />
 
-
-        <ul>
-          <li><a href="https://github.com/Innofactor/XrmToolBox.PluginTraceViewer/zipball/master">Download <strong>ZIP File</strong></a></li>
-          <li><a href="https://github.com/Innofactor/XrmToolBox.PluginTraceViewer/tarball/master">Download <strong>TAR Ball</strong></a></li>
-          <li><a href="https://github.com/Innofactor/XrmToolBox.PluginTraceViewer">View On <strong>GitHub</strong></a></li>
-        </ul>
-      </header>
-      <section>
-        <h3>
-<a id="welcome-to-github-pages" class="anchor" href="#welcome-to-github-pages" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Welcome to GitHub Pages.</h3>
-
-<p>This automatic page generator is the easiest way to create beautiful pages for all of your projects. Author your page content here <a href="https://guides.github.com/features/mastering-markdown/">using GitHub Flavored Markdown</a>, select a template crafted by a designer, and publish. After your page is generated, you can check out the new <code>gh-pages</code> branch locally. If you’re using GitHub Desktop, simply sync your repository and you’ll see the new branch.</p>
-
-<h3>
-<a id="designer-templates" class="anchor" href="#designer-templates" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Designer Templates</h3>
-
-<p>We’ve crafted some handsome templates for you to use. Go ahead and click 'Continue to layouts' to browse through them. You can easily go back to edit your page before publishing. After publishing your page, you can revisit the page generator and switch to another theme. Your Page content will be preserved.</p>
-
-<h3>
-<a id="creating-pages-manually" class="anchor" href="#creating-pages-manually" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Creating pages manually</h3>
-
-<p>If you prefer to not use the automatic generator, push a branch named <code>gh-pages</code> to your repository to create a page manually. In addition to supporting regular HTML content, GitHub Pages support Jekyll, a simple, blog aware static site generator. Jekyll makes it easy to create site-wide headers and footers without having to copy them across every page. It also offers intelligent blog support and other advanced templating features.</p>
-
-<h3>
-<a id="authors-and-contributors" class="anchor" href="#authors-and-contributors" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Authors and Contributors</h3>
-
-<p>You can @mention a GitHub username to generate a link to their profile. The resulting <code>&lt;a&gt;</code> element will link to the contributor’s GitHub Profile. For example: In 2007, Chris Wanstrath (<a href="https://github.com/defunkt" class="user-mention">@defunkt</a>), PJ Hyett (<a href="https://github.com/pjhyett" class="user-mention">@pjhyett</a>), and Tom Preston-Werner (<a href="https://github.com/mojombo" class="user-mention">@mojombo</a>) founded GitHub.</p>
-
-<h3>
-<a id="support-or-contact" class="anchor" href="#support-or-contact" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Support or Contact</h3>
-
-<p>Having trouble with Pages? Check out our <a href="https://help.github.com/pages">documentation</a> or <a href="https://github.com/contact">contact support</a> and we’ll help you sort it out.</p>
-      </section>
-      <footer>
-        <p>This project is maintained by <a href="https://github.com/Innofactor">Innofactor</a></p>
-        <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
-      </footer>
+                    Run <a href="http://www.xrmtoolbox.com">XrmToolBox</a> and open the Plugin Store to get the latest version of Plugin Trace Viewer!<br />
+                    Older versions can be downloaded by expanding the Downloads below.<br /><br />
+                </div>
+                <table border="0">
+                    <tr>
+                        <th colspan="2" style="padding-top:10px;">
+                            Latest release
+                            &nbsp;&nbsp;
+                            <a href="https://github.com/Innofactor/XrmToolBox.PluginTraceViewer/releases" target="_blank"><img src="images/open.png" /></a>
+                        </th>
+                    </tr>
+                    <tr>
+                        <td>Version</td>
+                        <td id="latest-version">Loading version...</td>
+                    </tr>
+                    <tr>
+                        <td>Publish date</td>
+                        <td id="latest-published">Loading publish date...</td>
+                    </tr>
+                    <tr>
+                        <td valign="top" style="border-bottom:0px;">
+                            Downloads (total)
+                            &nbsp;&nbsp;
+                            <a href="javascript:ShowHideDownloadHistory();" id="showhide-hist" title="Show download count by version">+</a>
+                        </td>
+                        <td valign="top" style="border-bottom:0px;">
+                            <span id="latest-downloads">Loading download count...</span>
+                            <span id="total-downloads"></span>
+                            <span><a href="javascript:UpdateRelease();" title="Refresh counters"><img src="images/refresh.png" width="16" height="16" align="right" /></a></span><br />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" style="border-top:0px; padding:0 0 0 50px;">
+                            <span id="hist-downloads" style="font-size:12px; line-height:0.9; font-family:'Courier'"></span>
+                        </td>
+                    </tr>
+                    <!--<tr>
+                        <td valign="top">
+                            <strong>Release Notes&nbsp;&nbsp;&nbsp;&nbsp;</strong>
+                            <a href="javascript:ShowHideReleaseNotes();" id="showhide-releasenotes">Show</a>
+                        </td>
+                        <td colspan="2"><div id="release-notes"></div></td>
+                    </tr>-->
+                    <tr>
+                        <th colspan="2" style="padding-top:10px;">
+                            Issues
+                            &nbsp;&nbsp;
+                            <a href="https://github.com/Innofactor/XrmToolBox.PluginTraceViewer/issues" target="_blank"><img src="images/open.png" /></a>
+                        </th>
+                    </tr>
+                    <tr>
+                        <td>
+                            Open
+                        </td>
+                        <td>
+                            <span id="issues-open"></span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Total
+                        </td>
+                        <td>
+                            <span id="issues-total"></span>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <footer>
+            <p>
+                <iframe src="https://ghbtns.com/github-btn.html?user=Innofactor&repo=XrmToolBox.PluginTraceViewer&type=star&count=true" frameborder="0" scrolling="0" width="100px" height="20px"></iframe>
+                <span id="gazers"></span>
+                <iframe src="https://ghbtns.com/github-btn.html?user=Innofactor&repo=XrmToolBox.PluginTraceViewer&type=watch&count=true&v=2" frameborder="0" scrolling="0" width="100px" height="20px"></iframe>
+                <span id="watchers"></span>
+                <!--<iframe src="https://ghbtns.com/github-btn.html?user=Innofactor&repo=XrmToolBox.PluginTraceViewer&type=fork&count=true" frameborder="0" scrolling="0" width="100px" height="20px"></iframe>-->
+            </p>
+            <p>
+                <ul>
+                    <li><a href="https://github.com/Innofactor/XrmToolBox.PluginTraceViewer">View on <strong>GitHub</strong></a></li>
+                    <li><a href="https://github.com/Innofactor/XrmToolBox.PluginTraceViewer/issues">Go to <strong>Issues</strong></a></li>
+                </ul>
+            </p>
+            <p>
+                <a href="http://www.innofactor.se" target="_blank" title="Innofactor AB"><img src="images/Innofactor-square-032.png" width="30" height="30" /></a>&nbsp;
+                <a href="http://jonasrapp.cinteros.se" target="_blank" title="Jonas Rapp blog"><img src="images/blogger.png" width="30" height="30" /></a>&nbsp;
+                <a href="http://twitter.com/rappen" target="_blank" title="Jonas Rapp on Twitter"><img src="images/twitter.png" width="30" height="30" /></a>&nbsp;
+            </p>
+            <p>This project is developed by Jonas Rapp and maintained by Innofactor AB</p>
+            <!--<p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>-->
+        </footer>
     </div>
     <script src="javascripts/scale.fix.js"></script>
-    
-  </body>
+
+</body>
 </html>
