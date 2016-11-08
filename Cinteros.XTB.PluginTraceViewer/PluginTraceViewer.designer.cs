@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(PluginTraceViewer));
             this.toolStripMain = new System.Windows.Forms.ToolStrip();
             this.tsbCloseThisTab = new System.Windows.Forms.ToolStripButton();
@@ -83,6 +84,9 @@
             this.primaryentity = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.exceptiondetails = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.messagebody = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.contextMenuGridView = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.tsmiDeleteSelected = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiDeleteAll = new System.Windows.Forms.ToolStripMenuItem();
             this.panelDataTop = new System.Windows.Forms.Panel();
             this.labelInfo = new System.Windows.Forms.Label();
             this.groupDetails = new System.Windows.Forms.GroupBox();
@@ -104,6 +108,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.numRecords)).BeginInit();
             this.panelData.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.crmGridView)).BeginInit();
+            this.contextMenuGridView.SuspendLayout();
             this.panelDataTop.SuspendLayout();
             this.groupDetails.SuspendLayout();
             this.panelException.SuspendLayout();
@@ -617,6 +622,7 @@
             this.primaryentity,
             this.exceptiondetails,
             this.messagebody});
+            this.crmGridView.ContextMenuStrip = this.contextMenuGridView;
             this.crmGridView.Dock = System.Windows.Forms.DockStyle.Fill;
             this.crmGridView.EnableHeadersVisualStyles = false;
             this.crmGridView.Location = new System.Drawing.Point(0, 32);
@@ -702,6 +708,29 @@
             this.messagebody.ReadOnly = true;
             this.messagebody.Visible = false;
             this.messagebody.Width = 75;
+            // 
+            // contextMenuGridView
+            // 
+            this.contextMenuGridView.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.tsmiDeleteSelected,
+            this.tsmiDeleteAll});
+            this.contextMenuGridView.Name = "contextStripMain";
+            this.contextMenuGridView.Size = new System.Drawing.Size(155, 70);
+            this.contextMenuGridView.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuGridView_Opening);
+            // 
+            // tsmiDeleteSelected
+            // 
+            this.tsmiDeleteSelected.Name = "tsmiDeleteSelected";
+            this.tsmiDeleteSelected.Size = new System.Drawing.Size(154, 22);
+            this.tsmiDeleteSelected.Text = "Delete Selected";
+            this.tsmiDeleteSelected.Click += new System.EventHandler(this.tsmiDeleteSelected_Click);
+            // 
+            // tsmiDeleteAll
+            // 
+            this.tsmiDeleteAll.Name = "tsmiDeleteAll";
+            this.tsmiDeleteAll.Size = new System.Drawing.Size(154, 22);
+            this.tsmiDeleteAll.Text = "Delete All...";
+            this.tsmiDeleteAll.Click += new System.EventHandler(this.tsmiDeleteAll_Click);
             // 
             // panelDataTop
             // 
@@ -858,6 +887,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.numRecords)).EndInit();
             this.panelData.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.crmGridView)).EndInit();
+            this.contextMenuGridView.ResumeLayout(false);
             this.panelDataTop.ResumeLayout(false);
             this.panelDataTop.PerformLayout();
             this.groupDetails.ResumeLayout(false);
@@ -937,5 +967,8 @@
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator5;
         private System.Windows.Forms.ToolStripMenuItem buttonOpenLogRecord;
+        private System.Windows.Forms.ContextMenuStrip contextMenuGridView;
+        private System.Windows.Forms.ToolStripMenuItem tsmiDeleteSelected;
+        private System.Windows.Forms.ToolStripMenuItem tsmiDeleteAll;
     }
 }

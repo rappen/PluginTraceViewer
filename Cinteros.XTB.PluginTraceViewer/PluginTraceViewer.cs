@@ -12,12 +12,18 @@ using System.Windows.Forms;
 using System.Xml;
 using XrmToolBox.Extensibility;
 using XrmToolBox.Extensibility.Interfaces;
+using XrmToolBox.Extensibility.Args;
+using System.Threading.Tasks;
+using Microsoft.Xrm.Sdk.Messages;
 
 namespace Cinteros.XTB.PluginTraceViewer
 {
-    public partial class PluginTraceViewer : PluginControlBase, IGitHubPlugin, IMessageBusHost, IHelpPlugin, IPayPalPlugin
+    public partial class PluginTraceViewer : PluginControlBase, IGitHubPlugin, IMessageBusHost, IHelpPlugin, IPayPalPlugin, IStatusBarMessenger
     {
         private int lastRecordCount = 100;
+
+        private const int PAGE_SIZE = 1000;
+        private const int MAX_BATCH = 2;
 
         public PluginTraceViewer()
         {
@@ -41,6 +47,7 @@ namespace Cinteros.XTB.PluginTraceViewer
         }
 
         public event EventHandler<MessageBusEventArgs> OnOutgoingMessage;
+        public event EventHandler<StatusBarMessageEventArgs> SendMessageToStatusBar;
 
         public void OnIncomingMessage(MessageBusEventArgs message)
         {
@@ -651,6 +658,204 @@ namespace Cinteros.XTB.PluginTraceViewer
         private void crmGridView_RecordDoubleClick(object sender, CRMRecordEventArgs e)
         {
             OpenLogRecord();
+        }
+
+        private void tsmiDeleteSelected_Click(object sender, EventArgs e)
+        {
+            var menu = (ContextMenuStrip)((ToolStripDropDownItem)sender).GetCurrentParent();
+            var grid = (CRMGridView)menu?.SourceControl;
+            var entities = grid?.SelectedCellRecords?.Entities;
+
+            if (entities != null && entities.Count > 0)
+            {
+                Delete(Bundle(entities)).Start();
+
+                // Deleting log records from the list
+                var source = (EntityCollection)grid.DataSource;
+
+                foreach (var entity in entities)
+                {
+                    source.Entities.Remove(entity);
+                }
+
+                // Refresh unfortunately crashes with InvalidAsynchronousStateException "Target thread does not exist anymore
+                // grid.Refresh();
+                PopulateGrid(source);
+            }
+        }
+
+        private void tsmiDeleteAll_Click(object sender, EventArgs e)
+        {
+            var query = new QueryExpression("plugintracelog");
+            var batches = new List<ExecuteMultipleRequest>();
+            EntityCollection result = null;
+
+            do
+            {
+                query.PageInfo = new PagingInfo();
+
+                if (result != null)
+                {
+                    query.PageInfo.PagingCookie = result.PagingCookie;
+                }
+
+                // Getting all log records in the loop
+                result = Service.RetrieveMultiple(query);
+                batches.AddRange(Bundle(result.Entities));
+            } while (result.MoreRecords == true);
+
+            // Deleting log records
+            Delete(batches).Start();
+
+            var menu = (ContextMenuStrip)((ToolStripDropDownItem)sender).GetCurrentParent();
+            var grid = (CRMGridView)menu?.SourceControl;
+            var source = (EntityCollection)grid.DataSource;
+
+            // TODO: Prompt user - reload logs? Otherwise just clear the list
+            if (source != null)
+            {
+                source.Entities.Clear();
+
+                // Refresh unfortunately crashes with InvalidAsynchronousStateException "Target thread does not exist anymore
+                // grid.Refresh();
+                PopulateGrid(source);
+            }
+        }
+
+        private void contextMenuGridView_Opening(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            var menu = (ContextMenuStrip)sender;
+            var grid = (CRMGridView)menu?.SourceControl;
+            var entities = grid?.SelectedCellRecords?.Entities;
+
+            if (entities?.Count > 0)
+            {
+                // If there are records selected — enable 'Delete Selected' action
+                tsmiDeleteSelected.Enabled = true;
+            }
+            else
+            {
+                // If there are no records selected — disable 'Delete Selected' action
+                tsmiDeleteSelected.Enabled = false;
+            }
+        }
+
+        private void NotifyUser()
+        {
+            NotifyUser(string.Empty);
+        }
+
+        private void NotifyUser(string text)
+        {
+            Invoke(new Action(() =>
+            {
+                SendMessageToStatusBar(this, new StatusBarMessageEventArgs(text));
+            }));
+        }
+
+        private Task Delete(Entity entity)
+        {
+            return new Task(() =>
+            {
+                try
+                {
+                    NotifyUser($"Deleting log record id {entity.Id}...");
+                    Service.Delete(entity.LogicalName, entity.Id);
+                }
+                catch (Exception)
+                {
+                    // Hiding exception if something will go wrong
+                }
+                finally
+                {
+                    NotifyUser();
+                }
+            });
+        }
+
+        private Task Delete(ExecuteMultipleRequest batch)
+        {
+            return new Task(() =>
+            {
+                try
+                {
+                    NotifyUser($"Deleting {batch.Requests.Count} log records...");
+                    Service.Execute(batch);
+                }
+                catch (Exception)
+                {
+                    // Hiding exception if something will go wrong
+                }
+                finally
+                {
+                    NotifyUser();
+                }
+            });
+        }
+
+        private Task Delete(List<ExecuteMultipleRequest> batches)
+        {
+            var total = batches.Select(x => x.Requests.Count).Sum();
+
+            NotifyUser($"{total} records going to be deleted in {batches} batches...");
+
+            var tasks = new List<Task>();
+            foreach (var batch in batches)
+            {
+                tasks.Add(Delete(batch));
+            }
+
+            return new Task(async () =>
+            {
+                while (tasks.Count > 0)
+                {
+                    var number = MAX_BATCH - tasks.Count(x => x.Status == TaskStatus.Running);
+
+                    NotifyUser($"Statrting {number} new batches...");
+
+                    tasks.Where(x => x.Status == TaskStatus.Created).Take(number).ToList().ForEach(x => x.Start());
+
+                    await Task.WhenAny(tasks);
+
+                    foreach (var task in tasks.Where(x => x.Status == TaskStatus.RanToCompletion).ToList())
+                    {
+                        tasks.Remove(task);
+                    }
+                }
+
+                NotifyUser($"{total} log records was removed.");
+                await Task.Delay(10000);
+                NotifyUser();
+            });
+        }
+
+        private static List<ExecuteMultipleRequest> Bundle(IEnumerable<Entity> entities)
+        {
+            var result = new List<ExecuteMultipleRequest>();
+
+            for (var i = 0; i < Math.Ceiling((decimal)entities.Count() / PAGE_SIZE); i++)
+            {
+                var batch = new ExecuteMultipleRequest
+                {
+                    Requests = new OrganizationRequestCollection(),
+                    Settings = new ExecuteMultipleSettings()
+                };
+
+                foreach (var entity in entities.Skip(i * PAGE_SIZE).Take(PAGE_SIZE))
+                {
+                    batch.Requests.Add(new DeleteRequest
+                    {
+                        Target = entity.ToEntityReference()
+                    });
+                }
+
+                batch.Settings.ContinueOnError = true;
+                batch.Settings.ReturnResponses = false;
+
+                result.Add(batch);
+            }
+
+            return result;
         }
     }
 }
