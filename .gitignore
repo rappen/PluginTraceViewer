@@ -9,6 +9,7 @@
 /packages
 /tmp
 *.csproj.user
+*.orig
 
 *_BACKUP_*
 *_BASE_*
