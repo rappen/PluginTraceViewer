@@ -7,7 +7,7 @@
     <title>Plugin Trace Viewer for XrmToolBox</title>
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7"
-    crossorigin="anonymous">
+          crossorigin="anonymous">
 
     <link rel="stylesheet" href="stylesheets/styles.css">
     <link rel="stylesheet" href="stylesheets/pygment_trac.css">
@@ -199,15 +199,17 @@
                 <p>
                     <h4>Menu</h4>
                     <img src="images/PTV-menu.jpg">
-                    <br/>
+                    <br />
                     <ul>
-                        <li><strong>Open</strong>
+                        <li>
+                            <strong>Open</strong>
                             <ul>
                                 <li>saved filter to populate the filter options.</li>
                                 <li>selected log record (opened in CRM).</li>
                             </ul>
                         </li>
-                        <li><strong>Save</strong>
+                        <li>
+                            <strong>Save</strong>
                             <ul>
                                 <li>current filter to file.</li>
                                 <li>retrieved log records (serialized to XML).</li>
@@ -215,70 +217,75 @@
                         </li>
                         <li>
                             <strong>Retrieve Logs</strong>
-                            <br/> Retrieves trace log records using current filter.
+                            <br /> Retrieves trace log records using current filter.
                         </li>
                         <li>
                             <strong>Show (Hide) Filter</strong>
-                            <br/> Toggles section with filter options on / off.
+                            <br /> Toggles section with filter options on / off.
                         </li>
                         <li>
                             <strong>Refresh Filter Options</strong>
-                            <br/> Reloads constraints and options for filter criteria.
+                            <br /> Reloads constraints and options for filter criteria.
                         </li>
                     </ul>
 
                     <h4>Filter</h4>
                     <img src="images/PTV-filter.jpg">
-                    <br/>
+                    <br />
                     <ul>
-                        <li><strong>Date From/To</strong>
-                            <br/> Defines first and last dates of log records to retrieve.
-                            <br/><em>Note! All times in UTC!</em>
+                        <li>
+                            <strong>Date From/To</strong>
+                            <br /> Defines first and last dates of log records to retrieve.
+                            <br /><em>Note! All times in UTC!</em>
                         </li>
-                        <li><strong>Plugin</strong>
-                            <br/>Filter by plugin class name.
-                            <br/>Wildcards allowed in beginning and end of name.
-                            <br/>Several names are specified with separating commas.
+                        <li>
+                            <strong>Plugin</strong>
+                            <br />Filter by plugin class name.
+                            <br />Wildcards allowed in beginning and end of name.
+                            <br />Several names are specified with separating commas.
                         </li>
                         <li>
                             <strong>Message</strong>
-                            <br/> Filter by message name.
+                            <br /> Filter by message name.
                         </li>
-                        <li><strong>Entity</strong>
-                            <br/>Filter by entity logical name.
-                            <br/>Wildcards allowed in beginning and end of name.
-                            <br/>Several names are specified with separating commas.
+                        <li>
+                            <strong>Entity</strong>
+                            <br />Filter by entity logical name.
+                            <br />Wildcards allowed in beginning and end of name.
+                            <br />Several names are specified with separating commas.
                         </li>
                         <li>
                             <strong>Exceptions only</strong>
-                            <br/> Check this to only return logs with exceptions.
+                            <br /> Check this to only return logs with exceptions.
                         </li>
                         <li>
                             <strong>Mode</strong>
-                            <br/> Select which modes to return.
+                            <br /> Select which modes to return.
                         </li>
                         <li>
                             <strong>Duration Min/Max</strong>
-                            <br/> This can be used to e.g. filter long running plugins.
+                            <br /> This can be used to e.g. filter long running plugins.
                         </li>
                         <li>
                             <strong>Records</strong>
-                            <br/> Defines max number of records to return.
+                            <br /> Defines max number of records to return.
                         </li>
                     </ul>
                     <em>Note! Logs are always retrieve sorted by created date descending, so newest records will be at the top of the list.</em>
 
                     <h4>Filter</h4>
                     <img src="images/PTV-grid.jpg">
-                    <br/> The table displays trace log records according to the filter.
-                    <br/> Double click a record to open it in CRM.
-                    <br/> Right click to delete selected or all returned records.
+                    <br /> The table displays trace log records according to the filter.
+                    <br /> Double click a record to open it in CRM.
+                    <br /> Right click to delete selected or all returned records.
                 </p>
                 <h3>
                     <a id="gitter" class="anchor" href="#gitter" aria-hidden="true"><span class="octicon octicon-link"></span></a>Discussion
                 </h3>
-                <p>Click <strong>OPEN CHAT</strong> in the bottom right corner of this web page to ask questions, give feedback,
-                    or simply to join the discussion!</p>
+                <p>
+                    Click <strong>OPEN CHAT</strong> in the bottom right corner of this web page to ask questions, give feedback,
+                    or simply to join the discussion!
+                </p>
                 <div id="gitter_sidecar">
                     <script>
                         ((window.gitter = {}).chat = {}).options = {
@@ -292,13 +299,13 @@
                 </h3>
                 <p>
                     FetchXML Builder can be found here: <a href="http://fxb.xrmtoolbox.com">http://fxb.xrmtoolbox.com</a>.
-                    <br/> Me and some other colleagues at <strong>Innofactor</strong> have developed a few other cool plugins
+                    <br /> Me and some other colleagues at <strong>Innofactor</strong> have developed a few other cool plugins
                     for XrmToolBox.
                     <br /> Have a look at these here: <a href="http://cinteros.xrmtoolbox.com">http://cinteros.xrmtoolbox.com</a>.
                 </p>
                 <hr />
                 <img src="http://s11.flagcounter.com/count2/hbd/bg_FFFFFF/txt_000000//border_D4D4D4/columns_5/maxflags_250/viewers_PTV+fan+base/labels_1/pageviews_0/flags_0/"
-                alt="Flag Counter" border="0">
+                     alt="Flag Counter" border="0">
                 <script>
                     (function (i, s, o, g, r, a, m) {
                         i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
@@ -399,10 +406,10 @@
         <footer>
             <p>
                 <iframe src="https://ghbtns.com/github-btn.html?user=Innofactor&repo=XrmToolBox.PluginTraceViewer&type=star&count=true" frameborder="0"
-                scrolling="0" width="100px" height="20px"></iframe>
+                        scrolling="0" width="100px" height="20px"></iframe>
                 <span id="gazers"></span>
                 <iframe src="https://ghbtns.com/github-btn.html?user=Innofactor&repo=XrmToolBox.PluginTraceViewer&type=watch&count=true&v=2"
-                frameborder="0" scrolling="0" width="100px" height="20px"></iframe>
+                        frameborder="0" scrolling="0" width="100px" height="20px"></iframe>
                 <span id="watchers"></span>
                 <!--<iframe src="https://ghbtns.com/github-btn.html?user=Innofactor&repo=XrmToolBox.PluginTraceViewer&type=fork&count=true" frameborder="0" scrolling="0" width="100px" height="20px"></iframe>-->
             </p>
