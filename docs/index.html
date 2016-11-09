@@ -26,10 +26,7 @@
         var GH_USER = "Innofactor";
         var GH_REPO = "XrmToolBox.PluginTraceViewer";
         var NUGET_PACKAGE = "Cinteros.XrmToolBox.PluginTraceViewer";
-        var nugetInfo = null;
-        var githubInfo = null;
         var nugetLoading = false;
-        var githubLoading = false;
         var versionInfo = null;
 
         var releasenotesshowing = false;
@@ -46,8 +43,6 @@
 
         UpdateRelease = function () {
             if (!nugetLoading) {
-                nugetInfo = null;
-                githubInfo = null;
                 nugetLoading = true;
                 $("#latest-version").text("Loading stats...");
                 $("#latest-published").text("...from NuGet");
@@ -62,27 +57,9 @@
         }
 
         NuGetInfoRetrieved = function (info) {
-            nugetInfo = info;
-            if (githubInfo) {
-                var details = CombineDetails(nugetInfo, githubInfo, true);
-                PrintVersionInfo(details);
-            }
-            else if (!githubLoading) {
-                githubLoading = true;
-                $("#latest-version").text("Loading stats...");
-                $("#latest-published").text("...from GitHub");
-                GitHubGetDetails(GH_USER, GH_REPO, GitHubInfoRetrieved, InfoLoadError);
-            }
+            versionInfo = info;
+            PrintVersionInfo(versionInfo);
             nugetLoading = false;
-        }
-
-        GitHubInfoRetrieved = function (info) {
-            githubInfo = info;
-            if (nugetInfo) {
-                versionInfo = CombineDetails(nugetInfo, githubInfo, true);
-                PrintVersionInfo(versionInfo);
-            }
-            githubLoading = false;
         }
 
         InfoLoadError = function (xhr, options, error) {
@@ -111,7 +88,7 @@
         }
 
         PrintHistoryInfo = function (info, callback) {
-            var counttext = "<u>Version&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Count&nbsp;&nbsp;Released</u><br />";
+            var counttext = "";
             $(info.versions).each(function (index) {
                 var link = "";
                 if (this.url) {
@@ -132,9 +109,9 @@
                     date = "&nbsp;&nbsp;<em>" + this.host + "</em>";
                 }
                 var count = this.downloads;
-                counttext += tag + " <strong>" + count.padLeft(5, '&nbsp;') + "</strong>" + date + "<br/>";
+                counttext = tag + " <strong>" + count.padLeft(5, '&nbsp;') + "</strong>" + date + "<br/>" + counttext;
             });
-            counttext += "";
+            counttext = "<u>Version&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Count&nbsp;&nbsp;Released</u><br />" + counttext;
             $("#hist-downloads").html(counttext);
             if (callback) {
                 callback();
@@ -328,7 +305,7 @@
                             (i[r].q = i[r].q || []).push(arguments)
                         }, i[r].l = 1 * new Date(); a = s.createElement(o),
                         m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m)
-                    })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+                    })(window, document, 'script', 'http://www.google-analytics.com/analytics.js', 'ga');
                     ga('create', 'UA-41153925-5', 'auto');
                     ga('send', 'pageview');
                 </script>
@@ -350,10 +327,8 @@
             </div>
             <div class="col-xs-12 col-sm-12 col-lg-3">
                 <div>
-                    <hr /> From the April 2016 release of XrmToolBox, download of plugins is handled in the built-in Plugin Store.
-                    <br /> Run <a href="http://www.xrmtoolbox.com">XrmToolBox</a> and open the Plugin Store to get the latest version
+                    <hr /> Run <a href="http://www.xrmtoolbox.com">XrmToolBox</a> and open the Plugin Store to get the latest version
                     of Plugin Trace Viewer!
-                    <br /> Older versions can be downloaded by expanding the Downloads below.
                     <br />
                     <br />
                 </div>
@@ -433,12 +408,13 @@
             </p>
             <p>
                 <ul>
-                    <li><a href="https://github.com/Innofactor/XrmToolBox.PluginTraceViewer">View on <strong>GitHub</strong></a></li>
                     <li><a href="https://github.com/Innofactor/XrmToolBox.PluginTraceViewer/issues">Go to <strong>Issues</strong></a></li>
+                    <li><a href="https://github.com/Innofactor/XrmToolBox.PluginTraceViewer">View on <strong>GitHub</strong></a></li>
+                    <li><a href="https://www.nuget.org/packages/Cinteros.XrmToolBox.PluginTraceViewer/">View on <strong>NuGet</strong></a></li>
                 </ul>
             </p>
             <p>
-                <a href="http://www.innofactor.se" target="_blank" title="Innofactor AB"><img src="images/Innofactor-square-032.png" width="30" height="30" /></a>&nbsp;
+                <a href="http://www.innofactor.se" target="_blank" title="Innofactor AB"><img src="images/InnofactorPurpleSquare032.png" width="30" height="30" /></a>&nbsp;
                 <a href="http://jonasrapp.cinteros.se" target="_blank" title="Jonas Rapp blog"><img src="images/blogger.png" width="30" height="30" /></a>&nbsp;
                 <a href="http://twitter.com/rappen" target="_blank" title="Jonas Rapp on Twitter"><img src="images/twitter.png" width="30" height="30" /></a>&nbsp;
             </p>
