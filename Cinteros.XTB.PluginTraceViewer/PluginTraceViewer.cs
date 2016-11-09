@@ -30,7 +30,7 @@ namespace Cinteros.XTB.PluginTraceViewer
             InitializeComponent();
         }
 
-        public string HelpUrl { get { return "https://github.com/Innofactor/XrmToolBox.PluginTraceViewer"; } }
+        public string HelpUrl { get { return "http://ptv.xrmtoolbox.com"; } }
 
         public string RepositoryName { get { return "XrmToolBox.PluginTraceViewer"; } }
 

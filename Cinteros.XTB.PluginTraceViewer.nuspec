@@ -6,7 +6,7 @@
     <title>Plug-in Trace Viewer</title>
     <authors>Jonas Rapp, Innofactor AB</authors>
     <owners>Innofactor</owners>
-    <projectUrl>http://cinteros.xrmtoolbox.com</projectUrl>
+    <projectUrl>http://ptv.xrmtoolbox.com</projectUrl>
     <iconUrl>http://rappen.net/Cinteros/PTV-if.png</iconUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>Investigate the Plug-in Trace Log with easy filtering and display possibilities</description>
