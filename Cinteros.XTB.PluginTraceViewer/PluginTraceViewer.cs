@@ -63,23 +63,37 @@ namespace Cinteros.XTB.PluginTraceViewer
                 "About Plugin Trace Viewer", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
+        private void AlertError(string msg, string capt)
+        {
+            LogError(msg);
+            MessageBox.Show(msg, capt, MessageBoxButtons.OK, MessageBoxIcon.Error);
+        }
+
         private void PluginTraceViewer_ConnectionUpdated(object sender, ConnectionUpdatedEventArgs e)
         {
+            PTVFilter settings;
+            if (SettingsManager.Instance.TryLoad(typeof(PluginTraceViewer), out settings, e?.ConnectionDetail?.ConnectionName))
+            {
+                ApplyFilter(settings);
+            }
             if (crmGridView.DataSource != null)
             {
                 crmGridView.DataSource = null;
             }
             var orgver = new Version(e.ConnectionDetail.OrganizationVersion);
+            LogInfo("Connected CRM version: {0}", orgver);
             var orgok = orgver >= new Version(7, 1);
             crmGridView.OrganizationService = orgok ? e.Service : null;
             buttonRetrieveLogs.Enabled = orgok;
             buttonRefreshFilter.Enabled = orgok;
             if (orgok)
             {
+                LogInfo("Loading constraints");
                 LoadConstraints();
             }
             else
             {
+                LogError("CRM version too old for PTV");
                 MessageBox.Show("Plug-in Trace Log was introduced in\nMicrosoft Dynamics CRM 2015 Update 1 (7.1.0.0)\n\nPlease connect to a newer organization to use this cool tool.", "Organization too old", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
@@ -91,32 +105,33 @@ namespace Cinteros.XTB.PluginTraceViewer
                 dateFrom.MinDate = datemin;
                 dateFrom.Value = datemin;
                 dateTo.MinDate = datemin;
-                GetDateConstraint("max", (datemax) =>
-                {
-                    dateFrom.MaxDate = datemax;
-                    dateTo.MaxDate = datemax;
-                    dateTo.Value = datemax;
-                    GetPlugins((pluginlist) =>
-                    {
-                        comboPlugin.Items.Clear();
-                        comboPlugin.Items.AddRange(pluginlist.ToArray());
-                        GetMessages((messagelist) =>
-                        {
-                            comboMessage.Items.Clear();
-                            comboMessage.Items.AddRange(messagelist.ToArray());
-                            GetEntities((entitylist) =>
-                            {
-                                comboEntity.Items.Clear();
-                                comboEntity.Items.AddRange(entitylist.ToArray());
-                            });
-                        });
-                    });
-                });
+            });
+            GetDateConstraint("max", (datemax) =>
+            {
+                dateFrom.MaxDate = datemax;
+                dateTo.MaxDate = datemax;
+                dateTo.Value = datemax;
+            });
+            GetPlugins((pluginlist) =>
+            {
+                comboPlugin.Items.Clear();
+                comboPlugin.Items.AddRange(pluginlist.ToArray());
+            });
+            GetMessages((messagelist) =>
+            {
+                comboMessage.Items.Clear();
+                comboMessage.Items.AddRange(messagelist.ToArray());
+            });
+            GetEntities((entitylist) =>
+            {
+                comboEntity.Items.Clear();
+                comboEntity.Items.AddRange(entitylist.ToArray());
             });
         }
 
         private void GetPlugins(Action<List<string>> callback)
         {
+            LogInfo("GetPlugins");
             var QEplugintracelog = new QueryExpression("plugintracelog");
             QEplugintracelog.Distinct = true;
             QEplugintracelog.ColumnSet.AddColumns("typename");
@@ -131,12 +146,13 @@ namespace Cinteros.XTB.PluginTraceViewer
                 {
                     if (args.Error != null)
                     {
-                        MessageBox.Show($"Failed to load plugin types:\n{args.Error.Message}", "Load", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        AlertError($"Failed to load plugin types:\n{args.Error.Message}", "Load");
                     }
                     else if (args.Result is EntityCollection)
                     {
                         var entities = ((EntityCollection)args.Result).Entities;
                         var plugins = entities.Where(e => e.Attributes.Contains("typename")).Select(e => e.Attributes["typename"].ToString()).ToList();
+                        LogInfo("GetPlugins = {0}", plugins.Count);
                         callback(plugins);
                     }
                 }
@@ -146,6 +162,7 @@ namespace Cinteros.XTB.PluginTraceViewer
 
         private void GetMessages(Action<List<string>> callback)
         {
+            LogInfo("GetMessages");
             var QEplugintracelog = new QueryExpression("plugintracelog");
             QEplugintracelog.Distinct = true;
             QEplugintracelog.ColumnSet.AddColumns("messagename");
@@ -160,12 +177,13 @@ namespace Cinteros.XTB.PluginTraceViewer
                 {
                     if (args.Error != null)
                     {
-                        MessageBox.Show($"Failed to load messages:\n{args.Error.Message}", "Load", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        AlertError($"Failed to load messages:\n{args.Error.Message}", "Load");
                     }
                     else if (args.Result is EntityCollection)
                     {
                         var entities = ((EntityCollection)args.Result).Entities;
                         var messages = entities.Where(e => e.Attributes.Contains("messagename")).Select(e => e.Attributes["messagename"].ToString()).ToList();
+                        LogInfo("GetMessages = {0}", messages.Count);
                         callback(messages);
                     }
                 }
@@ -175,6 +193,7 @@ namespace Cinteros.XTB.PluginTraceViewer
 
         private void GetEntities(Action<List<string>> callback)
         {
+            LogInfo("GetEntities");
             var QEplugintracelog = new QueryExpression("plugintracelog");
             QEplugintracelog.Distinct = true;
             QEplugintracelog.ColumnSet.AddColumns("primaryentity");
@@ -189,12 +208,13 @@ namespace Cinteros.XTB.PluginTraceViewer
                 {
                     if (args.Error != null)
                     {
-                        MessageBox.Show($"Failed to load entities:\n{args.Error.Message}", "Load", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        AlertError($"Failed to load entities:\n{args.Error.Message}", "Load");
                     }
                     else if (args.Result is EntityCollection)
                     {
                         var entities = ((EntityCollection)args.Result).Entities;
                         var entitylist = entities.Where(e => e.Attributes.Contains("primaryentity")).Select(e => e.Attributes["primaryentity"].ToString()).ToList();
+                        LogInfo("GetEntities = {0}", entitylist.Count);
                         callback(entitylist);
                     }
                 }
@@ -204,6 +224,7 @@ namespace Cinteros.XTB.PluginTraceViewer
 
         private void GetDateConstraint(string aggregate, Action<DateTime> callback)
         {
+            LogInfo("GetDateConstraint {0}", aggregate);
             var date = DateTime.Today;
             var fetch = $"<fetch aggregate='true'><entity name='plugintracelog'><attribute name='createdon' alias='created' aggregate='{aggregate}'/></entity></fetch>";
             var asyncinfo = new WorkAsyncInfo()
@@ -217,7 +238,7 @@ namespace Cinteros.XTB.PluginTraceViewer
                 {
                     if (args.Error != null)
                     {
-                        MessageBox.Show($"Failed to load date constraints:\n{args.Error.Message}", "Load", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        AlertError($"Failed to load date constraints:\n{args.Error.Message}", "Load");
                     }
                     else if (args.Result is EntityCollection && ((EntityCollection)args.Result).Entities.Count > 0)
                     {
@@ -228,6 +249,7 @@ namespace Cinteros.XTB.PluginTraceViewer
                             if (created.Value is DateTime)
                             {
                                 date = (DateTime)created.Value;
+                                LogInfo("GetDateConstraint {0} = {1}", aggregate, date);
                                 callback(date);
                             }
                         }
@@ -322,13 +344,14 @@ namespace Cinteros.XTB.PluginTraceViewer
                     Message = "Loading trace log records",
                     Work = (a, args) =>
                     {
+                        LogInfo("Loading logs");
                         args.Result = Service.RetrieveMultiple(QEplugintracelog);
                     },
                     PostWorkCallBack = (args) =>
                     {
                         if (args.Error != null)
                         {
-                            MessageBox.Show($"Failed to load trace logs:\n{args.Error.Message}", "Load", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            AlertError($"Failed to load trace logs:\n{args.Error.Message}", "Load");
                         }
                         else if (args.Result is EntityCollection)
                         {
@@ -347,6 +370,7 @@ namespace Cinteros.XTB.PluginTraceViewer
 
         private void PopulateGrid(EntityCollection results)
         {
+            LogInfo("PopulateGrid with {0} logs", results.Entities.Count);
             var asyncinfo = new WorkAsyncInfo()
             {
                 Message = "Populating result view",
@@ -368,7 +392,7 @@ namespace Cinteros.XTB.PluginTraceViewer
                 {
                     if (args.Error != null)
                     {
-                        MessageBox.Show($"Failed to populate result view:\n{args.Error.Message}", "Load", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        AlertError($"Failed to populate result view:\n{args.Error.Message}", "Load");
                     }
                 }
             };
@@ -412,6 +436,7 @@ namespace Cinteros.XTB.PluginTraceViewer
                 var url = GetEntityReferenceUrl(firstselected.ToEntityReference());
                 if (!string.IsNullOrEmpty(url))
                 {
+                    LogInfo("Opening record: {0}", url);
                     Process.Start(url);
                 }
             }
@@ -501,8 +526,8 @@ namespace Cinteros.XTB.PluginTraceViewer
 
         private void buttonShowHideFilter_Click(object sender, EventArgs e)
         {
-            buttonShowHideFilter.Text = buttonShowHideFilter.Checked ? "Hide Filter" : "Show Filter";
-            groupFilter.Visible = buttonShowHideFilter.Checked;
+            buttonShowHideFilter.Text = buttonShowHideFilter.Checked ? "Show Filter" : "Hide Filter";
+            groupFilter.Visible = !buttonShowHideFilter.Checked;
         }
 
         private void buttonRefreshFilter_Click(object sender, EventArgs e)
@@ -557,8 +582,24 @@ namespace Cinteros.XTB.PluginTraceViewer
 
         private void SaveFilter()
         {
-            var filter = new PTVFilter
+            PTVFilter filter = GetFilter();
+            var sfd = new SaveFileDialog
             {
+                Title = "Select a location to save the filter",
+                Filter = "XML file (*.xml)|*.xml"
+            };
+            if (sfd.ShowDialog() == DialogResult.OK && !string.IsNullOrEmpty(sfd.FileName))
+            {
+                XmlSerializerHelper.SerializeToFile(filter, sfd.FileName);
+                MessageBox.Show(this, "Filter saved!", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+        }
+
+        private PTVFilter GetFilter()
+        {
+            return new PTVFilter
+            {
+                FilterHidden = !groupFilter.Visible,
                 DateFrom = checkDateFrom.Checked ? dateFrom.Value : DateTime.MinValue,
                 DateTo = checkDateTo.Checked ? dateTo.Value : DateTime.MinValue,
                 Plugin = chkPlugin.Checked ? comboPlugin.Text : string.Empty,
@@ -570,16 +611,6 @@ namespace Cinteros.XTB.PluginTraceViewer
                 MaxDuration = chkDurationMax.Checked ? (int)numDurationMax.Value : -1,
                 Records = chkRecords.Checked ? (int)numRecords.Value : -1
             };
-            var sfd = new SaveFileDialog
-            {
-                Title = "Select a location to save the filter",
-                Filter = "XML file (*.xml)|*.xml"
-            };
-            if (sfd.ShowDialog() == DialogResult.OK && !string.IsNullOrEmpty(sfd.FileName))
-            {
-                XmlSerializerHelper.SerializeToFile(filter, sfd.FileName);
-                MessageBox.Show(this, "Filter saved!", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            }
         }
 
         private void buttonOpenFilter_Click(object sender, EventArgs e)
@@ -601,53 +632,64 @@ namespace Cinteros.XTB.PluginTraceViewer
                 {
                     document.Load(ofd.FileName);
                     var filter = (PTVFilter)XmlSerializerHelper.Deserialize(document.OuterXml, typeof(PTVFilter));
-                    checkDateFrom.Checked = !filter.DateFrom.Equals(DateTime.MinValue);
-                    if (checkDateFrom.Checked)
-                    {
-                        dateFrom.Value = filter.DateFrom;
-                    }
-                    checkDateTo.Checked = !filter.DateTo.Equals(DateTime.MinValue);
-                    if (checkDateTo.Checked)
-                    {
-                        dateTo.Value = filter.DateTo;
-                    }
-                    chkPlugin.Checked = !string.IsNullOrEmpty(filter.Plugin);
-                    comboPlugin.Text = filter.Plugin;
-                    chkMessage.Checked = !string.IsNullOrEmpty(filter.Message);
-                    comboMessage.SelectedIndex = comboMessage.Items.IndexOf(filter.Message);
-                    chkEntity.Checked = !string.IsNullOrEmpty(filter.Entity);
-                    comboEntity.Text = filter.Entity;
-                    chkExceptions.Checked = filter.Exceptions;
-                    switch (filter.Mode)
-                    {
-                        case 1:
-                            rbModeSync.Checked = true;
-                            break;
-                        case 2:
-                            rbModeAsync.Checked = true;
-                            break;
-                        default:
-                            rbModeAll.Checked = true;
-                            break;
-                    }
-                    chkDurationMin.Checked = filter.MinDuration > -1;
-                    if (chkDurationMin.Checked)
-                    {
-                        numDurationMin.Value = filter.MinDuration;
-                    }
-                    chkDurationMax.Checked = filter.MaxDuration > -1;
-                    if (chkDurationMax.Checked)
-                    {
-                        numDurationMax.Value = filter.MaxDuration;
-                    }
-                    chkRecords.Checked = filter.Records > -1;
-                    if (chkRecords.Checked)
-                    {
-                        numRecords.Value = filter.Records;
-                    }
+                    ApplyFilter(filter);
                     MessageBox.Show(this, "Filter loaded!", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
-                catch { }
+                catch (Exception ex)
+                {
+                    LogError("Fatal error at OpenFilter:\n{0}", ex.Message);
+                }
+            }
+        }
+
+        private void ApplyFilter(PTVFilter filter)
+        {
+            groupFilter.Visible = !filter.FilterHidden;
+            buttonShowHideFilter.Checked = !groupFilter.Visible;
+            buttonShowHideFilter.Text = buttonShowHideFilter.Checked ? "Show Filter" : "Hide Filter";
+            checkDateFrom.Checked = !filter.DateFrom.Equals(DateTime.MinValue);
+            if (checkDateFrom.Checked)
+            {
+                dateFrom.Value = filter.DateFrom;
+            }
+            checkDateTo.Checked = !filter.DateTo.Equals(DateTime.MinValue);
+            if (checkDateTo.Checked)
+            {
+                dateTo.Value = filter.DateTo;
+            }
+            chkPlugin.Checked = !string.IsNullOrEmpty(filter.Plugin);
+            comboPlugin.Text = filter.Plugin;
+            chkMessage.Checked = !string.IsNullOrEmpty(filter.Message);
+            comboMessage.SelectedIndex = comboMessage.Items.IndexOf(filter.Message);
+            chkEntity.Checked = !string.IsNullOrEmpty(filter.Entity);
+            comboEntity.Text = filter.Entity;
+            chkExceptions.Checked = filter.Exceptions;
+            switch (filter.Mode)
+            {
+                case 1:
+                    rbModeSync.Checked = true;
+                    break;
+                case 2:
+                    rbModeAsync.Checked = true;
+                    break;
+                default:
+                    rbModeAll.Checked = true;
+                    break;
+            }
+            chkDurationMin.Checked = filter.MinDuration > -1;
+            if (chkDurationMin.Checked)
+            {
+                numDurationMin.Value = filter.MinDuration;
+            }
+            chkDurationMax.Checked = filter.MaxDuration > -1;
+            if (chkDurationMax.Checked)
+            {
+                numDurationMax.Value = filter.MaxDuration;
+            }
+            chkRecords.Checked = filter.Records > -1;
+            if (chkRecords.Checked)
+            {
+                numRecords.Value = filter.Records;
             }
         }
 
@@ -783,9 +825,10 @@ namespace Cinteros.XTB.PluginTraceViewer
                     NotifyUser($"Deleting {batch.Requests.Count} log records...");
                     Service.Execute(batch);
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
                     // Hiding exception if something will go wrong
+                    LogError("Fatal error at Delete(batch):\n{0}", ex.Message);
                 }
                 finally
                 {
@@ -857,6 +900,12 @@ namespace Cinteros.XTB.PluginTraceViewer
             }
 
             return result;
+        }
+
+        private void PluginTraceViewer_OnCloseTool(object sender, EventArgs e)
+        {
+            var setting = GetFilter();
+            SettingsManager.Instance.Save(typeof(PluginTraceViewer), setting, ConnectionDetail?.ConnectionName);
         }
     }
 }

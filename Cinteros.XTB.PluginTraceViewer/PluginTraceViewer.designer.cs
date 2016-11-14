@@ -266,9 +266,7 @@
             // 
             // buttonShowHideFilter
             // 
-            this.buttonShowHideFilter.Checked = true;
             this.buttonShowHideFilter.CheckOnClick = true;
-            this.buttonShowHideFilter.CheckState = System.Windows.Forms.CheckState.Checked;
             this.buttonShowHideFilter.Image = ((System.Drawing.Image)(resources.GetObject("buttonShowHideFilter.Image")));
             this.buttonShowHideFilter.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.buttonShowHideFilter.Name = "buttonShowHideFilter";
@@ -795,7 +793,7 @@
             this.splitContainerRight.Panel2.Controls.Add(this.panelExceptionLabel);
             this.splitContainerRight.Panel2MinSize = 23;
             this.splitContainerRight.Size = new System.Drawing.Size(472, 455);
-            this.splitContainerRight.SplitterDistance = 266;
+            this.splitContainerRight.SplitterDistance = 258;
             this.splitContainerRight.SplitterWidth = 8;
             this.splitContainerRight.TabIndex = 12;
             // 
@@ -810,7 +808,7 @@
             this.textMessage.Name = "textMessage";
             this.textMessage.ReadOnly = true;
             this.textMessage.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.textMessage.Size = new System.Drawing.Size(472, 241);
+            this.textMessage.Size = new System.Drawing.Size(472, 233);
             this.textMessage.TabIndex = 10;
             this.textMessage.WordWrap = false;
             // 
@@ -833,7 +831,7 @@
             this.textException.Name = "textException";
             this.textException.ReadOnly = true;
             this.textException.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.textException.Size = new System.Drawing.Size(472, 156);
+            this.textException.Size = new System.Drawing.Size(472, 164);
             this.textException.TabIndex = 6;
             this.textException.WordWrap = false;
             // 
@@ -885,6 +883,7 @@
             this.Controls.Add(this.toolStripMain);
             this.Name = "PluginTraceViewer";
             this.Size = new System.Drawing.Size(1077, 480);
+            this.OnCloseTool += new System.EventHandler(this.PluginTraceViewer_OnCloseTool);
             this.ConnectionUpdated += new XrmToolBox.Extensibility.PluginControlBase.ConnectionUpdatedHandler(this.PluginTraceViewer_ConnectionUpdated);
             this.toolStripMain.ResumeLayout(false);
             this.toolStripMain.PerformLayout();
