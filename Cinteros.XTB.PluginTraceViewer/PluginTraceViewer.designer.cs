@@ -38,9 +38,11 @@
             this.buttonOpenFilter = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
             this.buttonOpenLogRecord = new System.Windows.Forms.ToolStripMenuItem();
+            this.buttonOpenFXB = new System.Windows.Forms.ToolStripMenuItem();
             this.dropdownSave = new System.Windows.Forms.ToolStripDropDownButton();
             this.buttonSaveFilter = new System.Windows.Forms.ToolStripMenuItem();
             this.buttonSaveLogs = new System.Windows.Forms.ToolStripMenuItem();
+            this.buttonSaveQuery = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
             this.buttonRetrieveLogs = new System.Windows.Forms.ToolStripButton();
             this.toolStripDropDownButton1 = new System.Windows.Forms.ToolStripDropDownButton();
@@ -172,7 +174,8 @@
             this.buttonOpen.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.buttonOpenFilter,
             this.toolStripSeparator5,
-            this.buttonOpenLogRecord});
+            this.buttonOpenLogRecord,
+            this.buttonOpenFXB});
             this.buttonOpen.Image = ((System.Drawing.Image)(resources.GetObject("buttonOpen.Image")));
             this.buttonOpen.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.buttonOpen.Name = "buttonOpen";
@@ -182,28 +185,36 @@
             // buttonOpenFilter
             // 
             this.buttonOpenFilter.Name = "buttonOpenFilter";
-            this.buttonOpenFilter.Size = new System.Drawing.Size(217, 22);
+            this.buttonOpenFilter.Size = new System.Drawing.Size(224, 22);
             this.buttonOpenFilter.Text = "Filter...";
             this.buttonOpenFilter.Click += new System.EventHandler(this.buttonOpenFilter_Click);
             // 
             // toolStripSeparator5
             // 
             this.toolStripSeparator5.Name = "toolStripSeparator5";
-            this.toolStripSeparator5.Size = new System.Drawing.Size(214, 6);
+            this.toolStripSeparator5.Size = new System.Drawing.Size(221, 6);
             // 
             // buttonOpenLogRecord
             // 
             this.buttonOpenLogRecord.Enabled = false;
             this.buttonOpenLogRecord.Name = "buttonOpenLogRecord";
-            this.buttonOpenLogRecord.Size = new System.Drawing.Size(217, 22);
+            this.buttonOpenLogRecord.Size = new System.Drawing.Size(224, 22);
             this.buttonOpenLogRecord.Text = "Selected log record in CRM";
             this.buttonOpenLogRecord.Click += new System.EventHandler(this.buttonOpenLogRecord_Click);
+            // 
+            // buttonOpenFXB
+            // 
+            this.buttonOpenFXB.Name = "buttonOpenFXB";
+            this.buttonOpenFXB.Size = new System.Drawing.Size(224, 22);
+            this.buttonOpenFXB.Text = "Query in FetchXML Builder...";
+            this.buttonOpenFXB.Click += new System.EventHandler(this.buttonOpenFXB_Click);
             // 
             // dropdownSave
             // 
             this.dropdownSave.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.buttonSaveFilter,
-            this.buttonSaveLogs});
+            this.buttonSaveLogs,
+            this.buttonSaveQuery});
             this.dropdownSave.Image = ((System.Drawing.Image)(resources.GetObject("dropdownSave.Image")));
             this.dropdownSave.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.dropdownSave.Name = "dropdownSave";
@@ -213,16 +224,23 @@
             // buttonSaveFilter
             // 
             this.buttonSaveFilter.Name = "buttonSaveFilter";
-            this.buttonSaveFilter.Size = new System.Drawing.Size(109, 22);
+            this.buttonSaveFilter.Size = new System.Drawing.Size(152, 22);
             this.buttonSaveFilter.Text = "Filter...";
             this.buttonSaveFilter.Click += new System.EventHandler(this.buttonSaveFilter_Click);
             // 
             // buttonSaveLogs
             // 
             this.buttonSaveLogs.Name = "buttonSaveLogs";
-            this.buttonSaveLogs.Size = new System.Drawing.Size(109, 22);
+            this.buttonSaveLogs.Size = new System.Drawing.Size(152, 22);
             this.buttonSaveLogs.Text = "Logs...";
             this.buttonSaveLogs.Click += new System.EventHandler(this.buttonSaveLogs_Click);
+            // 
+            // buttonSaveQuery
+            // 
+            this.buttonSaveQuery.Name = "buttonSaveQuery";
+            this.buttonSaveQuery.Size = new System.Drawing.Size(152, 22);
+            this.buttonSaveQuery.Text = "Query...";
+            this.buttonSaveQuery.Click += new System.EventHandler(this.buttonSaveQuery_Click);
             // 
             // toolStripSeparator3
             // 
@@ -793,7 +811,7 @@
             this.splitContainerRight.Panel2.Controls.Add(this.panelExceptionLabel);
             this.splitContainerRight.Panel2MinSize = 23;
             this.splitContainerRight.Size = new System.Drawing.Size(472, 455);
-            this.splitContainerRight.SplitterDistance = 258;
+            this.splitContainerRight.SplitterDistance = 250;
             this.splitContainerRight.SplitterWidth = 8;
             this.splitContainerRight.TabIndex = 12;
             // 
@@ -808,7 +826,7 @@
             this.textMessage.Name = "textMessage";
             this.textMessage.ReadOnly = true;
             this.textMessage.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.textMessage.Size = new System.Drawing.Size(472, 233);
+            this.textMessage.Size = new System.Drawing.Size(472, 225);
             this.textMessage.TabIndex = 10;
             this.textMessage.WordWrap = false;
             // 
@@ -831,7 +849,7 @@
             this.textException.Name = "textException";
             this.textException.ReadOnly = true;
             this.textException.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.textException.Size = new System.Drawing.Size(472, 164);
+            this.textException.Size = new System.Drawing.Size(472, 172);
             this.textException.TabIndex = 6;
             this.textException.WordWrap = false;
             // 
@@ -987,5 +1005,7 @@
         private System.Windows.Forms.TextBox textException;
         private System.Windows.Forms.Panel panelMessageLabel;
         private System.Windows.Forms.SplitContainer splitContainerMain;
+        private System.Windows.Forms.ToolStripMenuItem buttonOpenFXB;
+        private System.Windows.Forms.ToolStripMenuItem buttonSaveQuery;
     }
 }

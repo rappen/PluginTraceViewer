@@ -15,6 +15,7 @@ using XrmToolBox.Extensibility.Interfaces;
 using XrmToolBox.Extensibility.Args;
 using System.Threading.Tasks;
 using Microsoft.Xrm.Sdk.Messages;
+using Microsoft.Crm.Sdk.Messages;
 
 namespace Cinteros.XTB.PluginTraceViewer
 {
@@ -51,7 +52,10 @@ namespace Cinteros.XTB.PluginTraceViewer
 
         public void OnIncomingMessage(MessageBusEventArgs message)
         {
-            MessageBox.Show("Incoming from " + message.SourcePlugin);
+            if (message.SourcePlugin == "FetchXML Builder" && message.TargetArgument is string)
+            {
+                FetchUpdated(message.TargetArgument);
+            }
         }
 
         private void tsbAbout_Click(object sender, EventArgs e)
@@ -259,101 +263,23 @@ namespace Cinteros.XTB.PluginTraceViewer
             WorkAsync(asyncinfo);
         }
 
-        private void RefreshTraces()
+        private void FetchUpdated(string fetchxml)
+        {
+            var req = Service.Execute(new FetchXmlToQueryExpressionRequest { FetchXml = fetchxml }) as FetchXmlToQueryExpressionResponse;
+            RefreshTraces(req.Query);
+        }
+
+        private void RefreshTraces(QueryExpression query)
         {
             if (Service != null)
             {
-                var QEplugintracelog = new QueryExpression("plugintracelog");
-                QEplugintracelog.ColumnSet.AddColumns(
-                                "performanceexecutionstarttime",
-                                "operationtype",
-                                "messagename",
-                                "plugintracelogid",
-                                "primaryentity",
-                                "exceptiondetails",
-                                "messageblock",
-                                "performanceexecutionduration",
-                                "createdon",
-                                "typename",
-                                "depth",
-                                "mode");
-                if (chkRecords.Checked)
-                {
-                    QEplugintracelog.TopCount = (int)numRecords.Value;
-                }
-                if (checkDateFrom.Checked)
-                {
-                    QEplugintracelog.Criteria.AddCondition("createdon", ConditionOperator.GreaterEqual, GetDateTimeAsUTC(dateFrom.Value));
-                }
-                if (checkDateTo.Checked)
-                {
-                    QEplugintracelog.Criteria.AddCondition("createdon", ConditionOperator.LessEqual, GetDateTimeAsUTC(dateTo.Value));
-                }
-                if (chkPlugin.Checked && !string.IsNullOrWhiteSpace(comboPlugin.Text))
-                {
-                    var pluginFilterInclude = QEplugintracelog.Criteria.AddFilter(LogicalOperator.Or);
-                    var pluginFilterExclude = QEplugintracelog.Criteria.AddFilter(LogicalOperator.And);
-                    foreach (var plugin in comboPlugin.Text.Split(','))
-                    {
-                        if (string.IsNullOrWhiteSpace(plugin))
-                        {
-                            continue;
-                        }
-                        if (plugin.Trim().StartsWith("!"))
-                        {
-                            pluginFilterExclude.AddCondition("typename", plugin.Contains("*") ? ConditionOperator.NotLike : ConditionOperator.NotEqual, plugin.Replace("*", "%").Trim().Substring(1));
-                        }
-                        else
-                        {
-                            pluginFilterInclude.AddCondition("typename", plugin.Contains("*") ? ConditionOperator.Like : ConditionOperator.Equal, plugin.Replace("*", "%").Trim());
-                        }
-                    }
-                }
-                if (chkMessage.Checked && !string.IsNullOrWhiteSpace(comboMessage.Text))
-                {
-                    QEplugintracelog.Criteria.AddCondition("messagename", ConditionOperator.Equal, comboMessage.Text);
-                }
-                if (chkEntity.Checked && !string.IsNullOrWhiteSpace(comboEntity.Text))
-                {
-                    var entityFilter = QEplugintracelog.Criteria.AddFilter(LogicalOperator.Or);
-                    foreach (var entity in comboEntity.Text.Split(','))
-                    {
-                        if (string.IsNullOrWhiteSpace(entity))
-                        {
-                            continue;
-                        }
-                        entityFilter.AddCondition("primaryentity", entity.Contains("*") ? ConditionOperator.Like : ConditionOperator.Equal, entity.Replace("*", "%").Trim());
-                    }
-                }
-                if (chkExceptions.Checked)
-                {
-                    QEplugintracelog.Criteria.AddCondition("exceptiondetails", ConditionOperator.NotNull);
-                    QEplugintracelog.Criteria.AddCondition("exceptiondetails", ConditionOperator.NotEqual, "");
-                }
-                if (rbModeSync.Checked)
-                {
-                    QEplugintracelog.Criteria.AddCondition("mode", ConditionOperator.Equal, 0);
-                }
-                else if (rbModeAsync.Checked)
-                {
-                    QEplugintracelog.Criteria.AddCondition("mode", ConditionOperator.Equal, 1);
-                }
-                if (chkDurationMin.Checked)
-                {
-                    QEplugintracelog.Criteria.AddCondition("performanceexecutionduration", ConditionOperator.GreaterEqual, (int)numDurationMin.Value);
-                }
-                if (chkDurationMax.Checked)
-                {
-                    QEplugintracelog.Criteria.AddCondition("performanceexecutionduration", ConditionOperator.LessEqual, (int)numDurationMax.Value);
-                }
-                QEplugintracelog.AddOrder("performanceexecutionstarttime", OrderType.Descending);
                 var asyncinfo = new WorkAsyncInfo()
                 {
                     Message = "Loading trace log records",
                     Work = (a, args) =>
                     {
                         LogInfo("Loading logs");
-                        args.Result = Service.RetrieveMultiple(QEplugintracelog);
+                        args.Result = Service.RetrieveMultiple(query);
                     },
                     PostWorkCallBack = (args) =>
                     {
@@ -369,6 +295,95 @@ namespace Cinteros.XTB.PluginTraceViewer
                 };
                 WorkAsync(asyncinfo);
             }
+        }
+
+        private QueryExpression GetQuery()
+        {
+            var QEplugintracelog = new QueryExpression("plugintracelog");
+            QEplugintracelog.ColumnSet.AddColumns(
+                            "performanceexecutionstarttime",
+                            "operationtype",
+                            "messagename",
+                            "plugintracelogid",
+                            "primaryentity",
+                            "exceptiondetails",
+                            "messageblock",
+                            "performanceexecutionduration",
+                            "createdon",
+                            "typename",
+                            "depth",
+                            "mode");
+            if (chkRecords.Checked)
+            {
+                QEplugintracelog.TopCount = (int)numRecords.Value;
+            }
+            if (checkDateFrom.Checked)
+            {
+                QEplugintracelog.Criteria.AddCondition("createdon", ConditionOperator.GreaterEqual, GetDateTimeAsUTC(dateFrom.Value));
+            }
+            if (checkDateTo.Checked)
+            {
+                QEplugintracelog.Criteria.AddCondition("createdon", ConditionOperator.LessEqual, GetDateTimeAsUTC(dateTo.Value));
+            }
+            if (chkPlugin.Checked && !string.IsNullOrWhiteSpace(comboPlugin.Text))
+            {
+                var pluginFilterInclude = QEplugintracelog.Criteria.AddFilter(LogicalOperator.Or);
+                var pluginFilterExclude = QEplugintracelog.Criteria.AddFilter(LogicalOperator.And);
+                foreach (var plugin in comboPlugin.Text.Split(','))
+                {
+                    if (string.IsNullOrWhiteSpace(plugin))
+                    {
+                        continue;
+                    }
+                    if (plugin.Trim().StartsWith("!"))
+                    {
+                        pluginFilterExclude.AddCondition("typename", plugin.Contains("*") ? ConditionOperator.NotLike : ConditionOperator.NotEqual, plugin.Replace("*", "%").Trim().Substring(1));
+                    }
+                    else
+                    {
+                        pluginFilterInclude.AddCondition("typename", plugin.Contains("*") ? ConditionOperator.Like : ConditionOperator.Equal, plugin.Replace("*", "%").Trim());
+                    }
+                }
+            }
+            if (chkMessage.Checked && !string.IsNullOrWhiteSpace(comboMessage.Text))
+            {
+                QEplugintracelog.Criteria.AddCondition("messagename", ConditionOperator.Equal, comboMessage.Text);
+            }
+            if (chkEntity.Checked && !string.IsNullOrWhiteSpace(comboEntity.Text))
+            {
+                var entityFilter = QEplugintracelog.Criteria.AddFilter(LogicalOperator.Or);
+                foreach (var entity in comboEntity.Text.Split(','))
+                {
+                    if (string.IsNullOrWhiteSpace(entity))
+                    {
+                        continue;
+                    }
+                    entityFilter.AddCondition("primaryentity", entity.Contains("*") ? ConditionOperator.Like : ConditionOperator.Equal, entity.Replace("*", "%").Trim());
+                }
+            }
+            if (chkExceptions.Checked)
+            {
+                QEplugintracelog.Criteria.AddCondition("exceptiondetails", ConditionOperator.NotNull);
+                QEplugintracelog.Criteria.AddCondition("exceptiondetails", ConditionOperator.NotEqual, "");
+            }
+            if (rbModeSync.Checked)
+            {
+                QEplugintracelog.Criteria.AddCondition("mode", ConditionOperator.Equal, 0);
+            }
+            else if (rbModeAsync.Checked)
+            {
+                QEplugintracelog.Criteria.AddCondition("mode", ConditionOperator.Equal, 1);
+            }
+            if (chkDurationMin.Checked)
+            {
+                QEplugintracelog.Criteria.AddCondition("performanceexecutionduration", ConditionOperator.GreaterEqual, (int)numDurationMin.Value);
+            }
+            if (chkDurationMax.Checked)
+            {
+                QEplugintracelog.Criteria.AddCondition("performanceexecutionduration", ConditionOperator.LessEqual, (int)numDurationMax.Value);
+            }
+            QEplugintracelog.AddOrder("performanceexecutionstarttime", OrderType.Descending);
+            return QEplugintracelog;
         }
 
         private DateTime GetDateTimeAsUTC(DateTime source)
@@ -409,7 +424,7 @@ namespace Cinteros.XTB.PluginTraceViewer
 
         private void buttonRetrieveLogs_Click(object sender, EventArgs e)
         {
-            RefreshTraces();
+            RefreshTraces(GetQuery());
         }
 
         private void checkDateFrom_CheckedChanged(object sender, EventArgs e)
@@ -916,6 +931,45 @@ namespace Cinteros.XTB.PluginTraceViewer
         {
             var setting = GetFilter();
             SettingsManager.Instance.Save(typeof(PluginTraceViewer), setting, ConnectionDetail?.ConnectionName);
+        }
+
+        private void buttonOpenFXB_Click(object sender, EventArgs e)
+        {
+            var fetchxml = GetQueryFetchXML();
+            var messageBusEventArgs = new MessageBusEventArgs("FetchXML Builder")
+            {
+                TargetArgument = fetchxml
+            };
+            OnOutgoingMessage(this, messageBusEventArgs);
+        }
+
+        private string GetQueryFetchXML()
+        {
+            QueryExpression query = GetQuery();
+            var resp = Service.Execute(new QueryExpressionToFetchXmlRequest() { Query = query }) as QueryExpressionToFetchXmlResponse;
+            return resp.FetchXml;
+        }
+
+        private void buttonSaveQuery_Click(object sender, EventArgs e)
+        {
+            SaveQuery();
+        }
+
+        private void SaveQuery()
+        {
+            var sfd = new SaveFileDialog
+            {
+                Title = "Select a location to save the trace log query",
+                Filter = "XML file (*.xml)|*.xml"
+            };
+            if (sfd.ShowDialog() == DialogResult.OK && !string.IsNullOrEmpty(sfd.FileName))
+            {
+                var fetchxml = GetQueryFetchXML();
+                var fetchdoc = new XmlDocument();
+                fetchdoc.LoadXml(fetchxml);
+                fetchdoc.Save(sfd.FileName);
+                MessageBox.Show(this, "Query saved!", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
         }
     }
 }
