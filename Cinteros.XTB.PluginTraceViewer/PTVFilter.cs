@@ -15,5 +15,6 @@ namespace Cinteros.XTB.PluginTraceViewer
         public int MinDuration { get; set; }
         public int MaxDuration { get; set; }
         public int Records { get; set; }
+        public bool WordWrap { get; set; }
     }
 }

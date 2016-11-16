@@ -617,7 +617,8 @@ namespace Cinteros.XTB.PluginTraceViewer
                 Mode = rbModeSync.Checked ? 1 : rbModeAsync.Checked ? 2 : 0,
                 MinDuration = chkDurationMin.Checked ? (int)numDurationMin.Value : -1,
                 MaxDuration = chkDurationMax.Checked ? (int)numDurationMax.Value : -1,
-                Records = chkRecords.Checked ? (int)numRecords.Value : -1
+                Records = chkRecords.Checked ? (int)numRecords.Value : -1,
+                WordWrap = chkWordWrap.Checked
             };
         }
 
@@ -699,6 +700,7 @@ namespace Cinteros.XTB.PluginTraceViewer
             {
                 numRecords.Value = filter.Records;
             }
+            chkWordWrap.Checked = filter.WordWrap;
         }
 
         private void buttonOpenLogRecord_Click(object sender, EventArgs e)
