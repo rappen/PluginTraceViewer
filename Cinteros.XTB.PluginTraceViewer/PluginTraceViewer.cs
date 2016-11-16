@@ -291,14 +291,22 @@ namespace Cinteros.XTB.PluginTraceViewer
                 }
                 if (chkPlugin.Checked && !string.IsNullOrWhiteSpace(comboPlugin.Text))
                 {
-                    var pluginFilter = QEplugintracelog.Criteria.AddFilter(LogicalOperator.Or);
+                    var pluginFilterInclude = QEplugintracelog.Criteria.AddFilter(LogicalOperator.Or);
+                    var pluginFilterExclude = QEplugintracelog.Criteria.AddFilter(LogicalOperator.And);
                     foreach (var plugin in comboPlugin.Text.Split(','))
                     {
                         if (string.IsNullOrWhiteSpace(plugin))
                         {
                             continue;
                         }
-                        pluginFilter.AddCondition("typename", plugin.Contains("*") ? ConditionOperator.Like : ConditionOperator.Equal, plugin.Replace("*", "%").Trim());
+                        if (plugin.Trim().StartsWith("!"))
+                        {
+                            pluginFilterExclude.AddCondition("typename", plugin.Contains("*") ? ConditionOperator.NotLike : ConditionOperator.NotEqual, plugin.Replace("*", "%").Trim().Substring(1));
+                        }
+                        else
+                        {
+                            pluginFilterInclude.AddCondition("typename", plugin.Contains("*") ? ConditionOperator.Like : ConditionOperator.Equal, plugin.Replace("*", "%").Trim());
+                        }
                     }
                 }
                 if (chkMessage.Checked && !string.IsNullOrWhiteSpace(comboMessage.Text))
