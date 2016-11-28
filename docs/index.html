@@ -206,6 +206,7 @@
                             <ul>
                                 <li>saved filter to populate the filter options.</li>
                                 <li>selected log record (opened in CRM).</li>
+                                <li>current log query in <a href="http://fxb.xrmtoolbox.com">FetchXML Builder</a>.</li>
                             </ul>
                         </li>
                         <li>
@@ -213,6 +214,7 @@
                             <ul>
                                 <li>current filter to file.</li>
                                 <li>retrieved log records (serialized to XML).</li>
+                                <li>current log query to fetchxml file.</li>
                             </ul>
                         </li>
                         <li>
@@ -243,6 +245,8 @@
                             <br />Filter by plugin class name.
                             <br />Wildcards allowed in beginning and end of name.
                             <br />Several names are specified with separating commas.
+                            <br />Exclude names/wildcards by prepending with exclamation mark
+                            <br /><em>Example:&nbsp;&nbsp;Innofactor.*, !*Logging*</em>
                         </li>
                         <li>
                             <strong>Message</strong>
@@ -253,6 +257,8 @@
                             <br />Filter by entity logical name.
                             <br />Wildcards allowed in beginning and end of name.
                             <br />Several names are specified with separating commas.
+                            <br />Exclude names/wildcards by prepending with exclamation mark
+                            <br /><em>Example:&nbsp;&nbsp;account, new_*, !new_log_*</em>
                         </li>
                         <li>
                             <strong>Exceptions only</strong>
