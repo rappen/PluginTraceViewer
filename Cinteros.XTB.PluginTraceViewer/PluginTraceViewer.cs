@@ -351,14 +351,22 @@ namespace Cinteros.XTB.PluginTraceViewer
             }
             if (chkEntity.Checked && !string.IsNullOrWhiteSpace(comboEntity.Text))
             {
-                var entityFilter = QEplugintracelog.Criteria.AddFilter(LogicalOperator.Or);
+                var entityFilterInclude = QEplugintracelog.Criteria.AddFilter(LogicalOperator.Or);
+                var entityFilterExclude = QEplugintracelog.Criteria.AddFilter(LogicalOperator.And);
                 foreach (var entity in comboEntity.Text.Split(','))
                 {
                     if (string.IsNullOrWhiteSpace(entity))
                     {
                         continue;
                     }
-                    entityFilter.AddCondition("primaryentity", entity.Contains("*") ? ConditionOperator.Like : ConditionOperator.Equal, entity.Replace("*", "%").Trim());
+                    if (entity.Trim().StartsWith("!"))
+                    {
+                        entityFilterExclude.AddCondition("primaryentity", entity.Contains("*") ? ConditionOperator.NotLike : ConditionOperator.NotEqual, entity.Replace("*", "%").Trim().Substring(1));
+                    }
+                    else
+                    {
+                        entityFilterInclude.AddCondition("primaryentity", entity.Contains("*") ? ConditionOperator.Like : ConditionOperator.Equal, entity.Replace("*", "%").Trim());
+                    }
                 }
             }
             if (chkExceptions.Checked)
