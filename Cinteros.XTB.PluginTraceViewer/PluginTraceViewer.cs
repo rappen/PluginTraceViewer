@@ -479,6 +479,7 @@ namespace Cinteros.XTB.PluginTraceViewer
 
         private void buttonRetrieveLogs_Click(object sender, EventArgs e)
         {
+            SaveSettings();
             RefreshTraces(GetQuery());
         }
 
@@ -985,6 +986,11 @@ namespace Cinteros.XTB.PluginTraceViewer
         }
 
         private void PluginTraceViewer_OnCloseTool(object sender, EventArgs e)
+        {
+            SaveSettings();
+        }
+
+        private void SaveSettings()
         {
             var setting = GetFilter();
             SettingsManager.Instance.Save(typeof(PluginTraceViewer), setting, ConnectionDetail?.ConnectionName);
