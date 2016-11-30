@@ -7,7 +7,7 @@
     <authors>Jonas Rapp, Innofactor AB</authors>
     <owners>Innofactor</owners>
     <projectUrl>http://ptv.xrmtoolbox.com</projectUrl>
-    <iconUrl>http://rappen.net/Cinteros/PTV-if.png</iconUrl>
+    <iconUrl>http://ptv.xrmtoolbox.com/images/PTV2-150-transp.png</iconUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>Investigate the Plug-in Trace Log with easy filtering and display possibilities</description>
     <summary>Investigate the Plug-in Trace Log with easy filtering and display possibilities</summary>
@@ -17,7 +17,7 @@
     <copyright>Copyright 2016 Innofactor AB</copyright>
     <tags>XrmToolBox Plugins PluginTraceViewer</tags>
     <dependencies>
-      <dependency id="XrmToolBox" version="1.2016.3.30" />
+      <dependency id="XrmToolBox" version="1.2016.11.4" />
     </dependencies>
   </metadata>
   <files>
