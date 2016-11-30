@@ -11,6 +11,7 @@ namespace Cinteros.XTB.PluginTraceViewer
         public string Message { get; set; }
         public string Entity { get; set; }
         public bool Exceptions { get; set; }
+        public bool ExceptionSummary { get; set; } = true;
         public int Mode { get; set; }
         public int MinDuration { get; set; }
         public int MaxDuration { get; set; }

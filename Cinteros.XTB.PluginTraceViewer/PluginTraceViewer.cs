@@ -271,6 +271,7 @@ namespace Cinteros.XTB.PluginTraceViewer
 
         private void RefreshTraces(QueryExpression query)
         {
+            var excSummary = chkExceptionSummary.Checked;
             if (Service != null)
             {
                 var asyncinfo = new WorkAsyncInfo()
@@ -289,11 +290,50 @@ namespace Cinteros.XTB.PluginTraceViewer
                         }
                         else if (args.Result is EntityCollection)
                         {
+                            if (excSummary)
+                            {
+                                ExtractExceptionSummaries(args.Result as EntityCollection);
+                            }
                             PopulateGrid(args.Result as EntityCollection);
                         }
                     }
                 };
                 WorkAsync(asyncinfo);
+            }
+        }
+
+        private void ExtractExceptionSummaries(EntityCollection entities)
+        {
+            const string fault = "(Fault Detail is equal to Microsoft.Xrm.Sdk.OrganizationServiceFault).: ";
+            const string unhandled = "Unhandled Exception: ";
+            foreach (var entity in entities.Entities)
+            {
+                if (entity.Contains("exceptiondetails") && !string.IsNullOrWhiteSpace(entity["exceptiondetails"].ToString()))
+                {
+                    var summary = entity["exceptiondetails"].ToString();
+                    if (summary.Contains("<Message>") && summary.Contains("</Message>"))
+                    {
+                        summary = summary.Substring(summary.IndexOf("<Message>") + 9);
+                        summary = summary.Substring(0, summary.IndexOf("</Message>"));
+                        LogInfo("Extracted exception message: {0}", summary);
+                        while (summary.Contains(fault))
+                        {
+                            summary = summary.Substring(summary.IndexOf(fault) + fault.Length);
+                        }
+                    }
+                    else if (summary.StartsWith(unhandled))
+                    {
+                        summary = summary.Substring(summary.IndexOf(unhandled) + unhandled.Length);
+                        if (summary.Contains(":"))
+                        {
+                            summary = summary.Split(':')[0];
+                        }
+                    }
+                    if (!string.IsNullOrWhiteSpace(summary))
+                    {
+                        entity.Attributes.Add("exceptionsummary", summary);
+                    }
+                }
             }
         }
 
@@ -413,7 +453,14 @@ namespace Cinteros.XTB.PluginTraceViewer
                         var dt = crmGridView.GetDataSource<DataTable>();
                         if (dt != null)
                         {
-                            dt.Columns.Add("Exception", typeof(bool), "exceptiondetails <> ''");
+                            if (chkExceptionSummary.Checked)
+                            {
+                                dt.Columns.Add("Exception", typeof(string), "exceptionsummary");
+                            }
+                            else
+                            {
+                                dt.Columns.Add("Exception", typeof(bool), "exceptiondetails <> ''");
+                            }
                         }
                         labelInfo.Text = $"Loaded {results.Entities.Count} trace records";
                         crmGridView.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells);
@@ -637,6 +684,7 @@ namespace Cinteros.XTB.PluginTraceViewer
                 Message = chkMessage.Checked ? comboMessage.Text : string.Empty,
                 Entity = chkEntity.Checked ? comboEntity.Text : string.Empty,
                 Exceptions = chkExceptions.Checked,
+                ExceptionSummary = chkExceptionSummary.Checked,
                 Mode = rbModeSync.Checked ? 1 : rbModeAsync.Checked ? 2 : 0,
                 MinDuration = chkDurationMin.Checked ? (int)numDurationMin.Value : -1,
                 MaxDuration = chkDurationMax.Checked ? (int)numDurationMax.Value : -1,
@@ -696,6 +744,7 @@ namespace Cinteros.XTB.PluginTraceViewer
             chkEntity.Checked = !string.IsNullOrEmpty(filter.Entity);
             comboEntity.Text = filter.Entity;
             chkExceptions.Checked = filter.Exceptions;
+            chkExceptionSummary.Checked = filter.ExceptionSummary;
             switch (filter.Mode)
             {
                 case 1:
