@@ -4,7 +4,7 @@
     <id>Cinteros.XrmToolBox.PluginTraceViewer</id>
     <version>1.0.0</version>
     <title>Plug-in Trace Viewer</title>
-    <authors>Jonas Rapp, Innofactor AB</authors>
+    <authors>Jonas Rapp</authors>
     <owners>Innofactor</owners>
     <projectUrl>http://ptv.xrmtoolbox.com</projectUrl>
     <iconUrl>http://ptv.xrmtoolbox.com/images/PTV2-150-transp.png</iconUrl>
