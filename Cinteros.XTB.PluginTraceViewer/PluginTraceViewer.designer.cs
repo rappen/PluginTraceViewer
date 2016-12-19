@@ -65,6 +65,7 @@
             this.dateTo = new System.Windows.Forms.DateTimePicker();
             this.dateFrom = new System.Windows.Forms.DateTimePicker();
             this.panelOptions = new System.Windows.Forms.Panel();
+            this.chkExceptionSummary = new System.Windows.Forms.CheckBox();
             this.chkRecords = new System.Windows.Forms.CheckBox();
             this.chkDurationMax = new System.Windows.Forms.CheckBox();
             this.chkDurationMin = new System.Windows.Forms.CheckBox();
@@ -76,6 +77,17 @@
             this.rbModeAll = new System.Windows.Forms.RadioButton();
             this.chkExceptions = new System.Windows.Forms.CheckBox();
             this.crmGridView = new Cinteros.Xrm.CRMWinForm.CRMGridView();
+            this.performanceexecutionstarttime = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.performanceexecutionduration = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.operationtype = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.typename = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.depth = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.mode = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.messagename = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.primaryentity = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.exceptiondetails = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.exceptionsummary = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.messagebody = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.contextMenuGridView = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.tsmiDeleteSelected = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiDeleteAll = new System.Windows.Forms.ToolStripMenuItem();
@@ -90,18 +102,6 @@
             this.panelExceptionLabel = new System.Windows.Forms.Panel();
             this.labelException = new System.Windows.Forms.Label();
             this.splitContainerMain = new System.Windows.Forms.SplitContainer();
-            this.chkExceptionSummary = new System.Windows.Forms.CheckBox();
-            this.performanceexecutionstarttime = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.performanceexecutionduration = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.operationtype = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.typename = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.depth = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.mode = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.messagename = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.primaryentity = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.exceptiondetails = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.exceptionsummary = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.messagebody = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.toolStripMain.SuspendLayout();
             this.groupFilter.SuspendLayout();
             this.panelFilter.SuspendLayout();
@@ -483,6 +483,18 @@
             this.panelOptions.Size = new System.Drawing.Size(263, 123);
             this.panelOptions.TabIndex = 2;
             // 
+            // chkExceptionSummary
+            // 
+            this.chkExceptionSummary.AutoSize = true;
+            this.chkExceptionSummary.Checked = true;
+            this.chkExceptionSummary.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkExceptionSummary.Location = new System.Drawing.Point(158, 3);
+            this.chkExceptionSummary.Name = "chkExceptionSummary";
+            this.chkExceptionSummary.Size = new System.Drawing.Size(97, 17);
+            this.chkExceptionSummary.TabIndex = 11;
+            this.chkExceptionSummary.Text = "Show summary";
+            this.chkExceptionSummary.UseVisualStyleBackColor = true;
+            // 
             // chkRecords
             // 
             this.chkRecords.AutoSize = true;
@@ -661,6 +673,85 @@
             this.crmGridView.RecordDoubleClick += new Cinteros.Xrm.CRMWinForm.CRMRecordEventHandler(this.crmGridView_RecordDoubleClick);
             this.crmGridView.RecordEnter += new Cinteros.Xrm.CRMWinForm.CRMRecordEventHandler(this.crmGridView_RecordEnter);
             // 
+            // performanceexecutionstarttime
+            // 
+            this.performanceexecutionstarttime.HeaderText = "Start Time";
+            this.performanceexecutionstarttime.Name = "performanceexecutionstarttime";
+            this.performanceexecutionstarttime.ReadOnly = true;
+            this.performanceexecutionstarttime.Width = 80;
+            // 
+            // performanceexecutionduration
+            // 
+            this.performanceexecutionduration.HeaderText = "Duration";
+            this.performanceexecutionduration.Name = "performanceexecutionduration";
+            this.performanceexecutionduration.ReadOnly = true;
+            this.performanceexecutionduration.Width = 72;
+            // 
+            // operationtype
+            // 
+            this.operationtype.HeaderText = "Operation";
+            this.operationtype.Name = "operationtype";
+            this.operationtype.ReadOnly = true;
+            this.operationtype.Width = 78;
+            // 
+            // typename
+            // 
+            this.typename.HeaderText = "Plugin";
+            this.typename.Name = "typename";
+            this.typename.ReadOnly = true;
+            this.typename.Width = 61;
+            // 
+            // depth
+            // 
+            this.depth.HeaderText = "Depth";
+            this.depth.Name = "depth";
+            this.depth.ReadOnly = true;
+            this.depth.Width = 61;
+            // 
+            // mode
+            // 
+            this.mode.HeaderText = "Mode";
+            this.mode.Name = "mode";
+            this.mode.ReadOnly = true;
+            this.mode.Width = 59;
+            // 
+            // messagename
+            // 
+            this.messagename.HeaderText = "Message";
+            this.messagename.Name = "messagename";
+            this.messagename.ReadOnly = true;
+            this.messagename.Width = 75;
+            // 
+            // primaryentity
+            // 
+            this.primaryentity.HeaderText = "Entity";
+            this.primaryentity.Name = "primaryentity";
+            this.primaryentity.ReadOnly = true;
+            this.primaryentity.Width = 58;
+            // 
+            // exceptiondetails
+            // 
+            this.exceptiondetails.HeaderText = "Exception";
+            this.exceptiondetails.Name = "exceptiondetails";
+            this.exceptiondetails.ReadOnly = true;
+            this.exceptiondetails.Visible = false;
+            this.exceptiondetails.Width = 79;
+            // 
+            // exceptionsummary
+            // 
+            this.exceptionsummary.HeaderText = "Exception Summary";
+            this.exceptionsummary.Name = "exceptionsummary";
+            this.exceptionsummary.ReadOnly = true;
+            this.exceptionsummary.Visible = false;
+            // 
+            // messagebody
+            // 
+            this.messagebody.HeaderText = "Message";
+            this.messagebody.Name = "messagebody";
+            this.messagebody.ReadOnly = true;
+            this.messagebody.Visible = false;
+            this.messagebody.Width = 75;
+            // 
             // contextMenuGridView
             // 
             this.contextMenuGridView.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -743,7 +834,7 @@
             this.splitContainerRight.Panel2.Controls.Add(this.panelExceptionLabel);
             this.splitContainerRight.Panel2MinSize = 23;
             this.splitContainerRight.Size = new System.Drawing.Size(489, 455);
-            this.splitContainerRight.SplitterDistance = 242;
+            this.splitContainerRight.SplitterDistance = 238;
             this.splitContainerRight.SplitterWidth = 8;
             this.splitContainerRight.TabIndex = 12;
             // 
@@ -758,7 +849,7 @@
             this.textMessage.Name = "textMessage";
             this.textMessage.ReadOnly = true;
             this.textMessage.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.textMessage.Size = new System.Drawing.Size(489, 217);
+            this.textMessage.Size = new System.Drawing.Size(489, 213);
             this.textMessage.TabIndex = 10;
             this.textMessage.WordWrap = false;
             // 
@@ -781,7 +872,7 @@
             this.textException.Name = "textException";
             this.textException.ReadOnly = true;
             this.textException.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.textException.Size = new System.Drawing.Size(489, 180);
+            this.textException.Size = new System.Drawing.Size(489, 184);
             this.textException.TabIndex = 6;
             this.textException.WordWrap = false;
             // 
@@ -825,97 +916,6 @@
             this.splitContainerMain.SplitterWidth = 8;
             this.splitContainerMain.TabIndex = 31;
             // 
-            // chkExceptionSummary
-            // 
-            this.chkExceptionSummary.AutoSize = true;
-            this.chkExceptionSummary.Checked = true;
-            this.chkExceptionSummary.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkExceptionSummary.Location = new System.Drawing.Point(158, 3);
-            this.chkExceptionSummary.Name = "chkExceptionSummary";
-            this.chkExceptionSummary.Size = new System.Drawing.Size(97, 17);
-            this.chkExceptionSummary.TabIndex = 11;
-            this.chkExceptionSummary.Text = "Show summary";
-            this.chkExceptionSummary.UseVisualStyleBackColor = true;
-            // 
-            // performanceexecutionstarttime
-            // 
-            this.performanceexecutionstarttime.HeaderText = "Start Time";
-            this.performanceexecutionstarttime.Name = "performanceexecutionstarttime";
-            this.performanceexecutionstarttime.ReadOnly = true;
-            this.performanceexecutionstarttime.Width = 80;
-            // 
-            // performanceexecutionduration
-            // 
-            this.performanceexecutionduration.HeaderText = "Duration";
-            this.performanceexecutionduration.Name = "performanceexecutionduration";
-            this.performanceexecutionduration.ReadOnly = true;
-            this.performanceexecutionduration.Width = 72;
-            // 
-            // operationtype
-            // 
-            this.operationtype.HeaderText = "Operation";
-            this.operationtype.Name = "operationtype";
-            this.operationtype.ReadOnly = true;
-            this.operationtype.Width = 78;
-            // 
-            // typename
-            // 
-            this.typename.HeaderText = "Plugin";
-            this.typename.Name = "typename";
-            this.typename.ReadOnly = true;
-            this.typename.Width = 61;
-            // 
-            // depth
-            // 
-            this.depth.HeaderText = "Depth";
-            this.depth.Name = "depth";
-            this.depth.ReadOnly = true;
-            this.depth.Width = 61;
-            // 
-            // mode
-            // 
-            this.mode.HeaderText = "Mode";
-            this.mode.Name = "mode";
-            this.mode.ReadOnly = true;
-            this.mode.Width = 59;
-            // 
-            // messagename
-            // 
-            this.messagename.HeaderText = "Message";
-            this.messagename.Name = "messagename";
-            this.messagename.ReadOnly = true;
-            this.messagename.Width = 75;
-            // 
-            // primaryentity
-            // 
-            this.primaryentity.HeaderText = "Entity";
-            this.primaryentity.Name = "primaryentity";
-            this.primaryentity.ReadOnly = true;
-            this.primaryentity.Width = 58;
-            // 
-            // exceptiondetails
-            // 
-            this.exceptiondetails.HeaderText = "Exception";
-            this.exceptiondetails.Name = "exceptiondetails";
-            this.exceptiondetails.ReadOnly = true;
-            this.exceptiondetails.Visible = false;
-            this.exceptiondetails.Width = 79;
-            // 
-            // exceptionsummary
-            // 
-            this.exceptionsummary.HeaderText = "Exception Summary";
-            this.exceptionsummary.Name = "exceptionsummary";
-            this.exceptionsummary.ReadOnly = true;
-            this.exceptionsummary.Visible = false;
-            // 
-            // messagebody
-            // 
-            this.messagebody.HeaderText = "Message";
-            this.messagebody.Name = "messagebody";
-            this.messagebody.ReadOnly = true;
-            this.messagebody.Visible = false;
-            this.messagebody.Width = 75;
-            // 
             // PluginTraceViewer
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -924,8 +924,8 @@
             this.Controls.Add(this.toolStripMain);
             this.Name = "PluginTraceViewer";
             this.Size = new System.Drawing.Size(1114, 480);
-            this.OnCloseTool += new System.EventHandler(this.PluginTraceViewer_OnCloseTool);
             this.ConnectionUpdated += new XrmToolBox.Extensibility.PluginControlBase.ConnectionUpdatedHandler(this.PluginTraceViewer_ConnectionUpdated);
+            this.Load += new System.EventHandler(this.PluginTraceViewer_Load);
             this.toolStripMain.ResumeLayout(false);
             this.toolStripMain.PerformLayout();
             this.groupFilter.ResumeLayout(false);

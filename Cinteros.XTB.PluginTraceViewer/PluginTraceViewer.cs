@@ -25,6 +25,7 @@ namespace Cinteros.XTB.PluginTraceViewer
 
         private const int PAGE_SIZE = 1000;
         private const int MAX_BATCH = 2;
+        private bool? logUsage = null;
 
         public PluginTraceViewer()
         {
@@ -60,11 +61,24 @@ namespace Cinteros.XTB.PluginTraceViewer
 
         private void tsbAbout_Click(object sender, EventArgs e)
         {
-            MessageBox.Show(
-                "Plugin Trace Viewer for XrmToolBox\n" +
-                "Version: " + Assembly.GetExecutingAssembly().GetName().Version + "\n\n" +
-                "Developed by Jonas Rapp at Innofactor AB.",
-                "About Plugin Trace Viewer", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            LogUse("OpenAbout");
+            var about = new About(this);
+            about.StartPosition = FormStartPosition.CenterParent;
+            about.lblVersion.Text = Assembly.GetExecutingAssembly().GetName().Version.ToString();
+            about.chkStatAllow.Checked = logUsage != false;
+            about.ShowDialog();
+            if (logUsage != about.chkStatAllow.Checked)
+            {
+                logUsage = about.chkStatAllow.Checked;
+                if (logUsage == true)
+                {
+                    LogUse("Accept", true);
+                }
+                else if (logUsage == false)
+                {
+                    LogUse("Deny", true);
+                }
+            }
         }
 
         private void AlertError(string msg, string capt)
@@ -73,13 +87,15 @@ namespace Cinteros.XTB.PluginTraceViewer
             MessageBox.Show(msg, capt, MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
 
+        private void PluginTraceViewer_Load(object sender, EventArgs e)
+        {
+            LoadSettings();
+            LogUse("Load");
+        }
+
         private void PluginTraceViewer_ConnectionUpdated(object sender, ConnectionUpdatedEventArgs e)
         {
-            PTVFilter settings;
-            if (SettingsManager.Instance.TryLoad(typeof(PluginTraceViewer), out settings, e?.ConnectionDetail?.ConnectionName))
-            {
-                ApplyFilter(settings);
-            }
+            LoadFilter();
             if (crmGridView.DataSource != null)
             {
                 crmGridView.DataSource = null;
@@ -100,6 +116,31 @@ namespace Cinteros.XTB.PluginTraceViewer
                 LogError("CRM version too old for PTV");
                 MessageBox.Show("Plug-in Trace Log was introduced in\nMicrosoft Dynamics CRM 2015 Update 1 (7.1.0.0)\n\nPlease connect to a newer organization to use this cool tool.", "Organization too old", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
+        }
+
+        public override void ClosingPlugin(PluginCloseInfo info)
+        {
+            SaveSettings();
+            LogUse("Close");
+        }
+
+        private void LoadFilter()
+        {
+            PTVFilter settings;
+            if (SettingsManager.Instance.TryLoad(typeof(PluginTraceViewer), out settings, ConnectionDetail?.ConnectionName))
+            {
+                ApplyFilter(settings);
+            }
+        }
+
+        private void LoadSettings()
+        {
+            Settings settings;
+            if (!SettingsManager.Instance.TryLoad(typeof(PluginTraceViewer), out settings, "Settings"))
+            {
+                settings = new Settings();
+            }
+            ApplySettings(settings);
         }
 
         private void LoadConstraints()
@@ -274,6 +315,7 @@ namespace Cinteros.XTB.PluginTraceViewer
             var excSummary = chkExceptionSummary.Checked;
             if (Service != null)
             {
+                LogUse("RetrieveLogs");
                 var asyncinfo = new WorkAsyncInfo()
                 {
                     Message = "Loading trace log records",
@@ -479,7 +521,6 @@ namespace Cinteros.XTB.PluginTraceViewer
 
         private void buttonRetrieveLogs_Click(object sender, EventArgs e)
         {
-            SaveSettings();
             RefreshTraces(GetQuery());
         }
 
@@ -515,6 +556,7 @@ namespace Cinteros.XTB.PluginTraceViewer
                 var url = GetEntityReferenceUrl(firstselected.ToEntityReference());
                 if (!string.IsNullOrEmpty(url))
                 {
+                    LogUse("Open log record");
                     LogInfo("Opening record: {0}", url);
                     Process.Start(url);
                 }
@@ -612,6 +654,7 @@ namespace Cinteros.XTB.PluginTraceViewer
         private void buttonRefreshFilter_Click(object sender, EventArgs e)
         {
             LoadConstraints();
+            LogUse("LoadConstraints");
         }
 
         private void SaveLogs()
@@ -676,9 +719,10 @@ namespace Cinteros.XTB.PluginTraceViewer
 
         private PTVFilter GetFilter()
         {
+            var ass = Assembly.GetExecutingAssembly().GetName();
+            var version = ass.Version.ToString();
             return new PTVFilter
             {
-                FilterHidden = !groupFilter.Visible,
                 DateFrom = checkDateFrom.Checked ? dateFrom.Value : DateTime.MinValue,
                 DateTo = checkDateTo.Checked ? dateTo.Value : DateTime.MinValue,
                 Plugin = chkPlugin.Checked ? comboPlugin.Text : string.Empty,
@@ -689,8 +733,20 @@ namespace Cinteros.XTB.PluginTraceViewer
                 Mode = rbModeSync.Checked ? 1 : rbModeAsync.Checked ? 2 : 0,
                 MinDuration = chkDurationMin.Checked ? (int)numDurationMin.Value : -1,
                 MaxDuration = chkDurationMax.Checked ? (int)numDurationMax.Value : -1,
-                Records = chkRecords.Checked ? (int)numRecords.Value : -1,
-                WordWrap = chkWordWrap.Checked
+                Records = chkRecords.Checked ? (int)numRecords.Value : -1
+            };
+        }
+
+        private Settings GetSettings()
+        {
+            var ass = Assembly.GetExecutingAssembly().GetName();
+            var version = ass.Version.ToString();
+            return new Settings
+            {
+                FilterHidden = !groupFilter.Visible,
+                WordWrap = chkWordWrap.Checked,
+                UseLog = logUsage,
+                Version = version
             };
         }
 
@@ -725,7 +781,6 @@ namespace Cinteros.XTB.PluginTraceViewer
 
         private void ApplyFilter(PTVFilter filter)
         {
-            groupFilter.Visible = !filter.FilterHidden;
             buttonShowHideFilter.Checked = !groupFilter.Visible;
             buttonShowHideFilter.Text = buttonShowHideFilter.Checked ? "Show Filter" : "Hide Filter";
             checkDateFrom.Checked = !filter.DateFrom.Equals(DateTime.MinValue);
@@ -773,7 +828,26 @@ namespace Cinteros.XTB.PluginTraceViewer
             {
                 numRecords.Value = filter.Records;
             }
-            chkWordWrap.Checked = filter.WordWrap;
+        }
+
+        private void ApplySettings(Settings settings)
+        {
+            groupFilter.Visible = !settings.FilterHidden;
+            buttonShowHideFilter.Checked = !groupFilter.Visible;
+            buttonShowHideFilter.Text = buttonShowHideFilter.Checked ? "Show Filter" : "Hide Filter";
+            chkWordWrap.Checked = settings.WordWrap;
+            logUsage = settings.UseLog;
+            var ass = Assembly.GetExecutingAssembly().GetName();
+            var version = ass.Version.ToString();
+            if (!version.Equals(settings.Version))
+            {
+                // Reset some settings when new version is deployed
+                logUsage = null;
+            }
+            if (logUsage == null)
+            {
+                logUsage = LogUsage.PromptToLog();
+            }
         }
 
         private void buttonOpenLogRecord_Click(object sender, EventArgs e)
@@ -985,15 +1059,12 @@ namespace Cinteros.XTB.PluginTraceViewer
             return result;
         }
 
-        private void PluginTraceViewer_OnCloseTool(object sender, EventArgs e)
-        {
-            SaveSettings();
-        }
-
         private void SaveSettings()
         {
-            var setting = GetFilter();
-            SettingsManager.Instance.Save(typeof(PluginTraceViewer), setting, ConnectionDetail?.ConnectionName);
+            var settings = GetSettings();
+            SettingsManager.Instance.Save(typeof(PluginTraceViewer), settings, "Settings");
+            var filter = GetFilter();
+            SettingsManager.Instance.Save(typeof(PluginTraceViewer), filter, ConnectionDetail?.ConnectionName);
         }
 
         private void buttonOpenFXB_Click(object sender, EventArgs e)
@@ -1032,6 +1103,14 @@ namespace Cinteros.XTB.PluginTraceViewer
                 fetchdoc.LoadXml(fetchxml);
                 fetchdoc.Save(sfd.FileName);
                 MessageBox.Show(this, "Query saved!", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+        }
+
+        internal void LogUse(string action, bool forceLog = false)
+        {
+            if (logUsage == true || forceLog)
+            {
+                LogUsage.DoLog(action);
             }
         }
     }
