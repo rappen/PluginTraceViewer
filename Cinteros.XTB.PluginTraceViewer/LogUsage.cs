@@ -17,6 +17,7 @@ namespace Cinteros.XTB.PluginTraceViewer
                 var ass = Assembly.GetExecutingAssembly().GetName();
                 var version = ass.Version.ToString();
                 var name = ass.Name.Replace(" ", "");
+                action = "PTV-" + action;
 
                 var query = "t.php" +
                     "?sc_project=10396418" +
