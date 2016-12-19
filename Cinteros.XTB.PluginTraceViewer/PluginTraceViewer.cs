@@ -108,7 +108,7 @@ namespace Cinteros.XTB.PluginTraceViewer
             buttonRefreshFilter.Enabled = orgok;
             if (orgok)
             {
-                LogInfo("Loading constraints");
+                LoadLogSetting();
                 LoadConstraints();
             }
             else
@@ -143,8 +143,32 @@ namespace Cinteros.XTB.PluginTraceViewer
             ApplySettings(settings);
         }
 
+        private void LoadLogSetting()
+        {
+            comboLogSetting.Enabled = false;
+            GetLogSetting((id, setting) =>
+            {
+                comboLogSetting.Tag = id;
+                comboLogSetting.SelectedIndex = setting;
+                comboLogSetting.Enabled = true;
+            });
+        }
+
+        private void UpdateLogSetting(int setting)
+        {
+            LogUse("UpdateSetting-" + setting);
+            var orgsetting = new Entity("organization");
+            orgsetting.Id = (Guid)comboLogSetting.Tag;
+            orgsetting["plugintracelogsetting"] = new OptionSetValue(setting);
+            LogInfo("Updating setting for org {0} to {1}", orgsetting.Id, setting);
+            Service.Update(orgsetting);
+            crmGridView.Focus();
+            MessageBox.Show("Updated trace setting!");
+        }
+
         private void LoadConstraints()
         {
+            LogInfo("Loading constraints");
             GetDateConstraint("min", (datemin) =>
             {
                 dateFrom.MinDate = datemin;
@@ -172,6 +196,45 @@ namespace Cinteros.XTB.PluginTraceViewer
                 comboEntity.Items.Clear();
                 comboEntity.Items.AddRange(entitylist.ToArray());
             });
+        }
+
+        private void GetLogSetting(Action<Guid, int> callback)
+        {
+            LogInfo("GetLogSetting");
+            var QEorganization = new QueryExpression("organization");
+            QEorganization.ColumnSet.AddColumns("name", "plugintracelogsetting");
+            var asyncinfo = new WorkAsyncInfo()
+            {
+                Message = "Loading organization settings",
+                Work = (a, args) =>
+                {
+                    args.Result = Service.RetrieveMultiple(QEorganization);
+                },
+                PostWorkCallBack = (args) =>
+                {
+                    if (args.Error != null)
+                    {
+                        AlertError($"Failed to load plugin types:\n{args.Error.Message}", "Load");
+                    }
+                    else if (args.Result is EntityCollection)
+                    {
+                        var entity = ((EntityCollection)args.Result).Entities.FirstOrDefault();
+                        if (entity != null)
+                        {
+                            var id = entity.Id;
+                            var name = entity.Contains("name") ? entity["name"] : "?";
+                            var setting = entity.Contains("plugintracelogsetting") ? ((OptionSetValue)entity["plugintracelogsetting"]).Value : 0;
+                            LogInfo("Found org: {0} with setting {1}", name, setting);
+                            callback(id, setting);
+                        }
+                        else
+                        {
+                            LogError("No organization data found!");
+                        }
+                    }
+                }
+            };
+            WorkAsync(asyncinfo);
         }
 
         private void GetPlugins(Action<List<string>> callback)
@@ -653,6 +716,7 @@ namespace Cinteros.XTB.PluginTraceViewer
 
         private void buttonRefreshFilter_Click(object sender, EventArgs e)
         {
+            LoadLogSetting();
             LoadConstraints();
             LogUse("LoadConstraints");
         }
@@ -1111,6 +1175,23 @@ namespace Cinteros.XTB.PluginTraceViewer
             if (logUsage == true || forceLog)
             {
                 LogUsage.DoLog(action);
+            }
+        }
+
+        private void comboLogSetting_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (!comboLogSetting.Enabled)
+            {
+                return;
+            }
+            if (DialogResult.OK == MessageBox.Show($"Update the organization wide setting for plug-in trace log to\n\n  \"{comboLogSetting.Text}\" ?", "Confirm", 
+                MessageBoxButtons.OKCancel, MessageBoxIcon.Exclamation))
+            {
+                UpdateLogSetting(comboLogSetting.SelectedIndex);
+            }
+            else
+            {
+                LoadLogSetting();
             }
         }
     }
