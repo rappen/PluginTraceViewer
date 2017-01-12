@@ -416,7 +416,7 @@ namespace Cinteros.XTB.PluginTraceViewer
         {
             var allCorrelationIds = new List<Guid>();
             var correlationIds = new List<Guid>();
-            foreach (var entity in entities.Entities.Reverse())
+            foreach (var entity in entities.Entities)
             {   // First determine which correlation ids that occur more than once, we don't want to show corr for single occurences
                 if (entity.Contains("correlationid"))
                 {
