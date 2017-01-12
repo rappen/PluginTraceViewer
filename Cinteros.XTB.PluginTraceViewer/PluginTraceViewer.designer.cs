@@ -80,20 +80,6 @@
             this.rbModeAll = new System.Windows.Forms.RadioButton();
             this.chkExceptions = new System.Windows.Forms.CheckBox();
             this.crmGridView = new Cinteros.Xrm.CRMWinForm.CRMGridView();
-            this.contextMenuGridView = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.tsmiDeleteSelected = new System.Windows.Forms.ToolStripMenuItem();
-            this.tsmiDeleteAll = new System.Windows.Forms.ToolStripMenuItem();
-            this.panelDataTop = new System.Windows.Forms.Panel();
-            this.labelInfo = new System.Windows.Forms.Label();
-            this.labelMessage = new System.Windows.Forms.Label();
-            this.chkWordWrap = new System.Windows.Forms.CheckBox();
-            this.splitContainerRight = new System.Windows.Forms.SplitContainer();
-            this.textMessage = new System.Windows.Forms.TextBox();
-            this.panelMessageLabel = new System.Windows.Forms.Panel();
-            this.textException = new System.Windows.Forms.TextBox();
-            this.panelExceptionLabel = new System.Windows.Forms.Panel();
-            this.labelException = new System.Windows.Forms.Label();
-            this.splitContainerMain = new System.Windows.Forms.SplitContainer();
             this.correlation = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.performanceexecutionstarttime = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.performanceexecutionduration = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -107,10 +93,24 @@
             this.exceptionsummary = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.messagebody = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.correlationid = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripSeparator();
+            this.contextMenuGridView = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.tsmiCorrelation = new System.Windows.Forms.ToolStripMenuItem();
-            this.tsmiCorrelationSelectThis = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiCorrelationId = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiCorrelationSelectThis = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripSeparator();
+            this.tsmiDeleteAll = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiDeleteSelected = new System.Windows.Forms.ToolStripMenuItem();
+            this.panelDataTop = new System.Windows.Forms.Panel();
+            this.labelInfo = new System.Windows.Forms.Label();
+            this.labelMessage = new System.Windows.Forms.Label();
+            this.chkWordWrap = new System.Windows.Forms.CheckBox();
+            this.splitContainerRight = new System.Windows.Forms.SplitContainer();
+            this.textMessage = new System.Windows.Forms.TextBox();
+            this.panelMessageLabel = new System.Windows.Forms.Panel();
+            this.textException = new System.Windows.Forms.TextBox();
+            this.panelExceptionLabel = new System.Windows.Forms.Panel();
+            this.labelException = new System.Windows.Forms.Label();
+            this.splitContainerMain = new System.Windows.Forms.SplitContainer();
             this.toolStripMain.SuspendLayout();
             this.groupFilter.SuspendLayout();
             this.panelFilter.SuspendLayout();
@@ -709,172 +709,6 @@
             this.crmGridView.RecordDoubleClick += new Cinteros.Xrm.CRMWinForm.CRMRecordEventHandler(this.crmGridView_RecordDoubleClick);
             this.crmGridView.RecordEnter += new Cinteros.Xrm.CRMWinForm.CRMRecordEventHandler(this.crmGridView_RecordEnter);
             // 
-            // contextMenuGridView
-            // 
-            this.contextMenuGridView.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.tsmiCorrelation,
-            this.toolStripMenuItem1,
-            this.tsmiDeleteAll,
-            this.tsmiDeleteSelected});
-            this.contextMenuGridView.Name = "contextStripMain";
-            this.contextMenuGridView.Size = new System.Drawing.Size(155, 98);
-            this.contextMenuGridView.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuGridView_Opening);
-            // 
-            // tsmiDeleteSelected
-            // 
-            this.tsmiDeleteSelected.Name = "tsmiDeleteSelected";
-            this.tsmiDeleteSelected.Size = new System.Drawing.Size(154, 22);
-            this.tsmiDeleteSelected.Text = "Delete Selected";
-            this.tsmiDeleteSelected.Click += new System.EventHandler(this.tsmiDeleteSelected_Click);
-            // 
-            // tsmiDeleteAll
-            // 
-            this.tsmiDeleteAll.Name = "tsmiDeleteAll";
-            this.tsmiDeleteAll.Size = new System.Drawing.Size(154, 22);
-            this.tsmiDeleteAll.Text = "Delete All...";
-            this.tsmiDeleteAll.Click += new System.EventHandler(this.tsmiDeleteAll_Click);
-            // 
-            // panelDataTop
-            // 
-            this.panelDataTop.Controls.Add(this.labelInfo);
-            this.panelDataTop.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panelDataTop.Location = new System.Drawing.Point(0, 142);
-            this.panelDataTop.Name = "panelDataTop";
-            this.panelDataTop.Size = new System.Drawing.Size(617, 25);
-            this.panelDataTop.TabIndex = 26;
-            // 
-            // labelInfo
-            // 
-            this.labelInfo.AutoSize = true;
-            this.labelInfo.Location = new System.Drawing.Point(4, 4);
-            this.labelInfo.Name = "labelInfo";
-            this.labelInfo.Size = new System.Drawing.Size(182, 13);
-            this.labelInfo.TabIndex = 0;
-            this.labelInfo.Text = "Select filter criteria and Retrieve logs!";
-            // 
-            // labelMessage
-            // 
-            this.labelMessage.AutoSize = true;
-            this.labelMessage.Location = new System.Drawing.Point(4, 4);
-            this.labelMessage.Name = "labelMessage";
-            this.labelMessage.Size = new System.Drawing.Size(52, 13);
-            this.labelMessage.TabIndex = 8;
-            this.labelMessage.Text = "Trace log";
-            // 
-            // chkWordWrap
-            // 
-            this.chkWordWrap.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.chkWordWrap.AutoSize = true;
-            this.chkWordWrap.Location = new System.Drawing.Point(414, 3);
-            this.chkWordWrap.Name = "chkWordWrap";
-            this.chkWordWrap.Size = new System.Drawing.Size(72, 17);
-            this.chkWordWrap.TabIndex = 7;
-            this.chkWordWrap.Text = "Wrap text";
-            this.chkWordWrap.UseVisualStyleBackColor = true;
-            this.chkWordWrap.CheckedChanged += new System.EventHandler(this.checkWordWrap_CheckedChanged);
-            // 
-            // splitContainerRight
-            // 
-            this.splitContainerRight.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.splitContainerRight.FixedPanel = System.Windows.Forms.FixedPanel.Panel2;
-            this.splitContainerRight.Location = new System.Drawing.Point(0, 0);
-            this.splitContainerRight.Name = "splitContainerRight";
-            this.splitContainerRight.Orientation = System.Windows.Forms.Orientation.Horizontal;
-            // 
-            // splitContainerRight.Panel1
-            // 
-            this.splitContainerRight.Panel1.Controls.Add(this.textMessage);
-            this.splitContainerRight.Panel1.Controls.Add(this.panelMessageLabel);
-            this.splitContainerRight.Panel1MinSize = 23;
-            // 
-            // splitContainerRight.Panel2
-            // 
-            this.splitContainerRight.Panel2.Controls.Add(this.textException);
-            this.splitContainerRight.Panel2.Controls.Add(this.panelExceptionLabel);
-            this.splitContainerRight.Panel2MinSize = 23;
-            this.splitContainerRight.Size = new System.Drawing.Size(489, 455);
-            this.splitContainerRight.SplitterDistance = 226;
-            this.splitContainerRight.SplitterWidth = 8;
-            this.splitContainerRight.TabIndex = 12;
-            // 
-            // textMessage
-            // 
-            this.textMessage.AcceptsReturn = true;
-            this.textMessage.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.textMessage.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textMessage.Location = new System.Drawing.Point(0, 25);
-            this.textMessage.MinimumSize = new System.Drawing.Size(4, 100);
-            this.textMessage.Multiline = true;
-            this.textMessage.Name = "textMessage";
-            this.textMessage.ReadOnly = true;
-            this.textMessage.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.textMessage.Size = new System.Drawing.Size(489, 201);
-            this.textMessage.TabIndex = 10;
-            this.textMessage.WordWrap = false;
-            // 
-            // panelMessageLabel
-            // 
-            this.panelMessageLabel.Controls.Add(this.chkWordWrap);
-            this.panelMessageLabel.Controls.Add(this.labelMessage);
-            this.panelMessageLabel.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panelMessageLabel.Location = new System.Drawing.Point(0, 0);
-            this.panelMessageLabel.Name = "panelMessageLabel";
-            this.panelMessageLabel.Size = new System.Drawing.Size(489, 25);
-            this.panelMessageLabel.TabIndex = 11;
-            // 
-            // textException
-            // 
-            this.textException.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.textException.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textException.Location = new System.Drawing.Point(0, 25);
-            this.textException.Multiline = true;
-            this.textException.Name = "textException";
-            this.textException.ReadOnly = true;
-            this.textException.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.textException.Size = new System.Drawing.Size(489, 196);
-            this.textException.TabIndex = 6;
-            this.textException.WordWrap = false;
-            // 
-            // panelExceptionLabel
-            // 
-            this.panelExceptionLabel.Controls.Add(this.labelException);
-            this.panelExceptionLabel.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panelExceptionLabel.Location = new System.Drawing.Point(0, 0);
-            this.panelExceptionLabel.Name = "panelExceptionLabel";
-            this.panelExceptionLabel.Size = new System.Drawing.Size(489, 25);
-            this.panelExceptionLabel.TabIndex = 8;
-            // 
-            // labelException
-            // 
-            this.labelException.AutoSize = true;
-            this.labelException.Location = new System.Drawing.Point(4, 4);
-            this.labelException.Name = "labelException";
-            this.labelException.Size = new System.Drawing.Size(54, 13);
-            this.labelException.TabIndex = 7;
-            this.labelException.Text = "Exception";
-            // 
-            // splitContainerMain
-            // 
-            this.splitContainerMain.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.splitContainerMain.Location = new System.Drawing.Point(0, 25);
-            this.splitContainerMain.Name = "splitContainerMain";
-            // 
-            // splitContainerMain.Panel1
-            // 
-            this.splitContainerMain.Panel1.Controls.Add(this.crmGridView);
-            this.splitContainerMain.Panel1.Controls.Add(this.panelDataTop);
-            this.splitContainerMain.Panel1.Controls.Add(this.groupFilter);
-            this.splitContainerMain.Panel1MinSize = 100;
-            // 
-            // splitContainerMain.Panel2
-            // 
-            this.splitContainerMain.Panel2.Controls.Add(this.splitContainerRight);
-            this.splitContainerMain.Panel2MinSize = 100;
-            this.splitContainerMain.Size = new System.Drawing.Size(1114, 455);
-            this.splitContainerMain.SplitterDistance = 617;
-            this.splitContainerMain.SplitterWidth = 8;
-            this.splitContainerMain.TabIndex = 31;
-            // 
             // correlation
             // 
             this.correlation.HeaderText = "Corr";
@@ -968,10 +802,16 @@
             this.correlationid.ReadOnly = true;
             this.correlationid.Visible = false;
             // 
-            // toolStripMenuItem1
+            // contextMenuGridView
             // 
-            this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(151, 6);
+            this.contextMenuGridView.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.tsmiCorrelation,
+            this.toolStripMenuItem1,
+            this.tsmiDeleteAll,
+            this.tsmiDeleteSelected});
+            this.contextMenuGridView.Name = "contextStripMain";
+            this.contextMenuGridView.Size = new System.Drawing.Size(155, 98);
+            this.contextMenuGridView.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuGridView_Opening);
             // 
             // tsmiCorrelation
             // 
@@ -982,18 +822,179 @@
             this.tsmiCorrelation.Size = new System.Drawing.Size(154, 22);
             this.tsmiCorrelation.Text = "Correlation";
             // 
-            // tsmiCorrelationSelectThis
-            // 
-            this.tsmiCorrelationSelectThis.Name = "tsmiCorrelationSelectThis";
-            this.tsmiCorrelationSelectThis.Size = new System.Drawing.Size(266, 22);
-            this.tsmiCorrelationSelectThis.Text = "Select all logs with this correlation id";
-            this.tsmiCorrelationSelectThis.Click += new System.EventHandler(this.tsmiCorrelationSelectThis_Click);
-            // 
             // tsmiCorrelationId
             // 
             this.tsmiCorrelationId.Name = "tsmiCorrelationId";
-            this.tsmiCorrelationId.Size = new System.Drawing.Size(266, 22);
+            this.tsmiCorrelationId.Size = new System.Drawing.Size(308, 22);
             this.tsmiCorrelationId.Text = "Id: ";
+            // 
+            // tsmiCorrelationSelectThis
+            // 
+            this.tsmiCorrelationSelectThis.Name = "tsmiCorrelationSelectThis";
+            this.tsmiCorrelationSelectThis.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.C)));
+            this.tsmiCorrelationSelectThis.Size = new System.Drawing.Size(308, 22);
+            this.tsmiCorrelationSelectThis.Text = "Select all logs with this correlation id";
+            this.tsmiCorrelationSelectThis.Click += new System.EventHandler(this.tsmiCorrelationSelectThis_Click);
+            // 
+            // toolStripMenuItem1
+            // 
+            this.toolStripMenuItem1.Name = "toolStripMenuItem1";
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(151, 6);
+            // 
+            // tsmiDeleteAll
+            // 
+            this.tsmiDeleteAll.Name = "tsmiDeleteAll";
+            this.tsmiDeleteAll.Size = new System.Drawing.Size(154, 22);
+            this.tsmiDeleteAll.Text = "Delete All...";
+            this.tsmiDeleteAll.Click += new System.EventHandler(this.tsmiDeleteAll_Click);
+            // 
+            // tsmiDeleteSelected
+            // 
+            this.tsmiDeleteSelected.Name = "tsmiDeleteSelected";
+            this.tsmiDeleteSelected.Size = new System.Drawing.Size(154, 22);
+            this.tsmiDeleteSelected.Text = "Delete Selected";
+            this.tsmiDeleteSelected.Click += new System.EventHandler(this.tsmiDeleteSelected_Click);
+            // 
+            // panelDataTop
+            // 
+            this.panelDataTop.Controls.Add(this.labelInfo);
+            this.panelDataTop.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panelDataTop.Location = new System.Drawing.Point(0, 142);
+            this.panelDataTop.Name = "panelDataTop";
+            this.panelDataTop.Size = new System.Drawing.Size(617, 25);
+            this.panelDataTop.TabIndex = 26;
+            // 
+            // labelInfo
+            // 
+            this.labelInfo.AutoSize = true;
+            this.labelInfo.Location = new System.Drawing.Point(4, 4);
+            this.labelInfo.Name = "labelInfo";
+            this.labelInfo.Size = new System.Drawing.Size(182, 13);
+            this.labelInfo.TabIndex = 0;
+            this.labelInfo.Text = "Select filter criteria and Retrieve logs!";
+            // 
+            // labelMessage
+            // 
+            this.labelMessage.AutoSize = true;
+            this.labelMessage.Location = new System.Drawing.Point(4, 4);
+            this.labelMessage.Name = "labelMessage";
+            this.labelMessage.Size = new System.Drawing.Size(52, 13);
+            this.labelMessage.TabIndex = 8;
+            this.labelMessage.Text = "Trace log";
+            // 
+            // chkWordWrap
+            // 
+            this.chkWordWrap.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.chkWordWrap.AutoSize = true;
+            this.chkWordWrap.Location = new System.Drawing.Point(414, 3);
+            this.chkWordWrap.Name = "chkWordWrap";
+            this.chkWordWrap.Size = new System.Drawing.Size(72, 17);
+            this.chkWordWrap.TabIndex = 7;
+            this.chkWordWrap.Text = "Wrap text";
+            this.chkWordWrap.UseVisualStyleBackColor = true;
+            this.chkWordWrap.CheckedChanged += new System.EventHandler(this.checkWordWrap_CheckedChanged);
+            // 
+            // splitContainerRight
+            // 
+            this.splitContainerRight.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.splitContainerRight.FixedPanel = System.Windows.Forms.FixedPanel.Panel2;
+            this.splitContainerRight.Location = new System.Drawing.Point(0, 0);
+            this.splitContainerRight.Name = "splitContainerRight";
+            this.splitContainerRight.Orientation = System.Windows.Forms.Orientation.Horizontal;
+            // 
+            // splitContainerRight.Panel1
+            // 
+            this.splitContainerRight.Panel1.Controls.Add(this.textMessage);
+            this.splitContainerRight.Panel1.Controls.Add(this.panelMessageLabel);
+            this.splitContainerRight.Panel1MinSize = 23;
+            // 
+            // splitContainerRight.Panel2
+            // 
+            this.splitContainerRight.Panel2.Controls.Add(this.textException);
+            this.splitContainerRight.Panel2.Controls.Add(this.panelExceptionLabel);
+            this.splitContainerRight.Panel2MinSize = 23;
+            this.splitContainerRight.Size = new System.Drawing.Size(489, 455);
+            this.splitContainerRight.SplitterDistance = 222;
+            this.splitContainerRight.SplitterWidth = 8;
+            this.splitContainerRight.TabIndex = 12;
+            // 
+            // textMessage
+            // 
+            this.textMessage.AcceptsReturn = true;
+            this.textMessage.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.textMessage.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textMessage.Location = new System.Drawing.Point(0, 25);
+            this.textMessage.MinimumSize = new System.Drawing.Size(4, 100);
+            this.textMessage.Multiline = true;
+            this.textMessage.Name = "textMessage";
+            this.textMessage.ReadOnly = true;
+            this.textMessage.ScrollBars = System.Windows.Forms.ScrollBars.Both;
+            this.textMessage.Size = new System.Drawing.Size(489, 197);
+            this.textMessage.TabIndex = 10;
+            this.textMessage.WordWrap = false;
+            // 
+            // panelMessageLabel
+            // 
+            this.panelMessageLabel.Controls.Add(this.chkWordWrap);
+            this.panelMessageLabel.Controls.Add(this.labelMessage);
+            this.panelMessageLabel.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panelMessageLabel.Location = new System.Drawing.Point(0, 0);
+            this.panelMessageLabel.Name = "panelMessageLabel";
+            this.panelMessageLabel.Size = new System.Drawing.Size(489, 25);
+            this.panelMessageLabel.TabIndex = 11;
+            // 
+            // textException
+            // 
+            this.textException.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.textException.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textException.Location = new System.Drawing.Point(0, 25);
+            this.textException.Multiline = true;
+            this.textException.Name = "textException";
+            this.textException.ReadOnly = true;
+            this.textException.ScrollBars = System.Windows.Forms.ScrollBars.Both;
+            this.textException.Size = new System.Drawing.Size(489, 200);
+            this.textException.TabIndex = 6;
+            this.textException.WordWrap = false;
+            // 
+            // panelExceptionLabel
+            // 
+            this.panelExceptionLabel.Controls.Add(this.labelException);
+            this.panelExceptionLabel.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panelExceptionLabel.Location = new System.Drawing.Point(0, 0);
+            this.panelExceptionLabel.Name = "panelExceptionLabel";
+            this.panelExceptionLabel.Size = new System.Drawing.Size(489, 25);
+            this.panelExceptionLabel.TabIndex = 8;
+            // 
+            // labelException
+            // 
+            this.labelException.AutoSize = true;
+            this.labelException.Location = new System.Drawing.Point(4, 4);
+            this.labelException.Name = "labelException";
+            this.labelException.Size = new System.Drawing.Size(54, 13);
+            this.labelException.TabIndex = 7;
+            this.labelException.Text = "Exception";
+            // 
+            // splitContainerMain
+            // 
+            this.splitContainerMain.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.splitContainerMain.Location = new System.Drawing.Point(0, 25);
+            this.splitContainerMain.Name = "splitContainerMain";
+            // 
+            // splitContainerMain.Panel1
+            // 
+            this.splitContainerMain.Panel1.Controls.Add(this.crmGridView);
+            this.splitContainerMain.Panel1.Controls.Add(this.panelDataTop);
+            this.splitContainerMain.Panel1.Controls.Add(this.groupFilter);
+            this.splitContainerMain.Panel1MinSize = 100;
+            // 
+            // splitContainerMain.Panel2
+            // 
+            this.splitContainerMain.Panel2.Controls.Add(this.splitContainerRight);
+            this.splitContainerMain.Panel2MinSize = 100;
+            this.splitContainerMain.Size = new System.Drawing.Size(1114, 455);
+            this.splitContainerMain.SplitterDistance = 617;
+            this.splitContainerMain.SplitterWidth = 8;
+            this.splitContainerMain.TabIndex = 31;
             // 
             // PluginTraceViewer
             // 

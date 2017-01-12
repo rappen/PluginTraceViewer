@@ -26,7 +26,6 @@ namespace Cinteros.XTB.PluginTraceViewer
         private const int PAGE_SIZE = 1000;
         private const int MAX_BATCH = 2;
         private bool? logUsage = null;
-        private List<Guid> correlationIds;
 
         public PluginTraceViewer()
         {
@@ -411,32 +410,44 @@ namespace Cinteros.XTB.PluginTraceViewer
 
         private void FriendlyfyCorrelationIds(EntityCollection entities)
         {
-            correlationIds = new List<Guid>();
+            var allCorrelationIds = new List<Guid>();
+            var correlationIds = new List<Guid>();
             foreach (var entity in entities.Entities.Reverse())
-            {
-                var corr = entity.Contains("correlationid") ? entity["correlationid"].ToString() : string.Empty;
-                Guid corrId;
-                if (Guid.TryParse(corr, out corrId))
+            {   // First determine which correlation ids that occur more than once, we don't want to show corr for single occurences
+                if (entity.Contains("correlationid"))
                 {
-                    var index = 0;
-                    if (correlationIds.Contains(corrId))
-                    {
-                        index = correlationIds.IndexOf(corrId);
+                    var corrId = (Guid)entity["correlationid"];
+                    if (allCorrelationIds.Contains(corrId))
+                    {   // id occurs more than once
+                        if (!correlationIds.Contains(corrId))
+                        {
+                            correlationIds.Add(corrId);
+                        }
                     }
                     else
                     {
-                        index = correlationIds.Count;
-                        correlationIds.Add(corrId);
+                        allCorrelationIds.Add(corrId);
                     }
-                    var friendlyCorr = string.Empty;
-                    do
+                }
+            }
+            foreach (var entity in entities.Entities)
+            {
+                if (entity.Contains("correlationid"))
+                {
+                    var corrId = (Guid)entity["correlationid"];
+                    if (correlationIds.Contains(corrId))
                     {
-                        var curr = (index > 25 ? index / 26 - 1 : index) + 65;
-                        friendlyCorr += (char)curr;
-                        index = index > 25 ? index % 26 : -1;
+                        var index = correlationIds.IndexOf(corrId);
+                        var friendlyCorr = string.Empty;
+                        do
+                        {
+                            var curr = (index > 25 ? index / 26 - 1 : index) + 65;
+                            friendlyCorr += (char)curr;
+                            index = index > 25 ? index % 26 : -1;
+                        }
+                        while (index >= 0);
+                        entity.Attributes.Add("correlation", friendlyCorr);
                     }
-                    while (index >= 0);
-                    entity.Attributes.Add("correlation", friendlyCorr);
                 }
             }
         }
@@ -1031,7 +1042,7 @@ namespace Cinteros.XTB.PluginTraceViewer
             var grid = (CRMGridView)menu?.SourceControl;
             var entities = grid?.SelectedCellRecords?.Entities;
 
-            if (entities?.Count == 1 && entities[0]["correlationid"].ToString() != "")
+            if (entities?.Count == 1 && entities[0].Contains("correlationid") && entities[0]["correlationid"]?.ToString() != "" && entities[0]["correlationid"]?.ToString() != "")
             {
                 var corrId = entities[0]["correlationid"];
                 tsmiCorrelationId.Text = "Id: " + corrId.ToString();
