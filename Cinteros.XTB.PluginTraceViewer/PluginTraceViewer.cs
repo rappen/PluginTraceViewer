@@ -1311,6 +1311,7 @@ namespace Cinteros.XTB.PluginTraceViewer
                         row.Selected = false;
                     }
                 }
+                LogUse("SelectByCorrelationId");
             }
             SendMessageToStatusBar(this, new StatusBarMessageEventArgs($"Selected {count} log records"));
         }
@@ -1327,6 +1328,7 @@ namespace Cinteros.XTB.PluginTraceViewer
             {
                 chkCorrelation.Checked = true;
                 textCorrelationId.Text = corrId.ToString();
+                LogUse("FilterByCorrelationId");
                 RefreshTraces(GetQuery());
             }
         }
