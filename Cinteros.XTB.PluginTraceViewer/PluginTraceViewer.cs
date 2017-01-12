@@ -1340,5 +1340,14 @@ namespace Cinteros.XTB.PluginTraceViewer
             }
             return Guid.Empty;
         }
+
+        private void crmGridView_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
+        {
+            if (e.ColumnIndex == crmGridView.Columns["correlation"].Index)
+            {
+                var cell = crmGridView.Rows[e.RowIndex].Cells[e.ColumnIndex];
+                cell.ToolTipText = crmGridView.Rows[e.RowIndex].Cells["correlationid"].Value.ToString();
+            }
+        }
     }
 }
