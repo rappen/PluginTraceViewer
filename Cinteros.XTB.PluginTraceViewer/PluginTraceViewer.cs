@@ -985,7 +985,7 @@ namespace Cinteros.XTB.PluginTraceViewer
 
         private void tsmiDeleteAll_Click(object sender, EventArgs e)
         {
-            if (DialogResult.Yes!=MessageBox.Show("This action will permanently delete all returned log records.\n\nContinue?", "Confirm", MessageBoxButtons.YesNo, MessageBoxIcon.Warning))
+            if (DialogResult.Yes != MessageBox.Show("This action will permanently delete all returned log records.\n\nContinue?", "Confirm", MessageBoxButtons.YesNo, MessageBoxIcon.Warning))
             {
                 return;
             }
@@ -1031,6 +1031,16 @@ namespace Cinteros.XTB.PluginTraceViewer
             var grid = (CRMGridView)menu?.SourceControl;
             var entities = grid?.SelectedCellRecords?.Entities;
 
+            if (entities?.Count == 1 && entities[0]["correlationid"].ToString() != "")
+            {
+                var corrId = entities[0]["correlationid"];
+                tsmiCorrelationId.Text = "Id: " + corrId.ToString();
+                tsmiCorrelation.Enabled = true;
+            }
+            else
+            {
+                tsmiCorrelation.Enabled = false;
+            }
             if (entities?.Count > 0)
             {
                 // If there are records selected — enable 'Delete Selected' action
@@ -1232,6 +1242,31 @@ namespace Cinteros.XTB.PluginTraceViewer
             {
                 LoadLogSetting();
             }
+        }
+
+        private void tsmiCorrelationSelectThis_Click(object sender, EventArgs e)
+        {
+            var count = 0;
+            var entities = crmGridView.SelectedCellRecords?.Entities;
+            if (entities?.Count == 1 && entities[0]["correlationid"].ToString() != "")
+            {
+                var corrId = entities[0]["correlationid"];
+                foreach (DataGridViewRow row in crmGridView.Rows)
+                {
+                    var idstr = row.Cells["correlationid"]?.Value?.ToString();
+                    Guid id;
+                    if (Guid.TryParse(idstr, out id) && id.Equals(corrId))
+                    {
+                        row.Selected = true;
+                        count++;
+                    }
+                    else
+                    {
+                        row.Selected = false;
+                    }
+                }
+            }
+            SendMessageToStatusBar(this, new StatusBarMessageEventArgs($"Selected {count} log records"));
         }
     }
 }

@@ -107,6 +107,10 @@
             this.exceptionsummary = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.messagebody = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.correlationid = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripSeparator();
+            this.tsmiCorrelation = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiCorrelationSelectThis = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiCorrelationId = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMain.SuspendLayout();
             this.groupFilter.SuspendLayout();
             this.panelFilter.SuspendLayout();
@@ -708,10 +712,12 @@
             // contextMenuGridView
             // 
             this.contextMenuGridView.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.tsmiDeleteSelected,
-            this.tsmiDeleteAll});
+            this.tsmiCorrelation,
+            this.toolStripMenuItem1,
+            this.tsmiDeleteAll,
+            this.tsmiDeleteSelected});
             this.contextMenuGridView.Name = "contextStripMain";
-            this.contextMenuGridView.Size = new System.Drawing.Size(155, 48);
+            this.contextMenuGridView.Size = new System.Drawing.Size(155, 98);
             this.contextMenuGridView.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuGridView_Opening);
             // 
             // tsmiDeleteSelected
@@ -962,6 +968,33 @@
             this.correlationid.ReadOnly = true;
             this.correlationid.Visible = false;
             // 
+            // toolStripMenuItem1
+            // 
+            this.toolStripMenuItem1.Name = "toolStripMenuItem1";
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(151, 6);
+            // 
+            // tsmiCorrelation
+            // 
+            this.tsmiCorrelation.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.tsmiCorrelationId,
+            this.tsmiCorrelationSelectThis});
+            this.tsmiCorrelation.Name = "tsmiCorrelation";
+            this.tsmiCorrelation.Size = new System.Drawing.Size(154, 22);
+            this.tsmiCorrelation.Text = "Correlation";
+            // 
+            // tsmiCorrelationSelectThis
+            // 
+            this.tsmiCorrelationSelectThis.Name = "tsmiCorrelationSelectThis";
+            this.tsmiCorrelationSelectThis.Size = new System.Drawing.Size(266, 22);
+            this.tsmiCorrelationSelectThis.Text = "Select all logs with this correlation id";
+            this.tsmiCorrelationSelectThis.Click += new System.EventHandler(this.tsmiCorrelationSelectThis_Click);
+            // 
+            // tsmiCorrelationId
+            // 
+            this.tsmiCorrelationId.Name = "tsmiCorrelationId";
+            this.tsmiCorrelationId.Size = new System.Drawing.Size(266, 22);
+            this.tsmiCorrelationId.Text = "Id: ";
+            // 
             // PluginTraceViewer
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1083,5 +1116,9 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn exceptionsummary;
         private System.Windows.Forms.DataGridViewTextBoxColumn messagebody;
         private System.Windows.Forms.DataGridViewTextBoxColumn correlationid;
+        private System.Windows.Forms.ToolStripMenuItem tsmiCorrelation;
+        private System.Windows.Forms.ToolStripMenuItem tsmiCorrelationSelectThis;
+        private System.Windows.Forms.ToolStripSeparator toolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem tsmiCorrelationId;
     }
 }
