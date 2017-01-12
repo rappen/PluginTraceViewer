@@ -56,6 +56,8 @@
             this.comboLogSetting = new System.Windows.Forms.ToolStripComboBox();
             this.groupFilter = new System.Windows.Forms.GroupBox();
             this.panelFilter = new System.Windows.Forms.Panel();
+            this.textCorrelationId = new System.Windows.Forms.TextBox();
+            this.chkCorrelation = new System.Windows.Forms.CheckBox();
             this.label1 = new System.Windows.Forms.Label();
             this.comboEntity = new System.Windows.Forms.ComboBox();
             this.chkEntity = new System.Windows.Forms.CheckBox();
@@ -68,6 +70,7 @@
             this.dateTo = new System.Windows.Forms.DateTimePicker();
             this.dateFrom = new System.Windows.Forms.DateTimePicker();
             this.panelOptions = new System.Windows.Forms.Panel();
+            this.chkShowCorrelation = new System.Windows.Forms.CheckBox();
             this.chkExceptionSummary = new System.Windows.Forms.CheckBox();
             this.chkRecords = new System.Windows.Forms.CheckBox();
             this.chkDurationMax = new System.Windows.Forms.CheckBox();
@@ -111,6 +114,7 @@
             this.panelExceptionLabel = new System.Windows.Forms.Panel();
             this.labelException = new System.Windows.Forms.Label();
             this.splitContainerMain = new System.Windows.Forms.SplitContainer();
+            this.tsmiCorrelationFilterByThis = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMain.SuspendLayout();
             this.groupFilter.SuspendLayout();
             this.panelFilter.SuspendLayout();
@@ -351,13 +355,15 @@
             this.groupFilter.Dock = System.Windows.Forms.DockStyle.Top;
             this.groupFilter.Location = new System.Drawing.Point(0, 0);
             this.groupFilter.Name = "groupFilter";
-            this.groupFilter.Size = new System.Drawing.Size(617, 142);
+            this.groupFilter.Size = new System.Drawing.Size(617, 172);
             this.groupFilter.TabIndex = 26;
             this.groupFilter.TabStop = false;
             this.groupFilter.Text = "Filter";
             // 
             // panelFilter
             // 
+            this.panelFilter.Controls.Add(this.textCorrelationId);
+            this.panelFilter.Controls.Add(this.chkCorrelation);
             this.panelFilter.Controls.Add(this.label1);
             this.panelFilter.Controls.Add(this.comboEntity);
             this.panelFilter.Controls.Add(this.chkEntity);
@@ -372,17 +378,38 @@
             this.panelFilter.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelFilter.Location = new System.Drawing.Point(3, 16);
             this.panelFilter.Name = "panelFilter";
-            this.panelFilter.Size = new System.Drawing.Size(348, 123);
+            this.panelFilter.Size = new System.Drawing.Size(348, 153);
             this.panelFilter.TabIndex = 1;
+            // 
+            // textCorrelationId
+            // 
+            this.textCorrelationId.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.textCorrelationId.Enabled = false;
+            this.textCorrelationId.Location = new System.Drawing.Point(97, 120);
+            this.textCorrelationId.Name = "textCorrelationId";
+            this.textCorrelationId.Size = new System.Drawing.Size(244, 20);
+            this.textCorrelationId.TabIndex = 13;
+            // 
+            // chkCorrelation
+            // 
+            this.chkCorrelation.AutoSize = true;
+            this.chkCorrelation.Location = new System.Drawing.Point(3, 122);
+            this.chkCorrelation.Name = "chkCorrelation";
+            this.chkCorrelation.Size = new System.Drawing.Size(88, 17);
+            this.chkCorrelation.TabIndex = 12;
+            this.chkCorrelation.Text = "Correlation Id";
+            this.chkCorrelation.UseVisualStyleBackColor = true;
+            this.chkCorrelation.CheckedChanged += new System.EventHandler(this.chkCorrelation_CheckedChanged);
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(220, 4);
+            this.label1.Location = new System.Drawing.Point(270, 4);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(100, 13);
+            this.label1.Size = new System.Drawing.Size(71, 13);
             this.label1.TabIndex = 11;
-            this.label1.Text = "Note: Times in UTC";
+            this.label1.Text = "Times in UTC";
             // 
             // comboEntity
             // 
@@ -390,9 +417,9 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.comboEntity.Enabled = false;
             this.comboEntity.FormattingEnabled = true;
-            this.comboEntity.Location = new System.Drawing.Point(84, 96);
+            this.comboEntity.Location = new System.Drawing.Point(97, 96);
             this.comboEntity.Name = "comboEntity";
-            this.comboEntity.Size = new System.Drawing.Size(257, 21);
+            this.comboEntity.Size = new System.Drawing.Size(244, 21);
             this.comboEntity.Sorted = true;
             this.comboEntity.TabIndex = 10;
             // 
@@ -414,9 +441,9 @@
             this.comboMessage.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboMessage.Enabled = false;
             this.comboMessage.FormattingEnabled = true;
-            this.comboMessage.Location = new System.Drawing.Point(84, 72);
+            this.comboMessage.Location = new System.Drawing.Point(97, 72);
             this.comboMessage.Name = "comboMessage";
-            this.comboMessage.Size = new System.Drawing.Size(257, 21);
+            this.comboMessage.Size = new System.Drawing.Size(244, 21);
             this.comboMessage.TabIndex = 8;
             // 
             // chkMessage
@@ -436,9 +463,9 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.comboPlugin.Enabled = false;
             this.comboPlugin.FormattingEnabled = true;
-            this.comboPlugin.Location = new System.Drawing.Point(84, 48);
+            this.comboPlugin.Location = new System.Drawing.Point(97, 48);
             this.comboPlugin.Name = "comboPlugin";
-            this.comboPlugin.Size = new System.Drawing.Size(257, 21);
+            this.comboPlugin.Size = new System.Drawing.Size(244, 21);
             this.comboPlugin.TabIndex = 6;
             // 
             // chkPlugin
@@ -479,7 +506,7 @@
             this.dateTo.CustomFormat = "yyyy-MM-dd HH:mm";
             this.dateTo.Enabled = false;
             this.dateTo.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.dateTo.Location = new System.Drawing.Point(84, 24);
+            this.dateTo.Location = new System.Drawing.Point(97, 24);
             this.dateTo.MaxDate = new System.DateTime(2099, 12, 31, 0, 0, 0, 0);
             this.dateTo.MinDate = new System.DateTime(2000, 1, 1, 0, 0, 0, 0);
             this.dateTo.Name = "dateTo";
@@ -491,7 +518,7 @@
             this.dateFrom.CustomFormat = "yyyy-MM-dd HH:mm";
             this.dateFrom.Enabled = false;
             this.dateFrom.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.dateFrom.Location = new System.Drawing.Point(84, 0);
+            this.dateFrom.Location = new System.Drawing.Point(97, 0);
             this.dateFrom.MaxDate = new System.DateTime(2099, 12, 31, 0, 0, 0, 0);
             this.dateFrom.MinDate = new System.DateTime(2000, 1, 1, 0, 0, 0, 0);
             this.dateFrom.Name = "dateFrom";
@@ -500,6 +527,7 @@
             // 
             // panelOptions
             // 
+            this.panelOptions.Controls.Add(this.chkShowCorrelation);
             this.panelOptions.Controls.Add(this.chkExceptionSummary);
             this.panelOptions.Controls.Add(this.chkRecords);
             this.panelOptions.Controls.Add(this.chkDurationMax);
@@ -514,8 +542,18 @@
             this.panelOptions.Dock = System.Windows.Forms.DockStyle.Right;
             this.panelOptions.Location = new System.Drawing.Point(351, 16);
             this.panelOptions.Name = "panelOptions";
-            this.panelOptions.Size = new System.Drawing.Size(263, 123);
+            this.panelOptions.Size = new System.Drawing.Size(263, 153);
             this.panelOptions.TabIndex = 2;
+            // 
+            // chkShowCorrelation
+            // 
+            this.chkShowCorrelation.AutoSize = true;
+            this.chkShowCorrelation.Location = new System.Drawing.Point(3, 27);
+            this.chkShowCorrelation.Name = "chkShowCorrelation";
+            this.chkShowCorrelation.Size = new System.Drawing.Size(106, 17);
+            this.chkShowCorrelation.TabIndex = 3;
+            this.chkShowCorrelation.Text = "Show Correlation";
+            this.chkShowCorrelation.UseVisualStyleBackColor = true;
             // 
             // chkExceptionSummary
             // 
@@ -524,9 +562,9 @@
             this.chkExceptionSummary.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chkExceptionSummary.Location = new System.Drawing.Point(158, 3);
             this.chkExceptionSummary.Name = "chkExceptionSummary";
-            this.chkExceptionSummary.Size = new System.Drawing.Size(97, 17);
-            this.chkExceptionSummary.TabIndex = 11;
-            this.chkExceptionSummary.Text = "Show summary";
+            this.chkExceptionSummary.Size = new System.Drawing.Size(91, 17);
+            this.chkExceptionSummary.TabIndex = 2;
+            this.chkExceptionSummary.Text = "Exc. summary";
             this.chkExceptionSummary.UseVisualStyleBackColor = true;
             // 
             // chkRecords
@@ -534,10 +572,10 @@
             this.chkRecords.AutoSize = true;
             this.chkRecords.Checked = true;
             this.chkRecords.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkRecords.Location = new System.Drawing.Point(3, 98);
+            this.chkRecords.Location = new System.Drawing.Point(3, 122);
             this.chkRecords.Name = "chkRecords";
             this.chkRecords.Size = new System.Drawing.Size(91, 17);
-            this.chkRecords.TabIndex = 9;
+            this.chkRecords.TabIndex = 11;
             this.chkRecords.Text = "Record count";
             this.chkRecords.UseVisualStyleBackColor = true;
             this.chkRecords.CheckedChanged += new System.EventHandler(this.chkRecords_CheckedChanged);
@@ -545,10 +583,10 @@
             // chkDurationMax
             // 
             this.chkDurationMax.AutoSize = true;
-            this.chkDurationMax.Location = new System.Drawing.Point(3, 74);
+            this.chkDurationMax.Location = new System.Drawing.Point(3, 98);
             this.chkDurationMax.Name = "chkDurationMax";
             this.chkDurationMax.Size = new System.Drawing.Size(89, 17);
-            this.chkDurationMax.TabIndex = 7;
+            this.chkDurationMax.TabIndex = 9;
             this.chkDurationMax.Text = "Duration Max";
             this.chkDurationMax.UseVisualStyleBackColor = true;
             this.chkDurationMax.CheckedChanged += new System.EventHandler(this.chkDurationMax_CheckedChanged);
@@ -556,10 +594,10 @@
             // chkDurationMin
             // 
             this.chkDurationMin.AutoSize = true;
-            this.chkDurationMin.Location = new System.Drawing.Point(3, 50);
+            this.chkDurationMin.Location = new System.Drawing.Point(3, 74);
             this.chkDurationMin.Name = "chkDurationMin";
             this.chkDurationMin.Size = new System.Drawing.Size(86, 17);
-            this.chkDurationMin.TabIndex = 5;
+            this.chkDurationMin.TabIndex = 7;
             this.chkDurationMin.Text = "Duration Min";
             this.chkDurationMin.UseVisualStyleBackColor = true;
             this.chkDurationMin.CheckedChanged += new System.EventHandler(this.chkDurationMin_CheckedChanged);
@@ -572,7 +610,7 @@
             0,
             0,
             0});
-            this.numDurationMax.Location = new System.Drawing.Point(158, 73);
+            this.numDurationMax.Location = new System.Drawing.Point(158, 97);
             this.numDurationMax.Maximum = new decimal(new int[] {
             100000,
             0,
@@ -580,7 +618,7 @@
             0});
             this.numDurationMax.Name = "numDurationMax";
             this.numDurationMax.Size = new System.Drawing.Size(76, 20);
-            this.numDurationMax.TabIndex = 8;
+            this.numDurationMax.TabIndex = 10;
             // 
             // numDurationMin
             // 
@@ -590,7 +628,7 @@
             0,
             0,
             0});
-            this.numDurationMin.Location = new System.Drawing.Point(158, 49);
+            this.numDurationMin.Location = new System.Drawing.Point(158, 73);
             this.numDurationMin.Maximum = new decimal(new int[] {
             100000,
             0,
@@ -598,7 +636,7 @@
             0});
             this.numDurationMin.Name = "numDurationMin";
             this.numDurationMin.Size = new System.Drawing.Size(76, 20);
-            this.numDurationMin.TabIndex = 6;
+            this.numDurationMin.TabIndex = 8;
             // 
             // numRecords
             // 
@@ -607,7 +645,7 @@
             0,
             0,
             0});
-            this.numRecords.Location = new System.Drawing.Point(158, 97);
+            this.numRecords.Location = new System.Drawing.Point(158, 121);
             this.numRecords.Maximum = new decimal(new int[] {
             5000,
             0,
@@ -620,7 +658,7 @@
             0});
             this.numRecords.Name = "numRecords";
             this.numRecords.Size = new System.Drawing.Size(76, 20);
-            this.numRecords.TabIndex = 10;
+            this.numRecords.TabIndex = 12;
             this.numRecords.Value = new decimal(new int[] {
             100,
             0,
@@ -631,10 +669,10 @@
             // rbModeAsync
             // 
             this.rbModeAsync.AutoSize = true;
-            this.rbModeAsync.Location = new System.Drawing.Point(158, 25);
+            this.rbModeAsync.Location = new System.Drawing.Point(158, 49);
             this.rbModeAsync.Name = "rbModeAsync";
             this.rbModeAsync.Size = new System.Drawing.Size(76, 17);
-            this.rbModeAsync.TabIndex = 4;
+            this.rbModeAsync.TabIndex = 6;
             this.rbModeAsync.TabStop = true;
             this.rbModeAsync.Text = "Async only";
             this.rbModeAsync.UseVisualStyleBackColor = true;
@@ -642,10 +680,10 @@
             // rbModeSync
             // 
             this.rbModeSync.AutoSize = true;
-            this.rbModeSync.Location = new System.Drawing.Point(80, 25);
+            this.rbModeSync.Location = new System.Drawing.Point(80, 49);
             this.rbModeSync.Name = "rbModeSync";
             this.rbModeSync.Size = new System.Drawing.Size(71, 17);
-            this.rbModeSync.TabIndex = 3;
+            this.rbModeSync.TabIndex = 5;
             this.rbModeSync.TabStop = true;
             this.rbModeSync.Text = "Sync only";
             this.rbModeSync.UseVisualStyleBackColor = true;
@@ -654,10 +692,10 @@
             // 
             this.rbModeAll.AutoSize = true;
             this.rbModeAll.Checked = true;
-            this.rbModeAll.Location = new System.Drawing.Point(3, 25);
+            this.rbModeAll.Location = new System.Drawing.Point(3, 49);
             this.rbModeAll.Name = "rbModeAll";
             this.rbModeAll.Size = new System.Drawing.Size(70, 17);
-            this.rbModeAll.TabIndex = 2;
+            this.rbModeAll.TabIndex = 4;
             this.rbModeAll.TabStop = true;
             this.rbModeAll.Text = "All modes";
             this.rbModeAll.UseVisualStyleBackColor = true;
@@ -697,14 +735,14 @@
             this.crmGridView.ContextMenuStrip = this.contextMenuGridView;
             this.crmGridView.Dock = System.Windows.Forms.DockStyle.Fill;
             this.crmGridView.EnableHeadersVisualStyles = false;
-            this.crmGridView.Location = new System.Drawing.Point(0, 167);
+            this.crmGridView.Location = new System.Drawing.Point(0, 197);
             this.crmGridView.Name = "crmGridView";
             this.crmGridView.ReadOnly = true;
             this.crmGridView.RowHeadersWidth = 20;
             this.crmGridView.ShowFriendlyNames = true;
             this.crmGridView.ShowIdColumn = false;
             this.crmGridView.ShowIndexColumn = false;
-            this.crmGridView.Size = new System.Drawing.Size(617, 288);
+            this.crmGridView.Size = new System.Drawing.Size(617, 258);
             this.crmGridView.TabIndex = 25;
             this.crmGridView.RecordDoubleClick += new Cinteros.Xrm.CRMWinForm.CRMRecordEventHandler(this.crmGridView_RecordDoubleClick);
             this.crmGridView.RecordEnter += new Cinteros.Xrm.CRMWinForm.CRMRecordEventHandler(this.crmGridView_RecordEnter);
@@ -810,13 +848,14 @@
             this.tsmiDeleteAll,
             this.tsmiDeleteSelected});
             this.contextMenuGridView.Name = "contextStripMain";
-            this.contextMenuGridView.Size = new System.Drawing.Size(155, 98);
+            this.contextMenuGridView.Size = new System.Drawing.Size(155, 76);
             this.contextMenuGridView.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuGridView_Opening);
             // 
             // tsmiCorrelation
             // 
             this.tsmiCorrelation.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.tsmiCorrelationId,
+            this.tsmiCorrelationFilterByThis,
             this.tsmiCorrelationSelectThis});
             this.tsmiCorrelation.Name = "tsmiCorrelation";
             this.tsmiCorrelation.Size = new System.Drawing.Size(154, 22);
@@ -859,7 +898,7 @@
             // 
             this.panelDataTop.Controls.Add(this.labelInfo);
             this.panelDataTop.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panelDataTop.Location = new System.Drawing.Point(0, 142);
+            this.panelDataTop.Location = new System.Drawing.Point(0, 172);
             this.panelDataTop.Name = "panelDataTop";
             this.panelDataTop.Size = new System.Drawing.Size(617, 25);
             this.panelDataTop.TabIndex = 26;
@@ -914,7 +953,7 @@
             this.splitContainerRight.Panel2.Controls.Add(this.panelExceptionLabel);
             this.splitContainerRight.Panel2MinSize = 23;
             this.splitContainerRight.Size = new System.Drawing.Size(489, 455);
-            this.splitContainerRight.SplitterDistance = 222;
+            this.splitContainerRight.SplitterDistance = 218;
             this.splitContainerRight.SplitterWidth = 8;
             this.splitContainerRight.TabIndex = 12;
             // 
@@ -929,7 +968,7 @@
             this.textMessage.Name = "textMessage";
             this.textMessage.ReadOnly = true;
             this.textMessage.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.textMessage.Size = new System.Drawing.Size(489, 197);
+            this.textMessage.Size = new System.Drawing.Size(489, 193);
             this.textMessage.TabIndex = 10;
             this.textMessage.WordWrap = false;
             // 
@@ -952,7 +991,7 @@
             this.textException.Name = "textException";
             this.textException.ReadOnly = true;
             this.textException.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.textException.Size = new System.Drawing.Size(489, 200);
+            this.textException.Size = new System.Drawing.Size(489, 204);
             this.textException.TabIndex = 6;
             this.textException.WordWrap = false;
             // 
@@ -995,6 +1034,13 @@
             this.splitContainerMain.SplitterDistance = 617;
             this.splitContainerMain.SplitterWidth = 8;
             this.splitContainerMain.TabIndex = 31;
+            // 
+            // tsmiCorrelationFilterByThis
+            // 
+            this.tsmiCorrelationFilterByThis.Name = "tsmiCorrelationFilterByThis";
+            this.tsmiCorrelationFilterByThis.Size = new System.Drawing.Size(308, 22);
+            this.tsmiCorrelationFilterByThis.Text = "Filter by this correlation id";
+            this.tsmiCorrelationFilterByThis.Click += new System.EventHandler(this.tsmiCorrelationFilterByThis_Click);
             // 
             // PluginTraceViewer
             // 
@@ -1121,5 +1167,9 @@
         private System.Windows.Forms.ToolStripMenuItem tsmiCorrelationSelectThis;
         private System.Windows.Forms.ToolStripSeparator toolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem tsmiCorrelationId;
+        private System.Windows.Forms.TextBox textCorrelationId;
+        private System.Windows.Forms.CheckBox chkCorrelation;
+        private System.Windows.Forms.CheckBox chkShowCorrelation;
+        private System.Windows.Forms.ToolStripMenuItem tsmiCorrelationFilterByThis;
     }
 }

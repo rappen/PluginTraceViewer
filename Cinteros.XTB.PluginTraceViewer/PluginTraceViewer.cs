@@ -375,6 +375,10 @@ namespace Cinteros.XTB.PluginTraceViewer
 
         private void RefreshTraces(QueryExpression query)
         {
+            if (query == null)
+            {
+                return;
+            }
             var excSummary = chkExceptionSummary.Checked;
             if (Service != null)
             {
@@ -559,6 +563,16 @@ namespace Cinteros.XTB.PluginTraceViewer
                         entityFilterInclude.AddCondition("primaryentity", entity.Contains("*") ? ConditionOperator.Like : ConditionOperator.Equal, entity.Replace("*", "%").Trim());
                     }
                 }
+            }
+            if (chkCorrelation.Checked)
+            {
+                Guid id;
+                if (!Guid.TryParse(textCorrelationId.Text, out id))
+                {
+                    MessageBox.Show("Correlation id is not a valid Guid.", "Correlation", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return null;
+                }
+                QEplugintracelog.Criteria.AddCondition("correlationid", ConditionOperator.Equal, id);
             }
             if (chkExceptions.Checked)
             {
@@ -838,8 +852,10 @@ namespace Cinteros.XTB.PluginTraceViewer
                 Plugin = chkPlugin.Checked ? comboPlugin.Text : string.Empty,
                 Message = chkMessage.Checked ? comboMessage.Text : string.Empty,
                 Entity = chkEntity.Checked ? comboEntity.Text : string.Empty,
+                CorrelationId = chkCorrelation.Checked ? textCorrelationId.Text : string.Empty,
                 Exceptions = chkExceptions.Checked,
                 ExceptionSummary = chkExceptionSummary.Checked,
+                Correlation = chkShowCorrelation.Checked,
                 Mode = rbModeSync.Checked ? 1 : rbModeAsync.Checked ? 2 : 0,
                 MinDuration = chkDurationMin.Checked ? (int)numDurationMin.Value : -1,
                 MaxDuration = chkDurationMax.Checked ? (int)numDurationMax.Value : -1,
@@ -909,8 +925,11 @@ namespace Cinteros.XTB.PluginTraceViewer
             comboMessage.SelectedIndex = comboMessage.Items.IndexOf(filter.Message);
             chkEntity.Checked = !string.IsNullOrEmpty(filter.Entity);
             comboEntity.Text = filter.Entity;
+            chkCorrelation.Checked = !string.IsNullOrEmpty(filter.CorrelationId);
+            textCorrelationId.Text = filter.CorrelationId;
             chkExceptions.Checked = filter.Exceptions;
             chkExceptionSummary.Checked = filter.ExceptionSummary;
+            chkShowCorrelation.Checked = filter.Correlation;
             switch (filter.Mode)
             {
                 case 1:
@@ -1194,6 +1213,10 @@ namespace Cinteros.XTB.PluginTraceViewer
         private void buttonOpenFXB_Click(object sender, EventArgs e)
         {
             var fetchxml = GetQueryFetchXML();
+            if (string.IsNullOrEmpty(fetchxml))
+            {
+                return;
+            }
             var messageBusEventArgs = new MessageBusEventArgs("FetchXML Builder")
             {
                 TargetArgument = fetchxml
@@ -1204,6 +1227,10 @@ namespace Cinteros.XTB.PluginTraceViewer
         private string GetQueryFetchXML()
         {
             QueryExpression query = GetQuery();
+            if (query == null)
+            {
+                return string.Empty;
+            }
             var resp = Service.Execute(new QueryExpressionToFetchXmlRequest() { Query = query }) as QueryExpressionToFetchXmlResponse;
             return resp.FetchXml;
         }
@@ -1223,6 +1250,10 @@ namespace Cinteros.XTB.PluginTraceViewer
             if (sfd.ShowDialog() == DialogResult.OK && !string.IsNullOrEmpty(sfd.FileName))
             {
                 var fetchxml = GetQueryFetchXML();
+                if (string.IsNullOrEmpty(fetchxml))
+                {
+                    return;
+                }
                 var fetchdoc = new XmlDocument();
                 fetchdoc.LoadXml(fetchxml);
                 fetchdoc.Save(sfd.FileName);
@@ -1258,10 +1289,9 @@ namespace Cinteros.XTB.PluginTraceViewer
         private void tsmiCorrelationSelectThis_Click(object sender, EventArgs e)
         {
             var count = 0;
-            var entities = crmGridView.SelectedCellRecords?.Entities;
-            if (entities?.Count == 1 && entities[0]["correlationid"].ToString() != "")
+            var corrId = GetSelectedCorrelationId();
+            if (!corrId.Equals(Guid.Empty))
             {
-                var corrId = entities[0]["correlationid"];
                 foreach (DataGridViewRow row in crmGridView.Rows)
                 {
                     var idstr = row.Cells["correlationid"]?.Value?.ToString();
@@ -1278,6 +1308,32 @@ namespace Cinteros.XTB.PluginTraceViewer
                 }
             }
             SendMessageToStatusBar(this, new StatusBarMessageEventArgs($"Selected {count} log records"));
+        }
+
+        private void chkCorrelation_CheckedChanged(object sender, EventArgs e)
+        {
+            textCorrelationId.Enabled = chkCorrelation.Checked;
+        }
+
+        private void tsmiCorrelationFilterByThis_Click(object sender, EventArgs e)
+        {
+            var corrId = GetSelectedCorrelationId();
+            if (!corrId.Equals(Guid.Empty))
+            {
+                chkCorrelation.Checked = true;
+                textCorrelationId.Text = corrId.ToString();
+                RefreshTraces(GetQuery());
+            }
+        }
+
+        private Guid GetSelectedCorrelationId()
+        {
+            var entities = crmGridView.SelectedCellRecords?.Entities;
+            if (entities?.Count == 1 && entities[0]["correlationid"].ToString() != "")
+            {
+                return (Guid)entities[0]["correlationid"];
+            }
+            return Guid.Empty;
         }
     }
 }
