@@ -985,6 +985,10 @@ namespace Cinteros.XTB.PluginTraceViewer
 
         private void tsmiDeleteAll_Click(object sender, EventArgs e)
         {
+            if (DialogResult.Yes!=MessageBox.Show("This action will permanently delete all returned log records.\n\nContinue?", "Confirm", MessageBoxButtons.YesNo, MessageBoxIcon.Warning))
+            {
+                return;
+            }
             var query = new QueryExpression("plugintracelog");
             var batches = new List<ExecuteMultipleRequest>();
             EntityCollection result = null;
