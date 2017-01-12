@@ -379,6 +379,7 @@ namespace Cinteros.XTB.PluginTraceViewer
             {
                 return;
             }
+            var showCorr = chkShowCorrelation.Checked;
             var excSummary = chkExceptionSummary.Checked;
             if (Service != null)
             {
@@ -399,7 +400,10 @@ namespace Cinteros.XTB.PluginTraceViewer
                         }
                         else if (args.Result is EntityCollection)
                         {
-                            FriendlyfyCorrelationIds(args.Result as EntityCollection);
+                            if (showCorr)
+                            {
+                                FriendlyfyCorrelationIds(args.Result as EntityCollection);
+                            }
                             if (excSummary)
                             {
                                 ExtractExceptionSummaries(args.Result as EntityCollection);
@@ -615,6 +619,7 @@ namespace Cinteros.XTB.PluginTraceViewer
                     UpdateUI(() =>
                     {
                         crmGridView.DataSource = results;
+                        crmGridView.Columns["correlation"].Visible = chkShowCorrelation.Checked;
                         var dt = crmGridView.GetDataSource<DataTable>();
                         if (dt != null)
                         {
