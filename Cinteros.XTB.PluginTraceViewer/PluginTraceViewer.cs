@@ -26,6 +26,7 @@ namespace Cinteros.XTB.PluginTraceViewer
         private const int PAGE_SIZE = 1000;
         private const int MAX_BATCH = 2;
         private bool? logUsage = null;
+        private List<Guid> correlationIds;
 
         public PluginTraceViewer()
         {
@@ -395,6 +396,7 @@ namespace Cinteros.XTB.PluginTraceViewer
                         }
                         else if (args.Result is EntityCollection)
                         {
+                            FriendlyfyCorrelationIds(args.Result as EntityCollection);
                             if (excSummary)
                             {
                                 ExtractExceptionSummaries(args.Result as EntityCollection);
@@ -404,6 +406,38 @@ namespace Cinteros.XTB.PluginTraceViewer
                     }
                 };
                 WorkAsync(asyncinfo);
+            }
+        }
+
+        private void FriendlyfyCorrelationIds(EntityCollection entities)
+        {
+            correlationIds = new List<Guid>();
+            foreach (var entity in entities.Entities.Reverse())
+            {
+                var corr = entity.Contains("correlationid") ? entity["correlationid"].ToString() : string.Empty;
+                Guid corrId;
+                if (Guid.TryParse(corr, out corrId))
+                {
+                    var index = 0;
+                    if (correlationIds.Contains(corrId))
+                    {
+                        index = correlationIds.IndexOf(corrId);
+                    }
+                    else
+                    {
+                        index = correlationIds.Count;
+                        correlationIds.Add(corrId);
+                    }
+                    var friendlyCorr = string.Empty;
+                    do
+                    {
+                        var curr = (index > 25 ? index / 26 - 1 : index) + 65;
+                        friendlyCorr += (char)curr;
+                        index = index > 25 ? index % 26 : -1;
+                    }
+                    while (index >= 0);
+                    entity.Attributes.Add("correlation", friendlyCorr);
+                }
             }
         }
 
@@ -446,6 +480,7 @@ namespace Cinteros.XTB.PluginTraceViewer
         {
             var QEplugintracelog = new QueryExpression("plugintracelog");
             QEplugintracelog.ColumnSet.AddColumns(
+                            "correlationid",
                             "performanceexecutionstarttime",
                             "operationtype",
                             "messagename",
@@ -1184,7 +1219,7 @@ namespace Cinteros.XTB.PluginTraceViewer
             {
                 return;
             }
-            if (DialogResult.OK == MessageBox.Show($"Update the organization wide setting for plug-in trace log to\n\n  \"{comboLogSetting.Text}\" ?", "Confirm", 
+            if (DialogResult.OK == MessageBox.Show($"Update the organization wide setting for plug-in trace log to\n\n  \"{comboLogSetting.Text}\" ?", "Confirm",
                 MessageBoxButtons.OKCancel, MessageBoxIcon.Exclamation))
             {
                 UpdateLogSetting(comboLogSetting.SelectedIndex);
