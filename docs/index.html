@@ -198,7 +198,7 @@
                 </h3>
                 <p>
                     <h4>Menu</h4>
-                    <img src="images/PTV-menu.jpg">
+                    <img src="images/PTV-menu2.png">
                     <br />
                     <ul>
                         <li>
@@ -229,10 +229,14 @@
                             <strong>Refresh Filter Options</strong>
                             <br /> Reloads constraints and options for filter criteria.
                         </li>
+                        <li>
+                            <strong>Trace Log Setting</strong>
+                            <br /> Update the trace log setting in the system. This option is found in CRM under <em>Settings, Administration, System Settings, Customization</em>.
+                        </li>
                     </ul>
 
                     <h4>Filter</h4>
-                    <img src="images/PTV-filter.jpg">
+                    <img src="images/PTV-filter2.png">
                     <br />
                     <ul>
                         <li>
@@ -261,8 +265,20 @@
                             <br /><em>Example:&nbsp;&nbsp;account, new_*, !new_log_*</em>
                         </li>
                         <li>
+                            <strong>Correlation Id</strong>
+                            <br /> Filter by correlation id. This is a guid stored on each log record, and is easiest found by right-clicking a log record and selecting <em>Correlation - Filter by this correlation id</em>.
+                        </li>
+                        <li>
                             <strong>Exceptions only</strong>
                             <br /> Check this to only return logs with exceptions.
+                        </li>
+                        <li>
+                            <strong>Exc. Summary</strong>
+                            <br /> Check this to display the actual error message in the table.
+                        </li>
+                        <li>
+                            <strong>Show Correlation</strong>
+                            <br /> Check this to display the Correlation column in the table.
                         </li>
                         <li>
                             <strong>Mode</strong>
@@ -279,11 +295,12 @@
                     </ul>
                     <em>Note! Logs are always retrieve sorted by created date descending, so newest records will be at the top of the list.</em>
 
-                    <h4>Filter</h4>
+                    <h4>Trace log table</h4>
                     <img src="images/PTV-grid.jpg">
                     <br /> The table displays trace log records according to the filter.
                     <br /> Double click a record to open it in CRM.
                     <br /> Right click to delete selected or all returned records.
+                    <br /> Right click to select records with same CorrelationId of filter by selected CorrelationId.
                 </p>
                 <h3>
                     <a id="gitter" class="anchor" href="#gitter" aria-hidden="true"><span class="octicon octicon-link"></span></a>Discussion
