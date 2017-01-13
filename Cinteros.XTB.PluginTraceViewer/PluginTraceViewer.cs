@@ -1345,11 +1345,9 @@ namespace Cinteros.XTB.PluginTraceViewer
 
         private void crmGridView_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
         {
-            if (e.ColumnIndex == crmGridView.Columns["correlation"].Index)
-            {
-                var cell = crmGridView.Rows[e.RowIndex].Cells[e.ColumnIndex];
-                cell.ToolTipText = crmGridView.Rows[e.RowIndex].Cells["correlationid"].Value.ToString();
-            }
+            var tooltipcolumn = e.ColumnIndex == crmGridView.Columns["correlation"].Index ? "correlationid" : crmGridView.Columns[e.ColumnIndex].Name;
+            var cell = crmGridView[e.ColumnIndex, e.RowIndex];
+            cell.ToolTipText = crmGridView.Rows[e.RowIndex].Cells[tooltipcolumn].Value.ToString();
         }
     }
 }
