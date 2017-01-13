@@ -193,6 +193,24 @@
                         This includes the possibility to filter the logs and display the information in ways not currently possible within the Microsoft Dynamics CRM UI.
                     </em>
                 </p>
+                <hr />
+                <h3>
+                    <font color="red">Connection bug workaround</font>
+                </h3>
+                <p>
+                    <strong>
+                        Plugin Trace Viewer 1.2017.1.21 uses a later version of XrmToolBox interna connectivity functionality than XrmToolBox itself before version 1.2017.*<br />
+                        This may cause errors when connecting Plugin Trace Viewer to an organization.<br />
+                    </strong>
+                    If the following error occurs, check the workaround below:<br />
+                    <img src="images/ConnectionError.jpg" /><br />
+                    * Open file <code>&lt;XrmToolBox-path&gt;\XrmToolBox.exe.config</code> in a text editor.<br />
+                    * Locate dependentAssembly blocks for <code>McTools.Xrm.Connection</code>.<br />
+                    * Make sure the bindingRedirect oldVersion attribute has value <code>0.0.0.0-1.2016.12.4</code><br />
+                    <img src="images/ConnectionErrorFix.jpg" /><br /><br />
+                    * Save the file, restart XrmToolBox<br />
+                </p>
+                <hr />
                 <h3>
                     <a id="info" class="anchor" href="#info" aria-hidden="true"><span class="octicon octicon-link"></span></a>How-to
                 </h3>
