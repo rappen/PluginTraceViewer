@@ -103,8 +103,9 @@
             this.tsmiCorrelationFilterByThis = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiCorrelationSelectThis = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripSeparator();
-            this.tsmiDeleteAll = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiDelete = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiDeleteSelected = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiDeleteAll = new System.Windows.Forms.ToolStripMenuItem();
             this.panelDataTop = new System.Windows.Forms.Panel();
             this.labelInfo = new System.Windows.Forms.Label();
             this.labelMessage = new System.Windows.Forms.Label();
@@ -860,10 +861,9 @@
             this.contextMenuGridView.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.tsmiCorrelation,
             this.toolStripMenuItem1,
-            this.tsmiDeleteAll,
-            this.tsmiDeleteSelected});
+            this.tsmiDelete});
             this.contextMenuGridView.Name = "contextStripMain";
-            this.contextMenuGridView.Size = new System.Drawing.Size(155, 98);
+            this.contextMenuGridView.Size = new System.Drawing.Size(153, 76);
             this.contextMenuGridView.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuGridView_Opening);
             // 
             // tsmiCorrelation
@@ -873,7 +873,7 @@
             this.tsmiCorrelationFilterByThis,
             this.tsmiCorrelationSelectThis});
             this.tsmiCorrelation.Name = "tsmiCorrelation";
-            this.tsmiCorrelation.Size = new System.Drawing.Size(154, 22);
+            this.tsmiCorrelation.Size = new System.Drawing.Size(152, 22);
             this.tsmiCorrelation.Text = "Correlation";
             // 
             // tsmiCorrelationId
@@ -886,7 +886,7 @@
             // 
             this.tsmiCorrelationFilterByThis.Name = "tsmiCorrelationFilterByThis";
             this.tsmiCorrelationFilterByThis.Size = new System.Drawing.Size(308, 22);
-            this.tsmiCorrelationFilterByThis.Text = "Filter by this correlation id";
+            this.tsmiCorrelationFilterByThis.Text = "Add correlation id to filter";
             this.tsmiCorrelationFilterByThis.Click += new System.EventHandler(this.tsmiCorrelationFilterByThis_Click);
             // 
             // tsmiCorrelationSelectThis
@@ -900,14 +900,16 @@
             // toolStripMenuItem1
             // 
             this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(151, 6);
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(149, 6);
             // 
-            // tsmiDeleteAll
+            // tsmiDelete
             // 
-            this.tsmiDeleteAll.Name = "tsmiDeleteAll";
-            this.tsmiDeleteAll.Size = new System.Drawing.Size(154, 22);
-            this.tsmiDeleteAll.Text = "Delete All...";
-            this.tsmiDeleteAll.Click += new System.EventHandler(this.tsmiDeleteAll_Click);
+            this.tsmiDelete.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.tsmiDeleteSelected,
+            this.tsmiDeleteAll});
+            this.tsmiDelete.Name = "tsmiDelete";
+            this.tsmiDelete.Size = new System.Drawing.Size(152, 22);
+            this.tsmiDelete.Text = "Delete";
             // 
             // tsmiDeleteSelected
             // 
@@ -915,6 +917,13 @@
             this.tsmiDeleteSelected.Size = new System.Drawing.Size(154, 22);
             this.tsmiDeleteSelected.Text = "Delete Selected";
             this.tsmiDeleteSelected.Click += new System.EventHandler(this.tsmiDeleteSelected_Click);
+            // 
+            // tsmiDeleteAll
+            // 
+            this.tsmiDeleteAll.Name = "tsmiDeleteAll";
+            this.tsmiDeleteAll.Size = new System.Drawing.Size(154, 22);
+            this.tsmiDeleteAll.Text = "Delete All...";
+            this.tsmiDeleteAll.Click += new System.EventHandler(this.tsmiDeleteAll_Click);
             // 
             // panelDataTop
             // 
@@ -975,7 +984,7 @@
             this.splitContainerRight.Panel2.Controls.Add(this.panelExceptionLabel);
             this.splitContainerRight.Panel2MinSize = 23;
             this.splitContainerRight.Size = new System.Drawing.Size(489, 455);
-            this.splitContainerRight.SplitterDistance = 210;
+            this.splitContainerRight.SplitterDistance = 198;
             this.splitContainerRight.SplitterWidth = 8;
             this.splitContainerRight.TabIndex = 12;
             // 
@@ -990,7 +999,7 @@
             this.textMessage.Name = "textMessage";
             this.textMessage.ReadOnly = true;
             this.textMessage.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.textMessage.Size = new System.Drawing.Size(489, 185);
+            this.textMessage.Size = new System.Drawing.Size(489, 173);
             this.textMessage.TabIndex = 10;
             this.textMessage.WordWrap = false;
             // 
@@ -1013,7 +1022,7 @@
             this.textException.Name = "textException";
             this.textException.ReadOnly = true;
             this.textException.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.textException.Size = new System.Drawing.Size(489, 212);
+            this.textException.Size = new System.Drawing.Size(489, 224);
             this.textException.TabIndex = 6;
             this.textException.WordWrap = false;
             // 
@@ -1187,5 +1196,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn messagebody;
         private System.Windows.Forms.DataGridViewTextBoxColumn exceptiondetails;
         private System.Windows.Forms.DataGridViewTextBoxColumn correlationid;
+        private System.Windows.Forms.ToolStripMenuItem tsmiDelete;
     }
 }

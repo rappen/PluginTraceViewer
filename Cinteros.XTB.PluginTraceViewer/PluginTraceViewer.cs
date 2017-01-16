@@ -570,13 +570,8 @@ namespace Cinteros.XTB.PluginTraceViewer
             }
             if (chkCorrelation.Checked)
             {
-                Guid id;
-                if (!Guid.TryParse(textCorrelationId.Text, out id))
-                {
-                    MessageBox.Show("Correlation id is not a valid Guid.", "Correlation", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return null;
-                }
-                QEplugintracelog.Criteria.AddCondition("correlationid", ConditionOperator.Equal, id);
+                var ids = GetCurrentCorrelationIdFilter(false);
+                QEplugintracelog.Criteria.AddCondition("correlationid", ConditionOperator.In, ids.Select(i => i.ToString()).ToArray());
             }
             if (chkExceptions.Checked)
             {
@@ -1323,14 +1318,36 @@ namespace Cinteros.XTB.PluginTraceViewer
 
         private void tsmiCorrelationFilterByThis_Click(object sender, EventArgs e)
         {
-            var corrId = GetSelectedCorrelationId();
-            if (!corrId.Equals(Guid.Empty))
+            var newCorrId = GetSelectedCorrelationId();
+            if (!newCorrId.Equals(Guid.Empty))
             {
+                var corrIds = GetCurrentCorrelationIdFilter(true);
+                if (!corrIds.Contains(newCorrId))
+                {
+                    corrIds.Add(newCorrId);
+                }
                 chkCorrelation.Checked = true;
-                textCorrelationId.Text = corrId.ToString();
+                textCorrelationId.Text = string.Join(", ", corrIds);
                 LogUse("FilterByCorrelationId");
-                RefreshTraces(GetQuery());
             }
+        }
+
+        private List<Guid> GetCurrentCorrelationIdFilter(bool silent)
+        {
+            var results = new List<Guid>();
+            foreach (var idstr in textCorrelationId.Text.Split(',').Select(i => i.Trim()))
+            {
+                var id = Guid.Empty;
+                if (Guid.TryParse(idstr, out id) && !results.Contains(id))
+                {
+                    results.Add(id);
+                }
+                else if (!silent)
+                {
+                    MessageBox.Show($"\"{idstr}\" is not a valid correlation guid.", "Correlation Id", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
+            }
+            return results;
         }
 
         private Guid GetSelectedCorrelationId()
