@@ -1066,9 +1066,9 @@ namespace Cinteros.XTB.PluginTraceViewer
             var grid = (CRMGridView)menu?.SourceControl;
             var entities = grid?.SelectedCellRecords?.Entities;
 
-            if (entities?.Count == 1 && entities[0].Contains("correlationid") && entities[0]["correlationid"]?.ToString() != "" && entities[0]["correlationid"]?.ToString() != "")
+            var corrId = GetSelectedCorrelationId();
+            if (!corrId.Equals(Guid.Empty))
             {
-                var corrId = entities[0]["correlationid"];
                 tsmiCorrelationId.Text = "Id: " + corrId.ToString();
                 tsmiCorrelation.Enabled = true;
             }
@@ -1335,10 +1335,12 @@ namespace Cinteros.XTB.PluginTraceViewer
 
         private Guid GetSelectedCorrelationId()
         {
+            var result = Guid.Empty;
             var entities = crmGridView.SelectedCellRecords?.Entities;
-            if (entities?.Count == 1 && entities[0]["correlationid"].ToString() != "")
+            var ids = entities.Select(e => (Guid)e["correlationid"]).Distinct();
+            if (ids.Count() == 1)
             {
-                return (Guid)entities[0]["correlationid"];
+                return ids.FirstOrDefault();
             }
             return Guid.Empty;
         }
