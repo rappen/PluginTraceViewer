@@ -709,14 +709,14 @@ namespace Cinteros.XTB.PluginTraceViewer
                     txtStatExecCnt.Text = execs >= 0 ? execs.ToString() : "?";
                     txtStatAvgExecTime.Text = avgtime >= 0 ? avgtime.ToString() : "?";
                     txtStatFailCnt.Text = failcnt >= 0 ? failcnt.ToString() : "?";
-                    txtStatFailPct.Text = failpct >= 0 ? failpct.ToString() + "%" : "?";
+                    txtStatFailPct.Text = failpct >= 0 ? failpct.ToString() + " %" : "?";
                     txtStatCrashCnt.Text = crashcnt >= 0 ? crashcnt.ToString() : "?";
-                    txtStatCrashPct.Text = crashpct >= 0 ? crashpct.ToString() + "%" : "?";
-                    txtStatCrashContrPct.Text = crashcontrpct >= 0 ? crashcontrpct.ToString() + "%" : "?";
-                    txtStatTermCPU.Text = termcpu >= 0 ? termcpu.ToString() + "%" : "?";
-                    txtStatTermMemory.Text = termmem >= 0 ? termmem.ToString() + "%" : "?";
-                    txtStatTermHandles.Text = termhnd >= 0 ? termhnd.ToString() + "%" : "?";
-                    txtStatTermOther.Text = termoth >= 0 ? termoth.ToString() + "%" : "?";
+                    txtStatCrashPct.Text = crashpct >= 0 ? crashpct.ToString() + " %" : "?";
+                    txtStatCrashContrPct.Text = crashcontrpct >= 0 ? crashcontrpct.ToString() + " %" : "?";
+                    txtStatTermCPU.Text = termcpu >= 0 ? termcpu.ToString() + " %" : "?";
+                    txtStatTermMemory.Text = termmem >= 0 ? termmem.ToString() + " %" : "?";
+                    txtStatTermHandles.Text = termhnd >= 0 ? termhnd.ToString() + " %" : "?";
+                    txtStatTermOther.Text = termoth >= 0 ? termoth.ToString() + " %" : "?";
                     if (!first.Equals(DateTime.MinValue) && !last.Equals(DateTime.MinValue) && !first.Equals(last) && execs >= 0 && avgtime >= 0)
                     {
                         var span = last - first;
