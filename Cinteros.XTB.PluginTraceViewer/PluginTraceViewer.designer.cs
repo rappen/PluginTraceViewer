@@ -130,6 +130,14 @@
             this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
+            this.txtStatFailCnt = new System.Windows.Forms.TextBox();
+            this.label7 = new System.Windows.Forms.Label();
+            this.txtStatFailPct = new System.Windows.Forms.TextBox();
+            this.txtStatCrashPct = new System.Windows.Forms.TextBox();
+            this.txtStatCrashCnt = new System.Windows.Forms.TextBox();
+            this.label8 = new System.Windows.Forms.Label();
+            this.txtStatCrashContrPct = new System.Windows.Forms.TextBox();
+            this.label9 = new System.Windows.Forms.Label();
             this.toolStripMain.SuspendLayout();
             this.groupFilter.SuspendLayout();
             this.panelFilter.SuspendLayout();
@@ -1107,6 +1115,14 @@
             // 
             // groupStatistics
             // 
+            this.groupStatistics.Controls.Add(this.txtStatCrashContrPct);
+            this.groupStatistics.Controls.Add(this.label9);
+            this.groupStatistics.Controls.Add(this.txtStatCrashPct);
+            this.groupStatistics.Controls.Add(this.txtStatCrashCnt);
+            this.groupStatistics.Controls.Add(this.label8);
+            this.groupStatistics.Controls.Add(this.txtStatFailPct);
+            this.groupStatistics.Controls.Add(this.txtStatFailCnt);
+            this.groupStatistics.Controls.Add(this.label7);
             this.groupStatistics.Controls.Add(this.txtStatSecPerDay);
             this.groupStatistics.Controls.Add(this.txtStatAvgExecTime);
             this.groupStatistics.Controls.Add(this.txtStatExecCnt);
@@ -1130,7 +1146,7 @@
             this.txtStatSecPerDay.Location = new System.Drawing.Point(112, 116);
             this.txtStatSecPerDay.Name = "txtStatSecPerDay";
             this.txtStatSecPerDay.ReadOnly = true;
-            this.txtStatSecPerDay.Size = new System.Drawing.Size(62, 20);
+            this.txtStatSecPerDay.Size = new System.Drawing.Size(51, 20);
             this.txtStatSecPerDay.TabIndex = 10;
             this.txtStatSecPerDay.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
@@ -1139,7 +1155,7 @@
             this.txtStatAvgExecTime.Location = new System.Drawing.Point(112, 92);
             this.txtStatAvgExecTime.Name = "txtStatAvgExecTime";
             this.txtStatAvgExecTime.ReadOnly = true;
-            this.txtStatAvgExecTime.Size = new System.Drawing.Size(62, 20);
+            this.txtStatAvgExecTime.Size = new System.Drawing.Size(51, 20);
             this.txtStatAvgExecTime.TabIndex = 9;
             this.txtStatAvgExecTime.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
@@ -1148,7 +1164,7 @@
             this.txtStatExecCnt.Location = new System.Drawing.Point(112, 68);
             this.txtStatExecCnt.Name = "txtStatExecCnt";
             this.txtStatExecCnt.ReadOnly = true;
-            this.txtStatExecCnt.Size = new System.Drawing.Size(62, 20);
+            this.txtStatExecCnt.Size = new System.Drawing.Size(51, 20);
             this.txtStatExecCnt.TabIndex = 7;
             this.txtStatExecCnt.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
@@ -1212,6 +1228,78 @@
             this.label2.Size = new System.Drawing.Size(85, 13);
             this.label2.TabIndex = 0;
             this.label2.Text = "Execution Count";
+            // 
+            // txtStatFailCnt
+            // 
+            this.txtStatFailCnt.Location = new System.Drawing.Point(227, 68);
+            this.txtStatFailCnt.Name = "txtStatFailCnt";
+            this.txtStatFailCnt.ReadOnly = true;
+            this.txtStatFailCnt.Size = new System.Drawing.Size(51, 20);
+            this.txtStatFailCnt.TabIndex = 12;
+            this.txtStatFailCnt.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(169, 71);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(43, 13);
+            this.label7.TabIndex = 11;
+            this.label7.Text = "Failures";
+            // 
+            // txtStatFailPct
+            // 
+            this.txtStatFailPct.Location = new System.Drawing.Point(284, 68);
+            this.txtStatFailPct.Name = "txtStatFailPct";
+            this.txtStatFailPct.ReadOnly = true;
+            this.txtStatFailPct.Size = new System.Drawing.Size(34, 20);
+            this.txtStatFailPct.TabIndex = 13;
+            this.txtStatFailPct.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            // 
+            // txtStatCrashPct
+            // 
+            this.txtStatCrashPct.Location = new System.Drawing.Point(284, 92);
+            this.txtStatCrashPct.Name = "txtStatCrashPct";
+            this.txtStatCrashPct.ReadOnly = true;
+            this.txtStatCrashPct.Size = new System.Drawing.Size(34, 20);
+            this.txtStatCrashPct.TabIndex = 16;
+            this.txtStatCrashPct.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            // 
+            // txtStatCrashCnt
+            // 
+            this.txtStatCrashCnt.Location = new System.Drawing.Point(227, 92);
+            this.txtStatCrashCnt.Name = "txtStatCrashCnt";
+            this.txtStatCrashCnt.ReadOnly = true;
+            this.txtStatCrashCnt.Size = new System.Drawing.Size(51, 20);
+            this.txtStatCrashCnt.TabIndex = 15;
+            this.txtStatCrashCnt.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(169, 95);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(45, 13);
+            this.label8.TabIndex = 14;
+            this.label8.Text = "Crashes";
+            // 
+            // txtStatCrashContrPct
+            // 
+            this.txtStatCrashContrPct.Location = new System.Drawing.Point(284, 116);
+            this.txtStatCrashContrPct.Name = "txtStatCrashContrPct";
+            this.txtStatCrashContrPct.ReadOnly = true;
+            this.txtStatCrashContrPct.Size = new System.Drawing.Size(34, 20);
+            this.txtStatCrashContrPct.TabIndex = 18;
+            this.txtStatCrashContrPct.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(169, 119);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(92, 13);
+            this.label9.TabIndex = 17;
+            this.label9.Text = "Crash contribution";
             // 
             // PluginTraceViewer
             // 
@@ -1360,5 +1448,13 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.TextBox txtStatFailPct;
+        private System.Windows.Forms.TextBox txtStatFailCnt;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.TextBox txtStatCrashContrPct;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.TextBox txtStatCrashPct;
+        private System.Windows.Forms.TextBox txtStatCrashCnt;
+        private System.Windows.Forms.Label label8;
     }
 }

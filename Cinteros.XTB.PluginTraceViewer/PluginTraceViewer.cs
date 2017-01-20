@@ -380,41 +380,46 @@ namespace Cinteros.XTB.PluginTraceViewer
             {
                 return;
             }
+            if (Service == null)
+            {
+                return;
+            }
+            if (statistics != null)
+            {
+                statistics.Clear();
+            }
             var showCorr = chkShowCorrelation.Checked;
             var excSummary = chkExceptionSummary.Checked;
-            if (Service != null)
+            LogUse("RetrieveLogs");
+            var asyncinfo = new WorkAsyncInfo()
             {
-                LogUse("RetrieveLogs");
-                var asyncinfo = new WorkAsyncInfo()
+                Message = "Loading trace log records",
+                Work = (a, args) =>
                 {
-                    Message = "Loading trace log records",
-                    Work = (a, args) =>
+                    LogInfo("Loading logs");
+                    args.Result = Service.RetrieveMultiple(query);
+                },
+                PostWorkCallBack = (args) =>
+                {
+                    if (args.Error != null)
                     {
-                        LogInfo("Loading logs");
-                        args.Result = Service.RetrieveMultiple(query);
-                    },
-                    PostWorkCallBack = (args) =>
-                    {
-                        if (args.Error != null)
-                        {
-                            AlertError($"Failed to load trace logs:\n{args.Error.Message}", "Load");
-                        }
-                        else if (args.Result is EntityCollection)
-                        {
-                            if (showCorr)
-                            {
-                                FriendlyfyCorrelationIds(args.Result as EntityCollection);
-                            }
-                            if (excSummary)
-                            {
-                                ExtractExceptionSummaries(args.Result as EntityCollection);
-                            }
-                            PopulateGrid(args.Result as EntityCollection);
-                        }
+                        AlertError($"Failed to load trace logs:\n{args.Error.Message}", "Load");
                     }
-                };
-                WorkAsync(asyncinfo);
-            }
+                    else if (args.Result is EntityCollection)
+                    {
+                        if (showCorr)
+                        {
+                            FriendlyfyCorrelationIds(args.Result as EntityCollection);
+                        }
+                        if (excSummary)
+                        {
+                            ExtractExceptionSummaries(args.Result as EntityCollection);
+                        }
+                        PopulateGrid(args.Result as EntityCollection);
+                    }
+                }
+            };
+            WorkAsync(asyncinfo);
         }
 
         private void FriendlyfyCorrelationIds(EntityCollection entities)
@@ -724,10 +729,20 @@ namespace Cinteros.XTB.PluginTraceViewer
                     var last = stats.Contains("modifiedon") ? (DateTime)stats["modifiedon"] : DateTime.MinValue;
                     var execs = stats.Contains("executecount") ? (int)stats["executecount"] : -1;
                     var avgtime = stats.Contains("averageexecutetimeinmilliseconds") ? (int)stats["averageexecutetimeinmilliseconds"] : -1;
+                    var failcnt = stats.Contains("failurecount") ? (int)stats["failurecount"] : -1;
+                    var failpct = stats.Contains("failurepercent") ? (int)stats["failurepercent"] : -1;
+                    var crashcnt = stats.Contains("crashcount") ? (int)stats["crashcount"] : -1;
+                    var crashpct = stats.Contains("crashpercent") ? (int)stats["crashpercent"] : -1;
+                    var crashcontrpct = stats.Contains("crashcontributionpercent") ? (int)stats["crashcontributionpercent"] : -1;
                     txtStatCreated.Text = !first.Equals(DateTime.MinValue) ? first.ToString("yyyy-MM-dd HH:mm:ss") : "?";
                     txtStatModified.Text = !last.Equals(DateTime.MinValue) ? last.ToString("yyyy-MM-dd HH:mm:ss") : "?";
                     txtStatExecCnt.Text = execs >= 0 ? execs.ToString() : "?";
                     txtStatAvgExecTime.Text = avgtime >= 0 ? avgtime.ToString() : "?";
+                    txtStatFailCnt.Text = failcnt >= 0 ? failcnt.ToString() : "?";
+                    txtStatFailPct.Text = failpct >= 0 ? failpct.ToString() + "%" : "?";
+                    txtStatCrashCnt.Text = crashcnt >= 0 ? crashcnt.ToString() : "?";
+                    txtStatCrashPct.Text = crashpct >= 0 ? crashpct.ToString() + "%" : "?";
+                    txtStatCrashContrPct.Text = crashcontrpct >= 0 ? crashcontrpct.ToString() + "%" : "?";
                     if (!first.Equals(DateTime.MinValue) && !last.Equals(DateTime.MinValue) && !first.Equals(last) && execs >= 0 && avgtime >= 0)
                     {
                         var span = last - first;
