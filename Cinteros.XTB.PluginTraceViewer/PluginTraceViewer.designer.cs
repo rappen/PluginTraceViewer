@@ -43,15 +43,20 @@
             this.buttonSaveFilter = new System.Windows.Forms.ToolStripMenuItem();
             this.buttonSaveLogs = new System.Windows.Forms.ToolStripMenuItem();
             this.buttonSaveQuery = new System.Windows.Forms.ToolStripMenuItem();
+            this.dropdownView = new System.Windows.Forms.ToolStripDropDownButton();
+            this.tsmiViewFilter = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiViewStatistics = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripSeparator();
+            this.tsmiViewExcSummary = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiViewCorrelation = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiWordWrap = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem3 = new System.Windows.Forms.ToolStripSeparator();
+            this.buttonRefreshFilter = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
             this.buttonRetrieveLogs = new System.Windows.Forms.ToolStripButton();
             this.buttonHiddenCommands = new System.Windows.Forms.ToolStripDropDownButton();
             this.buttonHiddenRetrieveLogs = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
-            this.buttonShowHideFilter = new System.Windows.Forms.ToolStripButton();
-            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
-            this.buttonRefreshFilter = new System.Windows.Forms.ToolStripButton();
-            this.toolStripSeparator6 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripLabel1 = new System.Windows.Forms.ToolStripLabel();
             this.comboLogSetting = new System.Windows.Forms.ToolStripComboBox();
             this.groupFilter = new System.Windows.Forms.GroupBox();
@@ -70,9 +75,6 @@
             this.dateTo = new System.Windows.Forms.DateTimePicker();
             this.dateFrom = new System.Windows.Forms.DateTimePicker();
             this.panelOptions = new System.Windows.Forms.Panel();
-            this.chkShowStats = new System.Windows.Forms.CheckBox();
-            this.chkShowCorrelation = new System.Windows.Forms.CheckBox();
-            this.chkExceptionSummary = new System.Windows.Forms.CheckBox();
             this.chkRecords = new System.Windows.Forms.CheckBox();
             this.chkDurationMax = new System.Windows.Forms.CheckBox();
             this.chkDurationMin = new System.Windows.Forms.CheckBox();
@@ -107,10 +109,7 @@
             this.tsmiDelete = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiDeleteSelected = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiDeleteAll = new System.Windows.Forms.ToolStripMenuItem();
-            this.panelDataTop = new System.Windows.Forms.Panel();
-            this.labelInfo = new System.Windows.Forms.Label();
             this.labelMessage = new System.Windows.Forms.Label();
-            this.chkWordWrap = new System.Windows.Forms.CheckBox();
             this.splitContainerRight = new System.Windows.Forms.SplitContainer();
             this.textMessage = new System.Windows.Forms.TextBox();
             this.panelMessageLabel = new System.Windows.Forms.Panel();
@@ -120,6 +119,23 @@
             this.splitContainerMain = new System.Windows.Forms.SplitContainer();
             this.panelStatistics = new System.Windows.Forms.Panel();
             this.groupStatistics = new System.Windows.Forms.GroupBox();
+            this.txtStatTermOther = new System.Windows.Forms.TextBox();
+            this.label14 = new System.Windows.Forms.Label();
+            this.txtStatTermHandles = new System.Windows.Forms.TextBox();
+            this.label13 = new System.Windows.Forms.Label();
+            this.txtStatTermMemory = new System.Windows.Forms.TextBox();
+            this.label12 = new System.Windows.Forms.Label();
+            this.txtStatTermCPU = new System.Windows.Forms.TextBox();
+            this.label11 = new System.Windows.Forms.Label();
+            this.label10 = new System.Windows.Forms.Label();
+            this.txtStatCrashContrPct = new System.Windows.Forms.TextBox();
+            this.label9 = new System.Windows.Forms.Label();
+            this.txtStatCrashPct = new System.Windows.Forms.TextBox();
+            this.txtStatCrashCnt = new System.Windows.Forms.TextBox();
+            this.label8 = new System.Windows.Forms.Label();
+            this.txtStatFailPct = new System.Windows.Forms.TextBox();
+            this.txtStatFailCnt = new System.Windows.Forms.TextBox();
+            this.label7 = new System.Windows.Forms.Label();
             this.txtStatSecPerDay = new System.Windows.Forms.TextBox();
             this.txtStatAvgExecTime = new System.Windows.Forms.TextBox();
             this.txtStatExecCnt = new System.Windows.Forms.TextBox();
@@ -130,23 +146,6 @@
             this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
-            this.txtStatFailCnt = new System.Windows.Forms.TextBox();
-            this.label7 = new System.Windows.Forms.Label();
-            this.txtStatFailPct = new System.Windows.Forms.TextBox();
-            this.txtStatCrashPct = new System.Windows.Forms.TextBox();
-            this.txtStatCrashCnt = new System.Windows.Forms.TextBox();
-            this.label8 = new System.Windows.Forms.Label();
-            this.txtStatCrashContrPct = new System.Windows.Forms.TextBox();
-            this.label9 = new System.Windows.Forms.Label();
-            this.label10 = new System.Windows.Forms.Label();
-            this.txtStatTermCPU = new System.Windows.Forms.TextBox();
-            this.label11 = new System.Windows.Forms.Label();
-            this.txtStatTermMemory = new System.Windows.Forms.TextBox();
-            this.label12 = new System.Windows.Forms.Label();
-            this.txtStatTermHandles = new System.Windows.Forms.TextBox();
-            this.label13 = new System.Windows.Forms.Label();
-            this.txtStatTermOther = new System.Windows.Forms.TextBox();
-            this.label14 = new System.Windows.Forms.Label();
             this.toolStripMain.SuspendLayout();
             this.groupFilter.SuspendLayout();
             this.panelFilter.SuspendLayout();
@@ -156,7 +155,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.numRecords)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.crmGridView)).BeginInit();
             this.contextMenuGridView.SuspendLayout();
-            this.panelDataTop.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainerRight)).BeginInit();
             this.splitContainerRight.Panel1.SuspendLayout();
             this.splitContainerRight.Panel2.SuspendLayout();
@@ -180,14 +178,11 @@
             this.tsbAbout,
             this.buttonOpen,
             this.dropdownSave,
+            this.dropdownView,
             this.toolStripSeparator3,
             this.buttonRetrieveLogs,
             this.buttonHiddenCommands,
             this.toolStripSeparator1,
-            this.buttonShowHideFilter,
-            this.toolStripSeparator2,
-            this.buttonRefreshFilter,
-            this.toolStripSeparator6,
             this.toolStripLabel1,
             this.comboLogSetting});
             this.toolStripMain.Location = new System.Drawing.Point(0, 0);
@@ -294,6 +289,91 @@
             this.buttonSaveQuery.Text = "Query...";
             this.buttonSaveQuery.Click += new System.EventHandler(this.buttonSaveQuery_Click);
             // 
+            // dropdownView
+            // 
+            this.dropdownView.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.tsmiViewFilter,
+            this.tsmiViewStatistics,
+            this.toolStripMenuItem2,
+            this.tsmiViewExcSummary,
+            this.tsmiViewCorrelation,
+            this.tsmiWordWrap,
+            this.toolStripMenuItem3,
+            this.buttonRefreshFilter});
+            this.dropdownView.Image = ((System.Drawing.Image)(resources.GetObject("dropdownView.Image")));
+            this.dropdownView.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.dropdownView.Name = "dropdownView";
+            this.dropdownView.Size = new System.Drawing.Size(61, 22);
+            this.dropdownView.Text = "View";
+            // 
+            // tsmiViewFilter
+            // 
+            this.tsmiViewFilter.Checked = true;
+            this.tsmiViewFilter.CheckOnClick = true;
+            this.tsmiViewFilter.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.tsmiViewFilter.Image = ((System.Drawing.Image)(resources.GetObject("tsmiViewFilter.Image")));
+            this.tsmiViewFilter.Name = "tsmiViewFilter";
+            this.tsmiViewFilter.Size = new System.Drawing.Size(202, 22);
+            this.tsmiViewFilter.Text = "Filter panel";
+            this.tsmiViewFilter.CheckedChanged += new System.EventHandler(this.tsmiViewFilter_CheckedChanged);
+            // 
+            // tsmiViewStatistics
+            // 
+            this.tsmiViewStatistics.Checked = true;
+            this.tsmiViewStatistics.CheckOnClick = true;
+            this.tsmiViewStatistics.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.tsmiViewStatistics.Image = ((System.Drawing.Image)(resources.GetObject("tsmiViewStatistics.Image")));
+            this.tsmiViewStatistics.Name = "tsmiViewStatistics";
+            this.tsmiViewStatistics.Size = new System.Drawing.Size(202, 22);
+            this.tsmiViewStatistics.Text = "Statistics panel";
+            this.tsmiViewStatistics.CheckedChanged += new System.EventHandler(this.tsmiViewStatistics_CheckedChanged);
+            // 
+            // toolStripMenuItem2
+            // 
+            this.toolStripMenuItem2.Name = "toolStripMenuItem2";
+            this.toolStripMenuItem2.Size = new System.Drawing.Size(199, 6);
+            // 
+            // tsmiViewExcSummary
+            // 
+            this.tsmiViewExcSummary.Checked = true;
+            this.tsmiViewExcSummary.CheckOnClick = true;
+            this.tsmiViewExcSummary.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.tsmiViewExcSummary.Name = "tsmiViewExcSummary";
+            this.tsmiViewExcSummary.Size = new System.Drawing.Size(202, 22);
+            this.tsmiViewExcSummary.Text = "Exception summary";
+            // 
+            // tsmiViewCorrelation
+            // 
+            this.tsmiViewCorrelation.Checked = true;
+            this.tsmiViewCorrelation.CheckOnClick = true;
+            this.tsmiViewCorrelation.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.tsmiViewCorrelation.Name = "tsmiViewCorrelation";
+            this.tsmiViewCorrelation.Size = new System.Drawing.Size(202, 22);
+            this.tsmiViewCorrelation.Text = "Correlation grouping";
+            // 
+            // tsmiWordWrap
+            // 
+            this.tsmiWordWrap.CheckOnClick = true;
+            this.tsmiWordWrap.Name = "tsmiWordWrap";
+            this.tsmiWordWrap.Size = new System.Drawing.Size(202, 22);
+            this.tsmiWordWrap.Text = "Wrap text in log window";
+            this.tsmiWordWrap.CheckedChanged += new System.EventHandler(this.tsmiWordWrap_CheckedChanged);
+            // 
+            // toolStripMenuItem3
+            // 
+            this.toolStripMenuItem3.Name = "toolStripMenuItem3";
+            this.toolStripMenuItem3.Size = new System.Drawing.Size(199, 6);
+            // 
+            // buttonRefreshFilter
+            // 
+            this.buttonRefreshFilter.Enabled = false;
+            this.buttonRefreshFilter.Image = ((System.Drawing.Image)(resources.GetObject("buttonRefreshFilter.Image")));
+            this.buttonRefreshFilter.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.buttonRefreshFilter.Name = "buttonRefreshFilter";
+            this.buttonRefreshFilter.Size = new System.Drawing.Size(140, 20);
+            this.buttonRefreshFilter.Text = "Refresh Filter Options";
+            this.buttonRefreshFilter.Click += new System.EventHandler(this.buttonRefreshFilter_Click);
+            // 
             // toolStripSeparator3
             // 
             this.toolStripSeparator3.Name = "toolStripSeparator3";
@@ -305,8 +385,9 @@
             this.buttonRetrieveLogs.Image = ((System.Drawing.Image)(resources.GetObject("buttonRetrieveLogs.Image")));
             this.buttonRetrieveLogs.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.buttonRetrieveLogs.Name = "buttonRetrieveLogs";
-            this.buttonRetrieveLogs.Size = new System.Drawing.Size(120, 22);
-            this.buttonRetrieveLogs.Text = "Retrieve Logs (F5)";
+            this.buttonRetrieveLogs.Size = new System.Drawing.Size(97, 22);
+            this.buttonRetrieveLogs.Text = "Retrieve Logs";
+            this.buttonRetrieveLogs.ToolTipText = "Retrieve Logs <F5>";
             this.buttonRetrieveLogs.Click += new System.EventHandler(this.buttonRetrieveLogs_Click);
             // 
             // buttonHiddenCommands
@@ -333,37 +414,6 @@
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
             this.toolStripSeparator1.Size = new System.Drawing.Size(6, 25);
-            // 
-            // buttonShowHideFilter
-            // 
-            this.buttonShowHideFilter.CheckOnClick = true;
-            this.buttonShowHideFilter.Image = ((System.Drawing.Image)(resources.GetObject("buttonShowHideFilter.Image")));
-            this.buttonShowHideFilter.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.buttonShowHideFilter.Name = "buttonShowHideFilter";
-            this.buttonShowHideFilter.Size = new System.Drawing.Size(81, 22);
-            this.buttonShowHideFilter.Text = "Hide Filter";
-            this.buttonShowHideFilter.ToolTipText = "Click this button to toggle the Filter panel";
-            this.buttonShowHideFilter.Click += new System.EventHandler(this.buttonShowHideFilter_Click);
-            // 
-            // toolStripSeparator2
-            // 
-            this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(6, 25);
-            // 
-            // buttonRefreshFilter
-            // 
-            this.buttonRefreshFilter.Enabled = false;
-            this.buttonRefreshFilter.Image = ((System.Drawing.Image)(resources.GetObject("buttonRefreshFilter.Image")));
-            this.buttonRefreshFilter.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.buttonRefreshFilter.Name = "buttonRefreshFilter";
-            this.buttonRefreshFilter.Size = new System.Drawing.Size(140, 22);
-            this.buttonRefreshFilter.Text = "Refresh Filter Options";
-            this.buttonRefreshFilter.Click += new System.EventHandler(this.buttonRefreshFilter_Click);
-            // 
-            // toolStripSeparator6
-            // 
-            this.toolStripSeparator6.Name = "toolStripSeparator6";
-            this.toolStripSeparator6.Size = new System.Drawing.Size(6, 25);
             // 
             // toolStripLabel1
             // 
@@ -561,9 +611,6 @@
             // 
             // panelOptions
             // 
-            this.panelOptions.Controls.Add(this.chkShowStats);
-            this.panelOptions.Controls.Add(this.chkShowCorrelation);
-            this.panelOptions.Controls.Add(this.chkExceptionSummary);
             this.panelOptions.Controls.Add(this.chkRecords);
             this.panelOptions.Controls.Add(this.chkDurationMax);
             this.panelOptions.Controls.Add(this.chkDurationMin);
@@ -579,41 +626,6 @@
             this.panelOptions.Name = "panelOptions";
             this.panelOptions.Size = new System.Drawing.Size(263, 153);
             this.panelOptions.TabIndex = 2;
-            // 
-            // chkShowStats
-            // 
-            this.chkShowStats.AutoSize = true;
-            this.chkShowStats.Checked = true;
-            this.chkShowStats.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkShowStats.Location = new System.Drawing.Point(158, 27);
-            this.chkShowStats.Name = "chkShowStats";
-            this.chkShowStats.Size = new System.Drawing.Size(98, 17);
-            this.chkShowStats.TabIndex = 13;
-            this.chkShowStats.Text = "Show Statistics";
-            this.chkShowStats.UseVisualStyleBackColor = true;
-            this.chkShowStats.CheckedChanged += new System.EventHandler(this.chkShowStats_CheckedChanged);
-            // 
-            // chkShowCorrelation
-            // 
-            this.chkShowCorrelation.AutoSize = true;
-            this.chkShowCorrelation.Location = new System.Drawing.Point(3, 27);
-            this.chkShowCorrelation.Name = "chkShowCorrelation";
-            this.chkShowCorrelation.Size = new System.Drawing.Size(106, 17);
-            this.chkShowCorrelation.TabIndex = 3;
-            this.chkShowCorrelation.Text = "Show Correlation";
-            this.chkShowCorrelation.UseVisualStyleBackColor = true;
-            // 
-            // chkExceptionSummary
-            // 
-            this.chkExceptionSummary.AutoSize = true;
-            this.chkExceptionSummary.Checked = true;
-            this.chkExceptionSummary.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkExceptionSummary.Location = new System.Drawing.Point(158, 3);
-            this.chkExceptionSummary.Name = "chkExceptionSummary";
-            this.chkExceptionSummary.Size = new System.Drawing.Size(91, 17);
-            this.chkExceptionSummary.TabIndex = 2;
-            this.chkExceptionSummary.Text = "Exc. summary";
-            this.chkExceptionSummary.UseVisualStyleBackColor = true;
             // 
             // chkRecords
             // 
@@ -751,7 +763,7 @@
             // chkExceptions
             // 
             this.chkExceptions.AutoSize = true;
-            this.chkExceptions.Location = new System.Drawing.Point(3, 3);
+            this.chkExceptions.Location = new System.Drawing.Point(3, 27);
             this.chkExceptions.Name = "chkExceptions";
             this.chkExceptions.Size = new System.Drawing.Size(100, 17);
             this.chkExceptions.TabIndex = 1;
@@ -784,14 +796,14 @@
             this.crmGridView.ContextMenuStrip = this.contextMenuGridView;
             this.crmGridView.Dock = System.Windows.Forms.DockStyle.Fill;
             this.crmGridView.EnableHeadersVisualStyles = false;
-            this.crmGridView.Location = new System.Drawing.Point(0, 197);
+            this.crmGridView.Location = new System.Drawing.Point(0, 172);
             this.crmGridView.Name = "crmGridView";
             this.crmGridView.ReadOnly = true;
             this.crmGridView.RowHeadersWidth = 20;
             this.crmGridView.ShowFriendlyNames = true;
             this.crmGridView.ShowIdColumn = false;
             this.crmGridView.ShowIndexColumn = false;
-            this.crmGridView.Size = new System.Drawing.Size(617, 284);
+            this.crmGridView.Size = new System.Drawing.Size(617, 309);
             this.crmGridView.TabIndex = 25;
             this.crmGridView.RecordDoubleClick += new Cinteros.Xrm.CRMWinForm.CRMRecordEventHandler(this.crmGridView_RecordDoubleClick);
             this.crmGridView.RecordEnter += new Cinteros.Xrm.CRMWinForm.CRMRecordEventHandler(this.crmGridView_RecordEnter);
@@ -971,24 +983,6 @@
             this.tsmiDeleteAll.Text = "Delete All...";
             this.tsmiDeleteAll.Click += new System.EventHandler(this.tsmiDeleteAll_Click);
             // 
-            // panelDataTop
-            // 
-            this.panelDataTop.Controls.Add(this.labelInfo);
-            this.panelDataTop.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panelDataTop.Location = new System.Drawing.Point(0, 172);
-            this.panelDataTop.Name = "panelDataTop";
-            this.panelDataTop.Size = new System.Drawing.Size(617, 25);
-            this.panelDataTop.TabIndex = 26;
-            // 
-            // labelInfo
-            // 
-            this.labelInfo.AutoSize = true;
-            this.labelInfo.Location = new System.Drawing.Point(4, 4);
-            this.labelInfo.Name = "labelInfo";
-            this.labelInfo.Size = new System.Drawing.Size(182, 13);
-            this.labelInfo.TabIndex = 0;
-            this.labelInfo.Text = "Select filter criteria and Retrieve logs!";
-            // 
             // labelMessage
             // 
             this.labelMessage.AutoSize = true;
@@ -997,18 +991,6 @@
             this.labelMessage.Size = new System.Drawing.Size(52, 13);
             this.labelMessage.TabIndex = 8;
             this.labelMessage.Text = "Trace log";
-            // 
-            // chkWordWrap
-            // 
-            this.chkWordWrap.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.chkWordWrap.AutoSize = true;
-            this.chkWordWrap.Location = new System.Drawing.Point(414, 3);
-            this.chkWordWrap.Name = "chkWordWrap";
-            this.chkWordWrap.Size = new System.Drawing.Size(72, 17);
-            this.chkWordWrap.TabIndex = 7;
-            this.chkWordWrap.Text = "Wrap text";
-            this.chkWordWrap.UseVisualStyleBackColor = true;
-            this.chkWordWrap.CheckedChanged += new System.EventHandler(this.checkWordWrap_CheckedChanged);
             // 
             // splitContainerRight
             // 
@@ -1030,7 +1012,7 @@
             this.splitContainerRight.Panel2.Controls.Add(this.panelExceptionLabel);
             this.splitContainerRight.Panel2MinSize = 23;
             this.splitContainerRight.Size = new System.Drawing.Size(489, 309);
-            this.splitContainerRight.SplitterDistance = 175;
+            this.splitContainerRight.SplitterDistance = 167;
             this.splitContainerRight.SplitterWidth = 8;
             this.splitContainerRight.TabIndex = 12;
             // 
@@ -1045,13 +1027,12 @@
             this.textMessage.Name = "textMessage";
             this.textMessage.ReadOnly = true;
             this.textMessage.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.textMessage.Size = new System.Drawing.Size(489, 150);
+            this.textMessage.Size = new System.Drawing.Size(489, 142);
             this.textMessage.TabIndex = 10;
             this.textMessage.WordWrap = false;
             // 
             // panelMessageLabel
             // 
-            this.panelMessageLabel.Controls.Add(this.chkWordWrap);
             this.panelMessageLabel.Controls.Add(this.labelMessage);
             this.panelMessageLabel.Dock = System.Windows.Forms.DockStyle.Top;
             this.panelMessageLabel.Location = new System.Drawing.Point(0, 0);
@@ -1068,7 +1049,7 @@
             this.textException.Name = "textException";
             this.textException.ReadOnly = true;
             this.textException.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.textException.Size = new System.Drawing.Size(489, 101);
+            this.textException.Size = new System.Drawing.Size(489, 109);
             this.textException.TabIndex = 6;
             this.textException.WordWrap = false;
             // 
@@ -1099,7 +1080,6 @@
             // splitContainerMain.Panel1
             // 
             this.splitContainerMain.Panel1.Controls.Add(this.crmGridView);
-            this.splitContainerMain.Panel1.Controls.Add(this.panelDataTop);
             this.splitContainerMain.Panel1.Controls.Add(this.groupFilter);
             this.splitContainerMain.Panel1MinSize = 100;
             // 
@@ -1159,232 +1139,9 @@
             this.groupStatistics.TabStop = false;
             this.groupStatistics.Text = "Plugin Statistics";
             // 
-            // txtStatSecPerDay
-            // 
-            this.txtStatSecPerDay.Location = new System.Drawing.Point(121, 133);
-            this.txtStatSecPerDay.Name = "txtStatSecPerDay";
-            this.txtStatSecPerDay.ReadOnly = true;
-            this.txtStatSecPerDay.Size = new System.Drawing.Size(51, 20);
-            this.txtStatSecPerDay.TabIndex = 10;
-            this.txtStatSecPerDay.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            // 
-            // txtStatAvgExecTime
-            // 
-            this.txtStatAvgExecTime.Location = new System.Drawing.Point(121, 109);
-            this.txtStatAvgExecTime.Name = "txtStatAvgExecTime";
-            this.txtStatAvgExecTime.ReadOnly = true;
-            this.txtStatAvgExecTime.Size = new System.Drawing.Size(51, 20);
-            this.txtStatAvgExecTime.TabIndex = 9;
-            this.txtStatAvgExecTime.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            // 
-            // txtStatExecCnt
-            // 
-            this.txtStatExecCnt.Location = new System.Drawing.Point(121, 85);
-            this.txtStatExecCnt.Name = "txtStatExecCnt";
-            this.txtStatExecCnt.ReadOnly = true;
-            this.txtStatExecCnt.Size = new System.Drawing.Size(51, 20);
-            this.txtStatExecCnt.TabIndex = 7;
-            this.txtStatExecCnt.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            // 
-            // txtStatModified
-            // 
-            this.txtStatModified.Location = new System.Drawing.Point(121, 61);
-            this.txtStatModified.Name = "txtStatModified";
-            this.txtStatModified.ReadOnly = true;
-            this.txtStatModified.Size = new System.Drawing.Size(109, 20);
-            this.txtStatModified.TabIndex = 6;
-            // 
-            // txtStatCreated
-            // 
-            this.txtStatCreated.Location = new System.Drawing.Point(121, 37);
-            this.txtStatCreated.Name = "txtStatCreated";
-            this.txtStatCreated.ReadOnly = true;
-            this.txtStatCreated.Size = new System.Drawing.Size(109, 20);
-            this.txtStatCreated.TabIndex = 5;
-            // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(15, 136);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(101, 13);
-            this.label6.TabIndex = 4;
-            this.label6.Text = "Exec.Time / Day (s)";
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(15, 112);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(101, 13);
-            this.label5.TabIndex = 3;
-            this.label5.Text = "Avg.Exec.Time (ms)";
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(15, 64);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(74, 13);
-            this.label4.TabIndex = 2;
-            this.label4.Text = "Last executed";
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(15, 40);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(73, 13);
-            this.label3.TabIndex = 1;
-            this.label3.Text = "First executed";
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(15, 88);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(85, 13);
-            this.label2.TabIndex = 0;
-            this.label2.Text = "Execution Count";
-            // 
-            // txtStatFailCnt
-            // 
-            this.txtStatFailCnt.Location = new System.Drawing.Point(236, 85);
-            this.txtStatFailCnt.Name = "txtStatFailCnt";
-            this.txtStatFailCnt.ReadOnly = true;
-            this.txtStatFailCnt.Size = new System.Drawing.Size(51, 20);
-            this.txtStatFailCnt.TabIndex = 12;
-            this.txtStatFailCnt.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(178, 88);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(43, 13);
-            this.label7.TabIndex = 11;
-            this.label7.Text = "Failures";
-            // 
-            // txtStatFailPct
-            // 
-            this.txtStatFailPct.Location = new System.Drawing.Point(293, 85);
-            this.txtStatFailPct.Name = "txtStatFailPct";
-            this.txtStatFailPct.ReadOnly = true;
-            this.txtStatFailPct.Size = new System.Drawing.Size(34, 20);
-            this.txtStatFailPct.TabIndex = 13;
-            this.txtStatFailPct.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            // 
-            // txtStatCrashPct
-            // 
-            this.txtStatCrashPct.Location = new System.Drawing.Point(293, 109);
-            this.txtStatCrashPct.Name = "txtStatCrashPct";
-            this.txtStatCrashPct.ReadOnly = true;
-            this.txtStatCrashPct.Size = new System.Drawing.Size(34, 20);
-            this.txtStatCrashPct.TabIndex = 16;
-            this.txtStatCrashPct.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            // 
-            // txtStatCrashCnt
-            // 
-            this.txtStatCrashCnt.Location = new System.Drawing.Point(236, 109);
-            this.txtStatCrashCnt.Name = "txtStatCrashCnt";
-            this.txtStatCrashCnt.ReadOnly = true;
-            this.txtStatCrashCnt.Size = new System.Drawing.Size(51, 20);
-            this.txtStatCrashCnt.TabIndex = 15;
-            this.txtStatCrashCnt.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            // 
-            // label8
-            // 
-            this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(178, 112);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(45, 13);
-            this.label8.TabIndex = 14;
-            this.label8.Text = "Crashes";
-            // 
-            // txtStatCrashContrPct
-            // 
-            this.txtStatCrashContrPct.Location = new System.Drawing.Point(293, 133);
-            this.txtStatCrashContrPct.Name = "txtStatCrashContrPct";
-            this.txtStatCrashContrPct.ReadOnly = true;
-            this.txtStatCrashContrPct.Size = new System.Drawing.Size(34, 20);
-            this.txtStatCrashContrPct.TabIndex = 18;
-            this.txtStatCrashContrPct.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            // 
-            // label9
-            // 
-            this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(178, 136);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(92, 13);
-            this.label9.TabIndex = 17;
-            this.label9.Text = "Crash contribution";
-            // 
-            // label10
-            // 
-            this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(331, 40);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(102, 13);
-            this.label10.TabIndex = 19;
-            this.label10.Text = "Termination reasons";
-            // 
-            // txtStatTermCPU
-            // 
-            this.txtStatTermCPU.Location = new System.Drawing.Point(399, 61);
-            this.txtStatTermCPU.Name = "txtStatTermCPU";
-            this.txtStatTermCPU.ReadOnly = true;
-            this.txtStatTermCPU.Size = new System.Drawing.Size(34, 20);
-            this.txtStatTermCPU.TabIndex = 21;
-            this.txtStatTermCPU.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            // 
-            // label11
-            // 
-            this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(347, 64);
-            this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(29, 13);
-            this.label11.TabIndex = 20;
-            this.label11.Text = "CPU";
-            // 
-            // txtStatTermMemory
-            // 
-            this.txtStatTermMemory.Location = new System.Drawing.Point(399, 85);
-            this.txtStatTermMemory.Name = "txtStatTermMemory";
-            this.txtStatTermMemory.ReadOnly = true;
-            this.txtStatTermMemory.Size = new System.Drawing.Size(34, 20);
-            this.txtStatTermMemory.TabIndex = 23;
-            this.txtStatTermMemory.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            // 
-            // label12
-            // 
-            this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(347, 88);
-            this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(44, 13);
-            this.label12.TabIndex = 22;
-            this.label12.Text = "Memory";
-            // 
-            // txtStatTermHandles
-            // 
-            this.txtStatTermHandles.Location = new System.Drawing.Point(399, 109);
-            this.txtStatTermHandles.Name = "txtStatTermHandles";
-            this.txtStatTermHandles.ReadOnly = true;
-            this.txtStatTermHandles.Size = new System.Drawing.Size(34, 20);
-            this.txtStatTermHandles.TabIndex = 25;
-            this.txtStatTermHandles.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            // 
-            // label13
-            // 
-            this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(347, 112);
-            this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(46, 13);
-            this.label13.TabIndex = 24;
-            this.label13.Text = "Handles";
-            // 
             // txtStatTermOther
             // 
-            this.txtStatTermOther.Location = new System.Drawing.Point(399, 133);
+            this.txtStatTermOther.Location = new System.Drawing.Point(399, 136);
             this.txtStatTermOther.Name = "txtStatTermOther";
             this.txtStatTermOther.ReadOnly = true;
             this.txtStatTermOther.Size = new System.Drawing.Size(34, 20);
@@ -1394,11 +1151,234 @@
             // label14
             // 
             this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(347, 136);
+            this.label14.Location = new System.Drawing.Point(347, 139);
             this.label14.Name = "label14";
             this.label14.Size = new System.Drawing.Size(33, 13);
             this.label14.TabIndex = 26;
             this.label14.Text = "Other";
+            // 
+            // txtStatTermHandles
+            // 
+            this.txtStatTermHandles.Location = new System.Drawing.Point(399, 112);
+            this.txtStatTermHandles.Name = "txtStatTermHandles";
+            this.txtStatTermHandles.ReadOnly = true;
+            this.txtStatTermHandles.Size = new System.Drawing.Size(34, 20);
+            this.txtStatTermHandles.TabIndex = 25;
+            this.txtStatTermHandles.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.Location = new System.Drawing.Point(347, 115);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(46, 13);
+            this.label13.TabIndex = 24;
+            this.label13.Text = "Handles";
+            // 
+            // txtStatTermMemory
+            // 
+            this.txtStatTermMemory.Location = new System.Drawing.Point(399, 88);
+            this.txtStatTermMemory.Name = "txtStatTermMemory";
+            this.txtStatTermMemory.ReadOnly = true;
+            this.txtStatTermMemory.Size = new System.Drawing.Size(34, 20);
+            this.txtStatTermMemory.TabIndex = 23;
+            this.txtStatTermMemory.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Location = new System.Drawing.Point(347, 91);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(44, 13);
+            this.label12.TabIndex = 22;
+            this.label12.Text = "Memory";
+            // 
+            // txtStatTermCPU
+            // 
+            this.txtStatTermCPU.Location = new System.Drawing.Point(399, 64);
+            this.txtStatTermCPU.Name = "txtStatTermCPU";
+            this.txtStatTermCPU.ReadOnly = true;
+            this.txtStatTermCPU.Size = new System.Drawing.Size(34, 20);
+            this.txtStatTermCPU.TabIndex = 21;
+            this.txtStatTermCPU.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Location = new System.Drawing.Point(347, 67);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(29, 13);
+            this.label11.TabIndex = 20;
+            this.label11.Text = "CPU";
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(331, 43);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(102, 13);
+            this.label10.TabIndex = 19;
+            this.label10.Text = "Termination reasons";
+            // 
+            // txtStatCrashContrPct
+            // 
+            this.txtStatCrashContrPct.Location = new System.Drawing.Point(293, 136);
+            this.txtStatCrashContrPct.Name = "txtStatCrashContrPct";
+            this.txtStatCrashContrPct.ReadOnly = true;
+            this.txtStatCrashContrPct.Size = new System.Drawing.Size(34, 20);
+            this.txtStatCrashContrPct.TabIndex = 18;
+            this.txtStatCrashContrPct.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(178, 139);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(92, 13);
+            this.label9.TabIndex = 17;
+            this.label9.Text = "Crash contribution";
+            // 
+            // txtStatCrashPct
+            // 
+            this.txtStatCrashPct.Location = new System.Drawing.Point(293, 112);
+            this.txtStatCrashPct.Name = "txtStatCrashPct";
+            this.txtStatCrashPct.ReadOnly = true;
+            this.txtStatCrashPct.Size = new System.Drawing.Size(34, 20);
+            this.txtStatCrashPct.TabIndex = 16;
+            this.txtStatCrashPct.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            // 
+            // txtStatCrashCnt
+            // 
+            this.txtStatCrashCnt.Location = new System.Drawing.Point(236, 112);
+            this.txtStatCrashCnt.Name = "txtStatCrashCnt";
+            this.txtStatCrashCnt.ReadOnly = true;
+            this.txtStatCrashCnt.Size = new System.Drawing.Size(51, 20);
+            this.txtStatCrashCnt.TabIndex = 15;
+            this.txtStatCrashCnt.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(178, 115);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(45, 13);
+            this.label8.TabIndex = 14;
+            this.label8.Text = "Crashes";
+            // 
+            // txtStatFailPct
+            // 
+            this.txtStatFailPct.Location = new System.Drawing.Point(293, 88);
+            this.txtStatFailPct.Name = "txtStatFailPct";
+            this.txtStatFailPct.ReadOnly = true;
+            this.txtStatFailPct.Size = new System.Drawing.Size(34, 20);
+            this.txtStatFailPct.TabIndex = 13;
+            this.txtStatFailPct.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            // 
+            // txtStatFailCnt
+            // 
+            this.txtStatFailCnt.Location = new System.Drawing.Point(236, 88);
+            this.txtStatFailCnt.Name = "txtStatFailCnt";
+            this.txtStatFailCnt.ReadOnly = true;
+            this.txtStatFailCnt.Size = new System.Drawing.Size(51, 20);
+            this.txtStatFailCnt.TabIndex = 12;
+            this.txtStatFailCnt.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(178, 91);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(43, 13);
+            this.label7.TabIndex = 11;
+            this.label7.Text = "Failures";
+            // 
+            // txtStatSecPerDay
+            // 
+            this.txtStatSecPerDay.Location = new System.Drawing.Point(121, 136);
+            this.txtStatSecPerDay.Name = "txtStatSecPerDay";
+            this.txtStatSecPerDay.ReadOnly = true;
+            this.txtStatSecPerDay.Size = new System.Drawing.Size(51, 20);
+            this.txtStatSecPerDay.TabIndex = 10;
+            this.txtStatSecPerDay.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            // 
+            // txtStatAvgExecTime
+            // 
+            this.txtStatAvgExecTime.Location = new System.Drawing.Point(121, 112);
+            this.txtStatAvgExecTime.Name = "txtStatAvgExecTime";
+            this.txtStatAvgExecTime.ReadOnly = true;
+            this.txtStatAvgExecTime.Size = new System.Drawing.Size(51, 20);
+            this.txtStatAvgExecTime.TabIndex = 9;
+            this.txtStatAvgExecTime.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            // 
+            // txtStatExecCnt
+            // 
+            this.txtStatExecCnt.Location = new System.Drawing.Point(121, 88);
+            this.txtStatExecCnt.Name = "txtStatExecCnt";
+            this.txtStatExecCnt.ReadOnly = true;
+            this.txtStatExecCnt.Size = new System.Drawing.Size(51, 20);
+            this.txtStatExecCnt.TabIndex = 7;
+            this.txtStatExecCnt.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            // 
+            // txtStatModified
+            // 
+            this.txtStatModified.Location = new System.Drawing.Point(121, 64);
+            this.txtStatModified.Name = "txtStatModified";
+            this.txtStatModified.ReadOnly = true;
+            this.txtStatModified.Size = new System.Drawing.Size(109, 20);
+            this.txtStatModified.TabIndex = 6;
+            // 
+            // txtStatCreated
+            // 
+            this.txtStatCreated.Location = new System.Drawing.Point(121, 40);
+            this.txtStatCreated.Name = "txtStatCreated";
+            this.txtStatCreated.ReadOnly = true;
+            this.txtStatCreated.Size = new System.Drawing.Size(109, 20);
+            this.txtStatCreated.TabIndex = 5;
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(15, 139);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(101, 13);
+            this.label6.TabIndex = 4;
+            this.label6.Text = "Exec.Time / Day (s)";
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(15, 115);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(101, 13);
+            this.label5.TabIndex = 3;
+            this.label5.Text = "Avg.Exec.Time (ms)";
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(15, 67);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(74, 13);
+            this.label4.TabIndex = 2;
+            this.label4.Text = "Last executed";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(15, 43);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(73, 13);
+            this.label3.TabIndex = 1;
+            this.label3.Text = "First executed";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(15, 91);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(85, 13);
+            this.label2.TabIndex = 0;
+            this.label2.Text = "Execution Count";
             // 
             // PluginTraceViewer
             // 
@@ -1422,8 +1402,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.numRecords)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.crmGridView)).EndInit();
             this.contextMenuGridView.ResumeLayout(false);
-            this.panelDataTop.ResumeLayout(false);
-            this.panelDataTop.PerformLayout();
             this.splitContainerRight.Panel1.ResumeLayout(false);
             this.splitContainerRight.Panel1.PerformLayout();
             this.splitContainerRight.Panel2.ResumeLayout(false);
@@ -1453,7 +1431,6 @@
         private System.Windows.Forms.ToolStripButton tsbAbout;
         private Xrm.CRMWinForm.CRMGridView crmGridView;
         private System.Windows.Forms.GroupBox groupFilter;
-        private System.Windows.Forms.Panel panelDataTop;
         private System.Windows.Forms.Panel panelOptions;
         private System.Windows.Forms.NumericUpDown numRecords;
         private System.Windows.Forms.RadioButton rbModeAsync;
@@ -1469,7 +1446,6 @@
         private System.Windows.Forms.CheckBox checkDateFrom;
         private System.Windows.Forms.DateTimePicker dateTo;
         private System.Windows.Forms.DateTimePicker dateFrom;
-        private System.Windows.Forms.Label labelInfo;
         private System.Windows.Forms.ComboBox comboEntity;
         private System.Windows.Forms.CheckBox chkEntity;
         private System.Windows.Forms.NumericUpDown numDurationMax;
@@ -1481,9 +1457,6 @@
         private System.Windows.Forms.ToolStripDropDownButton buttonHiddenCommands;
         private System.Windows.Forms.ToolStripMenuItem buttonHiddenRetrieveLogs;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
-        private System.Windows.Forms.ToolStripButton buttonShowHideFilter;
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
-        private System.Windows.Forms.ToolStripButton buttonRefreshFilter;
         private System.Windows.Forms.ToolStripDropDownButton dropdownSave;
         private System.Windows.Forms.ToolStripMenuItem buttonSaveFilter;
         private System.Windows.Forms.ToolStripMenuItem buttonSaveLogs;
@@ -1497,7 +1470,6 @@
         private System.Windows.Forms.ToolStripMenuItem tsmiDeleteSelected;
         private System.Windows.Forms.ToolStripMenuItem tsmiDeleteAll;
         private System.Windows.Forms.Label labelMessage;
-        private System.Windows.Forms.CheckBox chkWordWrap;
         private System.Windows.Forms.SplitContainer splitContainerRight;
         private System.Windows.Forms.TextBox textMessage;
         private System.Windows.Forms.Panel panelExceptionLabel;
@@ -1507,8 +1479,6 @@
         private System.Windows.Forms.SplitContainer splitContainerMain;
         private System.Windows.Forms.ToolStripMenuItem buttonOpenFXB;
         private System.Windows.Forms.ToolStripMenuItem buttonSaveQuery;
-        private System.Windows.Forms.CheckBox chkExceptionSummary;
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparator6;
         private System.Windows.Forms.ToolStripLabel toolStripLabel1;
         private System.Windows.Forms.ToolStripComboBox comboLogSetting;
         private System.Windows.Forms.ToolStripMenuItem tsmiCorrelation;
@@ -1517,7 +1487,6 @@
         private System.Windows.Forms.ToolStripMenuItem tsmiCorrelationId;
         private System.Windows.Forms.TextBox textCorrelationId;
         private System.Windows.Forms.CheckBox chkCorrelation;
-        private System.Windows.Forms.CheckBox chkShowCorrelation;
         private System.Windows.Forms.ToolStripMenuItem tsmiCorrelationFilterByThis;
         private System.Windows.Forms.DataGridViewTextBoxColumn correlation;
         private System.Windows.Forms.DataGridViewTextBoxColumn performanceexecutionstarttime;
@@ -1534,7 +1503,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn exceptiondetails;
         private System.Windows.Forms.DataGridViewTextBoxColumn correlationid;
         private System.Windows.Forms.ToolStripMenuItem tsmiDelete;
-        private System.Windows.Forms.CheckBox chkShowStats;
         private System.Windows.Forms.Panel panelStatistics;
         private System.Windows.Forms.GroupBox groupStatistics;
         private System.Windows.Forms.TextBox txtStatSecPerDay;
@@ -1564,5 +1532,14 @@
         private System.Windows.Forms.TextBox txtStatTermCPU;
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.ToolStripDropDownButton dropdownView;
+        private System.Windows.Forms.ToolStripMenuItem tsmiViewFilter;
+        private System.Windows.Forms.ToolStripMenuItem tsmiViewStatistics;
+        private System.Windows.Forms.ToolStripMenuItem tsmiViewExcSummary;
+        private System.Windows.Forms.ToolStripMenuItem tsmiViewCorrelation;
+        private System.Windows.Forms.ToolStripSeparator toolStripMenuItem2;
+        private System.Windows.Forms.ToolStripSeparator toolStripMenuItem3;
+        private System.Windows.Forms.ToolStripButton buttonRefreshFilter;
+        private System.Windows.Forms.ToolStripMenuItem tsmiWordWrap;
     }
 }

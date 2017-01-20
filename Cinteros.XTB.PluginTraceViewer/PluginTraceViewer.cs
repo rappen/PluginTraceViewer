@@ -161,6 +161,7 @@ namespace Cinteros.XTB.PluginTraceViewer
             var orgsetting = new Entity("organization");
             orgsetting.Id = (Guid)comboLogSetting.Tag;
             orgsetting["plugintracelogsetting"] = new OptionSetValue(setting);
+            SendMessageToStatusBar(this, new StatusBarMessageEventArgs($"Updating setting for org {orgsetting.Id} to {setting}"));
             LogInfo("Updating setting for org {0} to {1}", orgsetting.Id, setting);
             Service.Update(orgsetting);
             crmGridView.Focus();
@@ -388,8 +389,8 @@ namespace Cinteros.XTB.PluginTraceViewer
             {
                 statistics.Clear();
             }
-            var showCorr = chkShowCorrelation.Checked;
-            var excSummary = chkExceptionSummary.Checked;
+            var showCorr = tsmiViewCorrelation.Checked;
+            var excSummary = tsmiViewExcSummary.Checked;
             LogUse("RetrieveLogs");
             var asyncinfo = new WorkAsyncInfo()
             {
@@ -620,11 +621,11 @@ namespace Cinteros.XTB.PluginTraceViewer
                     UpdateUI(() =>
                     {
                         crmGridView.DataSource = results;
-                        crmGridView.Columns["correlation"].Visible = chkShowCorrelation.Checked;
+                        crmGridView.Columns["correlation"].Visible = tsmiViewCorrelation.Checked;
                         var dt = crmGridView.GetDataSource<DataTable>();
                         if (dt != null)
                         {
-                            if (chkExceptionSummary.Checked)
+                            if (tsmiViewExcSummary.Checked)
                             {
                                 dt.Columns.Add("Exception", typeof(string), "exceptionsummary");
                             }
@@ -633,7 +634,7 @@ namespace Cinteros.XTB.PluginTraceViewer
                                 dt.Columns.Add("Exception", typeof(bool), "exceptiondetails <> ''");
                             }
                         }
-                        labelInfo.Text = $"Loaded {results.Entities.Count} trace records";
+                        SendMessageToStatusBar(this, new StatusBarMessageEventArgs($"Loaded {results.Entities.Count} trace records"));
                         crmGridView.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells);
                     });
                 },
@@ -673,7 +674,7 @@ namespace Cinteros.XTB.PluginTraceViewer
 
         private void ShowStatistics(Entity entity)
         {
-            if (!chkShowStats.Checked)
+            if (!tsmiViewStatistics.Checked)
             {
                 return;
             }
@@ -836,10 +837,10 @@ namespace Cinteros.XTB.PluginTraceViewer
             lastRecordCount = (int)numRecords.Value;
         }
 
-        private void checkWordWrap_CheckedChanged(object sender, EventArgs e)
+        private void tsmiWordWrap_CheckedChanged(object sender, EventArgs e)
         {
-            textMessage.WordWrap = chkWordWrap.Checked;
-            textException.WordWrap = chkWordWrap.Checked;
+            textMessage.WordWrap = tsmiWordWrap.Checked;
+            textException.WordWrap = tsmiWordWrap.Checked;
         }
 
         private void chkEntity_CheckedChanged(object sender, EventArgs e)
@@ -862,10 +863,9 @@ namespace Cinteros.XTB.PluginTraceViewer
             numRecords.Enabled = chkRecords.Checked;
         }
 
-        private void buttonShowHideFilter_Click(object sender, EventArgs e)
+        private void tsmiViewFilter_CheckedChanged(object sender, EventArgs e)
         {
-            buttonShowHideFilter.Text = buttonShowHideFilter.Checked ? "Show Filter" : "Hide Filter";
-            groupFilter.Visible = !buttonShowHideFilter.Checked;
+            groupFilter.Visible = tsmiViewFilter.Checked;
         }
 
         private void buttonRefreshFilter_Click(object sender, EventArgs e)
@@ -948,8 +948,8 @@ namespace Cinteros.XTB.PluginTraceViewer
                 Entity = chkEntity.Checked ? comboEntity.Text : string.Empty,
                 CorrelationId = chkCorrelation.Checked ? textCorrelationId.Text : string.Empty,
                 Exceptions = chkExceptions.Checked,
-                ExceptionSummary = chkExceptionSummary.Checked,
-                Correlation = chkShowCorrelation.Checked,
+                ExceptionSummary = tsmiViewExcSummary.Checked,
+                Correlation = tsmiViewCorrelation.Checked,
                 Mode = rbModeSync.Checked ? 1 : rbModeAsync.Checked ? 2 : 0,
                 MinDuration = chkDurationMin.Checked ? (int)numDurationMin.Value : -1,
                 MaxDuration = chkDurationMax.Checked ? (int)numDurationMax.Value : -1,
@@ -964,8 +964,8 @@ namespace Cinteros.XTB.PluginTraceViewer
             return new Settings
             {
                 FilterHidden = !groupFilter.Visible,
-                WordWrap = chkWordWrap.Checked,
-                Statistics = chkShowStats.Checked,
+                WordWrap = tsmiWordWrap.Checked,
+                Statistics = tsmiViewStatistics.Checked,
                 UseLog = logUsage,
                 Version = version
             };
@@ -1002,8 +1002,7 @@ namespace Cinteros.XTB.PluginTraceViewer
 
         private void ApplyFilter(PTVFilter filter)
         {
-            buttonShowHideFilter.Checked = !groupFilter.Visible;
-            buttonShowHideFilter.Text = buttonShowHideFilter.Checked ? "Show Filter" : "Hide Filter";
+            tsmiViewFilter.Checked = groupFilter.Visible;
             checkDateFrom.Checked = !filter.DateFrom.Equals(DateTime.MinValue);
             if (checkDateFrom.Checked)
             {
@@ -1023,8 +1022,8 @@ namespace Cinteros.XTB.PluginTraceViewer
             chkCorrelation.Checked = !string.IsNullOrEmpty(filter.CorrelationId);
             textCorrelationId.Text = filter.CorrelationId;
             chkExceptions.Checked = filter.Exceptions;
-            chkExceptionSummary.Checked = filter.ExceptionSummary;
-            chkShowCorrelation.Checked = filter.Correlation;
+            tsmiViewExcSummary.Checked = filter.ExceptionSummary;
+            tsmiViewCorrelation.Checked = filter.Correlation;
             switch (filter.Mode)
             {
                 case 1:
@@ -1057,10 +1056,9 @@ namespace Cinteros.XTB.PluginTraceViewer
         private void ApplySettings(Settings settings)
         {
             groupFilter.Visible = !settings.FilterHidden;
-            buttonShowHideFilter.Checked = !groupFilter.Visible;
-            buttonShowHideFilter.Text = buttonShowHideFilter.Checked ? "Show Filter" : "Hide Filter";
-            chkWordWrap.Checked = settings.WordWrap;
-            chkShowStats.Checked = settings.Statistics;
+            tsmiViewFilter.Checked = groupFilter.Visible;
+            tsmiWordWrap.Checked = settings.WordWrap;
+            tsmiViewStatistics.Checked = settings.Statistics;
             logUsage = settings.UseLog;
             var ass = Assembly.GetExecutingAssembly().GetName();
             var version = ass.Version.ToString();
@@ -1465,9 +1463,9 @@ namespace Cinteros.XTB.PluginTraceViewer
             cell.ToolTipText = crmGridView.Rows[e.RowIndex].Cells[tooltipcolumn].Value.ToString();
         }
 
-        private void chkShowStats_CheckedChanged(object sender, EventArgs e)
+        private void tsmiViewStatistics_CheckedChanged(object sender, EventArgs e)
         {
-            panelStatistics.Visible = chkShowStats.Checked;
+            panelStatistics.Visible = tsmiViewStatistics.Checked;
         }
     }
 }
