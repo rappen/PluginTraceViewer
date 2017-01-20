@@ -118,10 +118,10 @@
             this.panelExceptionLabel = new System.Windows.Forms.Panel();
             this.labelException = new System.Windows.Forms.Label();
             this.splitContainerMain = new System.Windows.Forms.SplitContainer();
+            this.panelStatistics = new System.Windows.Forms.Panel();
             this.groupStatistics = new System.Windows.Forms.GroupBox();
             this.txtStatSecPerDay = new System.Windows.Forms.TextBox();
             this.txtStatAvgExecTime = new System.Windows.Forms.TextBox();
-            this.label7 = new System.Windows.Forms.Label();
             this.txtStatExecCnt = new System.Windows.Forms.TextBox();
             this.txtStatModified = new System.Windows.Forms.TextBox();
             this.txtStatCreated = new System.Windows.Forms.TextBox();
@@ -150,6 +150,7 @@
             this.splitContainerMain.Panel1.SuspendLayout();
             this.splitContainerMain.Panel2.SuspendLayout();
             this.splitContainerMain.SuspendLayout();
+            this.panelStatistics.SuspendLayout();
             this.groupStatistics.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -1011,8 +1012,8 @@
             this.splitContainerRight.Panel2.Controls.Add(this.textException);
             this.splitContainerRight.Panel2.Controls.Add(this.panelExceptionLabel);
             this.splitContainerRight.Panel2MinSize = 23;
-            this.splitContainerRight.Size = new System.Drawing.Size(489, 338);
-            this.splitContainerRight.SplitterDistance = 204;
+            this.splitContainerRight.Size = new System.Drawing.Size(489, 329);
+            this.splitContainerRight.SplitterDistance = 195;
             this.splitContainerRight.SplitterWidth = 8;
             this.splitContainerRight.TabIndex = 12;
             // 
@@ -1027,7 +1028,7 @@
             this.textMessage.Name = "textMessage";
             this.textMessage.ReadOnly = true;
             this.textMessage.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.textMessage.Size = new System.Drawing.Size(489, 179);
+            this.textMessage.Size = new System.Drawing.Size(489, 170);
             this.textMessage.TabIndex = 10;
             this.textMessage.WordWrap = false;
             // 
@@ -1088,18 +1089,26 @@
             // splitContainerMain.Panel2
             // 
             this.splitContainerMain.Panel2.Controls.Add(this.splitContainerRight);
-            this.splitContainerMain.Panel2.Controls.Add(this.groupStatistics);
+            this.splitContainerMain.Panel2.Controls.Add(this.panelStatistics);
             this.splitContainerMain.Panel2MinSize = 100;
             this.splitContainerMain.Size = new System.Drawing.Size(1114, 481);
             this.splitContainerMain.SplitterDistance = 617;
             this.splitContainerMain.SplitterWidth = 8;
             this.splitContainerMain.TabIndex = 31;
             // 
+            // panelStatistics
+            // 
+            this.panelStatistics.Controls.Add(this.groupStatistics);
+            this.panelStatistics.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.panelStatistics.Location = new System.Drawing.Point(0, 329);
+            this.panelStatistics.Name = "panelStatistics";
+            this.panelStatistics.Size = new System.Drawing.Size(489, 152);
+            this.panelStatistics.TabIndex = 14;
+            // 
             // groupStatistics
             // 
             this.groupStatistics.Controls.Add(this.txtStatSecPerDay);
             this.groupStatistics.Controls.Add(this.txtStatAvgExecTime);
-            this.groupStatistics.Controls.Add(this.label7);
             this.groupStatistics.Controls.Add(this.txtStatExecCnt);
             this.groupStatistics.Controls.Add(this.txtStatModified);
             this.groupStatistics.Controls.Add(this.txtStatCreated);
@@ -1109,92 +1118,78 @@
             this.groupStatistics.Controls.Add(this.label3);
             this.groupStatistics.Controls.Add(this.label2);
             this.groupStatistics.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.groupStatistics.Location = new System.Drawing.Point(0, 338);
+            this.groupStatistics.Location = new System.Drawing.Point(0, 6);
             this.groupStatistics.Name = "groupStatistics";
-            this.groupStatistics.Size = new System.Drawing.Size(489, 143);
-            this.groupStatistics.TabIndex = 13;
+            this.groupStatistics.Size = new System.Drawing.Size(489, 146);
+            this.groupStatistics.TabIndex = 14;
             this.groupStatistics.TabStop = false;
             this.groupStatistics.Text = "Plugin Statistics";
             // 
             // txtStatSecPerDay
             // 
-            this.txtStatSecPerDay.Location = new System.Drawing.Point(103, 114);
+            this.txtStatSecPerDay.Location = new System.Drawing.Point(112, 116);
             this.txtStatSecPerDay.Name = "txtStatSecPerDay";
             this.txtStatSecPerDay.ReadOnly = true;
             this.txtStatSecPerDay.Size = new System.Drawing.Size(62, 20);
             this.txtStatSecPerDay.TabIndex = 10;
-            this.txtStatSecPerDay.Text = "12345";
             this.txtStatSecPerDay.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // txtStatAvgExecTime
             // 
-            this.txtStatAvgExecTime.Location = new System.Drawing.Point(103, 90);
+            this.txtStatAvgExecTime.Location = new System.Drawing.Point(112, 92);
             this.txtStatAvgExecTime.Name = "txtStatAvgExecTime";
             this.txtStatAvgExecTime.ReadOnly = true;
             this.txtStatAvgExecTime.Size = new System.Drawing.Size(62, 20);
             this.txtStatAvgExecTime.TabIndex = 9;
-            this.txtStatAvgExecTime.Text = "12345";
             this.txtStatAvgExecTime.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(171, 93);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(20, 13);
-            this.label7.TabIndex = 8;
-            this.label7.Text = "ms";
             // 
             // txtStatExecCnt
             // 
-            this.txtStatExecCnt.Location = new System.Drawing.Point(103, 66);
+            this.txtStatExecCnt.Location = new System.Drawing.Point(112, 68);
             this.txtStatExecCnt.Name = "txtStatExecCnt";
             this.txtStatExecCnt.ReadOnly = true;
             this.txtStatExecCnt.Size = new System.Drawing.Size(62, 20);
             this.txtStatExecCnt.TabIndex = 7;
-            this.txtStatExecCnt.Text = "12345";
             this.txtStatExecCnt.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // txtStatModified
             // 
-            this.txtStatModified.Location = new System.Drawing.Point(103, 42);
+            this.txtStatModified.Location = new System.Drawing.Point(112, 44);
             this.txtStatModified.Name = "txtStatModified";
             this.txtStatModified.ReadOnly = true;
-            this.txtStatModified.Size = new System.Drawing.Size(128, 20);
+            this.txtStatModified.Size = new System.Drawing.Size(109, 20);
             this.txtStatModified.TabIndex = 6;
-            this.txtStatModified.Text = "2017-01-01 12:34:56.789";
             // 
             // txtStatCreated
             // 
-            this.txtStatCreated.Location = new System.Drawing.Point(103, 18);
+            this.txtStatCreated.Location = new System.Drawing.Point(112, 20);
             this.txtStatCreated.Name = "txtStatCreated";
             this.txtStatCreated.ReadOnly = true;
-            this.txtStatCreated.Size = new System.Drawing.Size(128, 20);
+            this.txtStatCreated.Size = new System.Drawing.Size(109, 20);
             this.txtStatCreated.TabIndex = 5;
-            this.txtStatCreated.Text = "2017-01-01 12:34:56.789";
             // 
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(6, 117);
+            this.label6.Location = new System.Drawing.Point(6, 119);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(77, 13);
+            this.label6.Size = new System.Drawing.Size(101, 13);
             this.label6.TabIndex = 4;
-            this.label6.Text = "Seconds / day";
+            this.label6.Text = "Exec.Time / Day (s)";
             // 
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(6, 93);
+            this.label5.Location = new System.Drawing.Point(6, 95);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(79, 13);
+            this.label5.Size = new System.Drawing.Size(101, 13);
             this.label5.TabIndex = 3;
-            this.label5.Text = "Avg Exec Time";
+            this.label5.Text = "Avg.Exec.Time (ms)";
             // 
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(6, 45);
+            this.label4.Location = new System.Drawing.Point(6, 47);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(74, 13);
             this.label4.TabIndex = 2;
@@ -1203,7 +1198,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(6, 21);
+            this.label3.Location = new System.Drawing.Point(6, 23);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(73, 13);
             this.label3.TabIndex = 1;
@@ -1212,7 +1207,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(6, 69);
+            this.label2.Location = new System.Drawing.Point(6, 71);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(85, 13);
             this.label2.TabIndex = 0;
@@ -1256,6 +1251,7 @@
             this.splitContainerMain.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainerMain)).EndInit();
             this.splitContainerMain.ResumeLayout(false);
+            this.panelStatistics.ResumeLayout(false);
             this.groupStatistics.ResumeLayout(false);
             this.groupStatistics.PerformLayout();
             this.ResumeLayout(false);
@@ -1351,10 +1347,11 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn exceptiondetails;
         private System.Windows.Forms.DataGridViewTextBoxColumn correlationid;
         private System.Windows.Forms.ToolStripMenuItem tsmiDelete;
+        private System.Windows.Forms.CheckBox chkShowStats;
+        private System.Windows.Forms.Panel panelStatistics;
         private System.Windows.Forms.GroupBox groupStatistics;
         private System.Windows.Forms.TextBox txtStatSecPerDay;
         private System.Windows.Forms.TextBox txtStatAvgExecTime;
-        private System.Windows.Forms.Label label7;
         private System.Windows.Forms.TextBox txtStatExecCnt;
         private System.Windows.Forms.TextBox txtStatModified;
         private System.Windows.Forms.TextBox txtStatCreated;
@@ -1363,6 +1360,5 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.CheckBox chkShowStats;
     }
 }

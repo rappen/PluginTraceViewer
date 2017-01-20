@@ -707,6 +707,7 @@ namespace Cinteros.XTB.PluginTraceViewer
             {
                 return;
             }
+            groupStatistics.Text = "Plugin Statistics";
             txtStatCreated.Text = "?";
             txtStatModified.Text = "?";
             txtStatExecCnt.Text = "?";
@@ -714,7 +715,9 @@ namespace Cinteros.XTB.PluginTraceViewer
             txtStatSecPerDay.Text = "?";
             if (entity != null && entity.Contains("typename"))
             {
-                var stats = GetStatistics((string)entity["typename"]);
+                var plugin = (string)entity["typename"];
+                groupStatistics.Text = $"Plugin Statistics: {plugin}";
+                var stats = GetStatistics(plugin);
                 if (stats != null)
                 {
                     var first = stats.Contains("createdon") ? (DateTime)stats["createdon"] : DateTime.MinValue;
@@ -732,7 +735,7 @@ namespace Cinteros.XTB.PluginTraceViewer
                         {
                             var tottime = execs * avgtime;
                             var timeperday = tottime / span.TotalDays / 1000;
-                            txtStatSecPerDay.Text = timeperday.ToString("#,#");
+                            txtStatSecPerDay.Text = timeperday.ToString("N2");
                         }
                     }
                 }
@@ -1475,7 +1478,7 @@ namespace Cinteros.XTB.PluginTraceViewer
 
         private void chkShowStats_CheckedChanged(object sender, EventArgs e)
         {
-            groupStatistics.Visible = chkShowStats.Checked;
+            panelStatistics.Visible = chkShowStats.Checked;
         }
     }
 }
