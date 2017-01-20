@@ -138,6 +138,15 @@
             this.label8 = new System.Windows.Forms.Label();
             this.txtStatCrashContrPct = new System.Windows.Forms.TextBox();
             this.label9 = new System.Windows.Forms.Label();
+            this.label10 = new System.Windows.Forms.Label();
+            this.txtStatTermCPU = new System.Windows.Forms.TextBox();
+            this.label11 = new System.Windows.Forms.Label();
+            this.txtStatTermMemory = new System.Windows.Forms.TextBox();
+            this.label12 = new System.Windows.Forms.Label();
+            this.txtStatTermHandles = new System.Windows.Forms.TextBox();
+            this.label13 = new System.Windows.Forms.Label();
+            this.txtStatTermOther = new System.Windows.Forms.TextBox();
+            this.label14 = new System.Windows.Forms.Label();
             this.toolStripMain.SuspendLayout();
             this.groupFilter.SuspendLayout();
             this.panelFilter.SuspendLayout();
@@ -1115,6 +1124,15 @@
             // 
             // groupStatistics
             // 
+            this.groupStatistics.Controls.Add(this.txtStatTermOther);
+            this.groupStatistics.Controls.Add(this.label14);
+            this.groupStatistics.Controls.Add(this.txtStatTermHandles);
+            this.groupStatistics.Controls.Add(this.label13);
+            this.groupStatistics.Controls.Add(this.txtStatTermMemory);
+            this.groupStatistics.Controls.Add(this.label12);
+            this.groupStatistics.Controls.Add(this.txtStatTermCPU);
+            this.groupStatistics.Controls.Add(this.label11);
+            this.groupStatistics.Controls.Add(this.label10);
             this.groupStatistics.Controls.Add(this.txtStatCrashContrPct);
             this.groupStatistics.Controls.Add(this.label9);
             this.groupStatistics.Controls.Add(this.txtStatCrashPct);
@@ -1301,6 +1319,87 @@
             this.label9.TabIndex = 17;
             this.label9.Text = "Crash contribution";
             // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(322, 23);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(102, 13);
+            this.label10.TabIndex = 19;
+            this.label10.Text = "Termination reasons";
+            // 
+            // txtStatTermCPU
+            // 
+            this.txtStatTermCPU.Location = new System.Drawing.Point(390, 44);
+            this.txtStatTermCPU.Name = "txtStatTermCPU";
+            this.txtStatTermCPU.ReadOnly = true;
+            this.txtStatTermCPU.Size = new System.Drawing.Size(34, 20);
+            this.txtStatTermCPU.TabIndex = 21;
+            this.txtStatTermCPU.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Location = new System.Drawing.Point(338, 47);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(29, 13);
+            this.label11.TabIndex = 20;
+            this.label11.Text = "CPU";
+            // 
+            // txtStatTermMemory
+            // 
+            this.txtStatTermMemory.Location = new System.Drawing.Point(390, 68);
+            this.txtStatTermMemory.Name = "txtStatTermMemory";
+            this.txtStatTermMemory.ReadOnly = true;
+            this.txtStatTermMemory.Size = new System.Drawing.Size(34, 20);
+            this.txtStatTermMemory.TabIndex = 23;
+            this.txtStatTermMemory.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Location = new System.Drawing.Point(338, 71);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(44, 13);
+            this.label12.TabIndex = 22;
+            this.label12.Text = "Memory";
+            // 
+            // txtStatTermHandles
+            // 
+            this.txtStatTermHandles.Location = new System.Drawing.Point(390, 92);
+            this.txtStatTermHandles.Name = "txtStatTermHandles";
+            this.txtStatTermHandles.ReadOnly = true;
+            this.txtStatTermHandles.Size = new System.Drawing.Size(34, 20);
+            this.txtStatTermHandles.TabIndex = 25;
+            this.txtStatTermHandles.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.Location = new System.Drawing.Point(338, 95);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(46, 13);
+            this.label13.TabIndex = 24;
+            this.label13.Text = "Handles";
+            // 
+            // txtStatTermOther
+            // 
+            this.txtStatTermOther.Location = new System.Drawing.Point(390, 116);
+            this.txtStatTermOther.Name = "txtStatTermOther";
+            this.txtStatTermOther.ReadOnly = true;
+            this.txtStatTermOther.Size = new System.Drawing.Size(34, 20);
+            this.txtStatTermOther.TabIndex = 27;
+            this.txtStatTermOther.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.Location = new System.Drawing.Point(338, 119);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(33, 13);
+            this.label14.TabIndex = 26;
+            this.label14.Text = "Other";
+            // 
             // PluginTraceViewer
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1456,5 +1555,14 @@
         private System.Windows.Forms.TextBox txtStatCrashPct;
         private System.Windows.Forms.TextBox txtStatCrashCnt;
         private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.TextBox txtStatTermOther;
+        private System.Windows.Forms.Label label14;
+        private System.Windows.Forms.TextBox txtStatTermHandles;
+        private System.Windows.Forms.Label label13;
+        private System.Windows.Forms.TextBox txtStatTermMemory;
+        private System.Windows.Forms.Label label12;
+        private System.Windows.Forms.TextBox txtStatTermCPU;
+        private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.Label label10;
     }
 }

@@ -503,41 +503,6 @@ namespace Cinteros.XTB.PluginTraceViewer
 
         private QueryExpression GetQuery()
         {
-
-            var fx = @"<fetch distinct='false' no-lock='false' top='1000' mapping='logical' >
-  <entity name='plugintracelog' >
-    <attribute name='persistencekey' />
-    <attribute name='performanceexecutionstarttime' />
-    <attribute name='operationtype' />
-    <attribute name='plugintracelogid' />
-    <attribute name='primaryentity' />
-    <attribute name='performanceexecutionduration' />
-    <attribute name='createdon' />
-    <attribute name='typename' />
-    <attribute name='requestid' />
-    <attribute name='depth' />
-    <attribute name='mode' />
-    <attribute name='correlationid' />
-    <!--<attribute name='messagename' />-->
-    <!--<attribute name='exceptiondetails' />-->
-    <order attribute='performanceexecutionstarttime' descending='true' />
-    <link-entity name='plugintype' from='name' to='typename' link-type='outer' alias='TYPE' >
-      <link-entity name='plugintypestatistic' from='plugintypeid' to='plugintypeid' link-type='outer' alias='STAT' >
-        <attribute name='failurepercent' />
-        <attribute name='terminatememorycontributionpercent' />
-        <attribute name='averageexecutetimeinmilliseconds' />
-        <attribute name='crashpercent' />
-        <attribute name='crashcount' />
-        <attribute name='terminatehandlescontributionpercent' />
-        <attribute name='executecount' />
-        <attribute name='failurecount' />
-        <attribute name='terminatecpucontributionpercent' />
-        <attribute name='terminateothercontributionpercent' />
-        <attribute name='crashcontributionpercent' />
-      </link-entity>
-    </link-entity>
-  </entity>
-</fetch>";
             var QEplugintracelog = new QueryExpression("plugintracelog");
             QEplugintracelog.ColumnSet.AddColumns(
                             "correlationid",
@@ -734,6 +699,11 @@ namespace Cinteros.XTB.PluginTraceViewer
                     var crashcnt = stats.Contains("crashcount") ? (int)stats["crashcount"] : -1;
                     var crashpct = stats.Contains("crashpercent") ? (int)stats["crashpercent"] : -1;
                     var crashcontrpct = stats.Contains("crashcontributionpercent") ? (int)stats["crashcontributionpercent"] : -1;
+                    var termcpu = stats.Contains("terminatecpucontributionpercent") ? (int)stats["terminatecpucontributionpercent"] : -1;
+                    var termmem = stats.Contains("terminatememorycontributionpercent") ? (int)stats["terminatememorycontributionpercent"] : -1;
+                    var termhnd = stats.Contains("terminatehandlescontributionpercent") ? (int)stats["terminatehandlescontributionpercent"] : -1;
+                    var termoth = stats.Contains("terminateothercontributionpercent") ? (int)stats["terminateothercontributionpercent"] : -1;
+
                     txtStatCreated.Text = !first.Equals(DateTime.MinValue) ? first.ToString("yyyy-MM-dd HH:mm:ss") : "?";
                     txtStatModified.Text = !last.Equals(DateTime.MinValue) ? last.ToString("yyyy-MM-dd HH:mm:ss") : "?";
                     txtStatExecCnt.Text = execs >= 0 ? execs.ToString() : "?";
@@ -743,6 +713,10 @@ namespace Cinteros.XTB.PluginTraceViewer
                     txtStatCrashCnt.Text = crashcnt >= 0 ? crashcnt.ToString() : "?";
                     txtStatCrashPct.Text = crashpct >= 0 ? crashpct.ToString() + "%" : "?";
                     txtStatCrashContrPct.Text = crashcontrpct >= 0 ? crashcontrpct.ToString() + "%" : "?";
+                    txtStatTermCPU.Text = termcpu >= 0 ? termcpu.ToString() + "%" : "?";
+                    txtStatTermMemory.Text = termmem >= 0 ? termmem.ToString() + "%" : "?";
+                    txtStatTermHandles.Text = termhnd >= 0 ? termhnd.ToString() + "%" : "?";
+                    txtStatTermOther.Text = termoth >= 0 ? termoth.ToString() + "%" : "?";
                     if (!first.Equals(DateTime.MinValue) && !last.Equals(DateTime.MinValue) && !first.Equals(last) && execs >= 0 && avgtime >= 0)
                     {
                         var span = last - first;
