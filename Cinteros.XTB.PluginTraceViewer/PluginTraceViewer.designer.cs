@@ -118,6 +118,18 @@
             this.labelException = new System.Windows.Forms.Label();
             this.splitContainerMain = new System.Windows.Forms.SplitContainer();
             this.groupStatistics = new System.Windows.Forms.GroupBox();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
+            this.txtStatCreated = new System.Windows.Forms.TextBox();
+            this.txtStatModified = new System.Windows.Forms.TextBox();
+            this.txtStatExecCnt = new System.Windows.Forms.TextBox();
+            this.label7 = new System.Windows.Forms.Label();
+            this.tstStatAvgExecTime = new System.Windows.Forms.TextBox();
+            this.txtStatSecPerDay = new System.Windows.Forms.TextBox();
+            this.chkShowStats = new System.Windows.Forms.CheckBox();
             this.toolStripMain.SuspendLayout();
             this.groupFilter.SuspendLayout();
             this.panelFilter.SuspendLayout();
@@ -138,6 +150,7 @@
             this.splitContainerMain.Panel1.SuspendLayout();
             this.splitContainerMain.Panel2.SuspendLayout();
             this.splitContainerMain.SuspendLayout();
+            this.groupStatistics.SuspendLayout();
             this.SuspendLayout();
             // 
             // toolStripMain
@@ -530,6 +543,7 @@
             // 
             // panelOptions
             // 
+            this.panelOptions.Controls.Add(this.chkShowStats);
             this.panelOptions.Controls.Add(this.chkShowCorrelation);
             this.panelOptions.Controls.Add(this.chkExceptionSummary);
             this.panelOptions.Controls.Add(this.chkRecords);
@@ -746,7 +760,7 @@
             this.crmGridView.ShowFriendlyNames = true;
             this.crmGridView.ShowIdColumn = false;
             this.crmGridView.ShowIndexColumn = false;
-            this.crmGridView.Size = new System.Drawing.Size(617, 458);
+            this.crmGridView.Size = new System.Drawing.Size(617, 284);
             this.crmGridView.TabIndex = 25;
             this.crmGridView.RecordDoubleClick += new Cinteros.Xrm.CRMWinForm.CRMRecordEventHandler(this.crmGridView_RecordDoubleClick);
             this.crmGridView.RecordEnter += new Cinteros.Xrm.CRMWinForm.CRMRecordEventHandler(this.crmGridView_RecordEnter);
@@ -984,8 +998,8 @@
             this.splitContainerRight.Panel2.Controls.Add(this.textException);
             this.splitContainerRight.Panel2.Controls.Add(this.panelExceptionLabel);
             this.splitContainerRight.Panel2MinSize = 23;
-            this.splitContainerRight.Size = new System.Drawing.Size(489, 439);
-            this.splitContainerRight.SplitterDistance = 184;
+            this.splitContainerRight.Size = new System.Drawing.Size(489, 338);
+            this.splitContainerRight.SplitterDistance = 212;
             this.splitContainerRight.SplitterWidth = 8;
             this.splitContainerRight.TabIndex = 12;
             // 
@@ -1000,7 +1014,7 @@
             this.textMessage.Name = "textMessage";
             this.textMessage.ReadOnly = true;
             this.textMessage.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.textMessage.Size = new System.Drawing.Size(489, 159);
+            this.textMessage.Size = new System.Drawing.Size(489, 187);
             this.textMessage.TabIndex = 10;
             this.textMessage.WordWrap = false;
             // 
@@ -1023,7 +1037,7 @@
             this.textException.Name = "textException";
             this.textException.ReadOnly = true;
             this.textException.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.textException.Size = new System.Drawing.Size(489, 222);
+            this.textException.Size = new System.Drawing.Size(489, 93);
             this.textException.TabIndex = 6;
             this.textException.WordWrap = false;
             // 
@@ -1063,20 +1077,145 @@
             this.splitContainerMain.Panel2.Controls.Add(this.splitContainerRight);
             this.splitContainerMain.Panel2.Controls.Add(this.groupStatistics);
             this.splitContainerMain.Panel2MinSize = 100;
-            this.splitContainerMain.Size = new System.Drawing.Size(1114, 655);
+            this.splitContainerMain.Size = new System.Drawing.Size(1114, 481);
             this.splitContainerMain.SplitterDistance = 617;
             this.splitContainerMain.SplitterWidth = 8;
             this.splitContainerMain.TabIndex = 31;
             // 
             // groupStatistics
             // 
+            this.groupStatistics.Controls.Add(this.txtStatSecPerDay);
+            this.groupStatistics.Controls.Add(this.tstStatAvgExecTime);
+            this.groupStatistics.Controls.Add(this.label7);
+            this.groupStatistics.Controls.Add(this.txtStatExecCnt);
+            this.groupStatistics.Controls.Add(this.txtStatModified);
+            this.groupStatistics.Controls.Add(this.txtStatCreated);
+            this.groupStatistics.Controls.Add(this.label6);
+            this.groupStatistics.Controls.Add(this.label5);
+            this.groupStatistics.Controls.Add(this.label4);
+            this.groupStatistics.Controls.Add(this.label3);
+            this.groupStatistics.Controls.Add(this.label2);
             this.groupStatistics.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.groupStatistics.Location = new System.Drawing.Point(0, 439);
+            this.groupStatistics.Location = new System.Drawing.Point(0, 338);
             this.groupStatistics.Name = "groupStatistics";
-            this.groupStatistics.Size = new System.Drawing.Size(489, 216);
+            this.groupStatistics.Size = new System.Drawing.Size(489, 143);
             this.groupStatistics.TabIndex = 13;
             this.groupStatistics.TabStop = false;
             this.groupStatistics.Text = "Plugin Statistics";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(6, 69);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(85, 13);
+            this.label2.TabIndex = 0;
+            this.label2.Text = "Execution Count";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(6, 21);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(73, 13);
+            this.label3.TabIndex = 1;
+            this.label3.Text = "First executed";
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(6, 45);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(74, 13);
+            this.label4.TabIndex = 2;
+            this.label4.Text = "Last executed";
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(6, 93);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(79, 13);
+            this.label5.TabIndex = 3;
+            this.label5.Text = "Avg Exec Time";
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(6, 117);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(77, 13);
+            this.label6.TabIndex = 4;
+            this.label6.Text = "Seconds / day";
+            // 
+            // txtStatCreated
+            // 
+            this.txtStatCreated.Location = new System.Drawing.Point(103, 18);
+            this.txtStatCreated.Name = "txtStatCreated";
+            this.txtStatCreated.ReadOnly = true;
+            this.txtStatCreated.Size = new System.Drawing.Size(128, 20);
+            this.txtStatCreated.TabIndex = 5;
+            this.txtStatCreated.Text = "2017-01-01 12:34:56.789";
+            // 
+            // txtStatModified
+            // 
+            this.txtStatModified.Location = new System.Drawing.Point(103, 42);
+            this.txtStatModified.Name = "txtStatModified";
+            this.txtStatModified.ReadOnly = true;
+            this.txtStatModified.Size = new System.Drawing.Size(128, 20);
+            this.txtStatModified.TabIndex = 6;
+            this.txtStatModified.Text = "2017-01-01 12:34:56.789";
+            // 
+            // txtStatExecCnt
+            // 
+            this.txtStatExecCnt.Location = new System.Drawing.Point(103, 66);
+            this.txtStatExecCnt.Name = "txtStatExecCnt";
+            this.txtStatExecCnt.ReadOnly = true;
+            this.txtStatExecCnt.Size = new System.Drawing.Size(62, 20);
+            this.txtStatExecCnt.TabIndex = 7;
+            this.txtStatExecCnt.Text = "12345";
+            this.txtStatExecCnt.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(171, 93);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(20, 13);
+            this.label7.TabIndex = 8;
+            this.label7.Text = "ms";
+            // 
+            // tstStatAvgExecTime
+            // 
+            this.tstStatAvgExecTime.Location = new System.Drawing.Point(103, 90);
+            this.tstStatAvgExecTime.Name = "tstStatAvgExecTime";
+            this.tstStatAvgExecTime.ReadOnly = true;
+            this.tstStatAvgExecTime.Size = new System.Drawing.Size(62, 20);
+            this.tstStatAvgExecTime.TabIndex = 9;
+            this.tstStatAvgExecTime.Text = "12345";
+            this.tstStatAvgExecTime.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            // 
+            // txtStatSecPerDay
+            // 
+            this.txtStatSecPerDay.Location = new System.Drawing.Point(103, 114);
+            this.txtStatSecPerDay.Name = "txtStatSecPerDay";
+            this.txtStatSecPerDay.ReadOnly = true;
+            this.txtStatSecPerDay.Size = new System.Drawing.Size(62, 20);
+            this.txtStatSecPerDay.TabIndex = 10;
+            this.txtStatSecPerDay.Text = "12345";
+            this.txtStatSecPerDay.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            // 
+            // chkShowStats
+            // 
+            this.chkShowStats.AutoSize = true;
+            this.chkShowStats.Checked = true;
+            this.chkShowStats.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkShowStats.Location = new System.Drawing.Point(158, 27);
+            this.chkShowStats.Name = "chkShowStats";
+            this.chkShowStats.Size = new System.Drawing.Size(98, 17);
+            this.chkShowStats.TabIndex = 13;
+            this.chkShowStats.Text = "Show Statistics";
+            this.chkShowStats.UseVisualStyleBackColor = true;
             // 
             // PluginTraceViewer
             // 
@@ -1085,7 +1224,7 @@
             this.Controls.Add(this.splitContainerMain);
             this.Controls.Add(this.toolStripMain);
             this.Name = "PluginTraceViewer";
-            this.Size = new System.Drawing.Size(1114, 680);
+            this.Size = new System.Drawing.Size(1114, 506);
             this.ConnectionUpdated += new XrmToolBox.Extensibility.PluginControlBase.ConnectionUpdatedHandler(this.PluginTraceViewer_ConnectionUpdated);
             this.Load += new System.EventHandler(this.PluginTraceViewer_Load);
             this.toolStripMain.ResumeLayout(false);
@@ -1116,6 +1255,8 @@
             this.splitContainerMain.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainerMain)).EndInit();
             this.splitContainerMain.ResumeLayout(false);
+            this.groupStatistics.ResumeLayout(false);
+            this.groupStatistics.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -1210,5 +1351,17 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn correlationid;
         private System.Windows.Forms.ToolStripMenuItem tsmiDelete;
         private System.Windows.Forms.GroupBox groupStatistics;
+        private System.Windows.Forms.TextBox txtStatSecPerDay;
+        private System.Windows.Forms.TextBox tstStatAvgExecTime;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.TextBox txtStatExecCnt;
+        private System.Windows.Forms.TextBox txtStatModified;
+        private System.Windows.Forms.TextBox txtStatCreated;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.CheckBox chkShowStats;
     }
 }
