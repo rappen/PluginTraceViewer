@@ -26,6 +26,7 @@ namespace Cinteros.XTB.PluginTraceViewer
         private const int PAGE_SIZE = 1000;
         private const int MAX_BATCH = 2;
         private bool? logUsage = null;
+        private Dictionary<string, Entity> statistics;
 
         public PluginTraceViewer()
         {
@@ -497,6 +498,41 @@ namespace Cinteros.XTB.PluginTraceViewer
 
         private QueryExpression GetQuery()
         {
+
+            var fx = @"<fetch distinct='false' no-lock='false' top='1000' mapping='logical' >
+  <entity name='plugintracelog' >
+    <attribute name='persistencekey' />
+    <attribute name='performanceexecutionstarttime' />
+    <attribute name='operationtype' />
+    <attribute name='plugintracelogid' />
+    <attribute name='primaryentity' />
+    <attribute name='performanceexecutionduration' />
+    <attribute name='createdon' />
+    <attribute name='typename' />
+    <attribute name='requestid' />
+    <attribute name='depth' />
+    <attribute name='mode' />
+    <attribute name='correlationid' />
+    <!--<attribute name='messagename' />-->
+    <!--<attribute name='exceptiondetails' />-->
+    <order attribute='performanceexecutionstarttime' descending='true' />
+    <link-entity name='plugintype' from='name' to='typename' link-type='outer' alias='TYPE' >
+      <link-entity name='plugintypestatistic' from='plugintypeid' to='plugintypeid' link-type='outer' alias='STAT' >
+        <attribute name='failurepercent' />
+        <attribute name='terminatememorycontributionpercent' />
+        <attribute name='averageexecutetimeinmilliseconds' />
+        <attribute name='crashpercent' />
+        <attribute name='crashcount' />
+        <attribute name='terminatehandlescontributionpercent' />
+        <attribute name='executecount' />
+        <attribute name='failurecount' />
+        <attribute name='terminatecpucontributionpercent' />
+        <attribute name='terminateothercontributionpercent' />
+        <attribute name='crashcontributionpercent' />
+      </link-entity>
+    </link-entity>
+  </entity>
+</fetch>";
             var QEplugintracelog = new QueryExpression("plugintracelog");
             QEplugintracelog.ColumnSet.AddColumns(
                             "correlationid",
@@ -871,6 +907,7 @@ namespace Cinteros.XTB.PluginTraceViewer
             {
                 FilterHidden = !groupFilter.Visible,
                 WordWrap = chkWordWrap.Checked,
+                Statistics = chkShowStats.Checked,
                 UseLog = logUsage,
                 Version = version
             };
@@ -965,6 +1002,7 @@ namespace Cinteros.XTB.PluginTraceViewer
             buttonShowHideFilter.Checked = !groupFilter.Visible;
             buttonShowHideFilter.Text = buttonShowHideFilter.Checked ? "Show Filter" : "Hide Filter";
             chkWordWrap.Checked = settings.WordWrap;
+            chkShowStats.Checked = settings.Statistics;
             logUsage = settings.UseLog;
             var ass = Assembly.GetExecutingAssembly().GetName();
             var version = ass.Version.ToString();
@@ -1367,6 +1405,11 @@ namespace Cinteros.XTB.PluginTraceViewer
             var tooltipcolumn = e.ColumnIndex == crmGridView.Columns["correlation"].Index ? "correlationid" : crmGridView.Columns[e.ColumnIndex].Name;
             var cell = crmGridView[e.ColumnIndex, e.RowIndex];
             cell.ToolTipText = crmGridView.Rows[e.RowIndex].Cells[tooltipcolumn].Value.ToString();
+        }
+
+        private void chkShowStats_CheckedChanged(object sender, EventArgs e)
+        {
+            groupStatistics.Visible = chkShowStats.Checked;
         }
     }
 }

@@ -8,8 +8,9 @@ namespace Cinteros.XTB.PluginTraceViewer
 {
     public class Settings
     {
-        public bool FilterHidden { get; set; }
+        public bool FilterHidden { get; set; } = false;
         public bool WordWrap { get; set; }
+        public bool Statistics { get; set; } = true;
         public bool? UseLog { get; set; } = null;
         public string Version { get; set; }
     }

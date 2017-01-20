@@ -1216,6 +1216,7 @@
             this.chkShowStats.TabIndex = 13;
             this.chkShowStats.Text = "Show Statistics";
             this.chkShowStats.UseVisualStyleBackColor = true;
+            this.chkShowStats.CheckedChanged += new System.EventHandler(this.chkShowStats_CheckedChanged);
             // 
             // PluginTraceViewer
             // 
