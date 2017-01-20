@@ -117,6 +117,7 @@
             this.panelExceptionLabel = new System.Windows.Forms.Panel();
             this.labelException = new System.Windows.Forms.Label();
             this.splitContainerMain = new System.Windows.Forms.SplitContainer();
+            this.groupStatistics = new System.Windows.Forms.GroupBox();
             this.toolStripMain.SuspendLayout();
             this.groupFilter.SuspendLayout();
             this.panelFilter.SuspendLayout();
@@ -745,7 +746,7 @@
             this.crmGridView.ShowFriendlyNames = true;
             this.crmGridView.ShowIdColumn = false;
             this.crmGridView.ShowIndexColumn = false;
-            this.crmGridView.Size = new System.Drawing.Size(617, 258);
+            this.crmGridView.Size = new System.Drawing.Size(617, 458);
             this.crmGridView.TabIndex = 25;
             this.crmGridView.RecordDoubleClick += new Cinteros.Xrm.CRMWinForm.CRMRecordEventHandler(this.crmGridView_RecordDoubleClick);
             this.crmGridView.RecordEnter += new Cinteros.Xrm.CRMWinForm.CRMRecordEventHandler(this.crmGridView_RecordEnter);
@@ -863,7 +864,7 @@
             this.toolStripMenuItem1,
             this.tsmiDelete});
             this.contextMenuGridView.Name = "contextStripMain";
-            this.contextMenuGridView.Size = new System.Drawing.Size(153, 76);
+            this.contextMenuGridView.Size = new System.Drawing.Size(134, 54);
             this.contextMenuGridView.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuGridView_Opening);
             // 
             // tsmiCorrelation
@@ -873,7 +874,7 @@
             this.tsmiCorrelationFilterByThis,
             this.tsmiCorrelationSelectThis});
             this.tsmiCorrelation.Name = "tsmiCorrelation";
-            this.tsmiCorrelation.Size = new System.Drawing.Size(152, 22);
+            this.tsmiCorrelation.Size = new System.Drawing.Size(133, 22);
             this.tsmiCorrelation.Text = "Correlation";
             // 
             // tsmiCorrelationId
@@ -900,7 +901,7 @@
             // toolStripMenuItem1
             // 
             this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(149, 6);
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(130, 6);
             // 
             // tsmiDelete
             // 
@@ -908,7 +909,7 @@
             this.tsmiDeleteSelected,
             this.tsmiDeleteAll});
             this.tsmiDelete.Name = "tsmiDelete";
-            this.tsmiDelete.Size = new System.Drawing.Size(152, 22);
+            this.tsmiDelete.Size = new System.Drawing.Size(133, 22);
             this.tsmiDelete.Text = "Delete";
             // 
             // tsmiDeleteSelected
@@ -983,8 +984,8 @@
             this.splitContainerRight.Panel2.Controls.Add(this.textException);
             this.splitContainerRight.Panel2.Controls.Add(this.panelExceptionLabel);
             this.splitContainerRight.Panel2MinSize = 23;
-            this.splitContainerRight.Size = new System.Drawing.Size(489, 455);
-            this.splitContainerRight.SplitterDistance = 198;
+            this.splitContainerRight.Size = new System.Drawing.Size(489, 439);
+            this.splitContainerRight.SplitterDistance = 184;
             this.splitContainerRight.SplitterWidth = 8;
             this.splitContainerRight.TabIndex = 12;
             // 
@@ -999,7 +1000,7 @@
             this.textMessage.Name = "textMessage";
             this.textMessage.ReadOnly = true;
             this.textMessage.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.textMessage.Size = new System.Drawing.Size(489, 173);
+            this.textMessage.Size = new System.Drawing.Size(489, 159);
             this.textMessage.TabIndex = 10;
             this.textMessage.WordWrap = false;
             // 
@@ -1022,7 +1023,7 @@
             this.textException.Name = "textException";
             this.textException.ReadOnly = true;
             this.textException.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.textException.Size = new System.Drawing.Size(489, 224);
+            this.textException.Size = new System.Drawing.Size(489, 222);
             this.textException.TabIndex = 6;
             this.textException.WordWrap = false;
             // 
@@ -1060,11 +1061,22 @@
             // splitContainerMain.Panel2
             // 
             this.splitContainerMain.Panel2.Controls.Add(this.splitContainerRight);
+            this.splitContainerMain.Panel2.Controls.Add(this.groupStatistics);
             this.splitContainerMain.Panel2MinSize = 100;
-            this.splitContainerMain.Size = new System.Drawing.Size(1114, 455);
+            this.splitContainerMain.Size = new System.Drawing.Size(1114, 655);
             this.splitContainerMain.SplitterDistance = 617;
             this.splitContainerMain.SplitterWidth = 8;
             this.splitContainerMain.TabIndex = 31;
+            // 
+            // groupStatistics
+            // 
+            this.groupStatistics.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.groupStatistics.Location = new System.Drawing.Point(0, 439);
+            this.groupStatistics.Name = "groupStatistics";
+            this.groupStatistics.Size = new System.Drawing.Size(489, 216);
+            this.groupStatistics.TabIndex = 13;
+            this.groupStatistics.TabStop = false;
+            this.groupStatistics.Text = "Plugin Statistics";
             // 
             // PluginTraceViewer
             // 
@@ -1073,7 +1085,7 @@
             this.Controls.Add(this.splitContainerMain);
             this.Controls.Add(this.toolStripMain);
             this.Name = "PluginTraceViewer";
-            this.Size = new System.Drawing.Size(1114, 480);
+            this.Size = new System.Drawing.Size(1114, 680);
             this.ConnectionUpdated += new XrmToolBox.Extensibility.PluginControlBase.ConnectionUpdatedHandler(this.PluginTraceViewer_ConnectionUpdated);
             this.Load += new System.EventHandler(this.PluginTraceViewer_Load);
             this.toolStripMain.ResumeLayout(false);
@@ -1197,5 +1209,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn exceptiondetails;
         private System.Windows.Forms.DataGridViewTextBoxColumn correlationid;
         private System.Windows.Forms.ToolStripMenuItem tsmiDelete;
+        private System.Windows.Forms.GroupBox groupStatistics;
     }
 }
