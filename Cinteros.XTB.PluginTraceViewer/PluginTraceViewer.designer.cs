@@ -70,6 +70,7 @@
             this.dateTo = new System.Windows.Forms.DateTimePicker();
             this.dateFrom = new System.Windows.Forms.DateTimePicker();
             this.panelOptions = new System.Windows.Forms.Panel();
+            this.chkShowStats = new System.Windows.Forms.CheckBox();
             this.chkShowCorrelation = new System.Windows.Forms.CheckBox();
             this.chkExceptionSummary = new System.Windows.Forms.CheckBox();
             this.chkRecords = new System.Windows.Forms.CheckBox();
@@ -118,18 +119,17 @@
             this.labelException = new System.Windows.Forms.Label();
             this.splitContainerMain = new System.Windows.Forms.SplitContainer();
             this.groupStatistics = new System.Windows.Forms.GroupBox();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
-            this.label6 = new System.Windows.Forms.Label();
-            this.txtStatCreated = new System.Windows.Forms.TextBox();
-            this.txtStatModified = new System.Windows.Forms.TextBox();
-            this.txtStatExecCnt = new System.Windows.Forms.TextBox();
-            this.label7 = new System.Windows.Forms.Label();
-            this.tstStatAvgExecTime = new System.Windows.Forms.TextBox();
             this.txtStatSecPerDay = new System.Windows.Forms.TextBox();
-            this.chkShowStats = new System.Windows.Forms.CheckBox();
+            this.txtStatAvgExecTime = new System.Windows.Forms.TextBox();
+            this.label7 = new System.Windows.Forms.Label();
+            this.txtStatExecCnt = new System.Windows.Forms.TextBox();
+            this.txtStatModified = new System.Windows.Forms.TextBox();
+            this.txtStatCreated = new System.Windows.Forms.TextBox();
+            this.label6 = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
             this.toolStripMain.SuspendLayout();
             this.groupFilter.SuspendLayout();
             this.panelFilter.SuspendLayout();
@@ -561,6 +561,19 @@
             this.panelOptions.Name = "panelOptions";
             this.panelOptions.Size = new System.Drawing.Size(263, 153);
             this.panelOptions.TabIndex = 2;
+            // 
+            // chkShowStats
+            // 
+            this.chkShowStats.AutoSize = true;
+            this.chkShowStats.Checked = true;
+            this.chkShowStats.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkShowStats.Location = new System.Drawing.Point(158, 27);
+            this.chkShowStats.Name = "chkShowStats";
+            this.chkShowStats.Size = new System.Drawing.Size(98, 17);
+            this.chkShowStats.TabIndex = 13;
+            this.chkShowStats.Text = "Show Statistics";
+            this.chkShowStats.UseVisualStyleBackColor = true;
+            this.chkShowStats.CheckedChanged += new System.EventHandler(this.chkShowStats_CheckedChanged);
             // 
             // chkShowCorrelation
             // 
@@ -999,7 +1012,7 @@
             this.splitContainerRight.Panel2.Controls.Add(this.panelExceptionLabel);
             this.splitContainerRight.Panel2MinSize = 23;
             this.splitContainerRight.Size = new System.Drawing.Size(489, 338);
-            this.splitContainerRight.SplitterDistance = 212;
+            this.splitContainerRight.SplitterDistance = 204;
             this.splitContainerRight.SplitterWidth = 8;
             this.splitContainerRight.TabIndex = 12;
             // 
@@ -1014,7 +1027,7 @@
             this.textMessage.Name = "textMessage";
             this.textMessage.ReadOnly = true;
             this.textMessage.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.textMessage.Size = new System.Drawing.Size(489, 187);
+            this.textMessage.Size = new System.Drawing.Size(489, 179);
             this.textMessage.TabIndex = 10;
             this.textMessage.WordWrap = false;
             // 
@@ -1037,7 +1050,7 @@
             this.textException.Name = "textException";
             this.textException.ReadOnly = true;
             this.textException.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.textException.Size = new System.Drawing.Size(489, 93);
+            this.textException.Size = new System.Drawing.Size(489, 101);
             this.textException.TabIndex = 6;
             this.textException.WordWrap = false;
             // 
@@ -1085,7 +1098,7 @@
             // groupStatistics
             // 
             this.groupStatistics.Controls.Add(this.txtStatSecPerDay);
-            this.groupStatistics.Controls.Add(this.tstStatAvgExecTime);
+            this.groupStatistics.Controls.Add(this.txtStatAvgExecTime);
             this.groupStatistics.Controls.Add(this.label7);
             this.groupStatistics.Controls.Add(this.txtStatExecCnt);
             this.groupStatistics.Controls.Add(this.txtStatModified);
@@ -1103,68 +1116,34 @@
             this.groupStatistics.TabStop = false;
             this.groupStatistics.Text = "Plugin Statistics";
             // 
-            // label2
+            // txtStatSecPerDay
             // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(6, 69);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(85, 13);
-            this.label2.TabIndex = 0;
-            this.label2.Text = "Execution Count";
+            this.txtStatSecPerDay.Location = new System.Drawing.Point(103, 114);
+            this.txtStatSecPerDay.Name = "txtStatSecPerDay";
+            this.txtStatSecPerDay.ReadOnly = true;
+            this.txtStatSecPerDay.Size = new System.Drawing.Size(62, 20);
+            this.txtStatSecPerDay.TabIndex = 10;
+            this.txtStatSecPerDay.Text = "12345";
+            this.txtStatSecPerDay.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
-            // label3
+            // txtStatAvgExecTime
             // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(6, 21);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(73, 13);
-            this.label3.TabIndex = 1;
-            this.label3.Text = "First executed";
+            this.txtStatAvgExecTime.Location = new System.Drawing.Point(103, 90);
+            this.txtStatAvgExecTime.Name = "txtStatAvgExecTime";
+            this.txtStatAvgExecTime.ReadOnly = true;
+            this.txtStatAvgExecTime.Size = new System.Drawing.Size(62, 20);
+            this.txtStatAvgExecTime.TabIndex = 9;
+            this.txtStatAvgExecTime.Text = "12345";
+            this.txtStatAvgExecTime.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
-            // label4
+            // label7
             // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(6, 45);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(74, 13);
-            this.label4.TabIndex = 2;
-            this.label4.Text = "Last executed";
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(6, 93);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(79, 13);
-            this.label5.TabIndex = 3;
-            this.label5.Text = "Avg Exec Time";
-            // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(6, 117);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(77, 13);
-            this.label6.TabIndex = 4;
-            this.label6.Text = "Seconds / day";
-            // 
-            // txtStatCreated
-            // 
-            this.txtStatCreated.Location = new System.Drawing.Point(103, 18);
-            this.txtStatCreated.Name = "txtStatCreated";
-            this.txtStatCreated.ReadOnly = true;
-            this.txtStatCreated.Size = new System.Drawing.Size(128, 20);
-            this.txtStatCreated.TabIndex = 5;
-            this.txtStatCreated.Text = "2017-01-01 12:34:56.789";
-            // 
-            // txtStatModified
-            // 
-            this.txtStatModified.Location = new System.Drawing.Point(103, 42);
-            this.txtStatModified.Name = "txtStatModified";
-            this.txtStatModified.ReadOnly = true;
-            this.txtStatModified.Size = new System.Drawing.Size(128, 20);
-            this.txtStatModified.TabIndex = 6;
-            this.txtStatModified.Text = "2017-01-01 12:34:56.789";
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(171, 93);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(20, 13);
+            this.label7.TabIndex = 8;
+            this.label7.Text = "ms";
             // 
             // txtStatExecCnt
             // 
@@ -1176,47 +1155,68 @@
             this.txtStatExecCnt.Text = "12345";
             this.txtStatExecCnt.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
-            // label7
+            // txtStatModified
             // 
-            this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(171, 93);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(20, 13);
-            this.label7.TabIndex = 8;
-            this.label7.Text = "ms";
+            this.txtStatModified.Location = new System.Drawing.Point(103, 42);
+            this.txtStatModified.Name = "txtStatModified";
+            this.txtStatModified.ReadOnly = true;
+            this.txtStatModified.Size = new System.Drawing.Size(128, 20);
+            this.txtStatModified.TabIndex = 6;
+            this.txtStatModified.Text = "2017-01-01 12:34:56.789";
             // 
-            // tstStatAvgExecTime
+            // txtStatCreated
             // 
-            this.tstStatAvgExecTime.Location = new System.Drawing.Point(103, 90);
-            this.tstStatAvgExecTime.Name = "tstStatAvgExecTime";
-            this.tstStatAvgExecTime.ReadOnly = true;
-            this.tstStatAvgExecTime.Size = new System.Drawing.Size(62, 20);
-            this.tstStatAvgExecTime.TabIndex = 9;
-            this.tstStatAvgExecTime.Text = "12345";
-            this.tstStatAvgExecTime.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.txtStatCreated.Location = new System.Drawing.Point(103, 18);
+            this.txtStatCreated.Name = "txtStatCreated";
+            this.txtStatCreated.ReadOnly = true;
+            this.txtStatCreated.Size = new System.Drawing.Size(128, 20);
+            this.txtStatCreated.TabIndex = 5;
+            this.txtStatCreated.Text = "2017-01-01 12:34:56.789";
             // 
-            // txtStatSecPerDay
+            // label6
             // 
-            this.txtStatSecPerDay.Location = new System.Drawing.Point(103, 114);
-            this.txtStatSecPerDay.Name = "txtStatSecPerDay";
-            this.txtStatSecPerDay.ReadOnly = true;
-            this.txtStatSecPerDay.Size = new System.Drawing.Size(62, 20);
-            this.txtStatSecPerDay.TabIndex = 10;
-            this.txtStatSecPerDay.Text = "12345";
-            this.txtStatSecPerDay.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(6, 117);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(77, 13);
+            this.label6.TabIndex = 4;
+            this.label6.Text = "Seconds / day";
             // 
-            // chkShowStats
+            // label5
             // 
-            this.chkShowStats.AutoSize = true;
-            this.chkShowStats.Checked = true;
-            this.chkShowStats.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkShowStats.Location = new System.Drawing.Point(158, 27);
-            this.chkShowStats.Name = "chkShowStats";
-            this.chkShowStats.Size = new System.Drawing.Size(98, 17);
-            this.chkShowStats.TabIndex = 13;
-            this.chkShowStats.Text = "Show Statistics";
-            this.chkShowStats.UseVisualStyleBackColor = true;
-            this.chkShowStats.CheckedChanged += new System.EventHandler(this.chkShowStats_CheckedChanged);
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(6, 93);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(79, 13);
+            this.label5.TabIndex = 3;
+            this.label5.Text = "Avg Exec Time";
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(6, 45);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(74, 13);
+            this.label4.TabIndex = 2;
+            this.label4.Text = "Last executed";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(6, 21);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(73, 13);
+            this.label3.TabIndex = 1;
+            this.label3.Text = "First executed";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(6, 69);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(85, 13);
+            this.label2.TabIndex = 0;
+            this.label2.Text = "Execution Count";
             // 
             // PluginTraceViewer
             // 
@@ -1353,7 +1353,7 @@
         private System.Windows.Forms.ToolStripMenuItem tsmiDelete;
         private System.Windows.Forms.GroupBox groupStatistics;
         private System.Windows.Forms.TextBox txtStatSecPerDay;
-        private System.Windows.Forms.TextBox tstStatAvgExecTime;
+        private System.Windows.Forms.TextBox txtStatAvgExecTime;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.TextBox txtStatExecCnt;
         private System.Windows.Forms.TextBox txtStatModified;

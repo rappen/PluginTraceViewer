@@ -698,6 +698,72 @@ namespace Cinteros.XTB.PluginTraceViewer
             buttonOpenLogRecord.Enabled = e.Entity != null;
             textMessage.Text = FixLineBreaks(e.Entity != null && e.Entity.Contains("messageblock") ? e.Entity["messageblock"].ToString() : "");
             textException.Text = FixLineBreaks(e.Entity != null && e.Entity.Contains("exceptiondetails") ? e.Entity["exceptiondetails"].ToString() : "");
+            ShowStatistics(e.Entity);
+        }
+
+        private void ShowStatistics(Entity entity)
+        {
+            if (!chkShowStats.Checked)
+            {
+                return;
+            }
+            txtStatCreated.Text = "?";
+            txtStatModified.Text = "?";
+            txtStatExecCnt.Text = "?";
+            txtStatAvgExecTime.Text = "?";
+            txtStatSecPerDay.Text = "?";
+            if (entity != null && entity.Contains("typename"))
+            {
+                var stats = GetStatistics((string)entity["typename"]);
+                if (stats != null)
+                {
+                    var first = stats.Contains("createdon") ? (DateTime)stats["createdon"] : DateTime.MinValue;
+                    var last = stats.Contains("modifiedon") ? (DateTime)stats["modifiedon"] : DateTime.MinValue;
+                    var execs = stats.Contains("executecount") ? (int)stats["executecount"] : -1;
+                    var avgtime = stats.Contains("averageexecutetimeinmilliseconds") ? (int)stats["averageexecutetimeinmilliseconds"] : -1;
+                    txtStatCreated.Text = !first.Equals(DateTime.MinValue) ? first.ToString("yyyy-MM-dd HH:mm:ss") : "?";
+                    txtStatModified.Text = !last.Equals(DateTime.MinValue) ? last.ToString("yyyy-MM-dd HH:mm:ss") : "?";
+                    txtStatExecCnt.Text = execs >= 0 ? execs.ToString() : "?";
+                    txtStatAvgExecTime.Text = avgtime >= 0 ? avgtime.ToString() : "?";
+                    if (!first.Equals(DateTime.MinValue) && !last.Equals(DateTime.MinValue) && !first.Equals(last) && execs >= 0 && avgtime >= 0)
+                    {
+                        var span = last - first;
+                        if (span.TotalDays > 0)
+                        {
+                            var tottime = execs * avgtime;
+                            var timeperday = tottime / span.TotalDays / 1000;
+                            txtStatSecPerDay.Text = timeperday.ToString("#,#");
+                        }
+                    }
+                }
+            }
+        }
+
+        private Entity GetStatistics(string typename)
+        {
+            if (statistics == null)
+            {
+                statistics = new Dictionary<string, Entity>();
+            }
+            if (!statistics.ContainsKey(typename))
+            {
+                var qex = new QueryExpression("plugintypestatistic");
+                qex.ColumnSet.AddColumns("failurepercent", "terminatememorycontributionpercent", "averageexecutetimeinmilliseconds",
+                    "crashpercent", "crashcount", "terminatehandlescontributionpercent", "executecount", "failurecount",
+                    "terminatecpucontributionpercent", "modifiedon", "createdon", "terminateothercontributionpercent", "crashcontributionpercent");
+                var leType = qex.AddLink("plugintype", "plugintypeid", "plugintypeid");
+                leType.LinkCriteria.AddCondition("typename", ConditionOperator.Equal, typename);
+                var res = Service.RetrieveMultiple(qex);
+                if (res.Entities.Count == 1)
+                {
+                    statistics.Add(typename, res[0]);
+                }
+            }
+            if (statistics.ContainsKey(typename))
+            {
+                return statistics[typename];
+            }
+            return null;
         }
 
         private string FixLineBreaks(string text)
