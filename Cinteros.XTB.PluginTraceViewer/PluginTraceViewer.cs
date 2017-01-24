@@ -471,6 +471,7 @@ namespace Cinteros.XTB.PluginTraceViewer
         {
             const string fault = "(Fault Detail is equal to Microsoft.Xrm.Sdk.OrganizationServiceFault).: ";
             const string unhandled = "Unhandled Exception: ";
+            var cnt = 0;
             foreach (var entity in entities.Entities)
             {
                 if (entity.Contains("exceptiondetails") && !string.IsNullOrWhiteSpace(entity["exceptiondetails"].ToString()))
@@ -480,7 +481,6 @@ namespace Cinteros.XTB.PluginTraceViewer
                     {
                         summary = summary.Substring(summary.IndexOf("<Message>") + 9);
                         summary = summary.Substring(0, summary.IndexOf("</Message>"));
-                        LogInfo("Extracted exception message: {0}", summary);
                         while (summary.Contains(fault))
                         {
                             summary = summary.Substring(summary.IndexOf(fault) + fault.Length);
@@ -497,9 +497,11 @@ namespace Cinteros.XTB.PluginTraceViewer
                     if (!string.IsNullOrWhiteSpace(summary))
                     {
                         entity.Attributes.Add("exceptionsummary", summary);
+                        cnt++;
                     }
                 }
             }
+            LogInfo("Extracted exception summary from {0} logs", cnt);
         }
 
         private QueryExpression GetQuery()
