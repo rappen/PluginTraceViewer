@@ -604,6 +604,8 @@ namespace Cinteros.XTB.PluginTraceViewer
                 QEplugintracelog.Criteria.AddCondition("performanceexecutionduration", ConditionOperator.LessEqual, (int)numDurationMax.Value);
             }
             QEplugintracelog.AddOrder("performanceexecutionstarttime", OrderType.Descending);
+            QEplugintracelog.AddOrder("correlationid", OrderType.Ascending);    // This just to group threads together when starting the same second
+            QEplugintracelog.AddOrder("depth", OrderType.Descending);           // This to try to compensate for executionstarttime only accurate to the second
             return QEplugintracelog;
         }
 
