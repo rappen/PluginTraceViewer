@@ -673,6 +673,7 @@ namespace Cinteros.XTB.PluginTraceViewer
             buttonOpenLogRecord.Enabled = e.Entity != null;
             textMessage.Text = FixLineBreaks(e.Entity != null && e.Entity.Contains("messageblock") ? e.Entity["messageblock"].ToString() : "");
             textException.Text = FixLineBreaks(e.Entity != null && e.Entity.Contains("exceptiondetails") ? e.Entity["exceptiondetails"].ToString() : "");
+            groupException.Text = "Exception" + (e.Entity.Contains("exceptionsummary") ? ": " + e.Entity["exceptionsummary"].ToString().Replace("\r\n", " ") : "");
             ShowStatistics(e.Entity);
         }
 
