@@ -51,7 +51,7 @@
             this.tsmiViewCorrelation = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiWordWrap = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem3 = new System.Windows.Forms.ToolStripSeparator();
-            this.buttonRefreshFilter = new System.Windows.Forms.ToolStripButton();
+            this.tsmiRefreshFilter = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
             this.buttonRetrieveLogs = new System.Windows.Forms.ToolStripButton();
             this.buttonHiddenCommands = new System.Windows.Forms.ToolStripDropDownButton();
@@ -75,6 +75,10 @@
             this.dateTo = new System.Windows.Forms.DateTimePicker();
             this.dateFrom = new System.Windows.Forms.DateTimePicker();
             this.panelOptions = new System.Windows.Forms.Panel();
+            this.panelOperationFilter = new System.Windows.Forms.Panel();
+            this.rbOperWF = new System.Windows.Forms.RadioButton();
+            this.rbOperPlugin = new System.Windows.Forms.RadioButton();
+            this.rbOperAll = new System.Windows.Forms.RadioButton();
             this.chkRecords = new System.Windows.Forms.CheckBox();
             this.chkDurationMax = new System.Windows.Forms.CheckBox();
             this.chkDurationMin = new System.Windows.Forms.CheckBox();
@@ -144,14 +148,11 @@
             this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
-            this.panelOperationFilter = new System.Windows.Forms.Panel();
-            this.rbOperWF = new System.Windows.Forms.RadioButton();
-            this.rbOperPlugin = new System.Windows.Forms.RadioButton();
-            this.rbOperAll = new System.Windows.Forms.RadioButton();
             this.toolStripMain.SuspendLayout();
             this.groupFilter.SuspendLayout();
             this.panelFilter.SuspendLayout();
             this.panelOptions.SuspendLayout();
+            this.panelOperationFilter.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numDurationMax)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numDurationMin)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numRecords)).BeginInit();
@@ -169,7 +170,6 @@
             this.splitContainerMain.SuspendLayout();
             this.panelStatistics.SuspendLayout();
             this.groupStatistics.SuspendLayout();
-            this.panelOperationFilter.SuspendLayout();
             this.SuspendLayout();
             // 
             // toolStripMain
@@ -302,7 +302,7 @@
             this.tsmiViewCorrelation,
             this.tsmiWordWrap,
             this.toolStripMenuItem3,
-            this.buttonRefreshFilter});
+            this.tsmiRefreshFilter});
             this.dropdownView.Image = ((System.Drawing.Image)(resources.GetObject("dropdownView.Image")));
             this.dropdownView.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.dropdownView.Name = "dropdownView";
@@ -350,6 +350,7 @@
             this.tsmiViewCorrelation.Checked = true;
             this.tsmiViewCorrelation.CheckOnClick = true;
             this.tsmiViewCorrelation.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.tsmiViewCorrelation.Image = ((System.Drawing.Image)(resources.GetObject("tsmiViewCorrelation.Image")));
             this.tsmiViewCorrelation.Name = "tsmiViewCorrelation";
             this.tsmiViewCorrelation.Size = new System.Drawing.Size(202, 22);
             this.tsmiViewCorrelation.Text = "Correlation grouping";
@@ -357,6 +358,7 @@
             // tsmiWordWrap
             // 
             this.tsmiWordWrap.CheckOnClick = true;
+            this.tsmiWordWrap.Image = ((System.Drawing.Image)(resources.GetObject("tsmiWordWrap.Image")));
             this.tsmiWordWrap.Name = "tsmiWordWrap";
             this.tsmiWordWrap.Size = new System.Drawing.Size(202, 22);
             this.tsmiWordWrap.Text = "Wrap text in log window";
@@ -367,15 +369,14 @@
             this.toolStripMenuItem3.Name = "toolStripMenuItem3";
             this.toolStripMenuItem3.Size = new System.Drawing.Size(199, 6);
             // 
-            // buttonRefreshFilter
+            // tsmiRefreshFilter
             // 
-            this.buttonRefreshFilter.Enabled = false;
-            this.buttonRefreshFilter.Image = ((System.Drawing.Image)(resources.GetObject("buttonRefreshFilter.Image")));
-            this.buttonRefreshFilter.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.buttonRefreshFilter.Name = "buttonRefreshFilter";
-            this.buttonRefreshFilter.Size = new System.Drawing.Size(140, 20);
-            this.buttonRefreshFilter.Text = "Refresh Filter Options";
-            this.buttonRefreshFilter.Click += new System.EventHandler(this.buttonRefreshFilter_Click);
+            this.tsmiRefreshFilter.Enabled = false;
+            this.tsmiRefreshFilter.Image = ((System.Drawing.Image)(resources.GetObject("tsmiRefreshFilter.Image")));
+            this.tsmiRefreshFilter.Name = "tsmiRefreshFilter";
+            this.tsmiRefreshFilter.Size = new System.Drawing.Size(202, 22);
+            this.tsmiRefreshFilter.Text = "Refresh Filter Options";
+            this.tsmiRefreshFilter.Click += new System.EventHandler(this.tsmiRefreshFilter_Click);
             // 
             // toolStripSeparator3
             // 
@@ -630,6 +631,50 @@
             this.panelOptions.Name = "panelOptions";
             this.panelOptions.Size = new System.Drawing.Size(263, 153);
             this.panelOptions.TabIndex = 2;
+            // 
+            // panelOperationFilter
+            // 
+            this.panelOperationFilter.Controls.Add(this.rbOperWF);
+            this.panelOperationFilter.Controls.Add(this.rbOperPlugin);
+            this.panelOperationFilter.Controls.Add(this.rbOperAll);
+            this.panelOperationFilter.Location = new System.Drawing.Point(0, 24);
+            this.panelOperationFilter.Name = "panelOperationFilter";
+            this.panelOperationFilter.Size = new System.Drawing.Size(257, 22);
+            this.panelOperationFilter.TabIndex = 2;
+            // 
+            // rbOperWF
+            // 
+            this.rbOperWF.AutoSize = true;
+            this.rbOperWF.Location = new System.Drawing.Point(158, 2);
+            this.rbOperWF.Name = "rbOperWF";
+            this.rbOperWF.Size = new System.Drawing.Size(87, 17);
+            this.rbOperWF.TabIndex = 7;
+            this.rbOperWF.TabStop = true;
+            this.rbOperWF.Text = "WF Activities";
+            this.rbOperWF.UseVisualStyleBackColor = true;
+            // 
+            // rbOperPlugin
+            // 
+            this.rbOperPlugin.AutoSize = true;
+            this.rbOperPlugin.Location = new System.Drawing.Point(80, 2);
+            this.rbOperPlugin.Name = "rbOperPlugin";
+            this.rbOperPlugin.Size = new System.Drawing.Size(59, 17);
+            this.rbOperPlugin.TabIndex = 6;
+            this.rbOperPlugin.TabStop = true;
+            this.rbOperPlugin.Text = "Plugins";
+            this.rbOperPlugin.UseVisualStyleBackColor = true;
+            // 
+            // rbOperAll
+            // 
+            this.rbOperAll.AutoSize = true;
+            this.rbOperAll.Checked = true;
+            this.rbOperAll.Location = new System.Drawing.Point(3, 2);
+            this.rbOperAll.Name = "rbOperAll";
+            this.rbOperAll.Size = new System.Drawing.Size(63, 17);
+            this.rbOperAll.TabIndex = 5;
+            this.rbOperAll.TabStop = true;
+            this.rbOperAll.Text = "All oper.";
+            this.rbOperAll.UseVisualStyleBackColor = true;
             // 
             // chkRecords
             // 
@@ -1005,7 +1050,7 @@
             this.splitContainerRight.Panel2.Controls.Add(this.groupException);
             this.splitContainerRight.Panel2MinSize = 23;
             this.splitContainerRight.Size = new System.Drawing.Size(489, 309);
-            this.splitContainerRight.SplitterDistance = 150;
+            this.splitContainerRight.SplitterDistance = 142;
             this.splitContainerRight.SplitterWidth = 8;
             this.splitContainerRight.TabIndex = 12;
             // 
@@ -1015,7 +1060,7 @@
             this.groupTraceLog.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupTraceLog.Location = new System.Drawing.Point(0, 0);
             this.groupTraceLog.Name = "groupTraceLog";
-            this.groupTraceLog.Size = new System.Drawing.Size(489, 150);
+            this.groupTraceLog.Size = new System.Drawing.Size(489, 142);
             this.groupTraceLog.TabIndex = 11;
             this.groupTraceLog.TabStop = false;
             this.groupTraceLog.Text = "Trace Log";
@@ -1032,7 +1077,7 @@
             this.textMessage.Name = "textMessage";
             this.textMessage.ReadOnly = true;
             this.textMessage.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.textMessage.Size = new System.Drawing.Size(483, 131);
+            this.textMessage.Size = new System.Drawing.Size(483, 123);
             this.textMessage.TabIndex = 10;
             this.textMessage.WordWrap = false;
             // 
@@ -1042,7 +1087,7 @@
             this.groupException.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupException.Location = new System.Drawing.Point(0, 0);
             this.groupException.Name = "groupException";
-            this.groupException.Size = new System.Drawing.Size(489, 151);
+            this.groupException.Size = new System.Drawing.Size(489, 159);
             this.groupException.TabIndex = 7;
             this.groupException.TabStop = false;
             this.groupException.Text = "Exception";
@@ -1057,7 +1102,7 @@
             this.textException.Name = "textException";
             this.textException.ReadOnly = true;
             this.textException.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.textException.Size = new System.Drawing.Size(483, 132);
+            this.textException.Size = new System.Drawing.Size(483, 140);
             this.textException.TabIndex = 6;
             this.textException.WordWrap = false;
             // 
@@ -1370,50 +1415,6 @@
             this.label2.TabIndex = 0;
             this.label2.Text = "Execution Count";
             // 
-            // panelOperationFilter
-            // 
-            this.panelOperationFilter.Controls.Add(this.rbOperWF);
-            this.panelOperationFilter.Controls.Add(this.rbOperPlugin);
-            this.panelOperationFilter.Controls.Add(this.rbOperAll);
-            this.panelOperationFilter.Location = new System.Drawing.Point(0, 24);
-            this.panelOperationFilter.Name = "panelOperationFilter";
-            this.panelOperationFilter.Size = new System.Drawing.Size(257, 22);
-            this.panelOperationFilter.TabIndex = 2;
-            // 
-            // rbOperWF
-            // 
-            this.rbOperWF.AutoSize = true;
-            this.rbOperWF.Location = new System.Drawing.Point(158, 2);
-            this.rbOperWF.Name = "rbOperWF";
-            this.rbOperWF.Size = new System.Drawing.Size(87, 17);
-            this.rbOperWF.TabIndex = 7;
-            this.rbOperWF.TabStop = true;
-            this.rbOperWF.Text = "WF Activities";
-            this.rbOperWF.UseVisualStyleBackColor = true;
-            // 
-            // rbOperPlugin
-            // 
-            this.rbOperPlugin.AutoSize = true;
-            this.rbOperPlugin.Location = new System.Drawing.Point(80, 2);
-            this.rbOperPlugin.Name = "rbOperPlugin";
-            this.rbOperPlugin.Size = new System.Drawing.Size(59, 17);
-            this.rbOperPlugin.TabIndex = 6;
-            this.rbOperPlugin.TabStop = true;
-            this.rbOperPlugin.Text = "Plugins";
-            this.rbOperPlugin.UseVisualStyleBackColor = true;
-            // 
-            // rbOperAll
-            // 
-            this.rbOperAll.AutoSize = true;
-            this.rbOperAll.Checked = true;
-            this.rbOperAll.Location = new System.Drawing.Point(3, 2);
-            this.rbOperAll.Name = "rbOperAll";
-            this.rbOperAll.Size = new System.Drawing.Size(63, 17);
-            this.rbOperAll.TabIndex = 5;
-            this.rbOperAll.TabStop = true;
-            this.rbOperAll.Text = "All oper.";
-            this.rbOperAll.UseVisualStyleBackColor = true;
-            // 
             // PluginTraceViewer
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1431,6 +1432,8 @@
             this.panelFilter.PerformLayout();
             this.panelOptions.ResumeLayout(false);
             this.panelOptions.PerformLayout();
+            this.panelOperationFilter.ResumeLayout(false);
+            this.panelOperationFilter.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numDurationMax)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numDurationMin)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numRecords)).EndInit();
@@ -1451,8 +1454,6 @@
             this.panelStatistics.ResumeLayout(false);
             this.groupStatistics.ResumeLayout(false);
             this.groupStatistics.PerformLayout();
-            this.panelOperationFilter.ResumeLayout(false);
-            this.panelOperationFilter.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -1569,7 +1570,6 @@
         private System.Windows.Forms.ToolStripMenuItem tsmiViewCorrelation;
         private System.Windows.Forms.ToolStripSeparator toolStripMenuItem2;
         private System.Windows.Forms.ToolStripSeparator toolStripMenuItem3;
-        private System.Windows.Forms.ToolStripButton buttonRefreshFilter;
         private System.Windows.Forms.ToolStripMenuItem tsmiWordWrap;
         private System.Windows.Forms.GroupBox groupTraceLog;
         private System.Windows.Forms.GroupBox groupException;
@@ -1577,5 +1577,6 @@
         private System.Windows.Forms.RadioButton rbOperWF;
         private System.Windows.Forms.RadioButton rbOperPlugin;
         private System.Windows.Forms.RadioButton rbOperAll;
+        private System.Windows.Forms.ToolStripMenuItem tsmiRefreshFilter;
     }
 }

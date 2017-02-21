@@ -106,7 +106,7 @@ namespace Cinteros.XTB.PluginTraceViewer
             var orgok = orgver >= new Version(7, 1);
             crmGridView.OrganizationService = orgok ? e.Service : null;
             buttonRetrieveLogs.Enabled = orgok;
-            buttonRefreshFilter.Enabled = orgok;
+            tsmiRefreshFilter.Enabled = orgok;
             if (orgok)
             {
                 LoadLogSetting();
@@ -881,7 +881,7 @@ namespace Cinteros.XTB.PluginTraceViewer
             groupFilter.Visible = tsmiViewFilter.Checked;
         }
 
-        private void buttonRefreshFilter_Click(object sender, EventArgs e)
+        private void tsmiRefreshFilter_Click(object sender, EventArgs e)
         {
             LoadLogSetting();
             LoadConstraints();
