@@ -939,7 +939,7 @@ namespace Cinteros.XTB.PluginTraceViewer
         {
             var ass = Assembly.GetExecutingAssembly().GetName();
             var version = ass.Version.ToString();
-            return new PTVFilter
+            var filter = new PTVFilter
             {
                 DateFrom = checkDateFrom.Checked ? dateFrom.Value : DateTime.MinValue,
                 DateTo = checkDateTo.Checked ? dateTo.Value : DateTime.MinValue,
@@ -952,8 +952,17 @@ namespace Cinteros.XTB.PluginTraceViewer
                 Mode = rbModeSync.Checked ? 1 : rbModeAsync.Checked ? 2 : 0,
                 MinDuration = chkDurationMin.Checked ? (int)numDurationMin.Value : -1,
                 MaxDuration = chkDurationMax.Checked ? (int)numDurationMax.Value : -1,
-                Records = chkRecords.Checked ? (int)numRecords.Value : -1
+                Records = chkRecords.Checked ? (int)numRecords.Value : -1,
+                VisibleColumns = new List<string>()
             };
+            foreach (ToolStripMenuItem menu in contextMenuGridView.Items)
+            {
+                if (menu.CheckOnClick && menu.Tag != null && crmGridView.Columns.Contains(menu.Tag.ToString()) && menu.Checked)
+                {
+                    filter.VisibleColumns.Add(menu.Tag.ToString());
+                }
+            }
+            return filter;
         }
 
         private Settings GetSettings()
@@ -1059,6 +1068,16 @@ namespace Cinteros.XTB.PluginTraceViewer
             if (chkRecords.Checked)
             {
                 numRecords.Value = filter.Records;
+            }
+            if (filter.VisibleColumns != null && filter.VisibleColumns.Count > 0)
+            {
+                foreach (ToolStripMenuItem menu in contextMenuGridView.Items)
+                {
+                    if (menu.CheckOnClick && menu.Tag != null && crmGridView.Columns.Contains(menu.Tag.ToString()))
+                    {
+                        menu.Checked = filter.VisibleColumns.Contains(menu.Tag.ToString());
+                    }
+                }
             }
         }
 

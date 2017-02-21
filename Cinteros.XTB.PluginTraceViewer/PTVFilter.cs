@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace Cinteros.XTB.PluginTraceViewer
 {
@@ -16,5 +17,6 @@ namespace Cinteros.XTB.PluginTraceViewer
         public int MinDuration { get; set; }
         public int MaxDuration { get; set; }
         public int Records { get; set; }
+        public List<string> VisibleColumns { get; set; }
     }
 }
