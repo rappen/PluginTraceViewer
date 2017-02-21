@@ -521,10 +521,22 @@ namespace Cinteros.XTB.PluginTraceViewer
                             "typename",
                             "depth",
                             "mode");
+            var LEstep = QEplugintracelog.AddLink("sdkmessageprocessingstep", "pluginstepid", "sdkmessageprocessingstepid", JoinOperator.LeftOuter);
+            LEstep.EntityAlias = "step";
+            LEstep.Columns.AddColumns("rank", "stage");
             if (chkRecords.Checked)
             {
                 QEplugintracelog.TopCount = (int)numRecords.Value;
             }
+            GetQueryFilter(QEplugintracelog);
+            QEplugintracelog.AddOrder("performanceexecutionstarttime", OrderType.Descending);
+            QEplugintracelog.AddOrder("correlationid", OrderType.Ascending);    // This just to group threads together when starting the same second
+            QEplugintracelog.AddOrder("depth", OrderType.Descending);           // This to try to compensate for executionstarttime only accurate to the second
+            return QEplugintracelog;
+        }
+
+        private void GetQueryFilter(QueryExpression QEplugintracelog)
+        {
             if (checkDateFrom.Checked)
             {
                 QEplugintracelog.Criteria.AddCondition("createdon", ConditionOperator.GreaterEqual, GetDateTimeAsUTC(dateFrom.Value));
@@ -611,10 +623,6 @@ namespace Cinteros.XTB.PluginTraceViewer
             {
                 QEplugintracelog.Criteria.AddCondition("performanceexecutionduration", ConditionOperator.LessEqual, (int)numDurationMax.Value);
             }
-            QEplugintracelog.AddOrder("performanceexecutionstarttime", OrderType.Descending);
-            QEplugintracelog.AddOrder("correlationid", OrderType.Ascending);    // This just to group threads together when starting the same second
-            QEplugintracelog.AddOrder("depth", OrderType.Descending);           // This to try to compensate for executionstarttime only accurate to the second
-            return QEplugintracelog;
         }
 
         private DateTime GetDateTimeAsUTC(DateTime source)
