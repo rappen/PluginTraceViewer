@@ -389,8 +389,6 @@ namespace Cinteros.XTB.PluginTraceViewer
             {
                 statistics.Clear();
             }
-            var showCorr = tsmiViewCorrelation.Checked;
-            var excSummary = tsmiViewExcSummary.Checked;
             LogUse("RetrieveLogs");
             var asyncinfo = new WorkAsyncInfo()
             {
@@ -408,14 +406,8 @@ namespace Cinteros.XTB.PluginTraceViewer
                     }
                     else if (args.Result is EntityCollection)
                     {
-                        if (showCorr)
-                        {
-                            FriendlyfyCorrelationIds(args.Result as EntityCollection);
-                        }
-                        if (excSummary)
-                        {
-                            ExtractExceptionSummaries(args.Result as EntityCollection);
-                        }
+                        FriendlyfyCorrelationIds(args.Result as EntityCollection);
+                        ExtractExceptionSummaries(args.Result as EntityCollection);
                         PopulateGrid(args.Result as EntityCollection);
                     }
                 }
@@ -641,19 +633,6 @@ namespace Cinteros.XTB.PluginTraceViewer
                     UpdateUI(() =>
                     {
                         crmGridView.DataSource = results;
-                        crmGridView.Columns["correlation"].Visible = tsmiViewCorrelation.Checked;
-                        var dt = crmGridView.GetDataSource<DataTable>();
-                        if (dt != null)
-                        {
-                            if (tsmiViewExcSummary.Checked)
-                            {
-                                dt.Columns.Add("Exception", typeof(string), "exceptionsummary");
-                            }
-                            else
-                            {
-                                dt.Columns.Add("Exception", typeof(bool), "exceptiondetails <> ''");
-                            }
-                        }
                         SendMessageToStatusBar(this, new StatusBarMessageEventArgs($"Loaded {results.Entities.Count} trace records"));
                         crmGridView.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells);
                     });
@@ -969,8 +948,6 @@ namespace Cinteros.XTB.PluginTraceViewer
                 Entity = chkEntity.Checked ? comboEntity.Text : string.Empty,
                 CorrelationId = chkCorrelation.Checked ? textCorrelationId.Text : string.Empty,
                 Exceptions = chkExceptions.Checked,
-                ExceptionSummary = tsmiViewExcSummary.Checked,
-                Correlation = tsmiViewCorrelation.Checked,
                 Operation = rbOperPlugin.Checked ? 1 : rbOperWF.Checked ? 2 : 0,
                 Mode = rbModeSync.Checked ? 1 : rbModeAsync.Checked ? 2 : 0,
                 MinDuration = chkDurationMin.Checked ? (int)numDurationMin.Value : -1,
@@ -1044,8 +1021,6 @@ namespace Cinteros.XTB.PluginTraceViewer
             chkCorrelation.Checked = !string.IsNullOrEmpty(filter.CorrelationId);
             textCorrelationId.Text = filter.CorrelationId;
             chkExceptions.Checked = filter.Exceptions;
-            tsmiViewExcSummary.Checked = filter.ExceptionSummary;
-            tsmiViewCorrelation.Checked = filter.Correlation;
             switch (filter.Operation)
             {
                 case 1:
@@ -1482,8 +1457,8 @@ namespace Cinteros.XTB.PluginTraceViewer
         {
             var result = Guid.Empty;
             var entities = crmGridView.SelectedCellRecords?.Entities;
-            var ids = entities.Select(e => (Guid)e["correlationid"]).Distinct();
-            if (ids.Count() == 1)
+            var ids = entities?.Select(e => (Guid)e["correlationid"]).Distinct();
+            if (ids?.Count() == 1)
             {
                 return ids.FirstOrDefault();
             }
@@ -1500,6 +1475,31 @@ namespace Cinteros.XTB.PluginTraceViewer
         private void tsmiViewStatistics_CheckedChanged(object sender, EventArgs e)
         {
             panelStatistics.Visible = tsmiViewStatistics.Checked;
+        }
+
+        private void crmGridView_CellMouseDown(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            if (e.Button != MouseButtons.Right)
+            {
+                return;
+            }
+            var header = e.RowIndex == -1;
+            foreach (ToolStripMenuItem menu in contextMenuGridView.Items)
+            {
+                menu.Visible = header == (menu.Tag != null && crmGridView.Columns.Contains(menu.Tag.ToString()));
+            }
+        }
+
+        private void tsmiShowColumn_CheckedChanged(object sender, EventArgs e)
+        {
+            foreach (ToolStripMenuItem menu in contextMenuGridView.Items)
+            {
+                if (!menu.CheckOnClick || menu.Tag == null || !crmGridView.Columns.Contains(menu.Tag.ToString()))
+                {
+                    continue;
+                }
+                crmGridView.Columns[menu.Tag.ToString()].Visible = menu.Checked;
+            }
         }
     }
 }

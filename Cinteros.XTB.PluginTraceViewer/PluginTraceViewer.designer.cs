@@ -47,8 +47,6 @@
             this.tsmiViewFilter = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiViewStatistics = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripSeparator();
-            this.tsmiViewExcSummary = new System.Windows.Forms.ToolStripMenuItem();
-            this.tsmiViewCorrelation = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiWordWrap = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem3 = new System.Windows.Forms.ToolStripSeparator();
             this.tsmiRefreshFilter = new System.Windows.Forms.ToolStripMenuItem();
@@ -90,15 +88,41 @@
             this.rbModeAll = new System.Windows.Forms.RadioButton();
             this.chkExceptions = new System.Windows.Forms.CheckBox();
             this.crmGridView = new Cinteros.Xrm.CRMWinForm.CRMGridView();
+            this.correlation = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.performanceexecutionstarttime = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.performanceexecutionduration = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.operationtype = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.typename = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.depth = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.mode = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.stage = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.rank = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.messagename = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.primaryentity = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.exceptionsummary = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.messagebody = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.exceptiondetails = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.correlationid = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.contextMenuGridView = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.tsmiCorrelation = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiCorrelationId = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiCorrelationFilterByThis = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiCorrelationSelectThis = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripSeparator();
             this.tsmiDelete = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiDeleteSelected = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiDeleteAll = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiShowColCorrelation = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiShowColStartTime = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiShowColDuration = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiShowColOperation = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiShowColPlugin = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiShowColDepth = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiShowColMode = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiShowColStage = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiShowColRank = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiShowColMessage = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiShowColEntity = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiShowColException = new System.Windows.Forms.ToolStripMenuItem();
             this.splitContainerRight = new System.Windows.Forms.SplitContainer();
             this.groupTraceLog = new System.Windows.Forms.GroupBox();
             this.textMessage = new System.Windows.Forms.TextBox();
@@ -134,22 +158,6 @@
             this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
-            this.correlation = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.performanceexecutionstarttime = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.performanceexecutionduration = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.operationtype = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.typename = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.depth = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.mode = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.stage = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.rank = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.messagename = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.primaryentity = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.exceptionbool = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.exceptionsummary = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.messagebody = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.exceptiondetails = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.correlationid = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.toolStripMain.SuspendLayout();
             this.groupFilter.SuspendLayout();
             this.panelFilter.SuspendLayout();
@@ -300,8 +308,6 @@
             this.tsmiViewFilter,
             this.tsmiViewStatistics,
             this.toolStripMenuItem2,
-            this.tsmiViewExcSummary,
-            this.tsmiViewCorrelation,
             this.tsmiWordWrap,
             this.toolStripMenuItem3,
             this.tsmiRefreshFilter});
@@ -337,25 +343,6 @@
             // 
             this.toolStripMenuItem2.Name = "toolStripMenuItem2";
             this.toolStripMenuItem2.Size = new System.Drawing.Size(199, 6);
-            // 
-            // tsmiViewExcSummary
-            // 
-            this.tsmiViewExcSummary.Checked = true;
-            this.tsmiViewExcSummary.CheckOnClick = true;
-            this.tsmiViewExcSummary.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.tsmiViewExcSummary.Name = "tsmiViewExcSummary";
-            this.tsmiViewExcSummary.Size = new System.Drawing.Size(202, 22);
-            this.tsmiViewExcSummary.Text = "Exception summary";
-            // 
-            // tsmiViewCorrelation
-            // 
-            this.tsmiViewCorrelation.Checked = true;
-            this.tsmiViewCorrelation.CheckOnClick = true;
-            this.tsmiViewCorrelation.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.tsmiViewCorrelation.Image = ((System.Drawing.Image)(resources.GetObject("tsmiViewCorrelation.Image")));
-            this.tsmiViewCorrelation.Name = "tsmiViewCorrelation";
-            this.tsmiViewCorrelation.Size = new System.Drawing.Size(202, 22);
-            this.tsmiViewCorrelation.Text = "Correlation grouping";
             // 
             // tsmiWordWrap
             // 
@@ -841,7 +828,6 @@
             this.rank,
             this.messagename,
             this.primaryentity,
-            this.exceptionbool,
             this.exceptionsummary,
             this.messagebody,
             this.exceptiondetails,
@@ -861,15 +847,136 @@
             this.crmGridView.RecordDoubleClick += new Cinteros.Xrm.CRMWinForm.CRMRecordEventHandler(this.crmGridView_RecordDoubleClick);
             this.crmGridView.RecordEnter += new Cinteros.Xrm.CRMWinForm.CRMRecordEventHandler(this.crmGridView_RecordEnter);
             this.crmGridView.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.crmGridView_CellFormatting);
+            this.crmGridView.CellMouseDown += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.crmGridView_CellMouseDown);
+            // 
+            // correlation
+            // 
+            this.correlation.HeaderText = "Corr";
+            this.correlation.Name = "correlation";
+            this.correlation.ReadOnly = true;
+            this.correlation.Width = 35;
+            // 
+            // performanceexecutionstarttime
+            // 
+            this.performanceexecutionstarttime.HeaderText = "Start Time";
+            this.performanceexecutionstarttime.Name = "performanceexecutionstarttime";
+            this.performanceexecutionstarttime.ReadOnly = true;
+            this.performanceexecutionstarttime.Width = 80;
+            // 
+            // performanceexecutionduration
+            // 
+            this.performanceexecutionduration.HeaderText = "Duration";
+            this.performanceexecutionduration.Name = "performanceexecutionduration";
+            this.performanceexecutionduration.ReadOnly = true;
+            this.performanceexecutionduration.Width = 72;
+            // 
+            // operationtype
+            // 
+            this.operationtype.HeaderText = "Operation";
+            this.operationtype.Name = "operationtype";
+            this.operationtype.ReadOnly = true;
+            this.operationtype.Width = 78;
+            // 
+            // typename
+            // 
+            this.typename.HeaderText = "Plugin";
+            this.typename.Name = "typename";
+            this.typename.ReadOnly = true;
+            this.typename.Width = 61;
+            // 
+            // depth
+            // 
+            this.depth.HeaderText = "Depth";
+            this.depth.Name = "depth";
+            this.depth.ReadOnly = true;
+            this.depth.Width = 61;
+            // 
+            // mode
+            // 
+            this.mode.HeaderText = "Mode";
+            this.mode.Name = "mode";
+            this.mode.ReadOnly = true;
+            this.mode.Width = 59;
+            // 
+            // stage
+            // 
+            this.stage.DataPropertyName = "step.stage";
+            this.stage.FillWeight = 70F;
+            this.stage.HeaderText = "Stage";
+            this.stage.Name = "stage";
+            this.stage.ReadOnly = true;
+            // 
+            // rank
+            // 
+            this.rank.DataPropertyName = "step.rank";
+            this.rank.FillWeight = 50F;
+            this.rank.HeaderText = "Rank";
+            this.rank.Name = "rank";
+            this.rank.ReadOnly = true;
+            // 
+            // messagename
+            // 
+            this.messagename.HeaderText = "Message";
+            this.messagename.Name = "messagename";
+            this.messagename.ReadOnly = true;
+            this.messagename.Width = 75;
+            // 
+            // primaryentity
+            // 
+            this.primaryentity.HeaderText = "Entity";
+            this.primaryentity.Name = "primaryentity";
+            this.primaryentity.ReadOnly = true;
+            this.primaryentity.Width = 58;
+            // 
+            // exceptionsummary
+            // 
+            this.exceptionsummary.HeaderText = "Exception";
+            this.exceptionsummary.Name = "exceptionsummary";
+            this.exceptionsummary.ReadOnly = true;
+            this.exceptionsummary.Width = 200;
+            // 
+            // messagebody
+            // 
+            this.messagebody.HeaderText = "Trace Log (Hidden)";
+            this.messagebody.Name = "messagebody";
+            this.messagebody.ReadOnly = true;
+            this.messagebody.Visible = false;
+            // 
+            // exceptiondetails
+            // 
+            this.exceptiondetails.HeaderText = "Exception Details (Hidden)";
+            this.exceptiondetails.Name = "exceptiondetails";
+            this.exceptiondetails.ReadOnly = true;
+            this.exceptiondetails.Visible = false;
+            this.exceptiondetails.Width = 150;
+            // 
+            // correlationid
+            // 
+            this.correlationid.HeaderText = "Correlation Id (Hidden)";
+            this.correlationid.Name = "correlationid";
+            this.correlationid.ReadOnly = true;
+            this.correlationid.Visible = false;
+            this.correlationid.Width = 150;
             // 
             // contextMenuGridView
             // 
             this.contextMenuGridView.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.tsmiCorrelation,
-            this.toolStripMenuItem1,
-            this.tsmiDelete});
+            this.tsmiDelete,
+            this.tsmiShowColCorrelation,
+            this.tsmiShowColStartTime,
+            this.tsmiShowColDuration,
+            this.tsmiShowColOperation,
+            this.tsmiShowColPlugin,
+            this.tsmiShowColDepth,
+            this.tsmiShowColMode,
+            this.tsmiShowColStage,
+            this.tsmiShowColRank,
+            this.tsmiShowColMessage,
+            this.tsmiShowColEntity,
+            this.tsmiShowColException});
             this.contextMenuGridView.Name = "contextStripMain";
-            this.contextMenuGridView.Size = new System.Drawing.Size(134, 54);
+            this.contextMenuGridView.Size = new System.Drawing.Size(134, 312);
             this.contextMenuGridView.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuGridView_Opening);
             // 
             // tsmiCorrelation
@@ -903,11 +1010,6 @@
             this.tsmiCorrelationSelectThis.Text = "Select all logs with this correlation id";
             this.tsmiCorrelationSelectThis.Click += new System.EventHandler(this.tsmiCorrelationSelectThis_Click);
             // 
-            // toolStripMenuItem1
-            // 
-            this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(130, 6);
-            // 
             // tsmiDelete
             // 
             this.tsmiDelete.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -931,6 +1033,138 @@
             this.tsmiDeleteAll.Text = "Delete All...";
             this.tsmiDeleteAll.Click += new System.EventHandler(this.tsmiDeleteAll_Click);
             // 
+            // tsmiShowColCorrelation
+            // 
+            this.tsmiShowColCorrelation.Checked = true;
+            this.tsmiShowColCorrelation.CheckOnClick = true;
+            this.tsmiShowColCorrelation.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.tsmiShowColCorrelation.Name = "tsmiShowColCorrelation";
+            this.tsmiShowColCorrelation.Size = new System.Drawing.Size(133, 22);
+            this.tsmiShowColCorrelation.Tag = "correlation";
+            this.tsmiShowColCorrelation.Text = "Correlation";
+            this.tsmiShowColCorrelation.CheckedChanged += new System.EventHandler(this.tsmiShowColumn_CheckedChanged);
+            // 
+            // tsmiShowColStartTime
+            // 
+            this.tsmiShowColStartTime.Checked = true;
+            this.tsmiShowColStartTime.CheckOnClick = true;
+            this.tsmiShowColStartTime.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.tsmiShowColStartTime.Name = "tsmiShowColStartTime";
+            this.tsmiShowColStartTime.Size = new System.Drawing.Size(133, 22);
+            this.tsmiShowColStartTime.Tag = "performanceexecutionstarttime";
+            this.tsmiShowColStartTime.Text = "Start Time";
+            this.tsmiShowColStartTime.CheckedChanged += new System.EventHandler(this.tsmiShowColumn_CheckedChanged);
+            // 
+            // tsmiShowColDuration
+            // 
+            this.tsmiShowColDuration.Checked = true;
+            this.tsmiShowColDuration.CheckOnClick = true;
+            this.tsmiShowColDuration.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.tsmiShowColDuration.Name = "tsmiShowColDuration";
+            this.tsmiShowColDuration.Size = new System.Drawing.Size(133, 22);
+            this.tsmiShowColDuration.Tag = "performanceexecutionduration";
+            this.tsmiShowColDuration.Text = "Duration";
+            this.tsmiShowColDuration.CheckedChanged += new System.EventHandler(this.tsmiShowColumn_CheckedChanged);
+            // 
+            // tsmiShowColOperation
+            // 
+            this.tsmiShowColOperation.Checked = true;
+            this.tsmiShowColOperation.CheckOnClick = true;
+            this.tsmiShowColOperation.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.tsmiShowColOperation.Name = "tsmiShowColOperation";
+            this.tsmiShowColOperation.Size = new System.Drawing.Size(133, 22);
+            this.tsmiShowColOperation.Tag = "operationtype";
+            this.tsmiShowColOperation.Text = "Operation";
+            this.tsmiShowColOperation.CheckedChanged += new System.EventHandler(this.tsmiShowColumn_CheckedChanged);
+            // 
+            // tsmiShowColPlugin
+            // 
+            this.tsmiShowColPlugin.Checked = true;
+            this.tsmiShowColPlugin.CheckOnClick = true;
+            this.tsmiShowColPlugin.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.tsmiShowColPlugin.Name = "tsmiShowColPlugin";
+            this.tsmiShowColPlugin.Size = new System.Drawing.Size(133, 22);
+            this.tsmiShowColPlugin.Tag = "typename";
+            this.tsmiShowColPlugin.Text = "Plugin";
+            this.tsmiShowColPlugin.CheckedChanged += new System.EventHandler(this.tsmiShowColumn_CheckedChanged);
+            // 
+            // tsmiShowColDepth
+            // 
+            this.tsmiShowColDepth.Checked = true;
+            this.tsmiShowColDepth.CheckOnClick = true;
+            this.tsmiShowColDepth.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.tsmiShowColDepth.Name = "tsmiShowColDepth";
+            this.tsmiShowColDepth.Size = new System.Drawing.Size(133, 22);
+            this.tsmiShowColDepth.Tag = "depth";
+            this.tsmiShowColDepth.Text = "Depth";
+            this.tsmiShowColDepth.CheckedChanged += new System.EventHandler(this.tsmiShowColumn_CheckedChanged);
+            // 
+            // tsmiShowColMode
+            // 
+            this.tsmiShowColMode.Checked = true;
+            this.tsmiShowColMode.CheckOnClick = true;
+            this.tsmiShowColMode.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.tsmiShowColMode.Name = "tsmiShowColMode";
+            this.tsmiShowColMode.Size = new System.Drawing.Size(133, 22);
+            this.tsmiShowColMode.Tag = "mode";
+            this.tsmiShowColMode.Text = "Mode";
+            this.tsmiShowColMode.CheckedChanged += new System.EventHandler(this.tsmiShowColumn_CheckedChanged);
+            // 
+            // tsmiShowColStage
+            // 
+            this.tsmiShowColStage.Checked = true;
+            this.tsmiShowColStage.CheckOnClick = true;
+            this.tsmiShowColStage.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.tsmiShowColStage.Name = "tsmiShowColStage";
+            this.tsmiShowColStage.Size = new System.Drawing.Size(133, 22);
+            this.tsmiShowColStage.Tag = "stage";
+            this.tsmiShowColStage.Text = "Stage";
+            this.tsmiShowColStage.CheckedChanged += new System.EventHandler(this.tsmiShowColumn_CheckedChanged);
+            // 
+            // tsmiShowColRank
+            // 
+            this.tsmiShowColRank.Checked = true;
+            this.tsmiShowColRank.CheckOnClick = true;
+            this.tsmiShowColRank.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.tsmiShowColRank.Name = "tsmiShowColRank";
+            this.tsmiShowColRank.Size = new System.Drawing.Size(133, 22);
+            this.tsmiShowColRank.Tag = "rank";
+            this.tsmiShowColRank.Text = "Rank";
+            this.tsmiShowColRank.CheckedChanged += new System.EventHandler(this.tsmiShowColumn_CheckedChanged);
+            // 
+            // tsmiShowColMessage
+            // 
+            this.tsmiShowColMessage.Checked = true;
+            this.tsmiShowColMessage.CheckOnClick = true;
+            this.tsmiShowColMessage.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.tsmiShowColMessage.Name = "tsmiShowColMessage";
+            this.tsmiShowColMessage.Size = new System.Drawing.Size(133, 22);
+            this.tsmiShowColMessage.Tag = "messagename";
+            this.tsmiShowColMessage.Text = "Message";
+            this.tsmiShowColMessage.CheckedChanged += new System.EventHandler(this.tsmiShowColumn_CheckedChanged);
+            // 
+            // tsmiShowColEntity
+            // 
+            this.tsmiShowColEntity.Checked = true;
+            this.tsmiShowColEntity.CheckOnClick = true;
+            this.tsmiShowColEntity.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.tsmiShowColEntity.Name = "tsmiShowColEntity";
+            this.tsmiShowColEntity.Size = new System.Drawing.Size(133, 22);
+            this.tsmiShowColEntity.Tag = "primaryentity";
+            this.tsmiShowColEntity.Text = "Entity";
+            this.tsmiShowColEntity.CheckedChanged += new System.EventHandler(this.tsmiShowColumn_CheckedChanged);
+            // 
+            // tsmiShowColException
+            // 
+            this.tsmiShowColException.Checked = true;
+            this.tsmiShowColException.CheckOnClick = true;
+            this.tsmiShowColException.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.tsmiShowColException.Name = "tsmiShowColException";
+            this.tsmiShowColException.Size = new System.Drawing.Size(133, 22);
+            this.tsmiShowColException.Tag = "exception";
+            this.tsmiShowColException.Text = "Exception";
+            this.tsmiShowColException.CheckedChanged += new System.EventHandler(this.tsmiShowColumn_CheckedChanged);
+            // 
             // splitContainerRight
             // 
             this.splitContainerRight.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -949,7 +1183,7 @@
             this.splitContainerRight.Panel2.Controls.Add(this.groupException);
             this.splitContainerRight.Panel2MinSize = 23;
             this.splitContainerRight.Size = new System.Drawing.Size(489, 309);
-            this.splitContainerRight.SplitterDistance = 142;
+            this.splitContainerRight.SplitterDistance = 106;
             this.splitContainerRight.SplitterWidth = 8;
             this.splitContainerRight.TabIndex = 12;
             // 
@@ -959,7 +1193,7 @@
             this.groupTraceLog.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupTraceLog.Location = new System.Drawing.Point(0, 0);
             this.groupTraceLog.Name = "groupTraceLog";
-            this.groupTraceLog.Size = new System.Drawing.Size(489, 142);
+            this.groupTraceLog.Size = new System.Drawing.Size(489, 106);
             this.groupTraceLog.TabIndex = 11;
             this.groupTraceLog.TabStop = false;
             this.groupTraceLog.Text = "Trace Log";
@@ -976,7 +1210,7 @@
             this.textMessage.Name = "textMessage";
             this.textMessage.ReadOnly = true;
             this.textMessage.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.textMessage.Size = new System.Drawing.Size(483, 123);
+            this.textMessage.Size = new System.Drawing.Size(483, 100);
             this.textMessage.TabIndex = 10;
             this.textMessage.WordWrap = false;
             // 
@@ -986,7 +1220,7 @@
             this.groupException.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupException.Location = new System.Drawing.Point(0, 0);
             this.groupException.Name = "groupException";
-            this.groupException.Size = new System.Drawing.Size(489, 159);
+            this.groupException.Size = new System.Drawing.Size(489, 195);
             this.groupException.TabIndex = 7;
             this.groupException.TabStop = false;
             this.groupException.Text = "Exception";
@@ -1001,7 +1235,7 @@
             this.textException.Name = "textException";
             this.textException.ReadOnly = true;
             this.textException.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.textException.Size = new System.Drawing.Size(483, 140);
+            this.textException.Size = new System.Drawing.Size(483, 176);
             this.textException.TabIndex = 6;
             this.textException.WordWrap = false;
             // 
@@ -1314,127 +1548,6 @@
             this.label2.TabIndex = 0;
             this.label2.Text = "Execution Count";
             // 
-            // correlation
-            // 
-            this.correlation.HeaderText = "Corr";
-            this.correlation.Name = "correlation";
-            this.correlation.ReadOnly = true;
-            this.correlation.Visible = false;
-            this.correlation.Width = 35;
-            // 
-            // performanceexecutionstarttime
-            // 
-            this.performanceexecutionstarttime.HeaderText = "Start Time";
-            this.performanceexecutionstarttime.Name = "performanceexecutionstarttime";
-            this.performanceexecutionstarttime.ReadOnly = true;
-            this.performanceexecutionstarttime.Width = 80;
-            // 
-            // performanceexecutionduration
-            // 
-            this.performanceexecutionduration.HeaderText = "Duration";
-            this.performanceexecutionduration.Name = "performanceexecutionduration";
-            this.performanceexecutionduration.ReadOnly = true;
-            this.performanceexecutionduration.Width = 72;
-            // 
-            // operationtype
-            // 
-            this.operationtype.HeaderText = "Operation";
-            this.operationtype.Name = "operationtype";
-            this.operationtype.ReadOnly = true;
-            this.operationtype.Width = 78;
-            // 
-            // typename
-            // 
-            this.typename.HeaderText = "Plugin";
-            this.typename.Name = "typename";
-            this.typename.ReadOnly = true;
-            this.typename.Width = 61;
-            // 
-            // depth
-            // 
-            this.depth.HeaderText = "Depth";
-            this.depth.Name = "depth";
-            this.depth.ReadOnly = true;
-            this.depth.Width = 61;
-            // 
-            // mode
-            // 
-            this.mode.HeaderText = "Mode";
-            this.mode.Name = "mode";
-            this.mode.ReadOnly = true;
-            this.mode.Width = 59;
-            // 
-            // stage
-            // 
-            this.stage.DataPropertyName = "step.stage";
-            this.stage.FillWeight = 70F;
-            this.stage.HeaderText = "Stage";
-            this.stage.Name = "stage";
-            this.stage.ReadOnly = true;
-            // 
-            // rank
-            // 
-            this.rank.DataPropertyName = "step.rank";
-            this.rank.FillWeight = 50F;
-            this.rank.HeaderText = "Rank";
-            this.rank.Name = "rank";
-            this.rank.ReadOnly = true;
-            // 
-            // messagename
-            // 
-            this.messagename.HeaderText = "Message";
-            this.messagename.Name = "messagename";
-            this.messagename.ReadOnly = true;
-            this.messagename.Width = 75;
-            // 
-            // primaryentity
-            // 
-            this.primaryentity.HeaderText = "Entity";
-            this.primaryentity.Name = "primaryentity";
-            this.primaryentity.ReadOnly = true;
-            this.primaryentity.Width = 58;
-            // 
-            // exceptionbool
-            // 
-            this.exceptionbool.HeaderText = "Exception";
-            this.exceptionbool.Name = "exceptionbool";
-            this.exceptionbool.ReadOnly = true;
-            this.exceptionbool.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.exceptionbool.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            this.exceptionbool.Visible = false;
-            this.exceptionbool.Width = 79;
-            // 
-            // exceptionsummary
-            // 
-            this.exceptionsummary.HeaderText = "Exception Summary";
-            this.exceptionsummary.Name = "exceptionsummary";
-            this.exceptionsummary.ReadOnly = true;
-            this.exceptionsummary.Visible = false;
-            this.exceptionsummary.Width = 200;
-            // 
-            // messagebody
-            // 
-            this.messagebody.HeaderText = "Trace Log (Hidden)";
-            this.messagebody.Name = "messagebody";
-            this.messagebody.ReadOnly = true;
-            this.messagebody.Visible = false;
-            // 
-            // exceptiondetails
-            // 
-            this.exceptiondetails.HeaderText = "Exception Details (Hidden)";
-            this.exceptiondetails.Name = "exceptiondetails";
-            this.exceptiondetails.ReadOnly = true;
-            this.exceptiondetails.Visible = false;
-            this.exceptiondetails.Width = 150;
-            // 
-            // correlationid
-            // 
-            this.correlationid.HeaderText = "Correlation Id (Hidden)";
-            this.correlationid.Name = "correlationid";
-            this.correlationid.ReadOnly = true;
-            this.correlationid.Visible = false;
-            this.correlationid.Width = 150;
-            // 
             // PluginTraceViewer
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1534,7 +1647,6 @@
         private System.Windows.Forms.ToolStripComboBox comboLogSetting;
         private System.Windows.Forms.ToolStripMenuItem tsmiCorrelation;
         private System.Windows.Forms.ToolStripMenuItem tsmiCorrelationSelectThis;
-        private System.Windows.Forms.ToolStripSeparator toolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem tsmiCorrelationId;
         private System.Windows.Forms.TextBox textCorrelationId;
         private System.Windows.Forms.CheckBox chkCorrelation;
@@ -1572,8 +1684,6 @@
         private System.Windows.Forms.ToolStripDropDownButton dropdownView;
         private System.Windows.Forms.ToolStripMenuItem tsmiViewFilter;
         private System.Windows.Forms.ToolStripMenuItem tsmiViewStatistics;
-        private System.Windows.Forms.ToolStripMenuItem tsmiViewExcSummary;
-        private System.Windows.Forms.ToolStripMenuItem tsmiViewCorrelation;
         private System.Windows.Forms.ToolStripSeparator toolStripMenuItem2;
         private System.Windows.Forms.ToolStripSeparator toolStripMenuItem3;
         private System.Windows.Forms.ToolStripMenuItem tsmiWordWrap;
@@ -1584,6 +1694,18 @@
         private System.Windows.Forms.RadioButton rbOperPlugin;
         private System.Windows.Forms.RadioButton rbOperAll;
         private System.Windows.Forms.ToolStripMenuItem tsmiRefreshFilter;
+        private System.Windows.Forms.ToolStripMenuItem tsmiShowColCorrelation;
+        private System.Windows.Forms.ToolStripMenuItem tsmiShowColStartTime;
+        private System.Windows.Forms.ToolStripMenuItem tsmiShowColDuration;
+        private System.Windows.Forms.ToolStripMenuItem tsmiShowColOperation;
+        private System.Windows.Forms.ToolStripMenuItem tsmiShowColPlugin;
+        private System.Windows.Forms.ToolStripMenuItem tsmiShowColDepth;
+        private System.Windows.Forms.ToolStripMenuItem tsmiShowColMode;
+        private System.Windows.Forms.ToolStripMenuItem tsmiShowColStage;
+        private System.Windows.Forms.ToolStripMenuItem tsmiShowColRank;
+        private System.Windows.Forms.ToolStripMenuItem tsmiShowColMessage;
+        private System.Windows.Forms.ToolStripMenuItem tsmiShowColEntity;
+        private System.Windows.Forms.ToolStripMenuItem tsmiShowColException;
         private System.Windows.Forms.DataGridViewTextBoxColumn correlation;
         private System.Windows.Forms.DataGridViewTextBoxColumn performanceexecutionstarttime;
         private System.Windows.Forms.DataGridViewTextBoxColumn performanceexecutionduration;
@@ -1595,7 +1717,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn rank;
         private System.Windows.Forms.DataGridViewTextBoxColumn messagename;
         private System.Windows.Forms.DataGridViewTextBoxColumn primaryentity;
-        private System.Windows.Forms.DataGridViewCheckBoxColumn exceptionbool;
         private System.Windows.Forms.DataGridViewTextBoxColumn exceptionsummary;
         private System.Windows.Forms.DataGridViewTextBoxColumn messagebody;
         private System.Windows.Forms.DataGridViewTextBoxColumn exceptiondetails;
