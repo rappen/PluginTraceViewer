@@ -110,7 +110,9 @@
             this.tsmiDeleteSelected = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiDeleteAll = new System.Windows.Forms.ToolStripMenuItem();
             this.splitContainerRight = new System.Windows.Forms.SplitContainer();
+            this.groupTraceLog = new System.Windows.Forms.GroupBox();
             this.textMessage = new System.Windows.Forms.TextBox();
+            this.groupException = new System.Windows.Forms.GroupBox();
             this.textException = new System.Windows.Forms.TextBox();
             this.splitContainerMain = new System.Windows.Forms.SplitContainer();
             this.panelStatistics = new System.Windows.Forms.Panel();
@@ -142,8 +144,10 @@
             this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
-            this.groupTraceLog = new System.Windows.Forms.GroupBox();
-            this.groupException = new System.Windows.Forms.GroupBox();
+            this.panelOperationFilter = new System.Windows.Forms.Panel();
+            this.rbOperWF = new System.Windows.Forms.RadioButton();
+            this.rbOperPlugin = new System.Windows.Forms.RadioButton();
+            this.rbOperAll = new System.Windows.Forms.RadioButton();
             this.toolStripMain.SuspendLayout();
             this.groupFilter.SuspendLayout();
             this.panelFilter.SuspendLayout();
@@ -157,14 +161,15 @@
             this.splitContainerRight.Panel1.SuspendLayout();
             this.splitContainerRight.Panel2.SuspendLayout();
             this.splitContainerRight.SuspendLayout();
+            this.groupTraceLog.SuspendLayout();
+            this.groupException.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainerMain)).BeginInit();
             this.splitContainerMain.Panel1.SuspendLayout();
             this.splitContainerMain.Panel2.SuspendLayout();
             this.splitContainerMain.SuspendLayout();
             this.panelStatistics.SuspendLayout();
             this.groupStatistics.SuspendLayout();
-            this.groupTraceLog.SuspendLayout();
-            this.groupException.SuspendLayout();
+            this.panelOperationFilter.SuspendLayout();
             this.SuspendLayout();
             // 
             // toolStripMain
@@ -609,6 +614,7 @@
             // 
             // panelOptions
             // 
+            this.panelOptions.Controls.Add(this.panelOperationFilter);
             this.panelOptions.Controls.Add(this.chkRecords);
             this.panelOptions.Controls.Add(this.chkDurationMax);
             this.panelOptions.Controls.Add(this.chkDurationMin);
@@ -633,7 +639,7 @@
             this.chkRecords.Location = new System.Drawing.Point(3, 122);
             this.chkRecords.Name = "chkRecords";
             this.chkRecords.Size = new System.Drawing.Size(91, 17);
-            this.chkRecords.TabIndex = 11;
+            this.chkRecords.TabIndex = 12;
             this.chkRecords.Text = "Record count";
             this.chkRecords.UseVisualStyleBackColor = true;
             this.chkRecords.CheckedChanged += new System.EventHandler(this.chkRecords_CheckedChanged);
@@ -644,7 +650,7 @@
             this.chkDurationMax.Location = new System.Drawing.Point(3, 98);
             this.chkDurationMax.Name = "chkDurationMax";
             this.chkDurationMax.Size = new System.Drawing.Size(89, 17);
-            this.chkDurationMax.TabIndex = 9;
+            this.chkDurationMax.TabIndex = 10;
             this.chkDurationMax.Text = "Duration Max";
             this.chkDurationMax.UseVisualStyleBackColor = true;
             this.chkDurationMax.CheckedChanged += new System.EventHandler(this.chkDurationMax_CheckedChanged);
@@ -655,7 +661,7 @@
             this.chkDurationMin.Location = new System.Drawing.Point(3, 74);
             this.chkDurationMin.Name = "chkDurationMin";
             this.chkDurationMin.Size = new System.Drawing.Size(86, 17);
-            this.chkDurationMin.TabIndex = 7;
+            this.chkDurationMin.TabIndex = 8;
             this.chkDurationMin.Text = "Duration Min";
             this.chkDurationMin.UseVisualStyleBackColor = true;
             this.chkDurationMin.CheckedChanged += new System.EventHandler(this.chkDurationMin_CheckedChanged);
@@ -676,7 +682,7 @@
             0});
             this.numDurationMax.Name = "numDurationMax";
             this.numDurationMax.Size = new System.Drawing.Size(76, 20);
-            this.numDurationMax.TabIndex = 10;
+            this.numDurationMax.TabIndex = 11;
             // 
             // numDurationMin
             // 
@@ -694,7 +700,7 @@
             0});
             this.numDurationMin.Name = "numDurationMin";
             this.numDurationMin.Size = new System.Drawing.Size(76, 20);
-            this.numDurationMin.TabIndex = 8;
+            this.numDurationMin.TabIndex = 9;
             // 
             // numRecords
             // 
@@ -716,7 +722,7 @@
             0});
             this.numRecords.Name = "numRecords";
             this.numRecords.Size = new System.Drawing.Size(76, 20);
-            this.numRecords.TabIndex = 12;
+            this.numRecords.TabIndex = 13;
             this.numRecords.Value = new decimal(new int[] {
             100,
             0,
@@ -730,7 +736,7 @@
             this.rbModeAsync.Location = new System.Drawing.Point(158, 49);
             this.rbModeAsync.Name = "rbModeAsync";
             this.rbModeAsync.Size = new System.Drawing.Size(76, 17);
-            this.rbModeAsync.TabIndex = 6;
+            this.rbModeAsync.TabIndex = 7;
             this.rbModeAsync.TabStop = true;
             this.rbModeAsync.Text = "Async only";
             this.rbModeAsync.UseVisualStyleBackColor = true;
@@ -741,7 +747,7 @@
             this.rbModeSync.Location = new System.Drawing.Point(80, 49);
             this.rbModeSync.Name = "rbModeSync";
             this.rbModeSync.Size = new System.Drawing.Size(71, 17);
-            this.rbModeSync.TabIndex = 5;
+            this.rbModeSync.TabIndex = 6;
             this.rbModeSync.TabStop = true;
             this.rbModeSync.Text = "Sync only";
             this.rbModeSync.UseVisualStyleBackColor = true;
@@ -753,7 +759,7 @@
             this.rbModeAll.Location = new System.Drawing.Point(3, 49);
             this.rbModeAll.Name = "rbModeAll";
             this.rbModeAll.Size = new System.Drawing.Size(70, 17);
-            this.rbModeAll.TabIndex = 4;
+            this.rbModeAll.TabIndex = 5;
             this.rbModeAll.TabStop = true;
             this.rbModeAll.Text = "All modes";
             this.rbModeAll.UseVisualStyleBackColor = true;
@@ -761,7 +767,7 @@
             // chkExceptions
             // 
             this.chkExceptions.AutoSize = true;
-            this.chkExceptions.Location = new System.Drawing.Point(3, 27);
+            this.chkExceptions.Location = new System.Drawing.Point(3, 3);
             this.chkExceptions.Name = "chkExceptions";
             this.chkExceptions.Size = new System.Drawing.Size(100, 17);
             this.chkExceptions.TabIndex = 1;
@@ -999,9 +1005,20 @@
             this.splitContainerRight.Panel2.Controls.Add(this.groupException);
             this.splitContainerRight.Panel2MinSize = 23;
             this.splitContainerRight.Size = new System.Drawing.Size(489, 309);
-            this.splitContainerRight.SplitterDistance = 154;
+            this.splitContainerRight.SplitterDistance = 150;
             this.splitContainerRight.SplitterWidth = 8;
             this.splitContainerRight.TabIndex = 12;
+            // 
+            // groupTraceLog
+            // 
+            this.groupTraceLog.Controls.Add(this.textMessage);
+            this.groupTraceLog.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.groupTraceLog.Location = new System.Drawing.Point(0, 0);
+            this.groupTraceLog.Name = "groupTraceLog";
+            this.groupTraceLog.Size = new System.Drawing.Size(489, 150);
+            this.groupTraceLog.TabIndex = 11;
+            this.groupTraceLog.TabStop = false;
+            this.groupTraceLog.Text = "Trace Log";
             // 
             // textMessage
             // 
@@ -1015,9 +1032,20 @@
             this.textMessage.Name = "textMessage";
             this.textMessage.ReadOnly = true;
             this.textMessage.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.textMessage.Size = new System.Drawing.Size(483, 135);
+            this.textMessage.Size = new System.Drawing.Size(483, 131);
             this.textMessage.TabIndex = 10;
             this.textMessage.WordWrap = false;
+            // 
+            // groupException
+            // 
+            this.groupException.Controls.Add(this.textException);
+            this.groupException.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.groupException.Location = new System.Drawing.Point(0, 0);
+            this.groupException.Name = "groupException";
+            this.groupException.Size = new System.Drawing.Size(489, 151);
+            this.groupException.TabIndex = 7;
+            this.groupException.TabStop = false;
+            this.groupException.Text = "Exception";
             // 
             // textException
             // 
@@ -1029,7 +1057,7 @@
             this.textException.Name = "textException";
             this.textException.ReadOnly = true;
             this.textException.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.textException.Size = new System.Drawing.Size(483, 128);
+            this.textException.Size = new System.Drawing.Size(483, 132);
             this.textException.TabIndex = 6;
             this.textException.WordWrap = false;
             // 
@@ -1342,27 +1370,49 @@
             this.label2.TabIndex = 0;
             this.label2.Text = "Execution Count";
             // 
-            // groupTraceLog
+            // panelOperationFilter
             // 
-            this.groupTraceLog.Controls.Add(this.textMessage);
-            this.groupTraceLog.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupTraceLog.Location = new System.Drawing.Point(0, 0);
-            this.groupTraceLog.Name = "groupTraceLog";
-            this.groupTraceLog.Size = new System.Drawing.Size(489, 154);
-            this.groupTraceLog.TabIndex = 11;
-            this.groupTraceLog.TabStop = false;
-            this.groupTraceLog.Text = "Trace Log";
+            this.panelOperationFilter.Controls.Add(this.rbOperWF);
+            this.panelOperationFilter.Controls.Add(this.rbOperPlugin);
+            this.panelOperationFilter.Controls.Add(this.rbOperAll);
+            this.panelOperationFilter.Location = new System.Drawing.Point(0, 24);
+            this.panelOperationFilter.Name = "panelOperationFilter";
+            this.panelOperationFilter.Size = new System.Drawing.Size(257, 22);
+            this.panelOperationFilter.TabIndex = 2;
             // 
-            // groupException
+            // rbOperWF
             // 
-            this.groupException.Controls.Add(this.textException);
-            this.groupException.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupException.Location = new System.Drawing.Point(0, 0);
-            this.groupException.Name = "groupException";
-            this.groupException.Size = new System.Drawing.Size(489, 147);
-            this.groupException.TabIndex = 7;
-            this.groupException.TabStop = false;
-            this.groupException.Text = "Exception";
+            this.rbOperWF.AutoSize = true;
+            this.rbOperWF.Location = new System.Drawing.Point(158, 2);
+            this.rbOperWF.Name = "rbOperWF";
+            this.rbOperWF.Size = new System.Drawing.Size(87, 17);
+            this.rbOperWF.TabIndex = 7;
+            this.rbOperWF.TabStop = true;
+            this.rbOperWF.Text = "WF Activities";
+            this.rbOperWF.UseVisualStyleBackColor = true;
+            // 
+            // rbOperPlugin
+            // 
+            this.rbOperPlugin.AutoSize = true;
+            this.rbOperPlugin.Location = new System.Drawing.Point(80, 2);
+            this.rbOperPlugin.Name = "rbOperPlugin";
+            this.rbOperPlugin.Size = new System.Drawing.Size(59, 17);
+            this.rbOperPlugin.TabIndex = 6;
+            this.rbOperPlugin.TabStop = true;
+            this.rbOperPlugin.Text = "Plugins";
+            this.rbOperPlugin.UseVisualStyleBackColor = true;
+            // 
+            // rbOperAll
+            // 
+            this.rbOperAll.AutoSize = true;
+            this.rbOperAll.Checked = true;
+            this.rbOperAll.Location = new System.Drawing.Point(3, 2);
+            this.rbOperAll.Name = "rbOperAll";
+            this.rbOperAll.Size = new System.Drawing.Size(63, 17);
+            this.rbOperAll.TabIndex = 5;
+            this.rbOperAll.TabStop = true;
+            this.rbOperAll.Text = "All oper.";
+            this.rbOperAll.UseVisualStyleBackColor = true;
             // 
             // PluginTraceViewer
             // 
@@ -1390,6 +1440,10 @@
             this.splitContainerRight.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainerRight)).EndInit();
             this.splitContainerRight.ResumeLayout(false);
+            this.groupTraceLog.ResumeLayout(false);
+            this.groupTraceLog.PerformLayout();
+            this.groupException.ResumeLayout(false);
+            this.groupException.PerformLayout();
             this.splitContainerMain.Panel1.ResumeLayout(false);
             this.splitContainerMain.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainerMain)).EndInit();
@@ -1397,10 +1451,8 @@
             this.panelStatistics.ResumeLayout(false);
             this.groupStatistics.ResumeLayout(false);
             this.groupStatistics.PerformLayout();
-            this.groupTraceLog.ResumeLayout(false);
-            this.groupTraceLog.PerformLayout();
-            this.groupException.ResumeLayout(false);
-            this.groupException.PerformLayout();
+            this.panelOperationFilter.ResumeLayout(false);
+            this.panelOperationFilter.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -1521,5 +1573,9 @@
         private System.Windows.Forms.ToolStripMenuItem tsmiWordWrap;
         private System.Windows.Forms.GroupBox groupTraceLog;
         private System.Windows.Forms.GroupBox groupException;
+        private System.Windows.Forms.Panel panelOperationFilter;
+        private System.Windows.Forms.RadioButton rbOperWF;
+        private System.Windows.Forms.RadioButton rbOperPlugin;
+        private System.Windows.Forms.RadioButton rbOperAll;
     }
 }

@@ -587,6 +587,14 @@ namespace Cinteros.XTB.PluginTraceViewer
                 QEplugintracelog.Criteria.AddCondition("exceptiondetails", ConditionOperator.NotNull);
                 QEplugintracelog.Criteria.AddCondition("exceptiondetails", ConditionOperator.NotEqual, "");
             }
+            if (rbOperPlugin.Checked)
+            {
+                QEplugintracelog.Criteria.AddCondition("operationtype", ConditionOperator.Equal, 1);
+            }
+            else if (rbOperWF.Checked)
+            {
+                QEplugintracelog.Criteria.AddCondition("operationtype", ConditionOperator.Equal, 2);
+            }
             if (rbModeSync.Checked)
             {
                 QEplugintracelog.Criteria.AddCondition("mode", ConditionOperator.Equal, 0);
@@ -955,6 +963,7 @@ namespace Cinteros.XTB.PluginTraceViewer
                 Exceptions = chkExceptions.Checked,
                 ExceptionSummary = tsmiViewExcSummary.Checked,
                 Correlation = tsmiViewCorrelation.Checked,
+                Operation = rbOperPlugin.Checked ? 1 : rbOperWF.Checked ? 2 : 0,
                 Mode = rbModeSync.Checked ? 1 : rbModeAsync.Checked ? 2 : 0,
                 MinDuration = chkDurationMin.Checked ? (int)numDurationMin.Value : -1,
                 MaxDuration = chkDurationMax.Checked ? (int)numDurationMax.Value : -1,
@@ -1029,6 +1038,18 @@ namespace Cinteros.XTB.PluginTraceViewer
             chkExceptions.Checked = filter.Exceptions;
             tsmiViewExcSummary.Checked = filter.ExceptionSummary;
             tsmiViewCorrelation.Checked = filter.Correlation;
+            switch (filter.Operation)
+            {
+                case 1:
+                    rbOperPlugin.Checked = true;
+                    break;
+                case 2:
+                    rbOperWF.Checked = true;
+                    break;
+                default:
+                    rbOperAll.Checked = true;
+                    break;
+            }
             switch (filter.Mode)
             {
                 case 1:
