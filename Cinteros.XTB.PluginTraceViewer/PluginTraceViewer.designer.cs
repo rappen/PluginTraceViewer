@@ -30,6 +30,7 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(PluginTraceViewer));
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             this.toolStripMain = new System.Windows.Forms.ToolStrip();
             this.tsbCloseThisTab = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
@@ -851,6 +852,8 @@
             // 
             // correlation
             // 
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.correlation.DefaultCellStyle = dataGridViewCellStyle1;
             this.correlation.HeaderText = "Corr";
             this.correlation.Name = "correlation";
             this.correlation.ReadOnly = true;
@@ -868,7 +871,7 @@
             this.performanceexecutionduration.HeaderText = "Duration";
             this.performanceexecutionduration.Name = "performanceexecutionduration";
             this.performanceexecutionduration.ReadOnly = true;
-            this.performanceexecutionduration.Width = 72;
+            this.performanceexecutionduration.Width = 50;
             // 
             // operationtype
             // 
@@ -913,6 +916,7 @@
             this.rank.HeaderText = "Rank";
             this.rank.Name = "rank";
             this.rank.ReadOnly = true;
+            this.rank.Width = 50;
             // 
             // messagename
             // 
@@ -1161,7 +1165,7 @@
             this.tsmiShowColException.CheckState = System.Windows.Forms.CheckState.Checked;
             this.tsmiShowColException.Name = "tsmiShowColException";
             this.tsmiShowColException.Size = new System.Drawing.Size(133, 22);
-            this.tsmiShowColException.Tag = "exception";
+            this.tsmiShowColException.Tag = "exceptionsummary";
             this.tsmiShowColException.Text = "Exception";
             this.tsmiShowColException.CheckedChanged += new System.EventHandler(this.tsmiShowColumn_CheckedChanged);
             // 
@@ -1183,7 +1187,7 @@
             this.splitContainerRight.Panel2.Controls.Add(this.groupException);
             this.splitContainerRight.Panel2MinSize = 23;
             this.splitContainerRight.Size = new System.Drawing.Size(489, 309);
-            this.splitContainerRight.SplitterDistance = 106;
+            this.splitContainerRight.SplitterDistance = 102;
             this.splitContainerRight.SplitterWidth = 8;
             this.splitContainerRight.TabIndex = 12;
             // 
@@ -1193,7 +1197,7 @@
             this.groupTraceLog.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupTraceLog.Location = new System.Drawing.Point(0, 0);
             this.groupTraceLog.Name = "groupTraceLog";
-            this.groupTraceLog.Size = new System.Drawing.Size(489, 106);
+            this.groupTraceLog.Size = new System.Drawing.Size(489, 102);
             this.groupTraceLog.TabIndex = 11;
             this.groupTraceLog.TabStop = false;
             this.groupTraceLog.Text = "Trace Log";
@@ -1220,7 +1224,7 @@
             this.groupException.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupException.Location = new System.Drawing.Point(0, 0);
             this.groupException.Name = "groupException";
-            this.groupException.Size = new System.Drawing.Size(489, 195);
+            this.groupException.Size = new System.Drawing.Size(489, 199);
             this.groupException.TabIndex = 7;
             this.groupException.TabStop = false;
             this.groupException.Text = "Exception";
@@ -1235,7 +1239,7 @@
             this.textException.Name = "textException";
             this.textException.ReadOnly = true;
             this.textException.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.textException.Size = new System.Drawing.Size(483, 176);
+            this.textException.Size = new System.Drawing.Size(483, 180);
             this.textException.TabIndex = 6;
             this.textException.WordWrap = false;
             // 
