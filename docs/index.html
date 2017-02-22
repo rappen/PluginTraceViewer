@@ -218,7 +218,7 @@
                 </h3>
                 <p>
                     <h4>Menu</h4>
-                    <img src="images/PTV-menu2.png">
+                    <img src="images/PTV-menu3.jpg">
                     <br />
                     <ul>
                         <li>
@@ -238,16 +238,17 @@
                             </ul>
                         </li>
                         <li>
+                            <strong>View</strong>
+                            <ul>
+                                <li>Filter panel showing options to filter the logs returned.</li>
+                                <li>Statistics panel showing <a href="https://msdn.microsoft.com/en-us/library/gg334752.aspx#Run-time statistics" target="_blank">Plugin Statistics</a> for the plugin in selected log record.
+                                <li>Wrap text in Trace Log and Exception windows.</li>
+                                <li>Refresh Filter Options to reload constraints and options for filter criteria.</li>
+                            </ul>
+                        </li>
+                        <li>
                             <strong>Retrieve Logs</strong>
                             <br /> Retrieves trace log records using current filter.
-                        </li>
-                        <li>
-                            <strong>Show (Hide) Filter</strong>
-                            <br /> Toggles section with filter options on / off.
-                        </li>
-                        <li>
-                            <strong>Refresh Filter Options</strong>
-                            <br /> Reloads constraints and options for filter criteria.
                         </li>
                         <li>
                             <strong>Trace Log Setting</strong>
@@ -256,7 +257,7 @@
                     </ul>
 
                     <h4>Filter</h4>
-                    <img src="images/PTV-filter2.png">
+                    <img src="images/PTV-filter3.jpg">
                     <br />
                     <ul>
                         <li>
@@ -267,7 +268,7 @@
                         <li>
                             <strong>Plugin</strong>
                             <br />Filter by plugin class name.
-                            <br />Wildcards allowed in beginning and end of name.
+                            <br />Wildcards (*) allowed in beginning and end of name.
                             <br />Several names are specified with separating commas.
                             <br />Exclude names/wildcards by prepending with exclamation mark
                             <br /><em>Example:&nbsp;&nbsp;Innofactor.*, !*Logging*</em>
@@ -279,26 +280,24 @@
                         <li>
                             <strong>Entity</strong>
                             <br />Filter by entity logical name.
-                            <br />Wildcards allowed in beginning and end of name.
+                            <br />Wildcards (*) allowed in beginning and end of name.
                             <br />Several names are specified with separating commas.
                             <br />Exclude names/wildcards by prepending with exclamation mark
                             <br /><em>Example:&nbsp;&nbsp;account, new_*, !new_log_*</em>
                         </li>
                         <li>
                             <strong>Correlation Id</strong>
-                            <br /> Filter by correlation id. This is a guid stored on each log record, and is easiest found by right-clicking a log record and selecting <em>Correlation - Filter by this correlation id</em>.
+                            <br />Filter by correlation id. This is a guid stored on each log record, and is easiest found by right-clicking a log record and selecting <em>Correlation - Filter by this correlation id</em>.
+                            <br />Several ids are specified with separating commas.
+                            <br />This field can be populated by right clicking a record and add the id from the menu.
                         </li>
                         <li>
                             <strong>Exceptions only</strong>
                             <br /> Check this to only return logs with exceptions.
                         </li>
                         <li>
-                            <strong>Exc. Summary</strong>
-                            <br /> Check this to display the actual error message in the table.
-                        </li>
-                        <li>
-                            <strong>Show Correlation</strong>
-                            <br /> Check this to display the Correlation column in the table.
+                            <strong>Operation</strong>
+                            <br /> Select which operations (Plugin / Workflow Activities) to return.
                         </li>
                         <li>
                             <strong>Mode</strong>
@@ -314,13 +313,17 @@
                         </li>
                     </ul>
                     <em>Note! Logs are always retrieve sorted by created date descending, so newest records will be at the top of the list.</em>
+                    <br />
 
                     <h4>Trace log table</h4>
                     <img src="images/PTV-grid.jpg">
                     <br /> The table displays trace log records according to the filter.
-                    <br /> Double click a record to open it in CRM.
-                    <br /> Right click to delete selected or all returned records.
-                    <br /> Right click to select records with same CorrelationId of filter by selected CorrelationId.
+                    <ul>
+                        <li> Double click a record to open it in CRM.</li>
+                        <li> Right click header to select columns to display.</li>
+                        <li> Right click to delete selected or all returned records.</li>
+                        <li> Right click to select records with same CorrelationId of filter by selected CorrelationId.</li>
+                    </ul>
                 </p>
                 <h3>
                     <a id="gitter" class="anchor" href="#gitter" aria-hidden="true"><span class="octicon octicon-link"></span></a>Discussion
