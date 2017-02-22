@@ -32,13 +32,13 @@ artifacts:
 deploy:
 - provider: Environment
   name: GitHubCintXTB
-- provider: FTP
-  host: rappen.net
-  protocol: ftp
-  username: Jonas
-  password:
-    secure: tlAywufGDNedgIwqqBUmsA==
-  folder: rappen/Cinteros
+#- provider: FTP
+#  host: rappen.net
+#  protocol: ftp
+#  username: Jonas
+#  password:
+#    secure: tlAywufGDNedgIwqqBUmsA==
+#  folder: rappen/Cinteros
 - provider: NuGet
   api_key:
     secure: e85PnghtumEbD21fvXX7r3CO36xJeFS3kwrPx25rlpa57M5ztBvFjlKAbP85icZA
