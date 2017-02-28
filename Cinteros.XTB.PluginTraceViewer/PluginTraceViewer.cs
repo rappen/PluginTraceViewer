@@ -109,12 +109,12 @@ namespace Cinteros.XTB.PluginTraceViewer
             tsmiRefreshFilter.Enabled = orgok;
             if (orgok)
             {
-                LoadLogSetting();
                 LoadConstraints();
+                LoadLogSetting();
             }
             else
             {
-                LogError("CRM version too old for PTV");
+                LogError("CRM version too old for Plugin Trace Viewer");
                 MessageBox.Show("Plug-in Trace Log was introduced in\nMicrosoft Dynamics CRM 2015 Update 1 (7.1.0.0)\n\nPlease connect to a newer organization to use this cool tool.", "Organization too old", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
@@ -173,30 +173,36 @@ namespace Cinteros.XTB.PluginTraceViewer
             LogInfo("Loading constraints");
             GetDateConstraint("min", (datemin) =>
             {
-                dateFrom.MinDate = datemin;
-                dateFrom.Value = datemin;
-                dateTo.MinDate = datemin;
-            });
-            GetDateConstraint("max", (datemax) =>
-            {
-                dateFrom.MaxDate = datemax;
-                dateTo.MaxDate = datemax;
-                dateTo.Value = datemax;
-            });
-            GetPlugins((pluginlist) =>
-            {
-                comboPlugin.Items.Clear();
-                comboPlugin.Items.AddRange(pluginlist.ToArray());
-            });
-            GetMessages((messagelist) =>
-            {
-                comboMessage.Items.Clear();
-                comboMessage.Items.AddRange(messagelist.ToArray());
-            });
-            GetEntities((entitylist) =>
-            {
-                comboEntity.Items.Clear();
-                comboEntity.Items.AddRange(entitylist.ToArray());
+                if (!datemin.Equals(DateTime.MinValue))
+                {
+                    dateFrom.MinDate = datemin;
+                    dateFrom.Value = datemin;
+                    dateTo.MinDate = datemin;
+                }
+                GetDateConstraint("max", (datemax) =>
+                {
+                    if (!datemax.Equals(DateTime.MinValue))
+                    {
+                        dateFrom.MaxDate = datemax;
+                        dateTo.MaxDate = datemax;
+                        dateTo.Value = datemax;
+                    }
+                    GetPlugins((pluginlist) =>
+                    {
+                        comboPlugin.Items.Clear();
+                        comboPlugin.Items.AddRange(pluginlist.ToArray());
+                    });
+                    GetMessages((messagelist) =>
+                    {
+                        comboMessage.Items.Clear();
+                        comboMessage.Items.AddRange(messagelist.ToArray());
+                    });
+                    GetEntities((entitylist) =>
+                    {
+                        comboEntity.Items.Clear();
+                        comboEntity.Items.AddRange(entitylist.ToArray());
+                    });
+                });
             });
         }
 
@@ -256,7 +262,8 @@ namespace Cinteros.XTB.PluginTraceViewer
                 {
                     if (args.Error != null)
                     {
-                        AlertError($"Failed to load plugin types:\n{args.Error.Message}", "Load");
+                        LogError("GetPlugins: {0}", args.Error.Message);
+                        callback(new List<string>());
                     }
                     else if (args.Result is EntityCollection)
                     {
@@ -287,7 +294,8 @@ namespace Cinteros.XTB.PluginTraceViewer
                 {
                     if (args.Error != null)
                     {
-                        AlertError($"Failed to load messages:\n{args.Error.Message}", "Load");
+                        LogError("GetMessages {0}", args.Error.Message);
+                        callback(new List<string>());
                     }
                     else if (args.Result is EntityCollection)
                     {
@@ -318,7 +326,8 @@ namespace Cinteros.XTB.PluginTraceViewer
                 {
                     if (args.Error != null)
                     {
-                        AlertError($"Failed to load entities:\n{args.Error.Message}", "Load");
+                        LogError("GetEntities {0}", args.Error.Message);
+                        callback(new List<string>());
                     }
                     else if (args.Result is EntityCollection)
                     {
@@ -348,7 +357,8 @@ namespace Cinteros.XTB.PluginTraceViewer
                 {
                     if (args.Error != null)
                     {
-                        AlertError($"Failed to load date constraints:\n{args.Error.Message}", "Load");
+                        LogError("GetDateConstraint({0}): {1}", aggregate, args.Error);
+                        callback(DateTime.MinValue);
                     }
                     else if (args.Result is EntityCollection && ((EntityCollection)args.Result).Entities.Count > 0)
                     {
