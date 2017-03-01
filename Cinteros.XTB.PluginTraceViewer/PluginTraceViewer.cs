@@ -1123,16 +1123,14 @@ namespace Cinteros.XTB.PluginTraceViewer
 
         private void tsmiDeleteSelected_Click(object sender, EventArgs e)
         {
-            var menu = (ContextMenuStrip)((ToolStripDropDownItem)sender).GetCurrentParent();
-            var grid = (CRMGridView)menu?.SourceControl;
-            var entities = grid?.SelectedCellRecords?.Entities;
+            var entities = crmGridView.SelectedCellRecords?.Entities;
 
             if (entities != null && entities.Count > 0)
             {
                 Delete(Bundle(entities)).Start();
 
                 // Deleting log records from the list
-                var source = (EntityCollection)grid.DataSource;
+                var source = crmGridView.GetDataSource<EntityCollection>();
 
                 foreach (var entity in entities)
                 {
@@ -1147,7 +1145,7 @@ namespace Cinteros.XTB.PluginTraceViewer
 
         private void tsmiDeleteAll_Click(object sender, EventArgs e)
         {
-            if (DialogResult.Yes != MessageBox.Show("This action will permanently delete all returned log records.\n\nContinue?", "Confirm", MessageBoxButtons.YesNo, MessageBoxIcon.Warning))
+            if (DialogResult.Yes != MessageBox.Show("This action will permanently delete all log records in the database.\n\nContinue?", "Confirm", MessageBoxButtons.YesNo, MessageBoxIcon.Warning))
             {
                 return;
             }
@@ -1172,9 +1170,7 @@ namespace Cinteros.XTB.PluginTraceViewer
             // Deleting log records
             Delete(batches).Start();
 
-            var menu = (ContextMenuStrip)((ToolStripDropDownItem)sender).GetCurrentParent();
-            var grid = (CRMGridView)menu?.SourceControl;
-            var source = (EntityCollection)grid.DataSource;
+            var source = crmGridView.GetDataSource<EntityCollection>();
 
             // TODO: Prompt user - reload logs? Otherwise just clear the list
             if (source != null)
@@ -1189,9 +1185,7 @@ namespace Cinteros.XTB.PluginTraceViewer
 
         private void contextMenuGridView_Opening(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            var menu = (ContextMenuStrip)sender;
-            var grid = (CRMGridView)menu?.SourceControl;
-            var entities = grid?.SelectedCellRecords?.Entities;
+            var entities = crmGridView.SelectedCellRecords?.Entities;
 
             var corrId = GetSelectedCorrelationId();
             if (!corrId.Equals(Guid.Empty))
