@@ -75,12 +75,14 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.Xrm.Tooling.Connector, Version=2.2.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.CrmSdk.XrmTooling.CoreAssembly.8.2.0.2\lib\net452\Microsoft.Xrm.Tooling.Connector.dll</HintPath>
-      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.CrmSdk.XrmTooling.CoreAssembly.8.2.0.4\lib\net452\Microsoft.Xrm.Tooling.Connector.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
+    </Reference>
+    <Reference Include="NuGet.Core, Version=2.14.0.832, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\NuGet.Core.2.14.0\lib\net40-Client\NuGet.Core.dll</HintPath>
     </Reference>
     <Reference Include="PresentationFramework" />
     <Reference Include="System" />
@@ -108,17 +110,14 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Xml" />
-    <Reference Include="XrmToolBox, Version=1.2017.2.13, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\XrmToolBoxPackage.1.2017.2.13\lib\net452\XrmToolBox.exe</HintPath>
-      <Private>True</Private>
+    <Reference Include="XrmToolBox, Version=1.2017.3.14, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\XrmToolBoxPackage.1.2017.3.14\lib\net452\XrmToolBox.exe</HintPath>
     </Reference>
     <Reference Include="XrmToolBox.Extensibility, Version=1.2017.2.7, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\XrmToolBoxPackage.1.2017.2.13\lib\net452\XrmToolBox.Extensibility.dll</HintPath>
-      <Private>True</Private>
+      <HintPath>..\packages\XrmToolBoxPackage.1.2017.3.14\lib\net452\XrmToolBox.Extensibility.dll</HintPath>
     </Reference>
     <Reference Include="XrmToolBox.PluginsStore, Version=1.2017.1.4, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\XrmToolBoxPackage.1.2017.2.13\lib\net452\XrmToolBox.PluginsStore.dll</HintPath>
-      <Private>True</Private>
+      <HintPath>..\packages\XrmToolBoxPackage.1.2017.3.14\lib\net452\XrmToolBox.PluginsStore.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
