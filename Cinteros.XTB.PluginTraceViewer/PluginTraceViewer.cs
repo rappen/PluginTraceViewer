@@ -343,6 +343,11 @@ namespace Cinteros.XTB.PluginTraceViewer
 
         private void GetDateConstraint(string aggregate, Action<DateTime> callback)
         {
+            // These constraints really doesn't add much from a usability perspective, they take time,
+            // and as #39 and #54 shows it can be quite annoying.
+            callback(DateTime.MinValue);
+            return;
+
             LogInfo("GetDateConstraint {0}", aggregate);
             var date = DateTime.Today;
             var fetch = $"<fetch aggregate='true'><entity name='plugintracelog'><attribute name='createdon' alias='created' aggregate='{aggregate}'/></entity></fetch>";
