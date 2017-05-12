@@ -411,10 +411,12 @@ namespace Cinteros.XTB.PluginTraceViewer
                 Work = (a, args) =>
                 {
                     LogInfo("Loading logs");
+                    UpdateUI(() => { Enabled = false; });
                     args.Result = Service.RetrieveMultiple(query);
                 },
                 PostWorkCallBack = (args) =>
                 {
+                    UpdateUI(() => { Enabled = true; });
                     if (args.Error != null)
                     {
                         AlertError($"Failed to load trace logs:\n{args.Error.Message}", "Load");
