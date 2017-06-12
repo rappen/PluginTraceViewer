@@ -533,7 +533,7 @@ namespace Cinteros.XTB.PluginTraceViewer
                             "requestid");
             var LEstep = QEplugintracelog.AddLink("sdkmessageprocessingstep", "pluginstepid", "sdkmessageprocessingstepid", JoinOperator.LeftOuter);
             LEstep.EntityAlias = "step";
-            LEstep.Columns.AddColumns("rank", "stage");
+            LEstep.Columns.AddColumns("name", "rank", "stage");
             if (chkRecords.Checked)
             {
                 QEplugintracelog.TopCount = (int)numRecords.Value;
