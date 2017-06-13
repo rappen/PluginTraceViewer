@@ -30,8 +30,8 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Cinteros.Xrm.CRMWinForm, Version=2017.6.12.15, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Cinteros.Xrm.CRMWinForm.2017.6.12.15\lib\net452\Cinteros.Xrm.CRMWinForm.dll</HintPath>
+    <Reference Include="Cinteros.Xrm.CRMWinForm, Version=2017.6.13.16, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Cinteros.Xrm.CRMWinForm.2017.6.13.16\lib\net452\Cinteros.Xrm.CRMWinForm.dll</HintPath>
     </Reference>
     <Reference Include="McTools.Xrm.Connection, Version=1.2017.5.14, Culture=neutral, PublicKeyToken=96037217801d9658, processorArchitecture=MSIL">
       <HintPath>..\packages\MscrmTools.Xrm.Connection.1.2017.5.14\lib\net452\McTools.Xrm.Connection.dll</HintPath>
@@ -127,6 +127,12 @@
     <Compile Include="Constants.cs" />
     <Compile Include="LogUsage.cs" />
     <Compile Include="PluginDescription.cs" />
+    <Compile Include="PluginStatistics.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PluginStatistics.Designer.cs">
+      <DependentUpon>PluginStatistics.cs</DependentUpon>
+    </Compile>
     <Compile Include="PluginTraceViewer.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -157,6 +163,9 @@
   <ItemGroup>
     <EmbeddedResource Include="About.resx">
       <DependentUpon>About.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PluginStatistics.resx">
+      <DependentUpon>PluginStatistics.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="PluginTraceViewer.resx">
       <DependentUpon>PluginTraceViewer.cs</DependentUpon>

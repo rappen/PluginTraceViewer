@@ -736,18 +736,29 @@ namespace Cinteros.XTB.PluginTraceViewer
                     txtStatTermMemory.Text = termmem >= 0 ? termmem.ToString() + " %" : "?";
                     txtStatTermHandles.Text = termhnd >= 0 ? termhnd.ToString() + " %" : "?";
                     txtStatTermOther.Text = termoth >= 0 ? termoth.ToString() + " %" : "?";
-                    if (!first.Equals(DateTime.MinValue) && !last.Equals(DateTime.MinValue) && !first.Equals(last) && execs >= 0 && avgtime >= 0)
-                    {
-                        var span = last - first;
-                        if (span.TotalDays > 0)
-                        {
-                            var tottime = execs * avgtime;
-                            var timeperday = tottime / span.TotalDays / 1000;
-                            txtStatSecPerDay.Text = timeperday.ToString("N2");
-                        }
-                    }
+                    var secsperday = GetStatTimePerDay(stats);
+                    txtStatSecPerDay.Text = secsperday >= 0 ? secsperday.ToString("N2") : "";
                 }
             }
+        }
+
+        internal static double GetStatTimePerDay(Entity pluginstatistic)
+        {
+            var first = pluginstatistic.Contains("createdon") ? (DateTime)pluginstatistic["createdon"] : DateTime.MinValue;
+            var last = pluginstatistic.Contains("modifiedon") ? (DateTime)pluginstatistic["modifiedon"] : DateTime.MinValue;
+            var execs = pluginstatistic.Contains("executecount") ? (int)pluginstatistic["executecount"] : -1;
+            var avgtime = pluginstatistic.Contains("averageexecutetimeinmilliseconds") ? (int)pluginstatistic["averageexecutetimeinmilliseconds"] : -1;
+            var secperday = 0D;
+            if (!first.Equals(DateTime.MinValue) && !last.Equals(DateTime.MinValue) && !first.Equals(last) && execs >= 0 && avgtime >= 0)
+            {
+                var span = last - first;
+                if (span.TotalDays > 0)
+                {
+                    var tottime = execs * avgtime;
+                    secperday = tottime / span.TotalDays / 1000;
+                }
+            }
+            return secperday;
         }
 
         private Entity GetStatistics(string typename)
@@ -1565,6 +1576,17 @@ namespace Cinteros.XTB.PluginTraceViewer
                 chkCorrelation.Checked = true;
                 textCorrelationId.Text = string.Join(", ", corrIds);
                 LogUse("FilterByCorrelationId");
+            }
+        }
+
+        private void tsmiPluginStats_Click(object sender, EventArgs e)
+        {
+            var stats = new PluginStatistics(Service);
+            var result = stats.ShowDialog(this);
+            if (result == DialogResult.OK && stats.SelectedPlugins != null && stats.SelectedPlugins.Count > 0)
+            {
+                comboPlugin.Text = string.Join(", ", stats.SelectedPlugins);
+                chkPlugin.Checked = true;
             }
         }
     }

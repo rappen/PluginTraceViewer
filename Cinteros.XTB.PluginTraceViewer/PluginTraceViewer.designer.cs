@@ -30,7 +30,7 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(PluginTraceViewer));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             this.toolStripMain = new System.Windows.Forms.ToolStrip();
             this.tsbCloseThisTab = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
@@ -51,6 +51,8 @@
             this.tsmiWordWrap = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem3 = new System.Windows.Forms.ToolStripSeparator();
             this.tsmiRefreshFilter = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripSeparator();
+            this.tsmiPluginStats = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
             this.buttonRetrieveLogs = new System.Windows.Forms.ToolStripButton();
             this.buttonHiddenCommands = new System.Windows.Forms.ToolStripDropDownButton();
@@ -107,14 +109,14 @@
             this.messagebody = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.exceptiondetails = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.contextMenuGridView = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.tsmiCorrelation = new System.Windows.Forms.ToolStripMenuItem();
-            this.tsmiCorrelationId = new System.Windows.Forms.ToolStripMenuItem();
-            this.tsmiCorrelationSelectThis = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiFilterBy = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiFilterByEntity = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiFilterByMessage = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiFilterByPlugin = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiFilterByCorrelation = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiCorrelation = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiCorrelationId = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiCorrelationSelectThis = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiDelete = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiDeleteSelected = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiDeleteAll = new System.Windows.Forms.ToolStripMenuItem();
@@ -320,7 +322,9 @@
             this.toolStripMenuItem2,
             this.tsmiWordWrap,
             this.toolStripMenuItem3,
-            this.tsmiRefreshFilter});
+            this.tsmiRefreshFilter,
+            this.toolStripMenuItem1,
+            this.tsmiPluginStats});
             this.dropdownView.Image = ((System.Drawing.Image)(resources.GetObject("dropdownView.Image")));
             this.dropdownView.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.dropdownView.Name = "dropdownView";
@@ -376,6 +380,18 @@
             this.tsmiRefreshFilter.Size = new System.Drawing.Size(202, 22);
             this.tsmiRefreshFilter.Text = "Refresh Filter Options";
             this.tsmiRefreshFilter.Click += new System.EventHandler(this.tsmiRefreshFilter_Click);
+            // 
+            // toolStripMenuItem1
+            // 
+            this.toolStripMenuItem1.Name = "toolStripMenuItem1";
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(199, 6);
+            // 
+            // tsmiPluginStats
+            // 
+            this.tsmiPluginStats.Name = "tsmiPluginStats";
+            this.tsmiPluginStats.Size = new System.Drawing.Size(202, 22);
+            this.tsmiPluginStats.Text = "Plugin Statistics...";
+            this.tsmiPluginStats.Click += new System.EventHandler(this.tsmiPluginStats_Click);
             // 
             // toolStripSeparator3
             // 
@@ -824,7 +840,6 @@
             this.crmGridView.AllowUserToDeleteRows = false;
             this.crmGridView.AllowUserToOrderColumns = true;
             this.crmGridView.AllowUserToResizeRows = false;
-            this.crmGridView.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCellsExceptHeaders;
             this.crmGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.crmGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.correlation,
@@ -863,8 +878,8 @@
             // 
             // correlation
             // 
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.correlation.DefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.correlation.DefaultCellStyle = dataGridViewCellStyle1;
             this.correlation.HeaderText = "Corr";
             this.correlation.Name = "correlation";
             this.correlation.ReadOnly = true;
@@ -1010,8 +1025,47 @@
             this.tsmiShowColRequestId,
             this.tsmiShowColException});
             this.contextMenuGridView.Name = "contextStripMain";
-            this.contextMenuGridView.Size = new System.Drawing.Size(164, 422);
+            this.contextMenuGridView.Size = new System.Drawing.Size(164, 400);
             this.contextMenuGridView.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuGridView_Opening);
+            // 
+            // tsmiFilterBy
+            // 
+            this.tsmiFilterBy.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.tsmiFilterByEntity,
+            this.tsmiFilterByMessage,
+            this.tsmiFilterByPlugin,
+            this.tsmiFilterByCorrelation});
+            this.tsmiFilterBy.Name = "tsmiFilterBy";
+            this.tsmiFilterBy.Size = new System.Drawing.Size(163, 22);
+            this.tsmiFilterBy.Text = "Filter by selected";
+            // 
+            // tsmiFilterByEntity
+            // 
+            this.tsmiFilterByEntity.Name = "tsmiFilterByEntity";
+            this.tsmiFilterByEntity.Size = new System.Drawing.Size(133, 22);
+            this.tsmiFilterByEntity.Text = "Entity";
+            this.tsmiFilterByEntity.Click += new System.EventHandler(this.tsmiFilterByEntity_Click);
+            // 
+            // tsmiFilterByMessage
+            // 
+            this.tsmiFilterByMessage.Name = "tsmiFilterByMessage";
+            this.tsmiFilterByMessage.Size = new System.Drawing.Size(133, 22);
+            this.tsmiFilterByMessage.Text = "Message";
+            this.tsmiFilterByMessage.Click += new System.EventHandler(this.tsmiFilterByMessage_Click);
+            // 
+            // tsmiFilterByPlugin
+            // 
+            this.tsmiFilterByPlugin.Name = "tsmiFilterByPlugin";
+            this.tsmiFilterByPlugin.Size = new System.Drawing.Size(133, 22);
+            this.tsmiFilterByPlugin.Text = "Plugin";
+            this.tsmiFilterByPlugin.Click += new System.EventHandler(this.tsmiFilterByPlugin_Click);
+            // 
+            // tsmiFilterByCorrelation
+            // 
+            this.tsmiFilterByCorrelation.Name = "tsmiFilterByCorrelation";
+            this.tsmiFilterByCorrelation.Size = new System.Drawing.Size(133, 22);
+            this.tsmiFilterByCorrelation.Text = "Correlation";
+            this.tsmiFilterByCorrelation.Click += new System.EventHandler(this.tsmiFilterByCorrelation_Click);
             // 
             // tsmiCorrelation
             // 
@@ -1035,45 +1089,6 @@
             this.tsmiCorrelationSelectThis.Size = new System.Drawing.Size(308, 22);
             this.tsmiCorrelationSelectThis.Text = "Select all logs with this correlation id";
             this.tsmiCorrelationSelectThis.Click += new System.EventHandler(this.tsmiCorrelationSelectThis_Click);
-            // 
-            // tsmiFilterBy
-            // 
-            this.tsmiFilterBy.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.tsmiFilterByEntity,
-            this.tsmiFilterByMessage,
-            this.tsmiFilterByPlugin,
-            this.tsmiFilterByCorrelation});
-            this.tsmiFilterBy.Name = "tsmiFilterBy";
-            this.tsmiFilterBy.Size = new System.Drawing.Size(163, 22);
-            this.tsmiFilterBy.Text = "Filter by selected";
-            // 
-            // tsmiFilterByEntity
-            // 
-            this.tsmiFilterByEntity.Name = "tsmiFilterByEntity";
-            this.tsmiFilterByEntity.Size = new System.Drawing.Size(152, 22);
-            this.tsmiFilterByEntity.Text = "Entity";
-            this.tsmiFilterByEntity.Click += new System.EventHandler(this.tsmiFilterByEntity_Click);
-            // 
-            // tsmiFilterByMessage
-            // 
-            this.tsmiFilterByMessage.Name = "tsmiFilterByMessage";
-            this.tsmiFilterByMessage.Size = new System.Drawing.Size(152, 22);
-            this.tsmiFilterByMessage.Text = "Message";
-            this.tsmiFilterByMessage.Click += new System.EventHandler(this.tsmiFilterByMessage_Click);
-            // 
-            // tsmiFilterByPlugin
-            // 
-            this.tsmiFilterByPlugin.Name = "tsmiFilterByPlugin";
-            this.tsmiFilterByPlugin.Size = new System.Drawing.Size(152, 22);
-            this.tsmiFilterByPlugin.Text = "Plugin";
-            this.tsmiFilterByPlugin.Click += new System.EventHandler(this.tsmiFilterByPlugin_Click);
-            // 
-            // tsmiFilterByCorrelation
-            // 
-            this.tsmiFilterByCorrelation.Name = "tsmiFilterByCorrelation";
-            this.tsmiFilterByCorrelation.Size = new System.Drawing.Size(152, 22);
-            this.tsmiFilterByCorrelation.Text = "Correlation";
-            this.tsmiFilterByCorrelation.Click += new System.EventHandler(this.tsmiFilterByCorrelation_Click);
             // 
             // tsmiDelete
             // 
@@ -1277,7 +1292,7 @@
             this.splitContainerRight.Panel2.Controls.Add(this.groupException);
             this.splitContainerRight.Panel2MinSize = 23;
             this.splitContainerRight.Size = new System.Drawing.Size(489, 309);
-            this.splitContainerRight.SplitterDistance = 78;
+            this.splitContainerRight.SplitterDistance = 74;
             this.splitContainerRight.SplitterWidth = 8;
             this.splitContainerRight.TabIndex = 12;
             // 
@@ -1287,7 +1302,7 @@
             this.groupTraceLog.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupTraceLog.Location = new System.Drawing.Point(0, 0);
             this.groupTraceLog.Name = "groupTraceLog";
-            this.groupTraceLog.Size = new System.Drawing.Size(489, 78);
+            this.groupTraceLog.Size = new System.Drawing.Size(489, 74);
             this.groupTraceLog.TabIndex = 11;
             this.groupTraceLog.TabStop = false;
             this.groupTraceLog.Text = "Trace Log";
@@ -1314,7 +1329,7 @@
             this.groupException.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupException.Location = new System.Drawing.Point(0, 0);
             this.groupException.Name = "groupException";
-            this.groupException.Size = new System.Drawing.Size(489, 223);
+            this.groupException.Size = new System.Drawing.Size(489, 227);
             this.groupException.TabIndex = 7;
             this.groupException.TabStop = false;
             this.groupException.Text = "Exception";
@@ -1329,7 +1344,7 @@
             this.textException.Name = "textException";
             this.textException.ReadOnly = true;
             this.textException.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.textException.Size = new System.Drawing.Size(483, 204);
+            this.textException.Size = new System.Drawing.Size(483, 208);
             this.textException.TabIndex = 6;
             this.textException.WordWrap = false;
             // 
@@ -1824,5 +1839,7 @@
         private System.Windows.Forms.ToolStripMenuItem tsmiFilterByEntity;
         private System.Windows.Forms.ToolStripMenuItem tsmiFilterByMessage;
         private System.Windows.Forms.ToolStripMenuItem tsmiFilterByPlugin;
+        private System.Windows.Forms.ToolStripSeparator toolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem tsmiPluginStats;
     }
 }
