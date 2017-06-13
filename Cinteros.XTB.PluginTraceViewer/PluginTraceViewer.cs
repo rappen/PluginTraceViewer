@@ -1450,22 +1450,6 @@ namespace Cinteros.XTB.PluginTraceViewer
             textCorrelationId.Enabled = chkCorrelation.Checked;
         }
 
-        private void tsmiCorrelationFilterByThis_Click(object sender, EventArgs e)
-        {
-            var newCorrId = GetSelectedCorrelationId();
-            if (!newCorrId.Equals(Guid.Empty))
-            {
-                var corrIds = GetCurrentCorrelationIdFilter(true);
-                if (!corrIds.Contains(newCorrId))
-                {
-                    corrIds.Add(newCorrId);
-                }
-                chkCorrelation.Checked = true;
-                textCorrelationId.Text = string.Join(", ", corrIds);
-                LogUse("FilterByCorrelationId");
-            }
-        }
-
         private List<Guid> GetCurrentCorrelationIdFilter(bool silent)
         {
             var results = new List<Guid>();
@@ -1530,6 +1514,57 @@ namespace Cinteros.XTB.PluginTraceViewer
                     continue;
                 }
                 crmGridView.Columns[menu.Tag.ToString()].Visible = menu.Checked;
+            }
+        }
+
+        private void tsmiFilterByEntity_Click(object sender, EventArgs e)
+        {
+            var entities = comboEntity.Text.Trim().Split(',').Where(s => !string.IsNullOrWhiteSpace(s)).Select(s => s.Trim()).ToList();
+            var selected = crmGridView.SelectedCellRecords?.Entities;
+            var selentities = selected?.Select(s => (string)s["primaryentity"]).Distinct().ToList();
+            entities = entities.Concat(selentities.Where(s => !entities.Contains(s))).ToList();
+            comboEntity.Text = string.Join(", ", entities);
+            chkEntity.Checked = true;
+        }
+
+        private void tsmiFilterByMessage_Click(object sender, EventArgs e)
+        {
+            var selected = crmGridView.SelectedCellRecords?.Entities;
+            var selmessages = selected?.Select(s => (string)s["messagename"]).Distinct().ToList();
+            if (selmessages.Count == 1)
+            {
+                comboMessage.SelectedItem = selmessages[0];
+                chkMessage.Checked = true;
+            }
+            else
+            {
+                MessageBox.Show("Can only filter by one message.");
+            }
+        }
+
+        private void tsmiFilterByPlugin_Click(object sender, EventArgs e)
+        {
+            var plugins = comboPlugin.Text.Trim().Split(',').Where(s => !string.IsNullOrWhiteSpace(s)).Select(s => s.Trim()).ToList();
+            var selected = crmGridView.SelectedCellRecords?.Entities;
+            var selplugins = selected?.Select(s => (string)s["typename"]).Distinct().ToList();
+            plugins = plugins.Concat(selplugins.Where(s => !plugins.Contains(s))).ToList();
+            comboPlugin.Text = string.Join(", ", plugins);
+            chkPlugin.Checked = true;
+        }
+
+        private void tsmiFilterByCorrelation_Click(object sender, EventArgs e)
+        {
+            var newCorrId = GetSelectedCorrelationId();
+            if (!newCorrId.Equals(Guid.Empty))
+            {
+                var corrIds = GetCurrentCorrelationIdFilter(true);
+                if (!corrIds.Contains(newCorrId))
+                {
+                    corrIds.Add(newCorrId);
+                }
+                chkCorrelation.Checked = true;
+                textCorrelationId.Text = string.Join(", ", corrIds);
+                LogUse("FilterByCorrelationId");
             }
         }
     }
