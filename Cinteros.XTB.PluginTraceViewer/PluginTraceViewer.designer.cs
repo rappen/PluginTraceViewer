@@ -55,8 +55,6 @@
             this.tsmiPluginStats = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
             this.buttonRetrieveLogs = new System.Windows.Forms.ToolStripButton();
-            this.buttonHiddenCommands = new System.Windows.Forms.ToolStripDropDownButton();
-            this.buttonHiddenRetrieveLogs = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripLabel1 = new System.Windows.Forms.ToolStripLabel();
             this.comboLogSetting = new System.Windows.Forms.ToolStripComboBox();
@@ -206,7 +204,6 @@
             this.dropdownView,
             this.toolStripSeparator3,
             this.buttonRetrieveLogs,
-            this.buttonHiddenCommands,
             this.toolStripSeparator1,
             this.toolStripLabel1,
             this.comboLogSetting});
@@ -404,30 +401,10 @@
             this.buttonRetrieveLogs.Image = ((System.Drawing.Image)(resources.GetObject("buttonRetrieveLogs.Image")));
             this.buttonRetrieveLogs.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.buttonRetrieveLogs.Name = "buttonRetrieveLogs";
-            this.buttonRetrieveLogs.Size = new System.Drawing.Size(97, 22);
-            this.buttonRetrieveLogs.Text = "Retrieve Logs";
+            this.buttonRetrieveLogs.Size = new System.Drawing.Size(120, 22);
+            this.buttonRetrieveLogs.Text = "Retrieve Logs (F5)";
             this.buttonRetrieveLogs.ToolTipText = "Retrieve Logs <F5>";
             this.buttonRetrieveLogs.Click += new System.EventHandler(this.buttonRetrieveLogs_Click);
-            // 
-            // buttonHiddenCommands
-            // 
-            this.buttonHiddenCommands.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.buttonHiddenCommands.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.buttonHiddenRetrieveLogs});
-            this.buttonHiddenCommands.Image = ((System.Drawing.Image)(resources.GetObject("buttonHiddenCommands.Image")));
-            this.buttonHiddenCommands.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.buttonHiddenCommands.Name = "buttonHiddenCommands";
-            this.buttonHiddenCommands.Size = new System.Drawing.Size(29, 22);
-            this.buttonHiddenCommands.Text = "toolStripDropDownButton1";
-            this.buttonHiddenCommands.Visible = false;
-            // 
-            // buttonHiddenRetrieveLogs
-            // 
-            this.buttonHiddenRetrieveLogs.Name = "buttonHiddenRetrieveLogs";
-            this.buttonHiddenRetrieveLogs.ShortcutKeys = System.Windows.Forms.Keys.F5;
-            this.buttonHiddenRetrieveLogs.Size = new System.Drawing.Size(303, 22);
-            this.buttonHiddenRetrieveLogs.Text = "HiddenRetrieveButton used for shortcut";
-            this.buttonHiddenRetrieveLogs.Click += new System.EventHandler(this.buttonRetrieveLogs_Click);
             // 
             // toolStripSeparator1
             // 
@@ -875,6 +852,7 @@
             this.crmGridView.RecordEnter += new Cinteros.Xrm.CRMWinForm.CRMRecordEventHandler(this.crmGridView_RecordEnter);
             this.crmGridView.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.crmGridView_CellFormatting);
             this.crmGridView.CellMouseDown += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.crmGridView_CellMouseDown);
+            this.crmGridView.KeyDown += new System.Windows.Forms.KeyEventHandler(this.crmGridView_KeyDown);
             // 
             // correlation
             // 
@@ -1085,7 +1063,7 @@
             // tsmiCorrelationSelectThis
             // 
             this.tsmiCorrelationSelectThis.Name = "tsmiCorrelationSelectThis";
-            this.tsmiCorrelationSelectThis.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.C)));
+            this.tsmiCorrelationSelectThis.ShortcutKeyDisplayString = "Ctrl+C";
             this.tsmiCorrelationSelectThis.Size = new System.Drawing.Size(308, 22);
             this.tsmiCorrelationSelectThis.Text = "Select all logs with this correlation id";
             this.tsmiCorrelationSelectThis.Click += new System.EventHandler(this.tsmiCorrelationSelectThis_Click);
@@ -1292,7 +1270,7 @@
             this.splitContainerRight.Panel2.Controls.Add(this.groupException);
             this.splitContainerRight.Panel2MinSize = 23;
             this.splitContainerRight.Size = new System.Drawing.Size(489, 309);
-            this.splitContainerRight.SplitterDistance = 74;
+            this.splitContainerRight.SplitterDistance = 62;
             this.splitContainerRight.SplitterWidth = 8;
             this.splitContainerRight.TabIndex = 12;
             // 
@@ -1302,7 +1280,7 @@
             this.groupTraceLog.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupTraceLog.Location = new System.Drawing.Point(0, 0);
             this.groupTraceLog.Name = "groupTraceLog";
-            this.groupTraceLog.Size = new System.Drawing.Size(489, 74);
+            this.groupTraceLog.Size = new System.Drawing.Size(489, 62);
             this.groupTraceLog.TabIndex = 11;
             this.groupTraceLog.TabStop = false;
             this.groupTraceLog.Text = "Trace Log";
@@ -1329,7 +1307,7 @@
             this.groupException.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupException.Location = new System.Drawing.Point(0, 0);
             this.groupException.Name = "groupException";
-            this.groupException.Size = new System.Drawing.Size(489, 227);
+            this.groupException.Size = new System.Drawing.Size(489, 239);
             this.groupException.TabIndex = 7;
             this.groupException.TabStop = false;
             this.groupException.Text = "Exception";
@@ -1344,7 +1322,7 @@
             this.textException.Name = "textException";
             this.textException.ReadOnly = true;
             this.textException.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.textException.Size = new System.Drawing.Size(483, 208);
+            this.textException.Size = new System.Drawing.Size(483, 220);
             this.textException.TabIndex = 6;
             this.textException.WordWrap = false;
             // 
@@ -1731,8 +1709,6 @@
         private System.Windows.Forms.CheckBox chkDurationMax;
         private System.Windows.Forms.CheckBox chkDurationMin;
         private System.Windows.Forms.ToolStripButton buttonRetrieveLogs;
-        private System.Windows.Forms.ToolStripDropDownButton buttonHiddenCommands;
-        private System.Windows.Forms.ToolStripMenuItem buttonHiddenRetrieveLogs;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.Windows.Forms.ToolStripDropDownButton dropdownSave;
         private System.Windows.Forms.ToolStripMenuItem buttonSaveFilter;

@@ -19,7 +19,7 @@ using Microsoft.Crm.Sdk.Messages;
 
 namespace Cinteros.XTB.PluginTraceViewer
 {
-    public partial class PluginTraceViewer : PluginControlBase, IGitHubPlugin, IMessageBusHost, IHelpPlugin, IPayPalPlugin, IStatusBarMessenger
+    public partial class PluginTraceViewer : PluginControlBase, IGitHubPlugin, IMessageBusHost, IHelpPlugin, IPayPalPlugin, IStatusBarMessenger, IShortcutReceiver
     {
         private int lastRecordCount = 100;
 
@@ -1587,6 +1587,37 @@ namespace Cinteros.XTB.PluginTraceViewer
             {
                 comboPlugin.Text = string.Join(", ", stats.SelectedPlugins);
                 chkPlugin.Checked = true;
+            }
+        }
+
+        public void ReceiveKeyDownShortcut(KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.F5 && buttonRetrieveLogs.Enabled)
+            {
+                buttonRetrieveLogs_Click(null, null);
+            }
+        }
+
+        public void ReceiveKeyPressShortcut(KeyPressEventArgs e)
+        {
+            // Don't handle
+        }
+
+        public void ReceiveKeyUpShortcut(KeyEventArgs e)
+        {
+            // Don't handle
+        }
+
+        public void ReceivePreviewKeyDownShortcut(PreviewKeyDownEventArgs e)
+        {
+            // Don't handle
+        }
+
+        private void crmGridView_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Control && e.KeyCode == Keys.C && tsmiCorrelationSelectThis.Enabled)
+            {
+                tsmiCorrelationSelectThis_Click(null, null);
             }
         }
     }
