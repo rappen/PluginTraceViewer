@@ -62,7 +62,7 @@
             this.panelFilter = new System.Windows.Forms.Panel();
             this.textCorrelationId = new System.Windows.Forms.TextBox();
             this.chkCorrelation = new System.Windows.Forms.CheckBox();
-            this.label1 = new System.Windows.Forms.Label();
+            this.labelTimeZone = new System.Windows.Forms.Label();
             this.comboEntity = new System.Windows.Forms.ComboBox();
             this.chkEntity = new System.Windows.Forms.CheckBox();
             this.comboMessage = new System.Windows.Forms.ComboBox();
@@ -168,6 +168,7 @@
             this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
+            this.tsmiLocalTimes = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMain.SuspendLayout();
             this.groupFilter.SuspendLayout();
             this.panelFilter.SuspendLayout();
@@ -318,6 +319,7 @@
             this.tsmiViewStatistics,
             this.toolStripMenuItem2,
             this.tsmiWordWrap,
+            this.tsmiLocalTimes,
             this.toolStripMenuItem3,
             this.tsmiRefreshFilter,
             this.toolStripMenuItem1,
@@ -444,7 +446,7 @@
             // 
             this.panelFilter.Controls.Add(this.textCorrelationId);
             this.panelFilter.Controls.Add(this.chkCorrelation);
-            this.panelFilter.Controls.Add(this.label1);
+            this.panelFilter.Controls.Add(this.labelTimeZone);
             this.panelFilter.Controls.Add(this.comboEntity);
             this.panelFilter.Controls.Add(this.chkEntity);
             this.panelFilter.Controls.Add(this.comboMessage);
@@ -482,14 +484,14 @@
             this.chkCorrelation.UseVisualStyleBackColor = true;
             this.chkCorrelation.CheckedChanged += new System.EventHandler(this.chkCorrelation_CheckedChanged);
             // 
-            // label1
+            // labelTimeZone
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(270, 4);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(71, 13);
-            this.label1.TabIndex = 11;
-            this.label1.Text = "Times in UTC";
+            this.labelTimeZone.AutoSize = true;
+            this.labelTimeZone.Location = new System.Drawing.Point(270, 4);
+            this.labelTimeZone.Name = "labelTimeZone";
+            this.labelTimeZone.Size = new System.Drawing.Size(71, 13);
+            this.labelTimeZone.TabIndex = 11;
+            this.labelTimeZone.Text = "Times in UTC";
             // 
             // comboEntity
             // 
@@ -1270,7 +1272,7 @@
             this.splitContainerRight.Panel2.Controls.Add(this.groupException);
             this.splitContainerRight.Panel2MinSize = 23;
             this.splitContainerRight.Size = new System.Drawing.Size(489, 309);
-            this.splitContainerRight.SplitterDistance = 62;
+            this.splitContainerRight.SplitterDistance = 54;
             this.splitContainerRight.SplitterWidth = 8;
             this.splitContainerRight.TabIndex = 12;
             // 
@@ -1280,7 +1282,7 @@
             this.groupTraceLog.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupTraceLog.Location = new System.Drawing.Point(0, 0);
             this.groupTraceLog.Name = "groupTraceLog";
-            this.groupTraceLog.Size = new System.Drawing.Size(489, 62);
+            this.groupTraceLog.Size = new System.Drawing.Size(489, 54);
             this.groupTraceLog.TabIndex = 11;
             this.groupTraceLog.TabStop = false;
             this.groupTraceLog.Text = "Trace Log";
@@ -1307,7 +1309,7 @@
             this.groupException.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupException.Location = new System.Drawing.Point(0, 0);
             this.groupException.Name = "groupException";
-            this.groupException.Size = new System.Drawing.Size(489, 239);
+            this.groupException.Size = new System.Drawing.Size(489, 247);
             this.groupException.TabIndex = 7;
             this.groupException.TabStop = false;
             this.groupException.Text = "Exception";
@@ -1322,7 +1324,7 @@
             this.textException.Name = "textException";
             this.textException.ReadOnly = true;
             this.textException.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.textException.Size = new System.Drawing.Size(483, 220);
+            this.textException.Size = new System.Drawing.Size(483, 228);
             this.textException.TabIndex = 6;
             this.textException.WordWrap = false;
             // 
@@ -1635,6 +1637,14 @@
             this.label2.TabIndex = 0;
             this.label2.Text = "Execution Count";
             // 
+            // tsmiLocalTimes
+            // 
+            this.tsmiLocalTimes.CheckOnClick = true;
+            this.tsmiLocalTimes.Name = "tsmiLocalTimes";
+            this.tsmiLocalTimes.Size = new System.Drawing.Size(202, 22);
+            this.tsmiLocalTimes.Text = "Local Times";
+            this.tsmiLocalTimes.Click += new System.EventHandler(this.tsmiLocalTimes_Click);
+            // 
             // PluginTraceViewer
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1718,7 +1728,7 @@
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator5;
         private System.Windows.Forms.ToolStripMenuItem buttonOpenLogRecord;
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label labelTimeZone;
         private System.Windows.Forms.ContextMenuStrip contextMenuGridView;
         private System.Windows.Forms.ToolStripMenuItem tsmiDeleteSelected;
         private System.Windows.Forms.ToolStripMenuItem tsmiDeleteAll;
@@ -1817,5 +1827,6 @@
         private System.Windows.Forms.ToolStripMenuItem tsmiFilterByPlugin;
         private System.Windows.Forms.ToolStripSeparator toolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem tsmiPluginStats;
+        private System.Windows.Forms.ToolStripMenuItem tsmiLocalTimes;
     }
 }

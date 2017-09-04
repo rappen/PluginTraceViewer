@@ -549,11 +549,11 @@ namespace Cinteros.XTB.PluginTraceViewer
         {
             if (checkDateFrom.Checked)
             {
-                QEplugintracelog.Criteria.AddCondition("createdon", ConditionOperator.GreaterEqual, GetDateTimeAsUTC(dateFrom.Value));
+                QEplugintracelog.Criteria.AddCondition("createdon", ConditionOperator.GreaterEqual, GetDateTimeAsUtcOrLocal(dateFrom.Value));
             }
             if (checkDateTo.Checked)
             {
-                QEplugintracelog.Criteria.AddCondition("createdon", ConditionOperator.LessEqual, GetDateTimeAsUTC(dateTo.Value));
+                QEplugintracelog.Criteria.AddCondition("createdon", ConditionOperator.LessEqual, GetDateTimeAsUtcOrLocal(dateTo.Value));
             }
             if (chkPlugin.Checked && !string.IsNullOrWhiteSpace(comboPlugin.Text))
             {
@@ -635,9 +635,16 @@ namespace Cinteros.XTB.PluginTraceViewer
             }
         }
 
-        private DateTime GetDateTimeAsUTC(DateTime source)
+        private DateTime GetDateTimeAsUtcOrLocal(DateTime source)
         {
-            return new DateTime(source.Ticks, DateTimeKind.Utc);
+            if (!tsmiLocalTimes.Checked)
+            {
+                return new DateTime(source.Ticks, DateTimeKind.Utc);
+            }
+            else
+            {
+                return source;
+            }
         }
 
         private void PopulateGrid(EntityCollection results)
@@ -1004,7 +1011,8 @@ namespace Cinteros.XTB.PluginTraceViewer
                 WordWrap = tsmiWordWrap.Checked,
                 Statistics = tsmiViewStatistics.Checked,
                 UseLog = logUsage,
-                Version = version
+                Version = version,
+                LocalTime = tsmiLocalTimes.Checked
             };
         }
 
@@ -1116,6 +1124,9 @@ namespace Cinteros.XTB.PluginTraceViewer
             tsmiViewFilter.Checked = groupFilter.Visible;
             tsmiWordWrap.Checked = settings.WordWrap;
             tsmiViewStatistics.Checked = settings.Statistics;
+            tsmiLocalTimes.Checked = settings.LocalTime;
+            crmGridView.ShowLocalTimes = settings.LocalTime;
+            ShowTZInfo();
             logUsage = settings.UseLog;
             var ass = Assembly.GetExecutingAssembly().GetName();
             var version = ass.Version.ToString();
@@ -1618,6 +1629,29 @@ namespace Cinteros.XTB.PluginTraceViewer
             if (e.Control && e.KeyCode == Keys.C && tsmiCorrelationSelectThis.Enabled)
             {
                 tsmiCorrelationSelectThis_Click(null, null);
+            }
+        }
+
+        private void tsmiLocalTimes_Click(object sender, EventArgs e)
+        {
+            crmGridView.ShowLocalTimes = tsmiLocalTimes.Checked;
+            ShowTZInfo();
+        }
+
+        private void ShowTZInfo()
+        {
+            if (!crmGridView.ShowLocalTimes)
+            {
+                labelTimeZone.Text = "Times in UTC";
+            }
+            else
+            {
+                var tz = TimeZone.CurrentTimeZone;
+                var tzname = tz.IsDaylightSavingTime(DateTime.Now) ? tz.DaylightName : tz.StandardName;
+                var off = tz.GetUtcOffset(DateTime.Now);
+                var offtxt = (off.TotalMinutes > 0 ? "+" : "") + off.ToString();
+
+                labelTimeZone.Text = $"{tzname}\nUTC{offtxt})";
             }
         }
     }

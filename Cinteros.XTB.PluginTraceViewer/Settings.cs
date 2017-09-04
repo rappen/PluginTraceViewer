@@ -13,5 +13,6 @@ namespace Cinteros.XTB.PluginTraceViewer
         public bool Statistics { get; set; } = true;
         public bool? UseLog { get; set; } = null;
         public string Version { get; set; }
+        public bool LocalTime { get; set; } = false;
     }
 }
