@@ -16,6 +16,8 @@ using XrmToolBox.Extensibility.Args;
 using System.Threading.Tasks;
 using Microsoft.Xrm.Sdk.Messages;
 using Microsoft.Crm.Sdk.Messages;
+using Cinteros.XTB.PluginTraceViewer.Controls;
+using WeifenLuo.WinFormsUI.Docking;
 using System.Drawing;
 
 namespace Cinteros.XTB.PluginTraceViewer
@@ -28,12 +30,60 @@ namespace Cinteros.XTB.PluginTraceViewer
         private const int MAX_BATCH = 2;
         private bool? logUsage = null;
         private Dictionary<string, Entity> statistics;
+        private GridControl grid;
+        private FilterControl filter;
+        private StatsControl stats;
+        private LogControl log;
+        private ExceptionControl exception;
         private bool refreshingGrid = false;
         private Color highlightColor;
 
         public PluginTraceViewer()
         {
             InitializeComponent();
+            SetupDockControls();
+        }
+
+        private void SetupDockControls()
+        {
+            var theme = new VS2015LightTheme();
+            dock.Theme = theme;
+            grid = new GridControl();
+            filter = new FilterControl();
+            stats = new StatsControl();
+            log = new LogControl();
+            exception = new ExceptionControl();
+            if (!System.IO.File.Exists("docks.xml"))
+            {
+                exception.Show(dock, DockState.DockBottom);
+                log.Show(dock, DockState.Document);
+                stats.Show(dock, DockState.DockTop);
+                grid.Show(dock, DockState.Document);
+                filter.Show(dock, DockState.DockTop);
+            }
+            else
+            {
+                dock.LoadFromXml("docks.xml", dockDeSerialization);
+            }
+        }
+
+        private IDockContent dockDeSerialization(string persistString)
+        {
+            switch (persistString)
+            {
+                case "Cinteros.XTB.PluginTraceViewer.Controls.GridControl":
+                    return grid;
+                case "Cinteros.XTB.PluginTraceViewer.Controls.FilterControl":
+                    return filter;
+                case "Cinteros.XTB.PluginTraceViewer.Controls.StatsControl":
+                    return stats;
+                case "Cinteros.XTB.PluginTraceViewer.Controls.LogControl":
+                    return log;
+                case "Cinteros.XTB.PluginTraceViewer.Controls.ExceptionControl":
+                    return exception;
+                default:
+                    return null;
+            }
         }
 
         public string HelpUrl { get { return "http://ptv.xrmtoolbox.com"; } }
@@ -1732,6 +1782,11 @@ namespace Cinteros.XTB.PluginTraceViewer
             SendMessageToStatusBar(this, new StatusBarMessageEventArgs(""));
             refreshingGrid = false;
             crmGridView_SelectionChanged(crmGridView, new EventArgs());
+        }
+
+        private void toolStripButton1_Click(object sender, EventArgs e)
+        {
+            dock.SaveAsXml("docks.xml");
         }
     }
 }

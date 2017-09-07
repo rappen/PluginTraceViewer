@@ -30,7 +30,7 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(PluginTraceViewer));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
             this.toolStripMain = new System.Windows.Forms.ToolStrip();
             this.tsbCloseThisTab = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
@@ -169,6 +169,9 @@
             this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
+            this.vS2005Theme1 = new WeifenLuo.WinFormsUI.Docking.VS2005Theme();
+            this.dock = new WeifenLuo.WinFormsUI.Docking.DockPanel();
+            this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
             this.tsmiHighlight = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMain.SuspendLayout();
             this.groupFilter.SuspendLayout();
@@ -208,7 +211,8 @@
             this.buttonRetrieveLogs,
             this.toolStripSeparator1,
             this.toolStripLabel1,
-            this.comboLogSetting});
+            this.comboLogSetting,
+            this.toolStripButton1});
             this.toolStripMain.Location = new System.Drawing.Point(0, 0);
             this.toolStripMain.Name = "toolStripMain";
             this.toolStripMain.Size = new System.Drawing.Size(1114, 25);
@@ -447,7 +451,7 @@
             this.groupFilter.Dock = System.Windows.Forms.DockStyle.Top;
             this.groupFilter.Location = new System.Drawing.Point(0, 0);
             this.groupFilter.Name = "groupFilter";
-            this.groupFilter.Size = new System.Drawing.Size(617, 172);
+            this.groupFilter.Size = new System.Drawing.Size(587, 172);
             this.groupFilter.TabIndex = 26;
             this.groupFilter.TabStop = false;
             this.groupFilter.Text = "Filter";
@@ -470,7 +474,7 @@
             this.panelFilter.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelFilter.Location = new System.Drawing.Point(3, 16);
             this.panelFilter.Name = "panelFilter";
-            this.panelFilter.Size = new System.Drawing.Size(348, 153);
+            this.panelFilter.Size = new System.Drawing.Size(318, 153);
             this.panelFilter.TabIndex = 1;
             // 
             // textCorrelationId
@@ -480,7 +484,7 @@
             this.textCorrelationId.Enabled = false;
             this.textCorrelationId.Location = new System.Drawing.Point(97, 120);
             this.textCorrelationId.Name = "textCorrelationId";
-            this.textCorrelationId.Size = new System.Drawing.Size(244, 20);
+            this.textCorrelationId.Size = new System.Drawing.Size(214, 20);
             this.textCorrelationId.TabIndex = 13;
             // 
             // chkCorrelation
@@ -511,7 +515,7 @@
             this.comboEntity.FormattingEnabled = true;
             this.comboEntity.Location = new System.Drawing.Point(97, 96);
             this.comboEntity.Name = "comboEntity";
-            this.comboEntity.Size = new System.Drawing.Size(244, 21);
+            this.comboEntity.Size = new System.Drawing.Size(214, 21);
             this.comboEntity.Sorted = true;
             this.comboEntity.TabIndex = 10;
             // 
@@ -535,7 +539,7 @@
             this.comboMessage.FormattingEnabled = true;
             this.comboMessage.Location = new System.Drawing.Point(97, 72);
             this.comboMessage.Name = "comboMessage";
-            this.comboMessage.Size = new System.Drawing.Size(244, 21);
+            this.comboMessage.Size = new System.Drawing.Size(214, 21);
             this.comboMessage.TabIndex = 8;
             // 
             // chkMessage
@@ -557,7 +561,7 @@
             this.comboPlugin.FormattingEnabled = true;
             this.comboPlugin.Location = new System.Drawing.Point(97, 48);
             this.comboPlugin.Name = "comboPlugin";
-            this.comboPlugin.Size = new System.Drawing.Size(244, 21);
+            this.comboPlugin.Size = new System.Drawing.Size(214, 21);
             this.comboPlugin.TabIndex = 6;
             // 
             // chkPlugin
@@ -631,7 +635,7 @@
             this.panelOptions.Controls.Add(this.rbModeAll);
             this.panelOptions.Controls.Add(this.chkExceptions);
             this.panelOptions.Dock = System.Windows.Forms.DockStyle.Right;
-            this.panelOptions.Location = new System.Drawing.Point(351, 16);
+            this.panelOptions.Location = new System.Drawing.Point(321, 16);
             this.panelOptions.Name = "panelOptions";
             this.panelOptions.Size = new System.Drawing.Size(263, 153);
             this.panelOptions.TabIndex = 2;
@@ -858,7 +862,7 @@
             this.crmGridView.ShowFriendlyNames = true;
             this.crmGridView.ShowIdColumn = false;
             this.crmGridView.ShowIndexColumn = false;
-            this.crmGridView.Size = new System.Drawing.Size(617, 309);
+            this.crmGridView.Size = new System.Drawing.Size(587, 130);
             this.crmGridView.TabIndex = 25;
             this.crmGridView.RecordDoubleClick += new Cinteros.Xrm.CRMWinForm.CRMRecordEventHandler(this.crmGridView_RecordDoubleClick);
             this.crmGridView.RecordEnter += new Cinteros.Xrm.CRMWinForm.CRMRecordEventHandler(this.crmGridView_RecordEnter);
@@ -869,8 +873,8 @@
             // 
             // correlation
             // 
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.correlation.DefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.correlation.DefaultCellStyle = dataGridViewCellStyle7;
             this.correlation.HeaderText = "Corr";
             this.correlation.Name = "correlation";
             this.correlation.ReadOnly = true;
@@ -1282,8 +1286,8 @@
             // 
             this.splitContainerRight.Panel2.Controls.Add(this.groupException);
             this.splitContainerRight.Panel2MinSize = 23;
-            this.splitContainerRight.Size = new System.Drawing.Size(489, 309);
-            this.splitContainerRight.SplitterDistance = 255;
+            this.splitContainerRight.Size = new System.Drawing.Size(465, 130);
+            this.splitContainerRight.SplitterDistance = 23;
             this.splitContainerRight.SplitterWidth = 8;
             this.splitContainerRight.TabIndex = 12;
             // 
@@ -1341,8 +1345,7 @@
             // 
             // splitContainerMain
             // 
-            this.splitContainerMain.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.splitContainerMain.Location = new System.Drawing.Point(0, 25);
+            this.splitContainerMain.Location = new System.Drawing.Point(54, 25);
             this.splitContainerMain.Name = "splitContainerMain";
             // 
             // splitContainerMain.Panel1
@@ -1356,8 +1359,8 @@
             this.splitContainerMain.Panel2.Controls.Add(this.splitContainerRight);
             this.splitContainerMain.Panel2.Controls.Add(this.panelStatistics);
             this.splitContainerMain.Panel2MinSize = 100;
-            this.splitContainerMain.Size = new System.Drawing.Size(1114, 481);
-            this.splitContainerMain.SplitterDistance = 617;
+            this.splitContainerMain.Size = new System.Drawing.Size(1060, 302);
+            this.splitContainerMain.SplitterDistance = 587;
             this.splitContainerMain.SplitterWidth = 8;
             this.splitContainerMain.TabIndex = 31;
             // 
@@ -1367,7 +1370,7 @@
             this.panelStatistics.Dock = System.Windows.Forms.DockStyle.Top;
             this.panelStatistics.Location = new System.Drawing.Point(0, 0);
             this.panelStatistics.Name = "panelStatistics";
-            this.panelStatistics.Size = new System.Drawing.Size(489, 172);
+            this.panelStatistics.Size = new System.Drawing.Size(465, 172);
             this.panelStatistics.TabIndex = 14;
             // 
             // groupStatistics
@@ -1402,7 +1405,7 @@
             this.groupStatistics.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupStatistics.Location = new System.Drawing.Point(0, 0);
             this.groupStatistics.Name = "groupStatistics";
-            this.groupStatistics.Size = new System.Drawing.Size(489, 172);
+            this.groupStatistics.Size = new System.Drawing.Size(465, 172);
             this.groupStatistics.TabIndex = 14;
             this.groupStatistics.TabStop = false;
             this.groupStatistics.Text = "Plugin Statistics";
@@ -1648,8 +1651,31 @@
             this.label2.TabIndex = 0;
             this.label2.Text = "Execution Count";
             // 
-            // tsmiHighlight
+            // dock
             // 
+            this.dock.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.dock.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.dock.DocumentStyle = WeifenLuo.WinFormsUI.Docking.DocumentStyle.DockingWindow;
+            this.dock.Location = new System.Drawing.Point(13, 41);
+            this.dock.Name = "dock";
+            this.dock.Size = new System.Drawing.Size(1079, 669);
+            this.dock.TabIndex = 32;
+            // 
+            // toolStripButton1
+            // 
+            this.toolStripButton1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.toolStripButton1.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton1.Image")));
+            this.toolStripButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButton1.Name = "toolStripButton1";
+            this.toolStripButton1.Size = new System.Drawing.Size(67, 22);
+            this.toolStripButton1.Text = "SaveDocks";
+            this.toolStripButton1.Click += new System.EventHandler(this.toolStripButton1_Click);
+
+            //
+            // tsmiHighlight
+            //
             this.tsmiHighlight.Checked = true;
             this.tsmiHighlight.CheckOnClick = true;
             this.tsmiHighlight.CheckState = System.Windows.Forms.CheckState.Checked;
@@ -1662,10 +1688,11 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.dock);
             this.Controls.Add(this.splitContainerMain);
             this.Controls.Add(this.toolStripMain);
             this.Name = "PluginTraceViewer";
-            this.Size = new System.Drawing.Size(1114, 506);
+            this.Size = new System.Drawing.Size(1114, 728);
             this.ConnectionUpdated += new XrmToolBox.Extensibility.PluginControlBase.ConnectionUpdatedHandler(this.PluginTraceViewer_ConnectionUpdated);
             this.Load += new System.EventHandler(this.PluginTraceViewer_Load);
             this.toolStripMain.ResumeLayout(false);
@@ -1841,6 +1868,9 @@
         private System.Windows.Forms.ToolStripSeparator toolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem tsmiPluginStats;
         private System.Windows.Forms.ToolStripMenuItem tsmiLocalTimes;
+        private WeifenLuo.WinFormsUI.Docking.VS2005Theme vS2005Theme1;
+        private WeifenLuo.WinFormsUI.Docking.DockPanel dock;
+        private System.Windows.Forms.ToolStripButton toolStripButton1;
         private System.Windows.Forms.ToolStripMenuItem tsmiHighlight;
     }
 }
