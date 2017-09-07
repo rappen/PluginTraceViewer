@@ -49,6 +49,7 @@
             this.tsmiViewStatistics = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripSeparator();
             this.tsmiWordWrap = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiLocalTimes = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem3 = new System.Windows.Forms.ToolStripSeparator();
             this.tsmiRefreshFilter = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripSeparator();
@@ -168,7 +169,7 @@
             this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
-            this.tsmiLocalTimes = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiHighlight = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMain.SuspendLayout();
             this.groupFilter.SuspendLayout();
             this.panelFilter.SuspendLayout();
@@ -320,6 +321,7 @@
             this.toolStripMenuItem2,
             this.tsmiWordWrap,
             this.tsmiLocalTimes,
+            this.tsmiHighlight,
             this.toolStripMenuItem3,
             this.tsmiRefreshFilter,
             this.toolStripMenuItem1,
@@ -365,6 +367,14 @@
             this.tsmiWordWrap.Size = new System.Drawing.Size(202, 22);
             this.tsmiWordWrap.Text = "Wrap text in log window";
             this.tsmiWordWrap.CheckedChanged += new System.EventHandler(this.tsmiWordWrap_CheckedChanged);
+            // 
+            // tsmiLocalTimes
+            // 
+            this.tsmiLocalTimes.CheckOnClick = true;
+            this.tsmiLocalTimes.Name = "tsmiLocalTimes";
+            this.tsmiLocalTimes.Size = new System.Drawing.Size(202, 22);
+            this.tsmiLocalTimes.Text = "Local Times";
+            this.tsmiLocalTimes.Click += new System.EventHandler(this.tsmiLocalTimes_Click);
             // 
             // toolStripMenuItem3
             // 
@@ -852,6 +862,7 @@
             this.crmGridView.TabIndex = 25;
             this.crmGridView.RecordDoubleClick += new Cinteros.Xrm.CRMWinForm.CRMRecordEventHandler(this.crmGridView_RecordDoubleClick);
             this.crmGridView.RecordEnter += new Cinteros.Xrm.CRMWinForm.CRMRecordEventHandler(this.crmGridView_RecordEnter);
+            this.crmGridView.CellEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.crmGridView_CellEnter);
             this.crmGridView.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.crmGridView_CellFormatting);
             this.crmGridView.CellMouseDown += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.crmGridView_CellMouseDown);
             this.crmGridView.KeyDown += new System.Windows.Forms.KeyEventHandler(this.crmGridView_KeyDown);
@@ -1272,7 +1283,6 @@
             this.splitContainerRight.Panel2.Controls.Add(this.groupException);
             this.splitContainerRight.Panel2MinSize = 23;
             this.splitContainerRight.Size = new System.Drawing.Size(489, 309);
-            this.splitContainerRight.SplitterDistance = 54;
             this.splitContainerRight.SplitterWidth = 8;
             this.splitContainerRight.TabIndex = 12;
             // 
@@ -1282,7 +1292,7 @@
             this.groupTraceLog.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupTraceLog.Location = new System.Drawing.Point(0, 0);
             this.groupTraceLog.Name = "groupTraceLog";
-            this.groupTraceLog.Size = new System.Drawing.Size(489, 54);
+            this.groupTraceLog.Size = new System.Drawing.Size(489, 50);
             this.groupTraceLog.TabIndex = 11;
             this.groupTraceLog.TabStop = false;
             this.groupTraceLog.Text = "Trace Log";
@@ -1309,7 +1319,7 @@
             this.groupException.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupException.Location = new System.Drawing.Point(0, 0);
             this.groupException.Name = "groupException";
-            this.groupException.Size = new System.Drawing.Size(489, 247);
+            this.groupException.Size = new System.Drawing.Size(489, 251);
             this.groupException.TabIndex = 7;
             this.groupException.TabStop = false;
             this.groupException.Text = "Exception";
@@ -1324,7 +1334,7 @@
             this.textException.Name = "textException";
             this.textException.ReadOnly = true;
             this.textException.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.textException.Size = new System.Drawing.Size(483, 228);
+            this.textException.Size = new System.Drawing.Size(483, 232);
             this.textException.TabIndex = 6;
             this.textException.WordWrap = false;
             // 
@@ -1637,13 +1647,15 @@
             this.label2.TabIndex = 0;
             this.label2.Text = "Execution Count";
             // 
-            // tsmiLocalTimes
+            // tsmiHighlight
             // 
-            this.tsmiLocalTimes.CheckOnClick = true;
-            this.tsmiLocalTimes.Name = "tsmiLocalTimes";
-            this.tsmiLocalTimes.Size = new System.Drawing.Size(202, 22);
-            this.tsmiLocalTimes.Text = "Local Times";
-            this.tsmiLocalTimes.Click += new System.EventHandler(this.tsmiLocalTimes_Click);
+            this.tsmiHighlight.Checked = true;
+            this.tsmiHighlight.CheckOnClick = true;
+            this.tsmiHighlight.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.tsmiHighlight.Name = "tsmiHighlight";
+            this.tsmiHighlight.Size = new System.Drawing.Size(202, 22);
+            this.tsmiHighlight.Text = "Highlight identical cells";
+            this.tsmiHighlight.Click += new System.EventHandler(this.tsmiHighlight_Click);
             // 
             // PluginTraceViewer
             // 
@@ -1828,5 +1840,6 @@
         private System.Windows.Forms.ToolStripSeparator toolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem tsmiPluginStats;
         private System.Windows.Forms.ToolStripMenuItem tsmiLocalTimes;
+        private System.Windows.Forms.ToolStripMenuItem tsmiHighlight;
     }
 }

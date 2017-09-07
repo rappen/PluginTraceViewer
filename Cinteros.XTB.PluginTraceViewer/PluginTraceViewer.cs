@@ -16,6 +16,7 @@ using XrmToolBox.Extensibility.Args;
 using System.Threading.Tasks;
 using Microsoft.Xrm.Sdk.Messages;
 using Microsoft.Crm.Sdk.Messages;
+using System.Drawing;
 
 namespace Cinteros.XTB.PluginTraceViewer
 {
@@ -27,6 +28,8 @@ namespace Cinteros.XTB.PluginTraceViewer
         private const int MAX_BATCH = 2;
         private bool? logUsage = null;
         private Dictionary<string, Entity> statistics;
+        private bool refreshingGrid = false;
+        private readonly Color highlightColor = Color.FromArgb(235, 235, 235);
 
         public PluginTraceViewer()
         {
@@ -657,7 +660,9 @@ namespace Cinteros.XTB.PluginTraceViewer
                 {
                     UpdateUI(() =>
                     {
+                        refreshingGrid = true;
                         crmGridView.DataSource = results;
+                        refreshingGrid = false;
                         SendMessageToStatusBar(this, new StatusBarMessageEventArgs($"Loaded {results.Entities.Count} trace records"));
                         crmGridView.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells);
                     });
@@ -1012,7 +1017,8 @@ namespace Cinteros.XTB.PluginTraceViewer
                 Statistics = tsmiViewStatistics.Checked,
                 UseLog = logUsage,
                 Version = version,
-                LocalTime = tsmiLocalTimes.Checked
+                LocalTime = tsmiLocalTimes.Checked,
+                HighlightIdentical = tsmiHighlight.Checked
             };
         }
 
@@ -1125,6 +1131,7 @@ namespace Cinteros.XTB.PluginTraceViewer
             tsmiWordWrap.Checked = settings.WordWrap;
             tsmiViewStatistics.Checked = settings.Statistics;
             tsmiLocalTimes.Checked = settings.LocalTime;
+            tsmiHighlight.Checked = settings.HighlightIdentical;
             crmGridView.ShowLocalTimes = settings.LocalTime;
             ShowTZInfo();
             logUsage = settings.UseLog;
@@ -1653,6 +1660,49 @@ namespace Cinteros.XTB.PluginTraceViewer
 
                 labelTimeZone.Text = $"{tzname}\nUTC{offtxt})";
             }
+        }
+
+        private void crmGridView_CellEnter(object sender, DataGridViewCellEventArgs e)
+        {
+            if (!tsmiHighlight.Checked || !crmGridView.Focused || refreshingGrid)
+            {
+                return;
+            }
+            var currentcell = crmGridView[e.ColumnIndex, e.RowIndex];
+            var currentvalue = currentcell.Value.ToString();
+            var identical = 1;
+            foreach (DataGridViewRow row in crmGridView.Rows)
+            {
+                if (row.Index == e.RowIndex)
+                {
+                    continue;
+                }
+                if (!string.IsNullOrWhiteSpace(currentvalue) && currentvalue.Equals(row.Cells[e.ColumnIndex].Value.ToString()))
+                {
+                    row.Cells[e.ColumnIndex].Style.BackColor = highlightColor;
+                    identical++;
+                }
+                else
+                {
+                    row.Cells[e.ColumnIndex].Style.BackColor = System.Drawing.Color.White;
+                }
+                foreach (DataGridViewCell cell in row.Cells)
+                {   // Reset all other columns
+                    if (cell.ColumnIndex != e.ColumnIndex && cell.Style.BackColor != System.Drawing.Color.White)
+                    {
+                        cell.Style.BackColor = System.Drawing.Color.White;
+                    }
+                }
+            }
+            SendMessageToStatusBar(this, new StatusBarMessageEventArgs($"{identical} rows with {currentcell.OwningColumn.HeaderCell.Value} = {currentcell.Value}"));
+        }
+
+        private void tsmiHighlight_Click(object sender, EventArgs e)
+        {
+            refreshingGrid = true;
+            crmGridView.Refresh();
+            refreshingGrid = false;
+            crmGridView_CellEnter(crmGridView, new DataGridViewCellEventArgs(0, 0));
         }
     }
 }
