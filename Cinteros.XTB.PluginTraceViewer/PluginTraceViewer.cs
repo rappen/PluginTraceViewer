@@ -1139,7 +1139,7 @@ namespace Cinteros.XTB.PluginTraceViewer
             }
             catch
             {
-                highlightColor = Color.FromArgb(255, 230, 230, 230);
+                highlightColor = ColorTranslator.FromHtml("#FFD0D0");
             }
             crmGridView.ShowLocalTimes = settings.LocalTime;
             ShowTZInfo();

@@ -15,6 +15,6 @@ namespace Cinteros.XTB.PluginTraceViewer
         public string Version { get; set; }
         public bool LocalTime { get; set; } = false;
         public bool HighlightIdentical { get; set; } = true;
-        public string HighligtColor { get; set; } = "#FFEEEEEE";
+        public string HighligtColor { get; set; } = "#FFD0D0";
     }
 }
