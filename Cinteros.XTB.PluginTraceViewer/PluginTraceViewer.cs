@@ -1694,6 +1694,7 @@ namespace Cinteros.XTB.PluginTraceViewer
             selectedCells = selectedCells.OrderBy(c => c.ColumnIndex).ToArray();
             var selectedRow = selectedCells[0].OwningRow;
             var identical = 1;
+            var duration = (int)selectedRow.Cells["performanceexecutionduration"].Value;
             foreach (DataGridViewRow row in crmGridView.Rows)
             {
                 if (row.Index == selectedRow.Index)
@@ -1718,9 +1719,10 @@ namespace Cinteros.XTB.PluginTraceViewer
                         row.Cells[cell.ColumnIndex].Style = cell.Style;
                     }
                     identical++;
+                    duration += (int)row.Cells["performanceexecutionduration"].Value;
                 }
             }
-            SendMessageToStatusBar(this, new StatusBarMessageEventArgs($"Highlighted {identical} rows with: {string.Join(" and ", selectedCells.Select(c => "(" + c.OwningColumn.HeaderCell.Value.ToString() + "=" + c.Value.ToString() + ")"))}"));
+            SendMessageToStatusBar(this, new StatusBarMessageEventArgs($"Highlighted {identical} rows with total duration {duration} ms, matching: {string.Join(" and ", selectedCells.Select(c => "(" + c.OwningColumn.HeaderCell.Value.ToString() + "=" + c.Value.ToString() + ")"))}"));
         }
 
         private void tsmiHighlight_Click(object sender, EventArgs e)
