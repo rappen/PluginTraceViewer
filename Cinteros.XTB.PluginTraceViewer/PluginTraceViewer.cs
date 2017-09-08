@@ -29,7 +29,7 @@ namespace Cinteros.XTB.PluginTraceViewer
         private bool? logUsage = null;
         private Dictionary<string, Entity> statistics;
         private bool refreshingGrid = false;
-        private readonly Color highlightColor = Color.FromArgb(235, 235, 235);
+        private Color highlightColor;
 
         public PluginTraceViewer()
         {
@@ -1018,7 +1018,8 @@ namespace Cinteros.XTB.PluginTraceViewer
                 UseLog = logUsage,
                 Version = version,
                 LocalTime = tsmiLocalTimes.Checked,
-                HighlightIdentical = tsmiHighlight.Checked
+                HighlightIdentical = tsmiHighlight.Checked,
+                HighligtColor = ColorTranslator.ToHtml(highlightColor)
             };
         }
 
@@ -1132,6 +1133,14 @@ namespace Cinteros.XTB.PluginTraceViewer
             tsmiViewStatistics.Checked = settings.Statistics;
             tsmiLocalTimes.Checked = settings.LocalTime;
             tsmiHighlight.Checked = settings.HighlightIdentical;
+            try
+            {
+                highlightColor = ColorTranslator.FromHtml(settings.HighligtColor);
+            }
+            catch
+            {
+                highlightColor = Color.FromArgb(255, 230, 230, 230);
+            }
             crmGridView.ShowLocalTimes = settings.LocalTime;
             ShowTZInfo();
             logUsage = settings.UseLog;
@@ -1662,47 +1671,65 @@ namespace Cinteros.XTB.PluginTraceViewer
             }
         }
 
-        private void crmGridView_CellEnter(object sender, DataGridViewCellEventArgs e)
+        private void crmGridView_SelectionChanged(object sender, EventArgs e)
         {
             if (!tsmiHighlight.Checked || !crmGridView.Focused || refreshingGrid)
             {
                 return;
             }
-            var currentcell = crmGridView[e.ColumnIndex, e.RowIndex];
-            var currentvalue = currentcell.Value.ToString();
+            foreach (DataGridViewRow row in crmGridView.Rows)
+            {
+                foreach (DataGridViewCell cell in row.Cells)
+                {
+                    cell.Style = cell.OwningColumn.DefaultCellStyle;
+                }
+            }
+            var selectedCells = new DataGridViewCell[crmGridView.SelectedCells.Count];
+            crmGridView.SelectedCells.CopyTo(selectedCells, 0);
+            if (selectedCells.Select(c => c.RowIndex).Distinct().Count() != 1)
+            {
+                SendMessageToStatusBar(this, new StatusBarMessageEventArgs("Cannot highlight when multiple rows are selected."));
+                return;
+            }
+            selectedCells = selectedCells.OrderBy(c => c.ColumnIndex).ToArray();
+            var selectedRow = selectedCells[0].OwningRow;
             var identical = 1;
             foreach (DataGridViewRow row in crmGridView.Rows)
             {
-                if (row.Index == e.RowIndex)
+                if (row.Index == selectedRow.Index)
                 {
                     continue;
                 }
-                if (!string.IsNullOrWhiteSpace(currentvalue) && currentvalue.Equals(row.Cells[e.ColumnIndex].Value.ToString()))
+                var isIdentical = true;
+                foreach (var cell in selectedCells)
                 {
-                    row.Cells[e.ColumnIndex].Style.BackColor = highlightColor;
-                    identical++;
-                }
-                else
-                {
-                    row.Cells[e.ColumnIndex].Style.BackColor = System.Drawing.Color.White;
-                }
-                foreach (DataGridViewCell cell in row.Cells)
-                {   // Reset all other columns
-                    if (cell.ColumnIndex != e.ColumnIndex && cell.Style.BackColor != System.Drawing.Color.White)
+                    cell.Style = cell.OwningColumn.DefaultCellStyle.Clone();
+                    cell.Style.BackColor = highlightColor;
+                    var value = cell.Value.ToString();
+                    if (string.IsNullOrWhiteSpace(value) || !value.Equals(row.Cells[cell.ColumnIndex].Value.ToString()))
                     {
-                        cell.Style.BackColor = System.Drawing.Color.White;
+                        isIdentical = false;
                     }
                 }
+                if (isIdentical)
+                {
+                    foreach (var cell in selectedCells)
+                    {
+                        row.Cells[cell.ColumnIndex].Style = cell.Style;
+                    }
+                    identical++;
+                }
             }
-            SendMessageToStatusBar(this, new StatusBarMessageEventArgs($"{identical} rows with {currentcell.OwningColumn.HeaderCell.Value} = {currentcell.Value}"));
+            SendMessageToStatusBar(this, new StatusBarMessageEventArgs($"Highlighted {identical} rows with: {string.Join(" and ", selectedCells.Select(c => "(" + c.OwningColumn.HeaderCell.Value.ToString() + "=" + c.Value.ToString() + ")"))}"));
         }
 
         private void tsmiHighlight_Click(object sender, EventArgs e)
         {
             refreshingGrid = true;
             crmGridView.Refresh();
+            SendMessageToStatusBar(this, new StatusBarMessageEventArgs(""));
             refreshingGrid = false;
-            crmGridView_CellEnter(crmGridView, new DataGridViewCellEventArgs(0, 0));
+            crmGridView_SelectionChanged(crmGridView, new EventArgs());
         }
     }
 }
