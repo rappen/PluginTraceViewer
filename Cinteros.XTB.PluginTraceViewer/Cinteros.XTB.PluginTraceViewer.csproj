@@ -149,11 +149,11 @@
     <Compile Include="Controls\GridControl.Designer.cs">
       <DependentUpon>GridControl.cs</DependentUpon>
     </Compile>
-    <Compile Include="Controls\LogControl.cs">
+    <Compile Include="Controls\TraceControl.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Controls\LogControl.Designer.cs">
-      <DependentUpon>LogControl.cs</DependentUpon>
+    <Compile Include="Controls\TraceControl.Designer.cs">
+      <DependentUpon>TraceControl.cs</DependentUpon>
     </Compile>
     <Compile Include="Controls\StatsControl.cs">
       <SubType>Form</SubType>
@@ -209,8 +209,8 @@
     <EmbeddedResource Include="Controls\GridControl.resx">
       <DependentUpon>GridControl.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Controls\LogControl.resx">
-      <DependentUpon>LogControl.cs</DependentUpon>
+    <EmbeddedResource Include="Controls\TraceControl.resx">
+      <DependentUpon>TraceControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\StatsControl.resx">
       <DependentUpon>StatsControl.cs</DependentUpon>
@@ -235,6 +235,7 @@
   IF NOT EXIST Plugins mkdir Plugins
   move /Y Cinteros.*.dll Plugins
   move /Y Cinteros.*.pdb Plugins
+  move /Y WeifenLuo.WinFormsUI.Docking*.dll Plugins
 )</PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

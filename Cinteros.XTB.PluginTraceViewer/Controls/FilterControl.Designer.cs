@@ -160,6 +160,7 @@
             this.chkMessage.TabIndex = 7;
             this.chkMessage.Text = "Message";
             this.chkMessage.UseVisualStyleBackColor = true;
+            this.chkMessage.CheckedChanged += new System.EventHandler(this.chkMessage_CheckedChanged);
             // 
             // comboPlugin
             // 
@@ -449,7 +450,6 @@
             this.HideOnClose = true;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
-            this.MinimumSize = new System.Drawing.Size(507, 190);
             this.Name = "FilterControl";
             this.TabText = "Filter";
             this.Text = "Filter";

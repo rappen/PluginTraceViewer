@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             this.crmGridView = new Cinteros.Xrm.CRMWinForm.CRMGridView();
             this.correlation = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.performanceexecutionstarttime = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -125,8 +125,8 @@
             // 
             // correlation
             // 
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.correlation.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.correlation.DefaultCellStyle = dataGridViewCellStyle1;
             this.correlation.HeaderText = "Corr";
             this.correlation.Name = "correlation";
             this.correlation.ReadOnly = true;
@@ -289,28 +289,28 @@
             // tsmiFilterByEntity
             // 
             this.tsmiFilterByEntity.Name = "tsmiFilterByEntity";
-            this.tsmiFilterByEntity.Size = new System.Drawing.Size(152, 22);
+            this.tsmiFilterByEntity.Size = new System.Drawing.Size(133, 22);
             this.tsmiFilterByEntity.Text = "Entity";
             this.tsmiFilterByEntity.Click += new System.EventHandler(this.tsmiFilterByEntity_Click);
             // 
             // tsmiFilterByMessage
             // 
             this.tsmiFilterByMessage.Name = "tsmiFilterByMessage";
-            this.tsmiFilterByMessage.Size = new System.Drawing.Size(152, 22);
+            this.tsmiFilterByMessage.Size = new System.Drawing.Size(133, 22);
             this.tsmiFilterByMessage.Text = "Message";
             this.tsmiFilterByMessage.Click += new System.EventHandler(this.tsmiFilterByMessage_Click);
             // 
             // tsmiFilterByPlugin
             // 
             this.tsmiFilterByPlugin.Name = "tsmiFilterByPlugin";
-            this.tsmiFilterByPlugin.Size = new System.Drawing.Size(152, 22);
+            this.tsmiFilterByPlugin.Size = new System.Drawing.Size(133, 22);
             this.tsmiFilterByPlugin.Text = "Plugin";
             this.tsmiFilterByPlugin.Click += new System.EventHandler(this.tsmiFilterByPlugin_Click);
             // 
             // tsmiFilterByCorrelation
             // 
             this.tsmiFilterByCorrelation.Name = "tsmiFilterByCorrelation";
-            this.tsmiFilterByCorrelation.Size = new System.Drawing.Size(152, 22);
+            this.tsmiFilterByCorrelation.Size = new System.Drawing.Size(133, 22);
             this.tsmiFilterByCorrelation.Text = "Correlation";
             this.tsmiFilterByCorrelation.Click += new System.EventHandler(this.tsmiFilterByCorrelation_Click);
             // 
@@ -530,6 +530,7 @@
             this.CloseButtonVisible = false;
             this.Controls.Add(this.crmGridView);
             this.DockAreas = WeifenLuo.WinFormsUI.Docking.DockAreas.Document;
+            this.HideOnClose = true;
             this.Name = "GridControl";
             this.TabText = "Grid";
             ((System.ComponentModel.ISupportInitialize)(this.crmGridView)).EndInit();

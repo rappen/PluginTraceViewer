@@ -19,52 +19,58 @@ using Microsoft.Crm.Sdk.Messages;
 using Cinteros.XTB.PluginTraceViewer.Controls;
 using WeifenLuo.WinFormsUI.Docking;
 using System.Drawing;
+using System.IO;
 
 namespace Cinteros.XTB.PluginTraceViewer
 {
     public partial class PluginTraceViewer : PluginControlBase, IGitHubPlugin, IMessageBusHost, IHelpPlugin, IPayPalPlugin, IStatusBarMessenger, IShortcutReceiver
     {
-        private int lastRecordCount = 100;
-
-        private const int PAGE_SIZE = 1000;
-        private const int MAX_BATCH = 2;
         private bool? logUsage = null;
-        private Dictionary<string, Entity> statistics;
-        private GridControl grid;
-        internal FilterControl filter;
-        private StatsControl stats;
-        private LogControl log;
-        private ExceptionControl exception;
-        private bool refreshingGrid = false;
-        private Color highlightColor;
+        internal GridControl gridControl;
+        internal FilterControl filterControl;
+        private StatsControl statsControl;
+        private TraceControl traceControl;
+        private ExceptionControl exceptionControl;
 
         public PluginTraceViewer()
         {
             InitializeComponent();
+            var theme = new VS2015LightTheme();
+            dockContainer.Theme = theme;
+            gridControl = new GridControl(this);
+            filterControl = new FilterControl(this);
+            statsControl = new StatsControl(this);
+            traceControl = new TraceControl();
+            exceptionControl = new ExceptionControl();
             SetupDockControls();
         }
 
         private void SetupDockControls()
         {
-            var theme = new VS2015LightTheme();
-            dock.Theme = theme;
-            grid = new GridControl(this);
-            filter = new FilterControl(this);
-            stats = new StatsControl();
-            log = new LogControl();
-            exception = new ExceptionControl();
-            if (!System.IO.File.Exists("docksz.xml"))
+            string dockFile = GetDockFileName();
+            if (!File.Exists(dockFile))
             {
-                grid.Show(dock, DockState.Document);
-                filter.Show(dock, DockState.DockTop);
-                log.Show(dock, DockState.DockRight);
-                exception.Show(log.Pane, DockAlignment.Bottom, 0.3);
-                dock.DockTopPortion = filter.originalSize.Height;
+                ResetDockLayout();
             }
             else
             {
-                dock.LoadFromXml("docks.xml", dockDeSerialization);
+                dockContainer.LoadFromXml(dockFile, dockDeSerialization);
             }
+        }
+
+        private void ResetDockLayout()
+        {
+            gridControl.Show(dockContainer, DockState.Document);
+            filterControl.Show(dockContainer, DockState.DockTop);
+            traceControl.Show(dockContainer, DockState.DockRight);
+            exceptionControl.Show(traceControl.Pane, DockAlignment.Bottom, 0.3);
+            dockContainer.DockTopPortion = filterControl.originalSize.Height;
+            statsControl.Hide();
+        }
+
+        private static string GetDockFileName()
+        {
+            return Path.Combine(Paths.SettingsPath, "Cinteros.XTB.PluginTraceViewer_DockPanels.xml");
         }
 
         private IDockContent dockDeSerialization(string persistString)
@@ -72,15 +78,15 @@ namespace Cinteros.XTB.PluginTraceViewer
             switch (persistString)
             {
                 case "Cinteros.XTB.PluginTraceViewer.Controls.GridControl":
-                    return grid;
+                    return gridControl;
                 case "Cinteros.XTB.PluginTraceViewer.Controls.FilterControl":
-                    return filter;
+                    return filterControl;
                 case "Cinteros.XTB.PluginTraceViewer.Controls.StatsControl":
-                    return stats;
-                case "Cinteros.XTB.PluginTraceViewer.Controls.LogControl":
-                    return log;
+                    return statsControl;
+                case "Cinteros.XTB.PluginTraceViewer.Controls.TraceControl":
+                    return traceControl;
                 case "Cinteros.XTB.PluginTraceViewer.Controls.ExceptionControl":
-                    return exception;
+                    return exceptionControl;
                 default:
                     return null;
             }
@@ -111,6 +117,29 @@ namespace Cinteros.XTB.PluginTraceViewer
             {
                 FetchUpdated(message.TargetArgument);
             }
+        }
+
+        public void ReceiveKeyDownShortcut(KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.F5 && buttonRetrieveLogs.Enabled)
+            {
+                buttonRetrieveLogs_Click(null, null);
+            }
+        }
+
+        public void ReceiveKeyPressShortcut(KeyPressEventArgs e)
+        {
+            // Don't handle
+        }
+
+        public void ReceiveKeyUpShortcut(KeyEventArgs e)
+        {
+            // Don't handle
+        }
+
+        public void ReceivePreviewKeyDownShortcut(PreviewKeyDownEventArgs e)
+        {
+            // Don't handle
         }
 
         private void tsbAbout_Click(object sender, EventArgs e)
@@ -150,19 +179,15 @@ namespace Cinteros.XTB.PluginTraceViewer
         private void PluginTraceViewer_ConnectionUpdated(object sender, ConnectionUpdatedEventArgs e)
         {
             LoadFilter();
-            if (crmGridView.DataSource != null)
-            {
-                crmGridView.DataSource = null;
-            }
             var orgver = new Version(e.ConnectionDetail.OrganizationVersion);
             LogInfo("Connected CRM version: {0}", orgver);
             var orgok = orgver >= new Version(7, 1);
-            crmGridView.OrganizationService = orgok ? e.Service : null;
+            gridControl.SetDataSource(orgok ? e.Service : null);
             buttonRetrieveLogs.Enabled = orgok;
             tsmiRefreshFilter.Enabled = orgok;
             if (orgok)
             {
-                LoadConstraints();
+                filterControl.LoadConstraints();
                 LoadLogSetting();
             }
             else
@@ -175,15 +200,30 @@ namespace Cinteros.XTB.PluginTraceViewer
         public override void ClosingPlugin(PluginCloseInfo info)
         {
             SaveSettings();
+            SaveDockPanels();
             LogUse("Close");
+        }
+
+        private void SaveDockPanels()
+        {
+            var dockFile = GetDockFileName();
+            dockContainer.SaveAsXml(dockFile);
+        }
+
+        internal void SendStatusMessage(string message)
+        {
+            Invoke(new Action(() =>
+            {
+                SendMessageToStatusBar(this, new StatusBarMessageEventArgs(message));
+            }));
         }
 
         private void LoadFilter()
         {
-            PTVFilter settings;
-            if (SettingsManager.Instance.TryLoad(typeof(PluginTraceViewer), out settings, ConnectionDetail?.ConnectionName))
+            if (SettingsManager.Instance.TryLoad(typeof(PluginTraceViewer), out PTVFilter settings, ConnectionDetail?.ConnectionName))
             {
-                ApplyFilter(settings);
+                filterControl.ApplyFilter(settings);
+                gridControl.VisibleColumns = settings.VisibleColumns;
             }
         }
 
@@ -214,49 +254,11 @@ namespace Cinteros.XTB.PluginTraceViewer
             var orgsetting = new Entity("organization");
             orgsetting.Id = (Guid)comboLogSetting.Tag;
             orgsetting["plugintracelogsetting"] = new OptionSetValue(setting);
-            SendMessageToStatusBar(this, new StatusBarMessageEventArgs($"Updating setting for org {orgsetting.Id} to {setting}"));
+            SendStatusMessage($"Updating setting for org {orgsetting.Id} to {setting}");
             LogInfo("Updating setting for org {0} to {1}", orgsetting.Id, setting);
             Service.Update(orgsetting);
-            crmGridView.Focus();
+            gridControl.Focus();
             MessageBox.Show("Updated trace setting!");
-        }
-
-        private void LoadConstraints()
-        {
-            LogInfo("Loading constraints");
-            GetDateConstraint("min", (datemin) =>
-            {
-                if (!datemin.Equals(DateTime.MinValue))
-                {
-                    dateFrom.MinDate = datemin;
-                    dateFrom.Value = datemin;
-                    dateTo.MinDate = datemin;
-                }
-                GetDateConstraint("max", (datemax) =>
-                {
-                    if (!datemax.Equals(DateTime.MinValue))
-                    {
-                        dateFrom.MaxDate = datemax;
-                        dateTo.MaxDate = datemax;
-                        dateTo.Value = datemax;
-                    }
-                    GetPlugins((pluginlist) =>
-                    {
-                        comboPlugin.Items.Clear();
-                        comboPlugin.Items.AddRange(pluginlist.ToArray());
-                    });
-                    GetMessages((messagelist) =>
-                    {
-                        comboMessage.Items.Clear();
-                        comboMessage.Items.AddRange(messagelist.ToArray());
-                    });
-                    GetEntities((entitylist) =>
-                    {
-                        comboEntity.Items.Clear();
-                        comboEntity.Items.AddRange(entitylist.ToArray());
-                    });
-                });
-            });
         }
 
         private void GetLogSetting(Action<Guid, int> callback)
@@ -298,145 +300,6 @@ namespace Cinteros.XTB.PluginTraceViewer
             WorkAsync(asyncinfo);
         }
 
-        private void GetPlugins(Action<List<string>> callback)
-        {
-            LogInfo("GetPlugins");
-            var QEplugintracelog = new QueryExpression("plugintracelog");
-            QEplugintracelog.Distinct = true;
-            QEplugintracelog.ColumnSet.AddColumns("typename");
-            var asyncinfo = new WorkAsyncInfo()
-            {
-                Message = "Loading plugin types",
-                Work = (a, args) =>
-                {
-                    args.Result = Service.RetrieveMultiple(QEplugintracelog);
-                },
-                PostWorkCallBack = (args) =>
-                {
-                    if (args.Error != null)
-                    {
-                        LogError("GetPlugins: {0}", args.Error.Message);
-                        callback(new List<string>());
-                    }
-                    else if (args.Result is EntityCollection)
-                    {
-                        var entities = ((EntityCollection)args.Result).Entities;
-                        var plugins = entities.Where(e => e.Attributes.Contains("typename")).Select(e => e.Attributes["typename"].ToString()).ToList();
-                        LogInfo("GetPlugins = {0}", plugins.Count);
-                        callback(plugins);
-                    }
-                }
-            };
-            WorkAsync(asyncinfo);
-        }
-
-        private void GetMessages(Action<List<string>> callback)
-        {
-            LogInfo("GetMessages");
-            var QEplugintracelog = new QueryExpression("plugintracelog");
-            QEplugintracelog.Distinct = true;
-            QEplugintracelog.ColumnSet.AddColumns("messagename");
-            var asyncinfo = new WorkAsyncInfo()
-            {
-                Message = "Loading messages",
-                Work = (a, args) =>
-                {
-                    args.Result = Service.RetrieveMultiple(QEplugintracelog);
-                },
-                PostWorkCallBack = (args) =>
-                {
-                    if (args.Error != null)
-                    {
-                        LogError("GetMessages {0}", args.Error.Message);
-                        callback(new List<string>());
-                    }
-                    else if (args.Result is EntityCollection)
-                    {
-                        var entities = ((EntityCollection)args.Result).Entities;
-                        var messages = entities.Where(e => e.Attributes.Contains("messagename")).Select(e => e.Attributes["messagename"].ToString()).ToList();
-                        LogInfo("GetMessages = {0}", messages.Count);
-                        callback(messages);
-                    }
-                }
-            };
-            WorkAsync(asyncinfo);
-        }
-
-        private void GetEntities(Action<List<string>> callback)
-        {
-            LogInfo("GetEntities");
-            var QEplugintracelog = new QueryExpression("plugintracelog");
-            QEplugintracelog.Distinct = true;
-            QEplugintracelog.ColumnSet.AddColumns("primaryentity");
-            var asyncinfo = new WorkAsyncInfo()
-            {
-                Message = "Loading entities",
-                Work = (a, args) =>
-                {
-                    args.Result = Service.RetrieveMultiple(QEplugintracelog);
-                },
-                PostWorkCallBack = (args) =>
-                {
-                    if (args.Error != null)
-                    {
-                        LogError("GetEntities {0}", args.Error.Message);
-                        callback(new List<string>());
-                    }
-                    else if (args.Result is EntityCollection)
-                    {
-                        var entities = ((EntityCollection)args.Result).Entities;
-                        var entitylist = entities.Where(e => e.Attributes.Contains("primaryentity")).Select(e => e.Attributes["primaryentity"].ToString()).ToList();
-                        LogInfo("GetEntities = {0}", entitylist.Count);
-                        callback(entitylist);
-                    }
-                }
-            };
-            WorkAsync(asyncinfo);
-        }
-
-        private void GetDateConstraint(string aggregate, Action<DateTime> callback)
-        {
-            // These constraints really doesn't add much from a usability perspective, they take time,
-            // and as #39 and #54 shows it can be quite annoying.
-            callback(DateTime.MinValue);
-            return;
-
-            LogInfo("GetDateConstraint {0}", aggregate);
-            var date = DateTime.Today;
-            var fetch = $"<fetch aggregate='true'><entity name='plugintracelog'><attribute name='createdon' alias='created' aggregate='{aggregate}'/></entity></fetch>";
-            var asyncinfo = new WorkAsyncInfo()
-            {
-                Message = $"Loading {aggregate} date limits",
-                Work = (a, args) =>
-                {
-                    args.Result = Service.RetrieveMultiple(new FetchExpression(fetch));
-                },
-                PostWorkCallBack = (args) =>
-                {
-                    if (args.Error != null)
-                    {
-                        LogError("GetDateConstraint({0}): {1}", aggregate, args.Error);
-                        callback(DateTime.MinValue);
-                    }
-                    else if (args.Result is EntityCollection && ((EntityCollection)args.Result).Entities.Count > 0)
-                    {
-                        var result = ((EntityCollection)args.Result).Entities[0];
-                        if (result.Contains("created") && result["created"] is AliasedValue)
-                        {
-                            var created = (AliasedValue)result["created"];
-                            if (created.Value is DateTime)
-                            {
-                                date = (DateTime)created.Value;
-                                LogInfo("GetDateConstraint {0} = {1}", aggregate, date);
-                                callback(date);
-                            }
-                        }
-                    }
-                }
-            };
-            WorkAsync(asyncinfo);
-        }
-
         private void FetchUpdated(string fetchxml)
         {
             var req = Service.Execute(new FetchXmlToQueryExpressionRequest { FetchXml = fetchxml }) as FetchXmlToQueryExpressionResponse;
@@ -453,10 +316,7 @@ namespace Cinteros.XTB.PluginTraceViewer
             {
                 return;
             }
-            if (statistics != null)
-            {
-                statistics.Clear();
-            }
+            statsControl.Clear();
             LogUse("RetrieveLogs");
             var asyncinfo = new WorkAsyncInfo()
             {
@@ -478,7 +338,7 @@ namespace Cinteros.XTB.PluginTraceViewer
                     {
                         FriendlyfyCorrelationIds(args.Result as EntityCollection);
                         ExtractExceptionSummaries(args.Result as EntityCollection);
-                        PopulateGrid(args.Result as EntityCollection);
+                        gridControl.PopulateGrid(args.Result as EntityCollection);
                     }
                 }
             };
@@ -587,145 +447,11 @@ namespace Cinteros.XTB.PluginTraceViewer
             var LEstep = QEplugintracelog.AddLink("sdkmessageprocessingstep", "pluginstepid", "sdkmessageprocessingstepid", JoinOperator.LeftOuter);
             LEstep.EntityAlias = "step";
             LEstep.Columns.AddColumns("name", "rank", "stage");
-            if (chkRecords.Checked)
-            {
-                QEplugintracelog.TopCount = (int)numRecords.Value;
-            }
-            GetQueryFilter(QEplugintracelog);
+            filterControl.GetQueryFilter(QEplugintracelog);
             QEplugintracelog.AddOrder("performanceexecutionstarttime", OrderType.Descending);
             QEplugintracelog.AddOrder("correlationid", OrderType.Ascending);    // This just to group threads together when starting the same second
             QEplugintracelog.AddOrder("depth", OrderType.Descending);           // This to try to compensate for executionstarttime only accurate to the second
             return QEplugintracelog;
-        }
-
-        private void GetQueryFilter(QueryExpression QEplugintracelog)
-        {
-            if (checkDateFrom.Checked)
-            {
-                QEplugintracelog.Criteria.AddCondition("createdon", ConditionOperator.GreaterEqual, GetDateTimeAsUtcOrLocal(dateFrom.Value));
-            }
-            if (checkDateTo.Checked)
-            {
-                QEplugintracelog.Criteria.AddCondition("createdon", ConditionOperator.LessEqual, GetDateTimeAsUtcOrLocal(dateTo.Value));
-            }
-            if (chkPlugin.Checked && !string.IsNullOrWhiteSpace(comboPlugin.Text))
-            {
-                var pluginFilterInclude = QEplugintracelog.Criteria.AddFilter(LogicalOperator.Or);
-                var pluginFilterExclude = QEplugintracelog.Criteria.AddFilter(LogicalOperator.And);
-                foreach (var plugin in comboPlugin.Text.Split(','))
-                {
-                    if (string.IsNullOrWhiteSpace(plugin))
-                    {
-                        continue;
-                    }
-                    if (plugin.Trim().StartsWith("!"))
-                    {
-                        pluginFilterExclude.AddCondition("typename", plugin.Contains("*") ? ConditionOperator.NotLike : ConditionOperator.NotEqual, plugin.Replace("*", "%").Trim().Substring(1));
-                    }
-                    else
-                    {
-                        pluginFilterInclude.AddCondition("typename", plugin.Contains("*") ? ConditionOperator.Like : ConditionOperator.Equal, plugin.Replace("*", "%").Trim());
-                    }
-                }
-            }
-            if (chkMessage.Checked && !string.IsNullOrWhiteSpace(comboMessage.Text))
-            {
-                QEplugintracelog.Criteria.AddCondition("messagename", ConditionOperator.Equal, comboMessage.Text);
-            }
-            if (chkEntity.Checked && !string.IsNullOrWhiteSpace(comboEntity.Text))
-            {
-                var entityFilterInclude = QEplugintracelog.Criteria.AddFilter(LogicalOperator.Or);
-                var entityFilterExclude = QEplugintracelog.Criteria.AddFilter(LogicalOperator.And);
-                foreach (var entity in comboEntity.Text.Split(','))
-                {
-                    if (string.IsNullOrWhiteSpace(entity))
-                    {
-                        continue;
-                    }
-                    if (entity.Trim().StartsWith("!"))
-                    {
-                        entityFilterExclude.AddCondition("primaryentity", entity.Contains("*") ? ConditionOperator.NotLike : ConditionOperator.NotEqual, entity.Replace("*", "%").Trim().Substring(1));
-                    }
-                    else
-                    {
-                        entityFilterInclude.AddCondition("primaryentity", entity.Contains("*") ? ConditionOperator.Like : ConditionOperator.Equal, entity.Replace("*", "%").Trim());
-                    }
-                }
-            }
-            if (chkCorrelation.Checked)
-            {
-                var ids = GetCurrentCorrelationIdFilter(false);
-                QEplugintracelog.Criteria.AddCondition("correlationid", ConditionOperator.In, ids.Select(i => i.ToString()).ToArray());
-            }
-            if (chkExceptions.Checked)
-            {
-                QEplugintracelog.Criteria.AddCondition("exceptiondetails", ConditionOperator.NotNull);
-                QEplugintracelog.Criteria.AddCondition("exceptiondetails", ConditionOperator.NotEqual, "");
-            }
-            if (rbOperPlugin.Checked)
-            {
-                QEplugintracelog.Criteria.AddCondition("operationtype", ConditionOperator.Equal, 1);
-            }
-            else if (rbOperWF.Checked)
-            {
-                QEplugintracelog.Criteria.AddCondition("operationtype", ConditionOperator.Equal, 2);
-            }
-            if (rbModeSync.Checked)
-            {
-                QEplugintracelog.Criteria.AddCondition("mode", ConditionOperator.Equal, 0);
-            }
-            else if (rbModeAsync.Checked)
-            {
-                QEplugintracelog.Criteria.AddCondition("mode", ConditionOperator.Equal, 1);
-            }
-            if (chkDurationMin.Checked)
-            {
-                QEplugintracelog.Criteria.AddCondition("performanceexecutionduration", ConditionOperator.GreaterEqual, (int)numDurationMin.Value);
-            }
-            if (chkDurationMax.Checked)
-            {
-                QEplugintracelog.Criteria.AddCondition("performanceexecutionduration", ConditionOperator.LessEqual, (int)numDurationMax.Value);
-            }
-        }
-
-        private DateTime GetDateTimeAsUtcOrLocal(DateTime source)
-        {
-            if (!tsmiLocalTimes.Checked)
-            {
-                return new DateTime(source.Ticks, DateTimeKind.Utc);
-            }
-            else
-            {
-                return source;
-            }
-        }
-
-        private void PopulateGrid(EntityCollection results)
-        {
-            LogInfo("PopulateGrid with {0} logs", results.Entities.Count);
-            var asyncinfo = new WorkAsyncInfo()
-            {
-                Message = "Populating result view",
-                Work = (a, args) =>
-                {
-                    UpdateUI(() =>
-                    {
-                        refreshingGrid = true;
-                        crmGridView.DataSource = results;
-                        refreshingGrid = false;
-                        SendMessageToStatusBar(this, new StatusBarMessageEventArgs($"Loaded {results.Entities.Count} trace records"));
-                        crmGridView.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells);
-                    });
-                },
-                PostWorkCallBack = (args) =>
-                {
-                    if (args.Error != null)
-                    {
-                        AlertError($"Failed to populate result view:\n{args.Error.Message}", "Load");
-                    }
-                }
-            };
-            WorkAsync(asyncinfo);
         }
 
         private void buttonRetrieveLogs_Click(object sender, EventArgs e)
@@ -733,126 +459,13 @@ namespace Cinteros.XTB.PluginTraceViewer
             RefreshTraces(GetQuery());
         }
 
-        private void checkDateFrom_CheckedChanged(object sender, EventArgs e)
-        {
-            dateFrom.Enabled = checkDateFrom.Checked;
-        }
-
-        private void checkDateTo_CheckedChanged(object sender, EventArgs e)
-        {
-            dateTo.Enabled = checkDateTo.Checked;
-        }
-
-        private void crmGridView_RecordEnter(object sender, Xrm.CRMWinForm.CRMRecordEventArgs e)
-        {
-            GridRecordEnter(e.Entity);
-        }
-
         internal void GridRecordEnter(Entity record)
         {
             buttonOpenLogRecord.Enabled = record != null;
-            textMessage.Text = FixLineBreaks(record != null && record.Contains("messageblock") ? record["messageblock"].ToString() : "");
-            textException.Text = FixLineBreaks(record != null && record.Contains("exceptiondetails") ? record["exceptiondetails"].ToString() : "");
-            groupException.Text = "Exception" + (record.Contains("exceptionsummary") ? ": " + record["exceptionsummary"].ToString().Replace("\r\n", " ") : "");
-            ShowStatistics(record);
-        }
-
-        private void ShowStatistics(Entity entity)
-        {
-            if (!tsmiViewStatistics.Checked)
-            {
-                return;
-            }
-            groupStatistics.Text = "Plugin Statistics";
-            txtStatCreated.Text = "?";
-            txtStatModified.Text = "?";
-            txtStatExecCnt.Text = "?";
-            txtStatAvgExecTime.Text = "?";
-            txtStatSecPerDay.Text = "?";
-            if (entity != null && entity.Contains("typename"))
-            {
-                var plugin = (string)entity["typename"];
-                groupStatistics.Text = $"Plugin Statistics: {plugin}";
-                var stats = GetStatistics(plugin);
-                if (stats != null)
-                {
-                    var first = stats.Contains("createdon") ? (DateTime)stats["createdon"] : DateTime.MinValue;
-                    var last = stats.Contains("modifiedon") ? (DateTime)stats["modifiedon"] : DateTime.MinValue;
-                    var execs = stats.Contains("executecount") ? (int)stats["executecount"] : -1;
-                    var avgtime = stats.Contains("averageexecutetimeinmilliseconds") ? (int)stats["averageexecutetimeinmilliseconds"] : -1;
-                    var failcnt = stats.Contains("failurecount") ? (int)stats["failurecount"] : -1;
-                    var failpct = stats.Contains("failurepercent") ? (int)stats["failurepercent"] : -1;
-                    var crashcnt = stats.Contains("crashcount") ? (int)stats["crashcount"] : -1;
-                    var crashpct = stats.Contains("crashpercent") ? (int)stats["crashpercent"] : -1;
-                    var crashcontrpct = stats.Contains("crashcontributionpercent") ? (int)stats["crashcontributionpercent"] : -1;
-                    var termcpu = stats.Contains("terminatecpucontributionpercent") ? (int)stats["terminatecpucontributionpercent"] : -1;
-                    var termmem = stats.Contains("terminatememorycontributionpercent") ? (int)stats["terminatememorycontributionpercent"] : -1;
-                    var termhnd = stats.Contains("terminatehandlescontributionpercent") ? (int)stats["terminatehandlescontributionpercent"] : -1;
-                    var termoth = stats.Contains("terminateothercontributionpercent") ? (int)stats["terminateothercontributionpercent"] : -1;
-
-                    txtStatCreated.Text = !first.Equals(DateTime.MinValue) ? first.ToString("yyyy-MM-dd HH:mm:ss") : "?";
-                    txtStatModified.Text = !last.Equals(DateTime.MinValue) ? last.ToString("yyyy-MM-dd HH:mm:ss") : "?";
-                    txtStatExecCnt.Text = execs >= 0 ? execs.ToString() : "?";
-                    txtStatAvgExecTime.Text = avgtime >= 0 ? avgtime.ToString() : "?";
-                    txtStatFailCnt.Text = failcnt >= 0 ? failcnt.ToString() : "?";
-                    txtStatFailPct.Text = failpct >= 0 ? failpct.ToString() + " %" : "?";
-                    txtStatCrashCnt.Text = crashcnt >= 0 ? crashcnt.ToString() : "?";
-                    txtStatCrashPct.Text = crashpct >= 0 ? crashpct.ToString() + " %" : "?";
-                    txtStatCrashContrPct.Text = crashcontrpct >= 0 ? crashcontrpct.ToString() + " %" : "?";
-                    txtStatTermCPU.Text = termcpu >= 0 ? termcpu.ToString() + " %" : "?";
-                    txtStatTermMemory.Text = termmem >= 0 ? termmem.ToString() + " %" : "?";
-                    txtStatTermHandles.Text = termhnd >= 0 ? termhnd.ToString() + " %" : "?";
-                    txtStatTermOther.Text = termoth >= 0 ? termoth.ToString() + " %" : "?";
-                    var secsperday = GetStatTimePerDay(stats);
-                    txtStatSecPerDay.Text = secsperday >= 0 ? secsperday.ToString("N2") : "";
-                }
-            }
-        }
-
-        internal static double GetStatTimePerDay(Entity pluginstatistic)
-        {
-            var first = pluginstatistic.Contains("createdon") ? (DateTime)pluginstatistic["createdon"] : DateTime.MinValue;
-            var last = pluginstatistic.Contains("modifiedon") ? (DateTime)pluginstatistic["modifiedon"] : DateTime.MinValue;
-            var execs = pluginstatistic.Contains("executecount") ? (int)pluginstatistic["executecount"] : -1;
-            var avgtime = pluginstatistic.Contains("averageexecutetimeinmilliseconds") ? (int)pluginstatistic["averageexecutetimeinmilliseconds"] : -1;
-            var secperday = 0D;
-            if (!first.Equals(DateTime.MinValue) && !last.Equals(DateTime.MinValue) && !first.Equals(last) && execs >= 0 && avgtime >= 0)
-            {
-                var span = last - first;
-                if (span.TotalDays > 0)
-                {
-                    var tottime = execs * avgtime;
-                    secperday = tottime / span.TotalDays / 1000;
-                }
-            }
-            return secperday;
-        }
-
-        private Entity GetStatistics(string typename)
-        {
-            if (statistics == null)
-            {
-                statistics = new Dictionary<string, Entity>();
-            }
-            if (!statistics.ContainsKey(typename))
-            {
-                var qex = new QueryExpression("plugintypestatistic");
-                qex.ColumnSet.AddColumns("failurepercent", "terminatememorycontributionpercent", "averageexecutetimeinmilliseconds",
-                    "crashpercent", "crashcount", "terminatehandlescontributionpercent", "executecount", "failurecount",
-                    "terminatecpucontributionpercent", "modifiedon", "createdon", "terminateothercontributionpercent", "crashcontributionpercent");
-                var leType = qex.AddLink("plugintype", "plugintypeid", "plugintypeid");
-                leType.LinkCriteria.AddCondition("typename", ConditionOperator.Equal, typename);
-                var res = Service.RetrieveMultiple(qex);
-                if (res.Entities.Count == 1)
-                {
-                    statistics.Add(typename, res[0]);
-                }
-            }
-            if (statistics.ContainsKey(typename))
-            {
-                return statistics[typename];
-            }
-            return null;
+            traceControl.SetLogText(FixLineBreaks(record != null && record.Contains("messageblock") ? record["messageblock"].ToString() : ""));
+            exceptionControl.SetException(FixLineBreaks(record != null && record.Contains("exceptiondetails") ? record["exceptiondetails"].ToString() : ""),
+                "Exception" + (record.Contains("exceptionsummary") ? ": " + record["exceptionsummary"].ToString().Replace("\r\n", " ") : ""));
+            statsControl.ShowStatistics(record);
         }
 
         private string FixLineBreaks(string text)
@@ -899,74 +512,21 @@ namespace Cinteros.XTB.PluginTraceViewer
             return string.Empty;
         }
 
-        private void chkPlugin_CheckedChanged(object sender, EventArgs e)
-        {
-            comboPlugin.Enabled = chkPlugin.Checked;
-        }
-
         private void tsbCloseThisTab_Click(object sender, EventArgs e)
         {
             CloseTool();
         }
 
-        private void chkMessage_CheckedChanged(object sender, EventArgs e)
-        {
-            comboMessage.Enabled = chkMessage.Checked;
-        }
-
-        private void numRecords_ValueChanged(object sender, EventArgs e)
-        {
-            var compareValue = numRecords.Value - lastRecordCount.CompareTo((int)numRecords.Value);
-            var increment = 1;
-            if (compareValue < 10) increment = 1;
-            else if (compareValue < 20) increment = 5;
-            else if (compareValue < 50) increment = 10;
-            else if (compareValue < 200) increment = 25;
-            else if (compareValue < 1000) increment = 100;
-            else increment = 1000;
-            if (numRecords.Value % increment != 0)
-            {
-                numRecords.Value = Math.Round(numRecords.Value / increment) * increment;
-            }
-            numRecords.Increment = increment;
-            lastRecordCount = (int)numRecords.Value;
-        }
-
         private void tsmiWordWrap_CheckedChanged(object sender, EventArgs e)
         {
-            textMessage.WordWrap = tsmiWordWrap.Checked;
-            textException.WordWrap = tsmiWordWrap.Checked;
-        }
-
-        private void chkEntity_CheckedChanged(object sender, EventArgs e)
-        {
-            comboEntity.Enabled = chkEntity.Checked;
-        }
-
-        private void chkDurationMin_CheckedChanged(object sender, EventArgs e)
-        {
-            numDurationMin.Enabled = chkDurationMin.Checked;
-        }
-
-        private void chkDurationMax_CheckedChanged(object sender, EventArgs e)
-        {
-            numDurationMax.Enabled = chkDurationMax.Checked;
-        }
-
-        private void chkRecords_CheckedChanged(object sender, EventArgs e)
-        {
-            numRecords.Enabled = chkRecords.Checked;
-        }
-
-        private void tsmiViewFilter_CheckedChanged(object sender, EventArgs e)
-        {
-            groupFilter.Visible = tsmiViewFilter.Checked;
+            traceControl.textMessage.WordWrap = tsmiWordWrap.Checked;
+            exceptionControl.textException.WordWrap = tsmiWordWrap.Checked;
         }
 
         private void tsmiRefreshFilter_Click(object sender, EventArgs e)
         {
             LoadLogSetting();
-            LoadConstraints();
+            filterControl.LoadConstraints();
             LogUse("LoadConstraints");
         }
 
@@ -982,7 +542,7 @@ namespace Cinteros.XTB.PluginTraceViewer
                 var newfile = sfd.FileName;
                 if (!string.IsNullOrEmpty(newfile))
                 {
-                    var serialized = EntityCollectionSerializer.Serialize((EntityCollection)crmGridView.GetDataSource<EntityCollection>(), SerializationStyle.Explicit);
+                    var serialized = EntityCollectionSerializer.Serialize(gridControl.Entities, SerializationStyle.Explicit);
                     serialized.Save(newfile);
                     MessageBox.Show(this, "Logs saved!", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
@@ -1017,7 +577,7 @@ namespace Cinteros.XTB.PluginTraceViewer
 
         private void SaveFilter()
         {
-            PTVFilter filter = GetFilter();
+            PTVFilter currentfilter = filterControl.GetFilter();
             var sfd = new SaveFileDialog
             {
                 Title = "Select a location to save the filter",
@@ -1025,39 +585,9 @@ namespace Cinteros.XTB.PluginTraceViewer
             };
             if (sfd.ShowDialog() == DialogResult.OK && !string.IsNullOrEmpty(sfd.FileName))
             {
-                XmlSerializerHelper.SerializeToFile(filter, sfd.FileName);
+                XmlSerializerHelper.SerializeToFile(currentfilter, sfd.FileName);
                 MessageBox.Show(this, "Filter saved!", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
-        }
-
-        private PTVFilter GetFilter()
-        {
-            var ass = Assembly.GetExecutingAssembly().GetName();
-            var version = ass.Version.ToString();
-            var filter = new PTVFilter
-            {
-                DateFrom = checkDateFrom.Checked ? dateFrom.Value : DateTime.MinValue,
-                DateTo = checkDateTo.Checked ? dateTo.Value : DateTime.MinValue,
-                Plugin = chkPlugin.Checked ? comboPlugin.Text : string.Empty,
-                Message = chkMessage.Checked ? comboMessage.Text : string.Empty,
-                Entity = chkEntity.Checked ? comboEntity.Text : string.Empty,
-                CorrelationId = chkCorrelation.Checked ? textCorrelationId.Text : string.Empty,
-                Exceptions = chkExceptions.Checked,
-                Operation = rbOperPlugin.Checked ? 1 : rbOperWF.Checked ? 2 : 0,
-                Mode = rbModeSync.Checked ? 1 : rbModeAsync.Checked ? 2 : 0,
-                MinDuration = chkDurationMin.Checked ? (int)numDurationMin.Value : -1,
-                MaxDuration = chkDurationMax.Checked ? (int)numDurationMax.Value : -1,
-                Records = chkRecords.Checked ? (int)numRecords.Value : -1,
-                VisibleColumns = new List<string>()
-            };
-            foreach (ToolStripMenuItem menu in contextMenuGridView.Items)
-            {
-                if (menu.CheckOnClick && menu.Tag != null && crmGridView.Columns.Contains(menu.Tag.ToString()) && menu.Checked)
-                {
-                    filter.VisibleColumns.Add(menu.Tag.ToString());
-                }
-            }
-            return filter;
         }
 
         private Settings GetSettings()
@@ -1066,14 +596,12 @@ namespace Cinteros.XTB.PluginTraceViewer
             var version = ass.Version.ToString();
             return new Settings
             {
-                FilterHidden = !groupFilter.Visible,
                 WordWrap = tsmiWordWrap.Checked,
-                Statistics = tsmiViewStatistics.Checked,
                 UseLog = logUsage,
                 Version = version,
                 LocalTime = tsmiLocalTimes.Checked,
                 HighlightIdentical = tsmiHighlight.Checked,
-                HighligtColor = ColorTranslator.ToHtml(highlightColor)
+                HighlightColor = ColorTranslator.ToHtml(gridControl.highlightColor)
             };
         }
 
@@ -1095,8 +623,8 @@ namespace Cinteros.XTB.PluginTraceViewer
                 try
                 {
                     document.Load(ofd.FileName);
-                    var filter = (PTVFilter)XmlSerializerHelper.Deserialize(document.OuterXml, typeof(PTVFilter));
-                    ApplyFilter(filter);
+                    var currentfilter = (PTVFilter)XmlSerializerHelper.Deserialize(document.OuterXml, typeof(PTVFilter));
+                    filterControl.ApplyFilter(currentfilter);
                     MessageBox.Show(this, "Filter loaded!", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
                 catch (Exception ex)
@@ -1106,97 +634,21 @@ namespace Cinteros.XTB.PluginTraceViewer
             }
         }
 
-        private void ApplyFilter(PTVFilter filter)
-        {
-            tsmiViewFilter.Checked = groupFilter.Visible;
-            checkDateFrom.Checked = !filter.DateFrom.Equals(DateTime.MinValue);
-            if (checkDateFrom.Checked)
-            {
-                dateFrom.Value = filter.DateFrom;
-            }
-            checkDateTo.Checked = !filter.DateTo.Equals(DateTime.MinValue);
-            if (checkDateTo.Checked)
-            {
-                dateTo.Value = filter.DateTo;
-            }
-            chkPlugin.Checked = !string.IsNullOrEmpty(filter.Plugin);
-            comboPlugin.Text = filter.Plugin;
-            chkMessage.Checked = !string.IsNullOrEmpty(filter.Message);
-            comboMessage.SelectedIndex = comboMessage.Items.IndexOf(filter.Message);
-            chkEntity.Checked = !string.IsNullOrEmpty(filter.Entity);
-            comboEntity.Text = filter.Entity;
-            chkCorrelation.Checked = !string.IsNullOrEmpty(filter.CorrelationId);
-            textCorrelationId.Text = filter.CorrelationId;
-            chkExceptions.Checked = filter.Exceptions;
-            switch (filter.Operation)
-            {
-                case 1:
-                    rbOperPlugin.Checked = true;
-                    break;
-                case 2:
-                    rbOperWF.Checked = true;
-                    break;
-                default:
-                    rbOperAll.Checked = true;
-                    break;
-            }
-            switch (filter.Mode)
-            {
-                case 1:
-                    rbModeSync.Checked = true;
-                    break;
-                case 2:
-                    rbModeAsync.Checked = true;
-                    break;
-                default:
-                    rbModeAll.Checked = true;
-                    break;
-            }
-            chkDurationMin.Checked = filter.MinDuration > -1;
-            if (chkDurationMin.Checked)
-            {
-                numDurationMin.Value = filter.MinDuration;
-            }
-            chkDurationMax.Checked = filter.MaxDuration > -1;
-            if (chkDurationMax.Checked)
-            {
-                numDurationMax.Value = filter.MaxDuration;
-            }
-            chkRecords.Checked = filter.Records > -1;
-            if (chkRecords.Checked)
-            {
-                numRecords.Value = filter.Records;
-            }
-            if (filter.VisibleColumns != null && filter.VisibleColumns.Count > 0)
-            {
-                foreach (ToolStripMenuItem menu in contextMenuGridView.Items)
-                {
-                    if (menu.CheckOnClick && menu.Tag != null && crmGridView.Columns.Contains(menu.Tag.ToString()))
-                    {
-                        menu.Checked = filter.VisibleColumns.Contains(menu.Tag.ToString());
-                    }
-                }
-            }
-        }
-
         private void ApplySettings(Settings settings)
         {
-            groupFilter.Visible = !settings.FilterHidden;
-            tsmiViewFilter.Checked = groupFilter.Visible;
             tsmiWordWrap.Checked = settings.WordWrap;
-            tsmiViewStatistics.Checked = settings.Statistics;
             tsmiLocalTimes.Checked = settings.LocalTime;
             tsmiHighlight.Checked = settings.HighlightIdentical;
             try
             {
-                highlightColor = ColorTranslator.FromHtml(settings.HighligtColor);
+                gridControl.highlightColor = ColorTranslator.FromHtml(settings.HighlightColor);
             }
             catch
             {
-                highlightColor = ColorTranslator.FromHtml("#FFD0D0");
+                gridControl.highlightColor = ColorTranslator.FromHtml("#FFD0D0");
             }
-            crmGridView.ShowLocalTimes = settings.LocalTime;
-            ShowTZInfo();
+            gridControl.crmGridView.ShowLocalTimes = settings.LocalTime;
+            filterControl.ShowTZInfo(settings.LocalTime);
             logUsage = settings.UseLog;
             var ass = Assembly.GetExecutingAssembly().GetName();
             var version = ass.Version.ToString();
@@ -1213,227 +665,15 @@ namespace Cinteros.XTB.PluginTraceViewer
 
         private void buttonOpenLogRecord_Click(object sender, EventArgs e)
         {
-            OpenLogRecord(grid.crmGridView.SelectedCellRecords.Entities.FirstOrDefault());
-        }
-
-        private void crmGridView_RecordDoubleClick(object sender, CRMRecordEventArgs e)
-        {
-            OpenLogRecord(crmGridView.SelectedCellRecords.Entities.FirstOrDefault());
-        }
-
-        private void tsmiDeleteSelected_Click(object sender, EventArgs e)
-        {
-            var entities = crmGridView.SelectedCellRecords?.Entities;
-
-            if (entities != null && entities.Count > 0)
-            {
-                Delete(Bundle(entities)).Start();
-
-                // Deleting log records from the list
-                var source = crmGridView.GetDataSource<EntityCollection>();
-
-                foreach (var entity in entities)
-                {
-                    source.Entities.Remove(entity);
-                }
-
-                // Refresh unfortunately crashes with InvalidAsynchronousStateException "Target thread does not exist anymore
-                // grid.Refresh();
-                PopulateGrid(source);
-            }
-        }
-
-        private void tsmiDeleteAll_Click(object sender, EventArgs e)
-        {
-            if (DialogResult.Yes != MessageBox.Show("This action will permanently delete all log records in the database.\n\nContinue?", "Confirm", MessageBoxButtons.YesNo, MessageBoxIcon.Warning))
-            {
-                return;
-            }
-            var query = new QueryExpression("plugintracelog");
-            var batches = new List<ExecuteMultipleRequest>();
-            EntityCollection result = null;
-
-            do
-            {
-                query.PageInfo = new PagingInfo();
-
-                if (result != null)
-                {
-                    query.PageInfo.PagingCookie = result.PagingCookie;
-                }
-
-                // Getting all log records in the loop
-                result = Service.RetrieveMultiple(query);
-                batches.AddRange(Bundle(result.Entities));
-            } while (result.MoreRecords == true);
-
-            // Deleting log records
-            Delete(batches).Start();
-
-            var source = crmGridView.GetDataSource<EntityCollection>();
-
-            // TODO: Prompt user - reload logs? Otherwise just clear the list
-            if (source != null)
-            {
-                source.Entities.Clear();
-
-                // Refresh unfortunately crashes with InvalidAsynchronousStateException "Target thread does not exist anymore
-                // grid.Refresh();
-                PopulateGrid(source);
-            }
-        }
-
-        private void contextMenuGridView_Opening(object sender, System.ComponentModel.CancelEventArgs e)
-        {
-            var entities = crmGridView.SelectedCellRecords?.Entities;
-
-            var corrId = GetSelectedCorrelationId();
-            if (!corrId.Equals(Guid.Empty))
-            {
-                tsmiCorrelationId.Text = "Id: " + corrId.ToString();
-                tsmiCorrelation.Enabled = true;
-            }
-            else
-            {
-                tsmiCorrelation.Enabled = false;
-            }
-            if (entities?.Count > 0)
-            {
-                // If there are records selected — enable 'Delete Selected' action
-                tsmiDeleteSelected.Enabled = true;
-            }
-            else
-            {
-                // If there are no records selected — disable 'Delete Selected' action
-                tsmiDeleteSelected.Enabled = false;
-            }
-        }
-
-        private void NotifyUser()
-        {
-            NotifyUser(string.Empty);
-        }
-
-        private void NotifyUser(string text)
-        {
-            Invoke(new Action(() =>
-            {
-                SendMessageToStatusBar(this, new StatusBarMessageEventArgs(text));
-            }));
-        }
-
-        private Task Delete(Entity entity)
-        {
-            return new Task(() =>
-            {
-                try
-                {
-                    NotifyUser($"Deleting log record id {entity.Id}...");
-                    Service.Delete(entity.LogicalName, entity.Id);
-                }
-                catch (Exception)
-                {
-                    // Hiding exception if something will go wrong
-                }
-                finally
-                {
-                    NotifyUser();
-                }
-            });
-        }
-
-        private Task Delete(ExecuteMultipleRequest batch)
-        {
-            return new Task(() =>
-            {
-                try
-                {
-                    NotifyUser($"Deleting {batch.Requests.Count} log records...");
-                    Service.Execute(batch);
-                }
-                catch (Exception ex)
-                {
-                    // Hiding exception if something will go wrong
-                    LogError("Fatal error at Delete(batch):\n{0}", ex.Message);
-                }
-                finally
-                {
-                    NotifyUser();
-                }
-            });
-        }
-
-        private Task Delete(List<ExecuteMultipleRequest> batches)
-        {
-            var total = batches.Select(x => x.Requests.Count).Sum();
-
-            NotifyUser($"{total} records going to be deleted in {batches} batches...");
-
-            var tasks = new List<Task>();
-            foreach (var batch in batches)
-            {
-                tasks.Add(Delete(batch));
-            }
-
-            return new Task(async () =>
-            {
-                while (tasks.Count > 0)
-                {
-                    var number = MAX_BATCH - tasks.Count(x => x.Status == TaskStatus.Running);
-
-                    NotifyUser($"Statrting {number} new batches...");
-
-                    tasks.Where(x => x.Status == TaskStatus.Created).Take(number).ToList().ForEach(x => x.Start());
-
-                    await Task.WhenAny(tasks);
-
-                    foreach (var task in tasks.Where(x => x.Status == TaskStatus.RanToCompletion).ToList())
-                    {
-                        tasks.Remove(task);
-                    }
-                }
-
-                NotifyUser($"{total} log records was removed.");
-                await Task.Delay(10000);
-                NotifyUser();
-            });
-        }
-
-        private static List<ExecuteMultipleRequest> Bundle(IEnumerable<Entity> entities)
-        {
-            var result = new List<ExecuteMultipleRequest>();
-
-            for (var i = 0; i < Math.Ceiling((decimal)entities.Count() / PAGE_SIZE); i++)
-            {
-                var batch = new ExecuteMultipleRequest
-                {
-                    Requests = new OrganizationRequestCollection(),
-                    Settings = new ExecuteMultipleSettings()
-                };
-
-                foreach (var entity in entities.Skip(i * PAGE_SIZE).Take(PAGE_SIZE))
-                {
-                    batch.Requests.Add(new DeleteRequest
-                    {
-                        Target = entity.ToEntityReference()
-                    });
-                }
-
-                batch.Settings.ContinueOnError = true;
-                batch.Settings.ReturnResponses = false;
-
-                result.Add(batch);
-            }
-
-            return result;
+            OpenLogRecord(gridControl.crmGridView.SelectedCellRecords.Entities.FirstOrDefault());
         }
 
         private void SaveSettings()
         {
             var settings = GetSettings();
             SettingsManager.Instance.Save(typeof(PluginTraceViewer), settings, "Settings");
-            var filter = GetFilter();
-            SettingsManager.Instance.Save(typeof(PluginTraceViewer), filter, ConnectionDetail?.ConnectionName);
+            var currentfilter = filterControl.GetFilter();
+            SettingsManager.Instance.Save(typeof(PluginTraceViewer), currentfilter, ConnectionDetail?.ConnectionName);
         }
 
         private void buttonOpenFXB_Click(object sender, EventArgs e)
@@ -1522,313 +762,50 @@ namespace Cinteros.XTB.PluginTraceViewer
             }
         }
 
-        private void tsmiCorrelationSelectThis_Click(object sender, EventArgs e)
-        {
-            var count = 0;
-            var corrId = GetSelectedCorrelationId();
-            if (!corrId.Equals(Guid.Empty))
-            {
-                foreach (DataGridViewRow row in crmGridView.Rows)
-                {
-                    var idstr = row.Cells["correlationid"]?.Value?.ToString();
-                    Guid id;
-                    if (Guid.TryParse(idstr, out id) && id.Equals(corrId))
-                    {
-                        row.Selected = true;
-                        count++;
-                    }
-                    else
-                    {
-                        row.Selected = false;
-                    }
-                }
-                LogUse("SelectByCorrelationId");
-            }
-            SendMessageToStatusBar(this, new StatusBarMessageEventArgs($"Selected {count} log records"));
-        }
-
-        private void chkCorrelation_CheckedChanged(object sender, EventArgs e)
-        {
-            textCorrelationId.Enabled = chkCorrelation.Checked;
-        }
-
-        private List<Guid> GetCurrentCorrelationIdFilter(bool silent)
-        {
-            var results = new List<Guid>();
-            foreach (var idstr in textCorrelationId.Text.Split(',').Select(i => i.Trim()))
-            {
-                var id = Guid.Empty;
-                if (Guid.TryParse(idstr, out id) && !results.Contains(id))
-                {
-                    results.Add(id);
-                }
-                else if (!silent)
-                {
-                    MessageBox.Show($"\"{idstr}\" is not a valid correlation guid.", "Correlation Id", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                }
-            }
-            return results;
-        }
-
-        private Guid GetSelectedCorrelationId()
-        {
-            var result = Guid.Empty;
-            var entities = crmGridView.SelectedCellRecords?.Entities;
-            var ids = entities?.Select(e => (Guid)e["correlationid"]).Distinct();
-            if (ids?.Count() == 1)
-            {
-                return ids.FirstOrDefault();
-            }
-            return Guid.Empty;
-        }
-
-        private void crmGridView_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
-        {
-            var tooltipcolumn = e.ColumnIndex == crmGridView.Columns["correlation"].Index ? "correlationid" : crmGridView.Columns[e.ColumnIndex].Name;
-            var cell = crmGridView[e.ColumnIndex, e.RowIndex];
-            cell.ToolTipText = crmGridView.Rows[e.RowIndex].Cells[tooltipcolumn].Value.ToString();
-        }
-
-        private void tsmiViewStatistics_CheckedChanged(object sender, EventArgs e)
-        {
-            panelStatistics.Visible = tsmiViewStatistics.Checked;
-        }
-
-        private void crmGridView_CellMouseDown(object sender, DataGridViewCellMouseEventArgs e)
-        {
-            if (e.Button != MouseButtons.Right)
-            {
-                return;
-            }
-            var header = e.RowIndex == -1;
-            foreach (ToolStripMenuItem menu in contextMenuGridView.Items)
-            {
-                menu.Visible = header == (menu.Tag != null && crmGridView.Columns.Contains(menu.Tag.ToString()));
-            }
-        }
-
-        private void tsmiShowColumn_CheckedChanged(object sender, EventArgs e)
-        {
-            foreach (ToolStripMenuItem menu in contextMenuGridView.Items)
-            {
-                if (!menu.CheckOnClick || menu.Tag == null || !crmGridView.Columns.Contains(menu.Tag.ToString()))
-                {
-                    continue;
-                }
-                crmGridView.Columns[menu.Tag.ToString()].Visible = menu.Checked;
-            }
-        }
-
-        private void tsmiFilterByEntity_Click(object sender, EventArgs e)
-        {
-            var entities = comboEntity.Text.Trim().Split(',').Where(s => !string.IsNullOrWhiteSpace(s)).Select(s => s.Trim()).ToList();
-            var selected = crmGridView.SelectedCellRecords?.Entities;
-            var selentities = selected?.Select(s => (string)s["primaryentity"]).Distinct().ToList();
-            entities = entities.Concat(selentities.Where(s => !entities.Contains(s))).ToList();
-            comboEntity.Text = string.Join(", ", entities);
-            chkEntity.Checked = true;
-        }
-
-        private void tsmiFilterByMessage_Click(object sender, EventArgs e)
-        {
-            var selected = crmGridView.SelectedCellRecords?.Entities;
-            var selmessages = selected?.Select(s => (string)s["messagename"]).Distinct().ToList();
-            if (selmessages.Count == 1)
-            {
-                comboMessage.SelectedItem = selmessages[0];
-                chkMessage.Checked = true;
-            }
-            else
-            {
-                MessageBox.Show("Can only filter by one message.");
-            }
-        }
-
-        private void tsmiFilterByPlugin_Click(object sender, EventArgs e)
-        {
-            var plugins = comboPlugin.Text.Trim().Split(',').Where(s => !string.IsNullOrWhiteSpace(s)).Select(s => s.Trim()).ToList();
-            var selected = crmGridView.SelectedCellRecords?.Entities;
-            var selplugins = selected?.Select(s => (string)s["typename"]).Distinct().ToList();
-            plugins = plugins.Concat(selplugins.Where(s => !plugins.Contains(s))).ToList();
-            comboPlugin.Text = string.Join(", ", plugins);
-            chkPlugin.Checked = true;
-        }
-
-        private void tsmiFilterByCorrelation_Click(object sender, EventArgs e)
-        {
-            var newCorrId = GetSelectedCorrelationId();
-            if (!newCorrId.Equals(Guid.Empty))
-            {
-                var corrIds = GetCurrentCorrelationIdFilter(true);
-                if (!corrIds.Contains(newCorrId))
-                {
-                    corrIds.Add(newCorrId);
-                }
-                chkCorrelation.Checked = true;
-                textCorrelationId.Text = string.Join(", ", corrIds);
-                LogUse("FilterByCorrelationId");
-            }
-        }
-
         private void tsmiPluginStats_Click(object sender, EventArgs e)
         {
             var stats = new PluginStatistics(Service);
             var result = stats.ShowDialog(this);
             if (result == DialogResult.OK && stats.SelectedPlugins != null && stats.SelectedPlugins.Count > 0)
             {
-                comboPlugin.Text = string.Join(", ", stats.SelectedPlugins);
-                chkPlugin.Checked = true;
-            }
-        }
-
-        public void ReceiveKeyDownShortcut(KeyEventArgs e)
-        {
-            if (e.KeyCode == Keys.F5 && buttonRetrieveLogs.Enabled)
-            {
-                buttonRetrieveLogs_Click(null, null);
-            }
-        }
-
-        public void ReceiveKeyPressShortcut(KeyPressEventArgs e)
-        {
-            // Don't handle
-        }
-
-        public void ReceiveKeyUpShortcut(KeyEventArgs e)
-        {
-            // Don't handle
-        }
-
-        public void ReceivePreviewKeyDownShortcut(PreviewKeyDownEventArgs e)
-        {
-            // Don't handle
-        }
-
-        private void crmGridView_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.Control && e.KeyCode == Keys.C && tsmiCorrelationSelectThis.Enabled)
-            {
-                tsmiCorrelationSelectThis_Click(null, null);
+                filterControl.AddPluginFilter(stats.SelectedPlugins, true);
             }
         }
 
         private void tsmiLocalTimes_Click(object sender, EventArgs e)
         {
-            crmGridView.ShowLocalTimes = tsmiLocalTimes.Checked;
-            ShowTZInfo();
-        }
-
-        private void ShowTZInfo()
-        {
-            if (!crmGridView.ShowLocalTimes)
-            {
-                labelTimeZone.Text = "Times in UTC";
-            }
-            else
-            {
-                var tz = TimeZone.CurrentTimeZone;
-                var tzname = tz.IsDaylightSavingTime(DateTime.Now) ? tz.DaylightName : tz.StandardName;
-                var off = tz.GetUtcOffset(DateTime.Now);
-                var offtxt = (off.TotalMinutes > 0 ? "+" : "") + off.ToString();
-
-                labelTimeZone.Text = $"{tzname}\nUTC{offtxt})";
-            }
-        }
-
-        private void crmGridView_SelectionChanged(object sender, EventArgs e)
-        {
-            if (!tsmiHighlight.Checked || !crmGridView.Focused || refreshingGrid)
-            {
-                return;
-            }
-            foreach (DataGridViewRow row in crmGridView.Rows)
-            {
-                foreach (DataGridViewCell cell in row.Cells)
-                {
-                    cell.Style = cell.OwningColumn.DefaultCellStyle;
-                }
-            }
-            var selectedCells = new DataGridViewCell[crmGridView.SelectedCells.Count];
-            crmGridView.SelectedCells.CopyTo(selectedCells, 0);
-            if (selectedCells.Select(c => c.RowIndex).Distinct().Count() != 1)
-            {
-                SendMessageToStatusBar(this, new StatusBarMessageEventArgs("Cannot highlight when multiple rows are selected."));
-                return;
-            }
-            selectedCells = selectedCells.OrderBy(c => c.ColumnIndex).ToArray();
-            var selectedRow = selectedCells[0].OwningRow;
-            var identical = 1;
-            var duration = (int)selectedRow.Cells["performanceexecutionduration"].Value;
-            foreach (DataGridViewRow row in crmGridView.Rows)
-            {
-                if (row.Index == selectedRow.Index)
-                {
-                    continue;
-                }
-                var isIdentical = true;
-                foreach (var cell in selectedCells)
-                {
-                    cell.Style = cell.OwningColumn.DefaultCellStyle.Clone();
-                    cell.Style.BackColor = highlightColor;
-                    var value = cell.Value.ToString();
-                    if (string.IsNullOrWhiteSpace(value) || !value.Equals(row.Cells[cell.ColumnIndex].Value.ToString()))
-                    {
-                        isIdentical = false;
-                    }
-                }
-                if (isIdentical)
-                {
-                    foreach (var cell in selectedCells)
-                    {
-                        row.Cells[cell.ColumnIndex].Style = cell.Style;
-                    }
-                    identical++;
-                    duration += (int)row.Cells["performanceexecutionduration"].Value;
-                }
-            }
-            SendStatusMessage($"Highlighted {identical} rows with total duration {duration} ms, matching: {string.Join(" and ", selectedCells.Select(c => "(" + c.OwningColumn.HeaderCell.Value.ToString() + "=" + c.Value.ToString() + ")"))}");
+            gridControl.crmGridView.ShowLocalTimes = tsmiLocalTimes.Checked;
+            filterControl.ShowTZInfo(tsmiLocalTimes.Checked);
         }
 
         private void tsmiHighlight_Click(object sender, EventArgs e)
         {
-            refreshingGrid = true;
-            crmGridView.Refresh();
-            SendMessageToStatusBar(this, new StatusBarMessageEventArgs(""));
-            refreshingGrid = false;
-            crmGridView_SelectionChanged(crmGridView, new EventArgs());
-        }
-
-        private void toolStripButton1_Click(object sender, EventArgs e)
-        {
-            dock.SaveAsXml("docks.xml");
+            gridControl.Refresh();
         }
 
         private void tsmiViewStatistics_Click(object sender, EventArgs e)
         {
-            stats.Show(dock);
+            statsControl.Show(dockContainer, DockState.Float);
         }
 
         private void tsmiViewFilter_Click(object sender, EventArgs e)
         {
-            filter.Show(dock);
+            filterControl.Show(dockContainer);
         }
 
         private void tsmiViewLog_Click(object sender, EventArgs e)
         {
-            log.Show(dock);
+            traceControl.Show(dockContainer);
         }
 
         private void tsmiViewException_Click(object sender, EventArgs e)
         {
-            exception.Show(dock);
+            exceptionControl.Show(dockContainer);
         }
 
-        internal void SendStatusMessage(string message)
+        private void tsmiResetWindows_Click(object sender, EventArgs e)
         {
-            Invoke(new Action(() =>
-            {
-                SendMessageToStatusBar(this, new StatusBarMessageEventArgs(message));
-            }));
+            ResetDockLayout();
         }
     }
 }

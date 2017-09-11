@@ -1,6 +1,6 @@
 ﻿namespace Cinteros.XTB.PluginTraceViewer.Controls
 {
-    partial class LogControl
+    partial class TraceControl
     {
         /// <summary> 
         /// Required designer variable.
@@ -47,7 +47,7 @@
             this.textMessage.TabIndex = 10;
             this.textMessage.WordWrap = false;
             // 
-            // LogControl
+            // TraceControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -56,14 +56,16 @@
             this.HideOnClose = true;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
-            this.Name = "LogControl";
-            this.TabText = "Message Log";
+            this.Name = "TraceControl";
+            this.TabText = "Trace Message";
+            this.TopMost = true;
             this.ResumeLayout(false);
             this.PerformLayout();
 
         }
 
         #endregion
-        private System.Windows.Forms.TextBox textMessage;
+
+        internal System.Windows.Forms.TextBox textMessage;
     }
 }

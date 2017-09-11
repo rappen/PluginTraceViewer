@@ -1,4 +1,5 @@
 ﻿using Cinteros.Xrm.CRMWinForm;
+using Cinteros.XTB.PluginTraceViewer.Controls;
 using Microsoft.Xrm.Sdk;
 using Microsoft.Xrm.Sdk.Query;
 using System;
@@ -53,7 +54,7 @@ namespace Cinteros.XTB.PluginTraceViewer
             var stats = _service.RetrieveMultiple(qex);
             foreach (var stat in stats.Entities)
             {
-                var secperday = PluginTraceViewer.GetStatTimePerDay(stat);
+                var secperday = StatsControl.GetStatTimePerDay(stat);
                 stat["secondsperday"] = secperday;
             }
             gridPluginStats.DataSource = stats;

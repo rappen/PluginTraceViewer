@@ -16,5 +16,11 @@ namespace Cinteros.XTB.PluginTraceViewer.Controls
         {
             InitializeComponent();
         }
+
+        internal void SetException(string text, string caption)
+        {
+            textException.Text = text;
+            TabText = caption;
+        }
     }
 }

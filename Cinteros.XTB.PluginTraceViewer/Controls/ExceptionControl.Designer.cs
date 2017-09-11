@@ -56,12 +56,14 @@
             this.MinimizeBox = false;
             this.Name = "ExceptionControl";
             this.TabText = "Exception";
+            this.TopMost = true;
             this.ResumeLayout(false);
             this.PerformLayout();
 
         }
 
         #endregion
-        private System.Windows.Forms.TextBox textException;
+
+        internal System.Windows.Forms.TextBox textException;
     }
 }

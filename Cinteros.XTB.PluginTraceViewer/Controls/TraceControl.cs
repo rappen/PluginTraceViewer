@@ -10,11 +10,16 @@ using System.Windows.Forms;
 
 namespace Cinteros.XTB.PluginTraceViewer.Controls
 {
-    public partial class LogControl : WeifenLuo.WinFormsUI.Docking.DockContent
+    public partial class TraceControl : WeifenLuo.WinFormsUI.Docking.DockContent
     {
-        public LogControl()
+        public TraceControl()
         {
             InitializeComponent();
+        }
+
+        internal void SetLogText(string log)
+        {
+            textMessage.Text = log;
         }
     }
 }
