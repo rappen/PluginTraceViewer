@@ -51,6 +51,9 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(581, 261);
             this.Controls.Add(this.textException);
+            this.HideOnClose = true;
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "ExceptionControl";
             this.TabText = "Exception";
             this.ResumeLayout(false);

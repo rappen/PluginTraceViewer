@@ -302,9 +302,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(447, 133);
-            this.CloseButton = false;
-            this.CloseButtonVisible = false;
+            this.ClientSize = new System.Drawing.Size(444, 131);
             this.Controls.Add(this.txtStatTermOther);
             this.Controls.Add(this.label14);
             this.Controls.Add(this.txtStatModified);
@@ -332,11 +330,14 @@
             this.Controls.Add(this.txtStatFailCnt);
             this.Controls.Add(this.label8);
             this.Controls.Add(this.txtStatFailPct);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.HideOnClose = true;
             this.MaximizeBox = false;
+            this.MinimizeBox = false;
+            this.MinimumSize = new System.Drawing.Size(460, 170);
             this.Name = "StatsControl";
-            this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;
             this.TabText = "Plugin Statistics";
+            this.Text = "Plugin Statistics";
             this.DockStateChanged += new System.EventHandler(this.StatsControl_DockStateChanged);
             this.ResumeLayout(false);
             this.PerformLayout();

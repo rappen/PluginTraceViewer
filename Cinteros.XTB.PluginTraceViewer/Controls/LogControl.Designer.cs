@@ -53,6 +53,9 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(560, 261);
             this.Controls.Add(this.textMessage);
+            this.HideOnClose = true;
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "LogControl";
             this.TabText = "Message Log";
             this.ResumeLayout(false);

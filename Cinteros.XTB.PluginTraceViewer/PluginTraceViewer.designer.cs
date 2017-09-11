@@ -30,7 +30,7 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(PluginTraceViewer));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             this.toolStripMain = new System.Windows.Forms.ToolStrip();
             this.tsbCloseThisTab = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
@@ -50,6 +50,7 @@
             this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripSeparator();
             this.tsmiWordWrap = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiLocalTimes = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiHighlight = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem3 = new System.Windows.Forms.ToolStripSeparator();
             this.tsmiRefreshFilter = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripSeparator();
@@ -59,6 +60,7 @@
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripLabel1 = new System.Windows.Forms.ToolStripLabel();
             this.comboLogSetting = new System.Windows.Forms.ToolStripComboBox();
+            this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
             this.groupFilter = new System.Windows.Forms.GroupBox();
             this.panelFilter = new System.Windows.Forms.Panel();
             this.textCorrelationId = new System.Windows.Forms.TextBox();
@@ -171,8 +173,8 @@
             this.label2 = new System.Windows.Forms.Label();
             this.vS2005Theme1 = new WeifenLuo.WinFormsUI.Docking.VS2005Theme();
             this.dock = new WeifenLuo.WinFormsUI.Docking.DockPanel();
-            this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
-            this.tsmiHighlight = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiViewLog = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiViewException = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMain.SuspendLayout();
             this.groupFilter.SuspendLayout();
             this.panelFilter.SuspendLayout();
@@ -322,6 +324,8 @@
             this.dropdownView.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.tsmiViewFilter,
             this.tsmiViewStatistics,
+            this.tsmiViewLog,
+            this.tsmiViewException,
             this.toolStripMenuItem2,
             this.tsmiWordWrap,
             this.tsmiLocalTimes,
@@ -346,6 +350,7 @@
             this.tsmiViewFilter.Size = new System.Drawing.Size(202, 22);
             this.tsmiViewFilter.Text = "Filter panel";
             this.tsmiViewFilter.CheckedChanged += new System.EventHandler(this.tsmiViewFilter_CheckedChanged);
+            this.tsmiViewFilter.Click += new System.EventHandler(this.tsmiViewFilter_Click);
             // 
             // tsmiViewStatistics
             // 
@@ -357,6 +362,7 @@
             this.tsmiViewStatistics.Size = new System.Drawing.Size(202, 22);
             this.tsmiViewStatistics.Text = "Statistics panel";
             this.tsmiViewStatistics.CheckedChanged += new System.EventHandler(this.tsmiViewStatistics_CheckedChanged);
+            this.tsmiViewStatistics.Click += new System.EventHandler(this.tsmiViewStatistics_Click);
             // 
             // toolStripMenuItem2
             // 
@@ -379,6 +385,16 @@
             this.tsmiLocalTimes.Size = new System.Drawing.Size(202, 22);
             this.tsmiLocalTimes.Text = "Local Times";
             this.tsmiLocalTimes.Click += new System.EventHandler(this.tsmiLocalTimes_Click);
+            // 
+            // tsmiHighlight
+            // 
+            this.tsmiHighlight.Checked = true;
+            this.tsmiHighlight.CheckOnClick = true;
+            this.tsmiHighlight.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.tsmiHighlight.Name = "tsmiHighlight";
+            this.tsmiHighlight.Size = new System.Drawing.Size(202, 22);
+            this.tsmiHighlight.Text = "Highlight identical cells";
+            this.tsmiHighlight.Click += new System.EventHandler(this.tsmiHighlight_Click);
             // 
             // toolStripMenuItem3
             // 
@@ -443,6 +459,16 @@
             this.comboLogSetting.Name = "comboLogSetting";
             this.comboLogSetting.Size = new System.Drawing.Size(121, 25);
             this.comboLogSetting.SelectedIndexChanged += new System.EventHandler(this.comboLogSetting_SelectedIndexChanged);
+            // 
+            // toolStripButton1
+            // 
+            this.toolStripButton1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.toolStripButton1.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton1.Image")));
+            this.toolStripButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButton1.Name = "toolStripButton1";
+            this.toolStripButton1.Size = new System.Drawing.Size(67, 22);
+            this.toolStripButton1.Text = "SaveDocks";
+            this.toolStripButton1.Click += new System.EventHandler(this.toolStripButton1_Click);
             // 
             // groupFilter
             // 
@@ -873,8 +899,8 @@
             // 
             // correlation
             // 
-            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.correlation.DefaultCellStyle = dataGridViewCellStyle7;
+            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.correlation.DefaultCellStyle = dataGridViewCellStyle4;
             this.correlation.HeaderText = "Corr";
             this.correlation.Name = "correlation";
             this.correlation.ReadOnly = true;
@@ -1297,7 +1323,7 @@
             this.groupTraceLog.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupTraceLog.Location = new System.Drawing.Point(0, 0);
             this.groupTraceLog.Name = "groupTraceLog";
-            this.groupTraceLog.Size = new System.Drawing.Size(489, 255);
+            this.groupTraceLog.Size = new System.Drawing.Size(465, 23);
             this.groupTraceLog.TabIndex = 11;
             this.groupTraceLog.TabStop = false;
             this.groupTraceLog.Text = "Trace Log";
@@ -1314,7 +1340,7 @@
             this.textMessage.Name = "textMessage";
             this.textMessage.ReadOnly = true;
             this.textMessage.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.textMessage.Size = new System.Drawing.Size(483, 236);
+            this.textMessage.Size = new System.Drawing.Size(459, 100);
             this.textMessage.TabIndex = 10;
             this.textMessage.WordWrap = false;
             // 
@@ -1324,7 +1350,7 @@
             this.groupException.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupException.Location = new System.Drawing.Point(0, 0);
             this.groupException.Name = "groupException";
-            this.groupException.Size = new System.Drawing.Size(489, 46);
+            this.groupException.Size = new System.Drawing.Size(465, 99);
             this.groupException.TabIndex = 7;
             this.groupException.TabStop = false;
             this.groupException.Text = "Exception";
@@ -1339,7 +1365,7 @@
             this.textException.Name = "textException";
             this.textException.ReadOnly = true;
             this.textException.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.textException.Size = new System.Drawing.Size(483, 27);
+            this.textException.Size = new System.Drawing.Size(459, 80);
             this.textException.TabIndex = 6;
             this.textException.WordWrap = false;
             // 
@@ -1658,31 +1684,24 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.dock.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.dock.DocumentStyle = WeifenLuo.WinFormsUI.Docking.DocumentStyle.DockingWindow;
-            this.dock.Location = new System.Drawing.Point(13, 41);
+            this.dock.Location = new System.Drawing.Point(13, 385);
             this.dock.Name = "dock";
-            this.dock.Size = new System.Drawing.Size(1079, 669);
+            this.dock.Size = new System.Drawing.Size(1079, 325);
             this.dock.TabIndex = 32;
             // 
-            // toolStripButton1
+            // tsmiViewLog
             // 
-            this.toolStripButton1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.toolStripButton1.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton1.Image")));
-            this.toolStripButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripButton1.Name = "toolStripButton1";
-            this.toolStripButton1.Size = new System.Drawing.Size(67, 22);
-            this.toolStripButton1.Text = "SaveDocks";
-            this.toolStripButton1.Click += new System.EventHandler(this.toolStripButton1_Click);
-
-            //
-            // tsmiHighlight
-            //
-            this.tsmiHighlight.Checked = true;
-            this.tsmiHighlight.CheckOnClick = true;
-            this.tsmiHighlight.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.tsmiHighlight.Name = "tsmiHighlight";
-            this.tsmiHighlight.Size = new System.Drawing.Size(202, 22);
-            this.tsmiHighlight.Text = "Highlight identical cells";
-            this.tsmiHighlight.Click += new System.EventHandler(this.tsmiHighlight_Click);
+            this.tsmiViewLog.Name = "tsmiViewLog";
+            this.tsmiViewLog.Size = new System.Drawing.Size(202, 22);
+            this.tsmiViewLog.Text = "Message log";
+            this.tsmiViewLog.Click += new System.EventHandler(this.tsmiViewLog_Click);
+            // 
+            // tsmiViewException
+            // 
+            this.tsmiViewException.Name = "tsmiViewException";
+            this.tsmiViewException.Size = new System.Drawing.Size(202, 22);
+            this.tsmiViewException.Text = "Exception detail";
+            this.tsmiViewException.Click += new System.EventHandler(this.tsmiViewException_Click);
             // 
             // PluginTraceViewer
             // 
@@ -1871,6 +1890,8 @@
         private WeifenLuo.WinFormsUI.Docking.VS2005Theme vS2005Theme1;
         private WeifenLuo.WinFormsUI.Docking.DockPanel dock;
         private System.Windows.Forms.ToolStripButton toolStripButton1;
-        private System.Windows.Forms.ToolStripMenuItem tsmiHighlight;
+        private System.Windows.Forms.ToolStripMenuItem tsmiViewLog;
+        private System.Windows.Forms.ToolStripMenuItem tsmiViewException;
+        internal System.Windows.Forms.ToolStripMenuItem tsmiHighlight;
     }
 }

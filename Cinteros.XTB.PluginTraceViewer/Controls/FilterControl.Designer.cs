@@ -83,7 +83,7 @@
             this.panelFilter.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelFilter.Location = new System.Drawing.Point(0, 0);
             this.panelFilter.Name = "panelFilter";
-            this.panelFilter.Size = new System.Drawing.Size(388, 147);
+            this.panelFilter.Size = new System.Drawing.Size(398, 151);
             this.panelFilter.TabIndex = 1;
             // 
             // textCorrelationId
@@ -93,7 +93,7 @@
             this.textCorrelationId.Enabled = false;
             this.textCorrelationId.Location = new System.Drawing.Point(97, 120);
             this.textCorrelationId.Name = "textCorrelationId";
-            this.textCorrelationId.Size = new System.Drawing.Size(284, 20);
+            this.textCorrelationId.Size = new System.Drawing.Size(294, 20);
             this.textCorrelationId.TabIndex = 13;
             // 
             // chkCorrelation
@@ -105,6 +105,7 @@
             this.chkCorrelation.TabIndex = 12;
             this.chkCorrelation.Text = "Correlation Id";
             this.chkCorrelation.UseVisualStyleBackColor = true;
+            this.chkCorrelation.CheckedChanged += new System.EventHandler(this.chkCorrelation_CheckedChanged);
             // 
             // labelTimeZone
             // 
@@ -123,7 +124,7 @@
             this.comboEntity.FormattingEnabled = true;
             this.comboEntity.Location = new System.Drawing.Point(97, 96);
             this.comboEntity.Name = "comboEntity";
-            this.comboEntity.Size = new System.Drawing.Size(284, 21);
+            this.comboEntity.Size = new System.Drawing.Size(294, 21);
             this.comboEntity.Sorted = true;
             this.comboEntity.TabIndex = 10;
             // 
@@ -136,6 +137,7 @@
             this.chkEntity.TabIndex = 9;
             this.chkEntity.Text = "Entity";
             this.chkEntity.UseVisualStyleBackColor = true;
+            this.chkEntity.CheckedChanged += new System.EventHandler(this.chkEntity_CheckedChanged);
             // 
             // comboMessage
             // 
@@ -146,7 +148,7 @@
             this.comboMessage.FormattingEnabled = true;
             this.comboMessage.Location = new System.Drawing.Point(97, 72);
             this.comboMessage.Name = "comboMessage";
-            this.comboMessage.Size = new System.Drawing.Size(284, 21);
+            this.comboMessage.Size = new System.Drawing.Size(294, 21);
             this.comboMessage.TabIndex = 8;
             // 
             // chkMessage
@@ -167,7 +169,7 @@
             this.comboPlugin.FormattingEnabled = true;
             this.comboPlugin.Location = new System.Drawing.Point(97, 48);
             this.comboPlugin.Name = "comboPlugin";
-            this.comboPlugin.Size = new System.Drawing.Size(284, 21);
+            this.comboPlugin.Size = new System.Drawing.Size(294, 21);
             this.comboPlugin.TabIndex = 6;
             // 
             // chkPlugin
@@ -179,6 +181,7 @@
             this.chkPlugin.TabIndex = 5;
             this.chkPlugin.Text = "Plugin";
             this.chkPlugin.UseVisualStyleBackColor = true;
+            this.chkPlugin.CheckedChanged += new System.EventHandler(this.chkPlugin_CheckedChanged);
             // 
             // checkDateTo
             // 
@@ -240,9 +243,9 @@
             this.panelOptions.Controls.Add(this.rbModeAll);
             this.panelOptions.Controls.Add(this.chkExceptions);
             this.panelOptions.Dock = System.Windows.Forms.DockStyle.Right;
-            this.panelOptions.Location = new System.Drawing.Point(388, 0);
+            this.panelOptions.Location = new System.Drawing.Point(398, 0);
             this.panelOptions.Name = "panelOptions";
-            this.panelOptions.Size = new System.Drawing.Size(263, 147);
+            this.panelOptions.Size = new System.Drawing.Size(257, 151);
             this.panelOptions.TabIndex = 2;
             // 
             // panelOperationFilter
@@ -300,6 +303,7 @@
             this.chkRecords.TabIndex = 12;
             this.chkRecords.Text = "Record count";
             this.chkRecords.UseVisualStyleBackColor = true;
+            this.chkRecords.CheckedChanged += new System.EventHandler(this.chkRecords_CheckedChanged);
             // 
             // chkDurationMax
             // 
@@ -310,6 +314,7 @@
             this.chkDurationMax.TabIndex = 10;
             this.chkDurationMax.Text = "Duration Max";
             this.chkDurationMax.UseVisualStyleBackColor = true;
+            this.chkDurationMax.CheckedChanged += new System.EventHandler(this.chkDurationMax_CheckedChanged);
             // 
             // chkDurationMin
             // 
@@ -320,6 +325,7 @@
             this.chkDurationMin.TabIndex = 8;
             this.chkDurationMin.Text = "Duration Min";
             this.chkDurationMin.UseVisualStyleBackColor = true;
+            this.chkDurationMin.CheckedChanged += new System.EventHandler(this.chkDurationMin_CheckedChanged);
             // 
             // numDurationMax
             // 
@@ -432,16 +438,22 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(651, 147);
+            this.ClientSize = new System.Drawing.Size(655, 151);
             this.Controls.Add(this.panelFilter);
             this.Controls.Add(this.panelOptions);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+            this.DockAreas = ((WeifenLuo.WinFormsUI.Docking.DockAreas)(((((WeifenLuo.WinFormsUI.Docking.DockAreas.Float | WeifenLuo.WinFormsUI.Docking.DockAreas.DockLeft) 
+            | WeifenLuo.WinFormsUI.Docking.DockAreas.DockRight) 
+            | WeifenLuo.WinFormsUI.Docking.DockAreas.DockTop) 
+            | WeifenLuo.WinFormsUI.Docking.DockAreas.DockBottom)));
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.HideOnClose = true;
             this.MaximizeBox = false;
-            this.MaximumSize = new System.Drawing.Size(2000, 147);
-            this.MinimumSize = new System.Drawing.Size(497, 147);
+            this.MinimizeBox = false;
+            this.MinimumSize = new System.Drawing.Size(507, 190);
             this.Name = "FilterControl";
-            this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;
             this.TabText = "Filter";
+            this.Text = "Filter";
+            this.DockStateChanged += new System.EventHandler(this.FilterControl_DockStateChanged);
             this.panelFilter.ResumeLayout(false);
             this.panelFilter.PerformLayout();
             this.panelOptions.ResumeLayout(false);

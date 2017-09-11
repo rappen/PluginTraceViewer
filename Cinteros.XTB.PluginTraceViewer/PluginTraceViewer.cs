@@ -31,7 +31,7 @@ namespace Cinteros.XTB.PluginTraceViewer
         private bool? logUsage = null;
         private Dictionary<string, Entity> statistics;
         private GridControl grid;
-        private FilterControl filter;
+        internal FilterControl filter;
         private StatsControl stats;
         private LogControl log;
         private ExceptionControl exception;
@@ -48,18 +48,18 @@ namespace Cinteros.XTB.PluginTraceViewer
         {
             var theme = new VS2015LightTheme();
             dock.Theme = theme;
-            grid = new GridControl();
-            filter = new FilterControl();
+            grid = new GridControl(this);
+            filter = new FilterControl(this);
             stats = new StatsControl();
             log = new LogControl();
             exception = new ExceptionControl();
-            if (!System.IO.File.Exists("docks.xml"))
+            if (!System.IO.File.Exists("docksz.xml"))
             {
-                exception.Show(dock, DockState.DockBottom);
-                log.Show(dock, DockState.Document);
-                stats.Show(dock, DockState.DockTop);
                 grid.Show(dock, DockState.Document);
                 filter.Show(dock, DockState.DockTop);
+                log.Show(dock, DockState.DockRight);
+                exception.Show(log.Pane, DockAlignment.Bottom, 0.3);
+                dock.DockTopPortion = filter.originalSize.Height;
             }
             else
             {
@@ -135,7 +135,7 @@ namespace Cinteros.XTB.PluginTraceViewer
             }
         }
 
-        private void AlertError(string msg, string capt)
+        internal void AlertError(string msg, string capt)
         {
             LogError(msg);
             MessageBox.Show(msg, capt, MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -745,11 +745,16 @@ namespace Cinteros.XTB.PluginTraceViewer
 
         private void crmGridView_RecordEnter(object sender, Xrm.CRMWinForm.CRMRecordEventArgs e)
         {
-            buttonOpenLogRecord.Enabled = e.Entity != null;
-            textMessage.Text = FixLineBreaks(e.Entity != null && e.Entity.Contains("messageblock") ? e.Entity["messageblock"].ToString() : "");
-            textException.Text = FixLineBreaks(e.Entity != null && e.Entity.Contains("exceptiondetails") ? e.Entity["exceptiondetails"].ToString() : "");
-            groupException.Text = "Exception" + (e.Entity.Contains("exceptionsummary") ? ": " + e.Entity["exceptionsummary"].ToString().Replace("\r\n", " ") : "");
-            ShowStatistics(e.Entity);
+            GridRecordEnter(e.Entity);
+        }
+
+        internal void GridRecordEnter(Entity record)
+        {
+            buttonOpenLogRecord.Enabled = record != null;
+            textMessage.Text = FixLineBreaks(record != null && record.Contains("messageblock") ? record["messageblock"].ToString() : "");
+            textException.Text = FixLineBreaks(record != null && record.Contains("exceptiondetails") ? record["exceptiondetails"].ToString() : "");
+            groupException.Text = "Exception" + (record.Contains("exceptionsummary") ? ": " + record["exceptionsummary"].ToString().Replace("\r\n", " ") : "");
+            ShowStatistics(record);
         }
 
         private void ShowStatistics(Entity entity)
@@ -857,12 +862,11 @@ namespace Cinteros.XTB.PluginTraceViewer
             return text;
         }
 
-        private void OpenLogRecord()
+        internal void OpenLogRecord(Entity record)
         {
-            var firstselected = crmGridView.SelectedCellRecords.Entities.FirstOrDefault();
-            if (firstselected != null)
+            if (record != null)
             {
-                var url = GetEntityReferenceUrl(firstselected.ToEntityReference());
+                var url = GetEntityReferenceUrl(record.ToEntityReference());
                 if (!string.IsNullOrEmpty(url))
                 {
                     LogUse("Open log record");
@@ -985,7 +989,7 @@ namespace Cinteros.XTB.PluginTraceViewer
             }
         }
 
-        private void UpdateUI(Action action)
+        internal void UpdateUI(Action action)
         {
             MethodInvoker mi = delegate
             {
@@ -1209,12 +1213,12 @@ namespace Cinteros.XTB.PluginTraceViewer
 
         private void buttonOpenLogRecord_Click(object sender, EventArgs e)
         {
-            OpenLogRecord();
+            OpenLogRecord(grid.crmGridView.SelectedCellRecords.Entities.FirstOrDefault());
         }
 
         private void crmGridView_RecordDoubleClick(object sender, CRMRecordEventArgs e)
         {
-            OpenLogRecord();
+            OpenLogRecord(crmGridView.SelectedCellRecords.Entities.FirstOrDefault());
         }
 
         private void tsmiDeleteSelected_Click(object sender, EventArgs e)
@@ -1489,6 +1493,16 @@ namespace Cinteros.XTB.PluginTraceViewer
             {
                 LogUsage.DoLog(action);
             }
+        }
+
+        internal void LogInfo(string message, params object[] args)
+        {
+            base.LogInfo(message, args);
+        }
+
+        internal void LogError(string message, params object[] args)
+        {
+            base.LogError(message, args);
         }
 
         private void comboLogSetting_SelectedIndexChanged(object sender, EventArgs e)
@@ -1772,7 +1786,7 @@ namespace Cinteros.XTB.PluginTraceViewer
                     duration += (int)row.Cells["performanceexecutionduration"].Value;
                 }
             }
-            SendMessageToStatusBar(this, new StatusBarMessageEventArgs($"Highlighted {identical} rows with total duration {duration} ms, matching: {string.Join(" and ", selectedCells.Select(c => "(" + c.OwningColumn.HeaderCell.Value.ToString() + "=" + c.Value.ToString() + ")"))}"));
+            SendStatusMessage($"Highlighted {identical} rows with total duration {duration} ms, matching: {string.Join(" and ", selectedCells.Select(c => "(" + c.OwningColumn.HeaderCell.Value.ToString() + "=" + c.Value.ToString() + ")"))}");
         }
 
         private void tsmiHighlight_Click(object sender, EventArgs e)
@@ -1787,6 +1801,34 @@ namespace Cinteros.XTB.PluginTraceViewer
         private void toolStripButton1_Click(object sender, EventArgs e)
         {
             dock.SaveAsXml("docks.xml");
+        }
+
+        private void tsmiViewStatistics_Click(object sender, EventArgs e)
+        {
+            stats.Show(dock);
+        }
+
+        private void tsmiViewFilter_Click(object sender, EventArgs e)
+        {
+            filter.Show(dock);
+        }
+
+        private void tsmiViewLog_Click(object sender, EventArgs e)
+        {
+            log.Show(dock);
+        }
+
+        private void tsmiViewException_Click(object sender, EventArgs e)
+        {
+            exception.Show(dock);
+        }
+
+        internal void SendStatusMessage(string message)
+        {
+            Invoke(new Action(() =>
+            {
+                SendMessageToStatusBar(this, new StatusBarMessageEventArgs(message));
+            }));
         }
     }
 }
