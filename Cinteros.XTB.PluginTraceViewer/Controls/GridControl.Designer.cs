@@ -75,8 +75,16 @@
             this.tsmiShowColCorrelationId = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiShowColRequestId = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiShowColException = new System.Windows.Forms.ToolStripMenuItem();
+            this.statusStrip1 = new System.Windows.Forms.StatusStrip();
+            this.toolStripRecords = new System.Windows.Forms.ToolStripStatusLabel();
+            this.toolStripDuration = new System.Windows.Forms.ToolStripStatusLabel();
+            this.toolStripPlugins = new System.Windows.Forms.ToolStripStatusLabel();
+            this.toolStripEntities = new System.Windows.Forms.ToolStripStatusLabel();
+            this.toolStripCorrelations = new System.Windows.Forms.ToolStripStatusLabel();
+            this.toolStripMatch = new System.Windows.Forms.ToolStripStatusLabel();
             ((System.ComponentModel.ISupportInitialize)(this.crmGridView)).BeginInit();
             this.contextMenuGridView.SuspendLayout();
+            this.statusStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // crmGridView
@@ -114,7 +122,7 @@
             this.crmGridView.ShowFriendlyNames = true;
             this.crmGridView.ShowIdColumn = false;
             this.crmGridView.ShowIndexColumn = false;
-            this.crmGridView.Size = new System.Drawing.Size(601, 296);
+            this.crmGridView.Size = new System.Drawing.Size(601, 274);
             this.crmGridView.TabIndex = 26;
             this.crmGridView.RecordDoubleClick += new Cinteros.Xrm.CRMWinForm.CRMRecordEventHandler(this.crmGridView_RecordDoubleClick);
             this.crmGridView.RecordEnter += new Cinteros.Xrm.CRMWinForm.CRMRecordEventHandler(this.crmGridView_RecordEnter);
@@ -521,6 +529,57 @@
             this.tsmiShowColException.Text = "Exception";
             this.tsmiShowColException.CheckStateChanged += new System.EventHandler(this.tsmiShowColumn_CheckedChanged);
             // 
+            // statusStrip1
+            // 
+            this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripRecords,
+            this.toolStripDuration,
+            this.toolStripPlugins,
+            this.toolStripEntities,
+            this.toolStripCorrelations,
+            this.toolStripMatch});
+            this.statusStrip1.Location = new System.Drawing.Point(0, 274);
+            this.statusStrip1.Name = "statusStrip1";
+            this.statusStrip1.Size = new System.Drawing.Size(601, 22);
+            this.statusStrip1.SizingGrip = false;
+            this.statusStrip1.TabIndex = 27;
+            this.statusStrip1.Text = "statusStrip1";
+            // 
+            // toolStripRecords
+            // 
+            this.toolStripRecords.Name = "toolStripRecords";
+            this.toolStripRecords.Size = new System.Drawing.Size(61, 17);
+            this.toolStripRecords.Text = "Records: 0";
+            // 
+            // toolStripDuration
+            // 
+            this.toolStripDuration.Name = "toolStripDuration";
+            this.toolStripDuration.Size = new System.Drawing.Size(65, 17);
+            this.toolStripDuration.Text = "Duration: 0";
+            // 
+            // toolStripPlugins
+            // 
+            this.toolStripPlugins.Name = "toolStripPlugins";
+            this.toolStripPlugins.Size = new System.Drawing.Size(58, 17);
+            this.toolStripPlugins.Text = "Plugins: 0";
+            // 
+            // toolStripEntities
+            // 
+            this.toolStripEntities.Name = "toolStripEntities";
+            this.toolStripEntities.Size = new System.Drawing.Size(57, 17);
+            this.toolStripEntities.Text = "Entities: 0";
+            // 
+            // toolStripCorrelations
+            // 
+            this.toolStripCorrelations.Name = "toolStripCorrelations";
+            this.toolStripCorrelations.Size = new System.Drawing.Size(83, 17);
+            this.toolStripCorrelations.Text = "Correlations: 0";
+            // 
+            // toolStripMatch
+            // 
+            this.toolStripMatch.Name = "toolStripMatch";
+            this.toolStripMatch.Size = new System.Drawing.Size(0, 17);
+            // 
             // GridControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -529,13 +588,17 @@
             this.CloseButton = false;
             this.CloseButtonVisible = false;
             this.Controls.Add(this.crmGridView);
+            this.Controls.Add(this.statusStrip1);
             this.DockAreas = WeifenLuo.WinFormsUI.Docking.DockAreas.Document;
             this.HideOnClose = true;
             this.Name = "GridControl";
             this.TabText = "Plugin Trace Logs";
             ((System.ComponentModel.ISupportInitialize)(this.crmGridView)).EndInit();
             this.contextMenuGridView.ResumeLayout(false);
+            this.statusStrip1.ResumeLayout(false);
+            this.statusStrip1.PerformLayout();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -585,5 +648,12 @@
         private System.Windows.Forms.ToolStripMenuItem tsmiShowColRequestId;
         private System.Windows.Forms.ToolStripMenuItem tsmiShowColException;
         internal Xrm.CRMWinForm.CRMGridView crmGridView;
+        private System.Windows.Forms.StatusStrip statusStrip1;
+        private System.Windows.Forms.ToolStripStatusLabel toolStripRecords;
+        private System.Windows.Forms.ToolStripStatusLabel toolStripDuration;
+        private System.Windows.Forms.ToolStripStatusLabel toolStripPlugins;
+        private System.Windows.Forms.ToolStripStatusLabel toolStripEntities;
+        private System.Windows.Forms.ToolStripStatusLabel toolStripCorrelations;
+        private System.Windows.Forms.ToolStripStatusLabel toolStripMatch;
     }
 }

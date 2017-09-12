@@ -48,7 +48,7 @@ namespace Cinteros.XTB.PluginTraceViewer.Controls
             crmGridView.Refresh();
             ptv.SendStatusMessage("");
             refreshingGrid = false;
-            HighlightIdentical();
+            HighlightAndAggregate(GetSelectedCellsArray());
         }
 
         public EntityCollection Entities
@@ -75,7 +75,8 @@ namespace Cinteros.XTB.PluginTraceViewer.Controls
             }
             set
             {
-                if (value != null && value.Count > 0) {
+                if (value != null && value.Count > 0)
+                {
                     foreach (ToolStripMenuItem menu in contextMenuGridView.Items)
                     {
                         if (menu.CheckOnClick && menu.Tag != null && crmGridView.Columns.Contains(menu.Tag.ToString()))
@@ -127,7 +128,14 @@ namespace Cinteros.XTB.PluginTraceViewer.Controls
 
         private void crmGridView_SelectionChanged(object sender, EventArgs e)
         {
-            HighlightIdentical();
+            HighlightAndAggregate(GetSelectedCellsArray());
+        }
+
+        private DataGridViewCell[] GetSelectedCellsArray()
+        {
+            var selectedCells = new DataGridViewCell[crmGridView.SelectedCells.Count];
+            crmGridView.SelectedCells.CopyTo(selectedCells, 0);
+            return selectedCells;
         }
 
         private void contextMenuGridView_Opening(object sender, CancelEventArgs e)
@@ -211,7 +219,6 @@ namespace Cinteros.XTB.PluginTraceViewer.Controls
                 }
                 ptv.LogUse("SelectByCorrelationId");
             }
-            ptv.SendStatusMessage($"Selected {count} log records");
         }
 
         private void tsmiDeleteSelected_Click(object sender, EventArgs e)
@@ -316,12 +323,58 @@ namespace Cinteros.XTB.PluginTraceViewer.Controls
             ptv.WorkAsync(asyncinfo);
         }
 
-        internal void HighlightIdentical()
+        internal void HighlightAndAggregate(DataGridViewCell[] selectedCells)
         {
-            if (!ptv.tsmiHighlight.Checked || !crmGridView.Focused || refreshingGrid)
+            if (!crmGridView.Focused || refreshingGrid || selectedCells == null || selectedCells.Length == 0)
             {
                 return;
             }
+            ResetAllCellStyles();
+            if (!ptv.tsmiHighlight.Checked || selectedCells.Select(c => c.RowIndex).Distinct().Count() != 1)
+            {
+                toolStripMatch.Visible = false;
+                UpdateStatusBar(selectedCells.Select(c => c.OwningRow).Distinct());
+            }
+            else
+            {
+                selectedCells = selectedCells.Where(c => !string.IsNullOrWhiteSpace(c.Value.ToString())).OrderBy(c => c.ColumnIndex).ToArray();
+                foreach (var cell in selectedCells)
+                {
+                    cell.Style = cell.OwningColumn.DefaultCellStyle.Clone();
+                    cell.Style.BackColor = highlightColor;
+                }
+                var highlightedRows = new List<DataGridViewRow>();
+                var selectedRow = selectedCells[0].OwningRow;
+                foreach (DataGridViewRow row in crmGridView.Rows)
+                {
+                    var isIdentical = true;
+                    foreach (var cell in selectedCells)
+                    {
+                        var selectedvalue = cell.Value.ToString();
+                        var rowvalue = row.Cells[cell.ColumnIndex].Value.ToString();
+                        if (!selectedvalue.Equals(rowvalue))
+                        {
+                            isIdentical = false;
+                            break;
+                        }
+                    }
+                    if (isIdentical)
+                    {
+                        foreach (var cell in selectedCells)
+                        {
+                            row.Cells[cell.ColumnIndex].Style = cell.Style;
+                        }
+                        highlightedRows.Add(row);
+                    }
+                }
+                toolStripMatch.Visible = true;
+                toolStripMatch.Text = $"Match: {string.Join(" and ", selectedCells.Select(c => "(" + c.OwningColumn.HeaderCell.Value.ToString() + "=" + c.Value.ToString() + ")"))}";
+                UpdateStatusBar(highlightedRows);
+            }
+        }
+
+        private void ResetAllCellStyles()
+        {
             foreach (DataGridViewRow row in crmGridView.Rows)
             {
                 foreach (DataGridViewCell cell in row.Cells)
@@ -329,45 +382,16 @@ namespace Cinteros.XTB.PluginTraceViewer.Controls
                     cell.Style = cell.OwningColumn.DefaultCellStyle;
                 }
             }
-            var selectedCells = new DataGridViewCell[crmGridView.SelectedCells.Count];
-            crmGridView.SelectedCells.CopyTo(selectedCells, 0);
-            if (selectedCells.Select(c => c.RowIndex).Distinct().Count() != 1)
-            {
-                ptv.SendStatusMessage("Cannot highlight when multiple rows are selected.");
-                return;
-            }
-            selectedCells = selectedCells.OrderBy(c => c.ColumnIndex).ToArray();
-            var selectedRow = selectedCells[0].OwningRow;
-            var identical = 1;
-            var duration = (int)selectedRow.Cells["performanceexecutionduration"].Value;
-            foreach (DataGridViewRow row in crmGridView.Rows)
-            {
-                if (row.Index == selectedRow.Index)
-                {
-                    continue;
-                }
-                var isIdentical = true;
-                foreach (var cell in selectedCells)
-                {
-                    cell.Style = cell.OwningColumn.DefaultCellStyle.Clone();
-                    cell.Style.BackColor = highlightColor;
-                    var value = cell.Value.ToString();
-                    if (string.IsNullOrWhiteSpace(value) || !value.Equals(row.Cells[cell.ColumnIndex].Value.ToString()))
-                    {
-                        isIdentical = false;
-                    }
-                }
-                if (isIdentical)
-                {
-                    foreach (var cell in selectedCells)
-                    {
-                        row.Cells[cell.ColumnIndex].Style = cell.Style;
-                    }
-                    identical++;
-                    duration += (int)row.Cells["performanceexecutionduration"].Value;
-                }
-            }
-            ptv.SendStatusMessage($"Highlighted {identical} rows with total duration {duration} ms, matching: {string.Join(" and ", selectedCells.Select(c => "(" + c.OwningColumn.HeaderCell.Value.ToString() + "=" + c.Value.ToString() + ")"))}");
+        }
+
+        private void UpdateStatusBar(IEnumerable<DataGridViewRow> rows)
+        {
+            rows = rows.Distinct();
+            toolStripRecords.Text = $"Records: {rows.Count()}";
+            toolStripDuration.Text = $"Duration: {rows.Select(r => (int)r.Cells["performanceexecutionduration"].Value).Sum()} ms";
+            toolStripPlugins.Text = $"Plugins: {rows.Select(r => r.Cells["typename"].Value).Distinct().Count()}";
+            toolStripEntities.Text = $"Entities: {rows.Select(r => r.Cells["primaryentity"].Value).Distinct().Count()}";
+            toolStripCorrelations.Text = $"Correlations: {rows.Select(r => r.Cells["correlationid"].Value).Distinct().Count()}";
         }
 
         private Guid GetSelectedCorrelationId()
