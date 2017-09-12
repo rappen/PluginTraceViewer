@@ -505,7 +505,7 @@ namespace Cinteros.XTB.PluginTraceViewer.Controls
 
         internal void ShowTZInfo(bool showlocal)
         {
-            if (showlocal)
+            if (!showlocal)
             {
                 labelTimeZone.Text = "Times in UTC";
             }

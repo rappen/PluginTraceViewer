@@ -532,7 +532,7 @@
             this.DockAreas = WeifenLuo.WinFormsUI.Docking.DockAreas.Document;
             this.HideOnClose = true;
             this.Name = "GridControl";
-            this.TabText = "Grid";
+            this.TabText = "Plugin Trace Logs";
             ((System.ComponentModel.ISupportInitialize)(this.crmGridView)).EndInit();
             this.contextMenuGridView.ResumeLayout(false);
             this.ResumeLayout(false);

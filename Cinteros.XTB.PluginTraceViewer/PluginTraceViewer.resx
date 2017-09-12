@@ -322,13 +322,13 @@
   <data name="dropdownView.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
-        YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAFpSURBVDhPxZJrS8JwFMb9bn2CkZREdKGwIGnqUNiMQEIK
+        YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAFpSURBVDhPxZJrS8JwFMb9bH2DkZREdKGwIGnqUNiMQEIK
         ohARl92Mksa8REYRFmVgL7qRJAld/ABBb3rhOzdPO+efcyUE2oseeBgc9vzOw9lsfxbnVqeWstVaQKmC
         tGs4+QLi9hP4tyrg23wEYaMM3tUSuOP3wMduwRW9Bil2WcMcAUKZgh7Jv0Gn7gkXdALg5m7sXLwAAkjJ
         V+hGY/NnDCDuPNMgWGwZxeecplErpZZRI6GTL4BxMBQGE+XvgHgpTM9Go0HBrLGrCRgKHjMAXhv1WwNd
         19saDM4eMQB+qp/CjU1j2GpN0+idgZkDBhDWH2hg3YhBkO2mMfhRmTCNckj7DMDLdzTAYKIsm5UpnBLo
         iVsp+L5mAuy+DANMR29oYG1ANS0N6vV6W4NeIcUArsgVDToV51UZgPMo6uRykf6s8YVzGA2dwvBc3rjy
-        IR3KEchBv7gHff6sUTttbFaB86AVlQD/LJvtE7JBd02zwvaAAAAAAElFTkSuQmCC
+        IR3KEchBv7gHff6sUTttbFaB86AVlQD/LJvtE67sd0w12zQZAAAAAElFTkSuQmCC
 </value>
   </data>
   <data name="buttonRetrieveLogs.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
