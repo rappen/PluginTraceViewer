@@ -330,7 +330,9 @@ namespace Cinteros.XTB.PluginTraceViewer.Controls
                 return;
             }
             ResetAllCellStyles();
-            if (!ptv.tsmiHighlight.Checked || selectedCells.Select(c => c.RowIndex).Distinct().Count() != 1)
+            if (!ptv.tsmiHighlight.Checked ||
+                selectedCells.Select(c => c.RowIndex).Distinct().Count() != 1 ||
+                selectedCells.Where(c => !string.IsNullOrWhiteSpace(c.Value.ToString())).Count() == 0)
             {
                 toolStripMatch.Visible = false;
                 UpdateStatusBar(selectedCells.Select(c => c.OwningRow).Distinct());
@@ -338,38 +340,41 @@ namespace Cinteros.XTB.PluginTraceViewer.Controls
             else
             {
                 selectedCells = selectedCells.Where(c => !string.IsNullOrWhiteSpace(c.Value.ToString())).OrderBy(c => c.ColumnIndex).ToArray();
-                foreach (var cell in selectedCells)
+                if (selectedCells.Length > 0)
                 {
-                    cell.Style = cell.OwningColumn.DefaultCellStyle.Clone();
-                    cell.Style.BackColor = highlightColor;
-                }
-                var highlightedRows = new List<DataGridViewRow>();
-                var selectedRow = selectedCells[0].OwningRow;
-                foreach (DataGridViewRow row in crmGridView.Rows)
-                {
-                    var isIdentical = true;
                     foreach (var cell in selectedCells)
                     {
-                        var selectedvalue = cell.Value.ToString();
-                        var rowvalue = row.Cells[cell.ColumnIndex].Value.ToString();
-                        if (!selectedvalue.Equals(rowvalue))
-                        {
-                            isIdentical = false;
-                            break;
-                        }
+                        cell.Style = cell.OwningColumn.DefaultCellStyle.Clone();
+                        cell.Style.BackColor = highlightColor;
                     }
-                    if (isIdentical)
+                    var highlightedRows = new List<DataGridViewRow>();
+                    var selectedRow = selectedCells[0].OwningRow;
+                    foreach (DataGridViewRow row in crmGridView.Rows)
                     {
+                        var isIdentical = true;
                         foreach (var cell in selectedCells)
                         {
-                            row.Cells[cell.ColumnIndex].Style = cell.Style;
+                            var selectedvalue = cell.Value.ToString();
+                            var rowvalue = row.Cells[cell.ColumnIndex].Value.ToString();
+                            if (!selectedvalue.Equals(rowvalue))
+                            {
+                                isIdentical = false;
+                                break;
+                            }
                         }
-                        highlightedRows.Add(row);
+                        if (isIdentical)
+                        {
+                            foreach (var cell in selectedCells)
+                            {
+                                row.Cells[cell.ColumnIndex].Style = cell.Style;
+                            }
+                            highlightedRows.Add(row);
+                        }
                     }
+                    toolStripMatch.Visible = true;
+                    toolStripMatch.Text = $"Match: {string.Join(" and ", selectedCells.Select(c => "(" + c.OwningColumn.HeaderCell.Value.ToString() + "=" + c.Value.ToString() + ")"))}";
+                    UpdateStatusBar(highlightedRows);
                 }
-                toolStripMatch.Visible = true;
-                toolStripMatch.Text = $"Match: {string.Join(" and ", selectedCells.Select(c => "(" + c.OwningColumn.HeaderCell.Value.ToString() + "=" + c.Value.ToString() + ")"))}";
-                UpdateStatusBar(highlightedRows);
             }
         }
 
