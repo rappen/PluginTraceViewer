@@ -38,7 +38,7 @@ namespace Cinteros.XTB.PluginTraceViewer.Controls
             }
             if (service != null)
             {
-                crmGridView.DataSource = service;
+                crmGridView.OrganizationService = service;
             }
         }
 
