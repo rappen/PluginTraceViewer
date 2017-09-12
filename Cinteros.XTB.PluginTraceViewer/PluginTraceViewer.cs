@@ -48,14 +48,19 @@ namespace Cinteros.XTB.PluginTraceViewer
         private void SetupDockControls()
         {
             string dockFile = GetDockFileName();
-            if (!File.Exists(dockFile))
+            if (File.Exists(dockFile))
             {
-                ResetDockLayout();
+                try
+                {
+                    dockContainer.LoadFromXml(dockFile, dockDeSerialization);
+                    return;
+                }
+                catch (InvalidOperationException)
+                {
+                    // Restore from file failed
+                }
             }
-            else
-            {
-                dockContainer.LoadFromXml(dockFile, dockDeSerialization);
-            }
+            ResetDockLayout();
         }
 
         private void ResetDockLayout()
@@ -785,7 +790,14 @@ namespace Cinteros.XTB.PluginTraceViewer
 
         private void tsmiViewStatistics_Click(object sender, EventArgs e)
         {
-            statsControl.Show(dockContainer, DockState.Float);
+            if (filterControl.Visible)
+            {
+                statsControl.Show(filterControl.Pane, DockAlignment.Right, 0.4);
+            }
+            else
+            {
+                statsControl.Show(dockContainer);
+            }
         }
 
         private void tsmiViewFilter_Click(object sender, EventArgs e)
