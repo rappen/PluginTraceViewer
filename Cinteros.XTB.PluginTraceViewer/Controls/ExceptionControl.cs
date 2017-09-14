@@ -20,6 +20,7 @@ namespace Cinteros.XTB.PluginTraceViewer.Controls
         internal void SetException(string text, string caption)
         {
             textException.Text = text;
+            textException.SelectionStart = 0;
             TabText = caption;
         }
     }

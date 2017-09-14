@@ -20,6 +20,7 @@ namespace Cinteros.XTB.PluginTraceViewer.Controls
         internal void SetLogText(string log)
         {
             textMessage.Text = log;
+            textMessage.SelectionStart = 0;
         }
     }
 }
