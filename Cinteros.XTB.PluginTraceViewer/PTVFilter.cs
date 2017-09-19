@@ -12,8 +12,13 @@ namespace Cinteros.XTB.PluginTraceViewer
         public string Entity { get; set; }
         public string CorrelationId { get; set; }
         public bool Exceptions { get; set; }
-        public int Operation { get; set; }
-        public int Mode { get; set; }
+        public bool OperationPlugin { get; set; } = true;
+        public bool OperationWF { get; set; } = true;
+        public bool ModeSync { get; set; } = true;
+        public bool ModeAsync { get; set; } = true;
+        public bool StagePreVal { get; set; } = true;
+        public bool StagePreOp { get; set; } = true;
+        public bool StagePostOp { get; set; } = true;
         public int MinDuration { get; set; }
         public int MaxDuration { get; set; }
         public int Records { get; set; }

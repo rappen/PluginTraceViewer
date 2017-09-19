@@ -62,12 +62,8 @@ namespace Cinteros.XTB.PluginTraceViewer.Controls
 
         private void chkDurationMin_CheckedChanged(object sender, EventArgs e)
         {
-            numDurationMin.Enabled = chkDurationMin.Checked;
-        }
-
-        private void chkDurationMax_CheckedChanged(object sender, EventArgs e)
-        {
-            numDurationMax.Enabled = chkDurationMax.Checked;
+            numDurationMin.Enabled = chkDuration.Checked;
+            numDurationMax.Enabled = chkDuration.Checked;
         }
 
         private void chkRecords_CheckedChanged(object sender, EventArgs e)
@@ -155,38 +151,14 @@ namespace Cinteros.XTB.PluginTraceViewer.Controls
             chkCorrelation.Checked = !string.IsNullOrEmpty(filter.CorrelationId);
             textCorrelationId.Text = filter.CorrelationId;
             chkExceptions.Checked = filter.Exceptions;
-            switch (filter.Operation)
-            {
-                case 1:
-                    rbOperPlugin.Checked = true;
-                    break;
-                case 2:
-                    rbOperWF.Checked = true;
-                    break;
-                default:
-                    rbOperAll.Checked = true;
-                    break;
-            }
-            switch (filter.Mode)
-            {
-                case 1:
-                    rbModeSync.Checked = true;
-                    break;
-                case 2:
-                    rbModeAsync.Checked = true;
-                    break;
-                default:
-                    rbModeAll.Checked = true;
-                    break;
-            }
-            chkDurationMin.Checked = filter.MinDuration > -1;
-            if (chkDurationMin.Checked)
+            chkOperPlugins.Checked = filter.OperationPlugin;
+            chkOperWF.Checked = filter.OperationWF;
+            chkModeSync.Checked = filter.ModeSync;
+            chkModeAsync.Checked = filter.ModeAsync;
+            chkDuration.Checked = filter.MinDuration > -1 && filter.MaxDuration > -1;
+            if (chkDuration.Checked)
             {
                 numDurationMin.Value = filter.MinDuration;
-            }
-            chkDurationMax.Checked = filter.MaxDuration > -1;
-            if (chkDurationMax.Checked)
-            {
                 numDurationMax.Value = filter.MaxDuration;
             }
             chkRecords.Checked = filter.Records > -1;
@@ -209,10 +181,15 @@ namespace Cinteros.XTB.PluginTraceViewer.Controls
                 Entity = chkEntity.Checked ? comboEntity.Text : string.Empty,
                 CorrelationId = chkCorrelation.Checked ? textCorrelationId.Text : string.Empty,
                 Exceptions = chkExceptions.Checked,
-                Operation = rbOperPlugin.Checked ? 1 : rbOperWF.Checked ? 2 : 0,
-                Mode = rbModeSync.Checked ? 1 : rbModeAsync.Checked ? 2 : 0,
-                MinDuration = chkDurationMin.Checked ? (int)numDurationMin.Value : -1,
-                MaxDuration = chkDurationMax.Checked ? (int)numDurationMax.Value : -1,
+                OperationPlugin = chkOperPlugins.Checked,
+                OperationWF = chkOperWF.Checked,
+                ModeSync = chkModeSync.Checked,
+                ModeAsync = chkModeAsync.Checked,
+                StagePreVal = chkStage10.Checked,
+                StagePreOp = chkStage20.Checked,
+                StagePostOp = chkStage40.Checked,
+                MinDuration = chkDuration.Checked ? (int)numDurationMin.Value : -1,
+                MaxDuration = chkDuration.Checked ? (int)numDurationMax.Value : -1,
                 Records = chkRecords.Checked ? (int)numRecords.Value : -1,
                 VisibleColumns = new List<string>()
             };
@@ -288,28 +265,45 @@ namespace Cinteros.XTB.PluginTraceViewer.Controls
                 QEplugintracelog.Criteria.AddCondition("exceptiondetails", ConditionOperator.NotNull);
                 QEplugintracelog.Criteria.AddCondition("exceptiondetails", ConditionOperator.NotEqual, "");
             }
-            if (rbOperPlugin.Checked)
+            if (chkOperPlugins.Checked && !chkOperWF.Checked)
             {
                 QEplugintracelog.Criteria.AddCondition("operationtype", ConditionOperator.Equal, 1);
             }
-            else if (rbOperWF.Checked)
+            if (!chkOperPlugins.Checked && chkOperWF.Checked)
             {
                 QEplugintracelog.Criteria.AddCondition("operationtype", ConditionOperator.Equal, 2);
             }
-            if (rbModeSync.Checked)
+            if (chkModeSync.Checked && !chkModeAsync.Checked)
             {
                 QEplugintracelog.Criteria.AddCondition("mode", ConditionOperator.Equal, 0);
             }
-            else if (rbModeAsync.Checked)
+            else if (!chkModeSync.Checked && chkModeAsync.Checked)
             {
                 QEplugintracelog.Criteria.AddCondition("mode", ConditionOperator.Equal, 1);
             }
-            if (chkDurationMin.Checked)
+            if (!chkStage10.Checked || !chkStage20.Checked || !chkStage40.Checked)
+            {
+                var condStage = new ConditionExpression("step", "stage", ConditionOperator.In);
+                if (chkStage10.Checked)
+                {
+                    condStage.Values.Add(10);
+                }
+                if (chkStage20.Checked)
+                {
+                    condStage.Values.Add(20);
+                }
+                if (chkStage40.Checked)
+                {
+                    condStage.Values.Add(40);
+                }
+                if (condStage.Values.Count > 0)
+                {
+                    QEplugintracelog.Criteria.AddCondition(condStage);
+                }
+            }
+            if (chkDuration.Checked)
             {
                 QEplugintracelog.Criteria.AddCondition("performanceexecutionduration", ConditionOperator.GreaterEqual, (int)numDurationMin.Value);
-            }
-            if (chkDurationMax.Checked)
-            {
                 QEplugintracelog.Criteria.AddCondition("performanceexecutionduration", ConditionOperator.LessEqual, (int)numDurationMax.Value);
             }
         }
