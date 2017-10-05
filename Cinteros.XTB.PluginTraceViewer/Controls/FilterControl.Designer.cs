@@ -43,20 +43,20 @@
             this.dateTo = new System.Windows.Forms.DateTimePicker();
             this.dateFrom = new System.Windows.Forms.DateTimePicker();
             this.panelOptions = new System.Windows.Forms.Panel();
+            this.chkOperWF = new System.Windows.Forms.CheckBox();
+            this.chkOperPlugins = new System.Windows.Forms.CheckBox();
+            this.chkModeAsync = new System.Windows.Forms.CheckBox();
+            this.chkModeSync = new System.Windows.Forms.CheckBox();
+            this.chkStage40 = new System.Windows.Forms.CheckBox();
+            this.chkStage20 = new System.Windows.Forms.CheckBox();
+            this.chkStage10 = new System.Windows.Forms.CheckBox();
+            this.label1 = new System.Windows.Forms.Label();
             this.chkRecords = new System.Windows.Forms.CheckBox();
             this.chkDuration = new System.Windows.Forms.CheckBox();
             this.numDurationMax = new System.Windows.Forms.NumericUpDown();
             this.numDurationMin = new System.Windows.Forms.NumericUpDown();
             this.numRecords = new System.Windows.Forms.NumericUpDown();
             this.chkExceptions = new System.Windows.Forms.CheckBox();
-            this.label1 = new System.Windows.Forms.Label();
-            this.chkStage10 = new System.Windows.Forms.CheckBox();
-            this.chkStage20 = new System.Windows.Forms.CheckBox();
-            this.chkStage40 = new System.Windows.Forms.CheckBox();
-            this.chkModeSync = new System.Windows.Forms.CheckBox();
-            this.chkModeAsync = new System.Windows.Forms.CheckBox();
-            this.chkOperPlugins = new System.Windows.Forms.CheckBox();
-            this.chkOperWF = new System.Windows.Forms.CheckBox();
             this.panelFilter.SuspendLayout();
             this.panelOptions.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numDurationMax)).BeginInit();
@@ -142,7 +142,6 @@
             // 
             this.comboMessage.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.comboMessage.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboMessage.Enabled = false;
             this.comboMessage.FormattingEnabled = true;
             this.comboMessage.Location = new System.Drawing.Point(97, 72);
@@ -251,6 +250,99 @@
             this.panelOptions.Size = new System.Drawing.Size(255, 151);
             this.panelOptions.TabIndex = 2;
             // 
+            // chkOperWF
+            // 
+            this.chkOperWF.AutoSize = true;
+            this.chkOperWF.Checked = true;
+            this.chkOperWF.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkOperWF.Location = new System.Drawing.Point(93, 27);
+            this.chkOperWF.Name = "chkOperWF";
+            this.chkOperWF.Size = new System.Drawing.Size(88, 17);
+            this.chkOperWF.TabIndex = 3;
+            this.chkOperWF.Text = "WF Activities";
+            this.chkOperWF.UseVisualStyleBackColor = true;
+            // 
+            // chkOperPlugins
+            // 
+            this.chkOperPlugins.AutoSize = true;
+            this.chkOperPlugins.Checked = true;
+            this.chkOperPlugins.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkOperPlugins.Location = new System.Drawing.Point(3, 27);
+            this.chkOperPlugins.Name = "chkOperPlugins";
+            this.chkOperPlugins.Size = new System.Drawing.Size(60, 17);
+            this.chkOperPlugins.TabIndex = 2;
+            this.chkOperPlugins.Text = "Plugins";
+            this.chkOperPlugins.UseVisualStyleBackColor = true;
+            // 
+            // chkModeAsync
+            // 
+            this.chkModeAsync.AutoSize = true;
+            this.chkModeAsync.Checked = true;
+            this.chkModeAsync.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkModeAsync.Location = new System.Drawing.Point(93, 50);
+            this.chkModeAsync.Name = "chkModeAsync";
+            this.chkModeAsync.Size = new System.Drawing.Size(55, 17);
+            this.chkModeAsync.TabIndex = 5;
+            this.chkModeAsync.Text = "Async";
+            this.chkModeAsync.UseVisualStyleBackColor = true;
+            // 
+            // chkModeSync
+            // 
+            this.chkModeSync.AutoSize = true;
+            this.chkModeSync.Checked = true;
+            this.chkModeSync.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkModeSync.Location = new System.Drawing.Point(3, 50);
+            this.chkModeSync.Name = "chkModeSync";
+            this.chkModeSync.Size = new System.Drawing.Size(50, 17);
+            this.chkModeSync.TabIndex = 4;
+            this.chkModeSync.Text = "Sync";
+            this.chkModeSync.UseVisualStyleBackColor = true;
+            // 
+            // chkStage40
+            // 
+            this.chkStage40.AutoSize = true;
+            this.chkStage40.Checked = true;
+            this.chkStage40.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkStage40.Location = new System.Drawing.Point(183, 74);
+            this.chkStage40.Name = "chkStage40";
+            this.chkStage40.Size = new System.Drawing.Size(61, 17);
+            this.chkStage40.TabIndex = 8;
+            this.chkStage40.Text = "PostOp";
+            this.chkStage40.UseVisualStyleBackColor = true;
+            // 
+            // chkStage20
+            // 
+            this.chkStage20.AutoSize = true;
+            this.chkStage20.Checked = true;
+            this.chkStage20.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkStage20.Location = new System.Drawing.Point(93, 74);
+            this.chkStage20.Name = "chkStage20";
+            this.chkStage20.Size = new System.Drawing.Size(56, 17);
+            this.chkStage20.TabIndex = 7;
+            this.chkStage20.Text = "PreOp";
+            this.chkStage20.UseVisualStyleBackColor = true;
+            // 
+            // chkStage10
+            // 
+            this.chkStage10.AutoSize = true;
+            this.chkStage10.Checked = true;
+            this.chkStage10.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkStage10.Location = new System.Drawing.Point(3, 74);
+            this.chkStage10.Name = "chkStage10";
+            this.chkStage10.Size = new System.Drawing.Size(57, 17);
+            this.chkStage10.TabIndex = 6;
+            this.chkStage10.Text = "PreVal";
+            this.chkStage10.UseVisualStyleBackColor = true;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(165, 99);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(10, 13);
+            this.label1.TabIndex = 14;
+            this.label1.Text = "-";
+            // 
             // chkRecords
             // 
             this.chkRecords.AutoSize = true;
@@ -347,99 +439,6 @@
             this.chkExceptions.TabIndex = 1;
             this.chkExceptions.Text = "Exceptions only";
             this.chkExceptions.UseVisualStyleBackColor = true;
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(165, 99);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(10, 13);
-            this.label1.TabIndex = 14;
-            this.label1.Text = "-";
-            // 
-            // chkStage10
-            // 
-            this.chkStage10.AutoSize = true;
-            this.chkStage10.Checked = true;
-            this.chkStage10.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkStage10.Location = new System.Drawing.Point(3, 74);
-            this.chkStage10.Name = "chkStage10";
-            this.chkStage10.Size = new System.Drawing.Size(57, 17);
-            this.chkStage10.TabIndex = 6;
-            this.chkStage10.Text = "PreVal";
-            this.chkStage10.UseVisualStyleBackColor = true;
-            // 
-            // chkStage20
-            // 
-            this.chkStage20.AutoSize = true;
-            this.chkStage20.Checked = true;
-            this.chkStage20.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkStage20.Location = new System.Drawing.Point(93, 74);
-            this.chkStage20.Name = "chkStage20";
-            this.chkStage20.Size = new System.Drawing.Size(56, 17);
-            this.chkStage20.TabIndex = 7;
-            this.chkStage20.Text = "PreOp";
-            this.chkStage20.UseVisualStyleBackColor = true;
-            // 
-            // chkStage40
-            // 
-            this.chkStage40.AutoSize = true;
-            this.chkStage40.Checked = true;
-            this.chkStage40.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkStage40.Location = new System.Drawing.Point(183, 74);
-            this.chkStage40.Name = "chkStage40";
-            this.chkStage40.Size = new System.Drawing.Size(61, 17);
-            this.chkStage40.TabIndex = 8;
-            this.chkStage40.Text = "PostOp";
-            this.chkStage40.UseVisualStyleBackColor = true;
-            // 
-            // chkModeSync
-            // 
-            this.chkModeSync.AutoSize = true;
-            this.chkModeSync.Checked = true;
-            this.chkModeSync.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkModeSync.Location = new System.Drawing.Point(3, 50);
-            this.chkModeSync.Name = "chkModeSync";
-            this.chkModeSync.Size = new System.Drawing.Size(50, 17);
-            this.chkModeSync.TabIndex = 4;
-            this.chkModeSync.Text = "Sync";
-            this.chkModeSync.UseVisualStyleBackColor = true;
-            // 
-            // chkModeAsync
-            // 
-            this.chkModeAsync.AutoSize = true;
-            this.chkModeAsync.Checked = true;
-            this.chkModeAsync.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkModeAsync.Location = new System.Drawing.Point(93, 50);
-            this.chkModeAsync.Name = "chkModeAsync";
-            this.chkModeAsync.Size = new System.Drawing.Size(55, 17);
-            this.chkModeAsync.TabIndex = 5;
-            this.chkModeAsync.Text = "Async";
-            this.chkModeAsync.UseVisualStyleBackColor = true;
-            // 
-            // chkOperPlugins
-            // 
-            this.chkOperPlugins.AutoSize = true;
-            this.chkOperPlugins.Checked = true;
-            this.chkOperPlugins.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkOperPlugins.Location = new System.Drawing.Point(3, 27);
-            this.chkOperPlugins.Name = "chkOperPlugins";
-            this.chkOperPlugins.Size = new System.Drawing.Size(60, 17);
-            this.chkOperPlugins.TabIndex = 2;
-            this.chkOperPlugins.Text = "Plugins";
-            this.chkOperPlugins.UseVisualStyleBackColor = true;
-            // 
-            // chkOperWF
-            // 
-            this.chkOperWF.AutoSize = true;
-            this.chkOperWF.Checked = true;
-            this.chkOperWF.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkOperWF.Location = new System.Drawing.Point(93, 27);
-            this.chkOperWF.Name = "chkOperWF";
-            this.chkOperWF.Size = new System.Drawing.Size(88, 17);
-            this.chkOperWF.TabIndex = 3;
-            this.chkOperWF.Text = "WF Activities";
-            this.chkOperWF.UseVisualStyleBackColor = true;
             // 
             // FilterControl
             // 

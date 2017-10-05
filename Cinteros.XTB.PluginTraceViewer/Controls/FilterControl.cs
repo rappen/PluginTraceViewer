@@ -145,7 +145,7 @@ namespace Cinteros.XTB.PluginTraceViewer.Controls
             chkPlugin.Checked = !string.IsNullOrEmpty(filter.Plugin);
             comboPlugin.Text = filter.Plugin;
             chkMessage.Checked = !string.IsNullOrEmpty(filter.Message);
-            comboMessage.SelectedIndex = comboMessage.Items.IndexOf(filter.Message);
+            comboMessage.Text = filter.Message;
             chkEntity.Checked = !string.IsNullOrEmpty(filter.Entity);
             comboEntity.Text = filter.Entity;
             chkCorrelation.Checked = !string.IsNullOrEmpty(filter.CorrelationId);
@@ -233,7 +233,23 @@ namespace Cinteros.XTB.PluginTraceViewer.Controls
             }
             if (chkMessage.Checked && !string.IsNullOrWhiteSpace(comboMessage.Text))
             {
-                QEplugintracelog.Criteria.AddCondition("messagename", ConditionOperator.Equal, comboMessage.Text);
+                var messageFilterInclude = QEplugintracelog.Criteria.AddFilter(LogicalOperator.Or);
+                var messageFilterExclude = QEplugintracelog.Criteria.AddFilter(LogicalOperator.And);
+                foreach (var message in comboMessage.Text.Split(','))
+                {
+                    if (string.IsNullOrWhiteSpace(message))
+                    {
+                        continue;
+                    }
+                    if (message.Trim().StartsWith("!"))
+                    {
+                        messageFilterExclude.AddCondition("messagename", message.Contains("*") ? ConditionOperator.NotLike : ConditionOperator.NotEqual, message.Replace("*", "%").Trim().Substring(1));
+                    }
+                    else
+                    {
+                        messageFilterInclude.AddCondition("messagename", message.Contains("*") ? ConditionOperator.Like : ConditionOperator.Equal, message.Replace("*", "%").Trim());
+                    }
+                }
             }
             if (chkEntity.Checked && !string.IsNullOrWhiteSpace(comboEntity.Text))
             {
