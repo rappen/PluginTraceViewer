@@ -393,7 +393,7 @@ namespace Cinteros.XTB.PluginTraceViewer.Controls
         {
             rows = rows.Distinct();
             toolStripRecords.Text = $"Records: {rows.Count()}";
-            toolStripDuration.Text = $"Duration: {rows.Select(r => (int)r.Cells["performanceexecutionduration"].Value).Sum()} ms";
+            toolStripDuration.Text = $"Duration: {rows.Select(r => (r.Cells["performanceexecutionduration"].Value as int?)).Sum()} ms";
             toolStripPlugins.Text = $"Plugins: {rows.Select(r => r.Cells["typename"].Value).Distinct().Count()}";
             toolStripEntities.Text = $"Entities: {rows.Select(r => r.Cells["primaryentity"].Value).Distinct().Count()}";
             toolStripCorrelations.Text = $"Correlations: {rows.Select(r => r.Cells["correlationid"].Value).Distinct().Count()}";
