@@ -42,7 +42,6 @@ namespace Cinteros.XTB.PluginTraceViewer
             statsControl = new StatsControl(this);
             traceControl = new TraceControl();
             exceptionControl = new ExceptionControl();
-            SetupDockControls();
         }
 
         private void SetupDockControls()
@@ -177,6 +176,7 @@ namespace Cinteros.XTB.PluginTraceViewer
 
         private void PluginTraceViewer_Load(object sender, EventArgs e)
         {
+            SetupDockControls();
             LoadSettings();
             LogUse("Load");
         }
