@@ -368,6 +368,7 @@
             this.Controls.Add(this.toolStripMain);
             this.Name = "PluginTraceViewer";
             this.Size = new System.Drawing.Size(1114, 728);
+            this.TabIcon = ((System.Drawing.Image)(resources.GetObject("$this.TabIcon")));
             this.ConnectionUpdated += new XrmToolBox.Extensibility.PluginControlBase.ConnectionUpdatedHandler(this.PluginTraceViewer_ConnectionUpdated);
             this.Load += new System.EventHandler(this.PluginTraceViewer_Load);
             this.toolStripMain.ResumeLayout(false);
