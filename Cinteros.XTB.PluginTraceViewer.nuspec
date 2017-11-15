@@ -17,7 +17,7 @@
     <copyright>Copyright 2016 Innofactor AB</copyright>
     <tags>XrmToolBox Plugins PluginTraceViewer</tags>
     <dependencies>
-      <dependency id="XrmToolBox" version="1.2016.11.4" />
+      <dependency id="XrmToolBox" version="1.2017.10.19" />
     </dependencies>
   </metadata>
   <files>
