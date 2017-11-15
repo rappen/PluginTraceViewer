@@ -341,9 +341,11 @@ namespace Cinteros.XTB.PluginTraceViewer
                     }
                     else if (args.Result is EntityCollection)
                     {
-                        FriendlyfyCorrelationIds(args.Result as EntityCollection);
-                        ExtractExceptionSummaries(args.Result as EntityCollection);
-                        gridControl.PopulateGrid(args.Result as EntityCollection);
+                        var results = args.Result as EntityCollection;
+                        FriendlyfyCorrelationIds(results);
+                        SetTraceSizes(results);
+                        ExtractExceptionSummaries(results);
+                        gridControl.PopulateGrid(results);
                     }
                 }
             };
@@ -429,6 +431,21 @@ namespace Cinteros.XTB.PluginTraceViewer
                 }
             }
             LogInfo("Extracted exception summary from {0} logs", cnt);
+        }
+
+        private void SetTraceSizes(EntityCollection entities)
+        {
+            var cnt = 0;
+            foreach (var entity in entities.Entities)
+            {
+                if (entity.Contains("messageblock") && !string.IsNullOrWhiteSpace(entity["messageblock"].ToString()))
+                {
+                    var trace = entity["messageblock"].ToString();
+                    entity.Attributes.Add("tracesize", trace.Length);
+                    cnt++;
+                }
+            }
+            LogInfo("Set trace sizes for {0} logs", cnt);
         }
 
         private QueryExpression GetQuery()
