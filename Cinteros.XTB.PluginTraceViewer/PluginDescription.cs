@@ -10,9 +10,9 @@
     ExportMetadata("Description", "Investigate the Plug-in Trace Log with easy filtering and display possibilities"),
     ExportMetadata("SmallImageBase64", Constants.B64_IMAGE_SMALL), 
     ExportMetadata("BigImageBase64", Constants.B64_IMAGE_LARGE), 
-    ExportMetadata("BackgroundColor", "#ffffff"), // Use a HTML color name
-    ExportMetadata("PrimaryFontColor", "#000000"), // Or an hexadecimal code
-    ExportMetadata("SecondaryFontColor", "Blue")]
+    ExportMetadata("BackgroundColor", "#f8f8ff"),
+    ExportMetadata("PrimaryFontColor", "#00319C"),
+    ExportMetadata("SecondaryFontColor", "#9439B5")]
     public class PluginTraceViewerPlugin : PluginBase
     {
         #region Public Methods
