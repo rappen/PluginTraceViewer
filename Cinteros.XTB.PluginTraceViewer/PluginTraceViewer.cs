@@ -186,6 +186,7 @@ namespace Cinteros.XTB.PluginTraceViewer
             LoadFilter();
             var orgver = new Version(e.ConnectionDetail.OrganizationVersion);
             LogInfo("Connected CRM version: {0}", orgver);
+            ClearControls();
             var orgok = orgver >= new Version(7, 1);
             gridControl.SetDataSource(orgok ? e.Service : null);
             buttonRetrieveLogs.Enabled = orgok;
@@ -321,7 +322,7 @@ namespace Cinteros.XTB.PluginTraceViewer
             {
                 return;
             }
-            statsControl.Clear();
+            ClearControls();
             LogUse("RetrieveLogs");
             var asyncinfo = new WorkAsyncInfo()
             {
@@ -350,6 +351,13 @@ namespace Cinteros.XTB.PluginTraceViewer
                 }
             };
             WorkAsync(asyncinfo);
+        }
+
+        private void ClearControls()
+        {
+            traceControl.Clear();
+            exceptionControl.Clear();
+            statsControl.Clear();
         }
 
         private void FriendlyfyCorrelationIds(EntityCollection entities)

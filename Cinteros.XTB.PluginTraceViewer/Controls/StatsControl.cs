@@ -3,6 +3,7 @@ using Microsoft.Xrm.Sdk.Query;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Windows.Forms;
 
 namespace Cinteros.XTB.PluginTraceViewer.Controls
 {
@@ -32,6 +33,10 @@ namespace Cinteros.XTB.PluginTraceViewer.Controls
             if (statistics != null)
             {
                 statistics.Clear();
+            }
+            foreach (var textBox in this.AllChildren<TextBox>())
+            {
+                textBox.Clear();
             }
         }
 

@@ -23,5 +23,11 @@ namespace Cinteros.XTB.PluginTraceViewer.Controls
             textException.SelectionStart = 0;
             TabText = caption;
         }
+
+        internal void Clear()
+        {
+            textException.Clear();
+            TabText = "Exception";
+        }
     }
 }

@@ -22,5 +22,10 @@ namespace Cinteros.XTB.PluginTraceViewer.Controls
             textMessage.Text = log;
             textMessage.SelectionStart = 0;
         }
+
+        internal void Clear()
+        {
+            textMessage.Clear();
+        }
     }
 }
