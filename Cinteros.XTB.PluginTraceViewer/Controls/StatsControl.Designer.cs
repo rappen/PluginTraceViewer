@@ -258,9 +258,9 @@
             this.label6.AutoSize = true;
             this.label6.Location = new System.Drawing.Point(12, 105);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(101, 13);
+            this.label6.Size = new System.Drawing.Size(100, 13);
             this.label6.TabIndex = 4;
-            this.label6.Text = "Exec.Time / Day (s)";
+            this.label6.Text = "Run Avg. (sec/day)";
             // 
             // label5
             // 
