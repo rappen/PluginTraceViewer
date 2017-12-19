@@ -524,7 +524,7 @@ namespace Cinteros.XTB.PluginTraceViewer
                         url = string.Concat("http://", url);
                     }
                 }
-                url = string.Concat(url,
+                url = string.Concat(url.TrimEnd('/'),
                     "/main.aspx?etn=",
                     entref.LogicalName,
                     "&pagetype=entityrecord&id=",
