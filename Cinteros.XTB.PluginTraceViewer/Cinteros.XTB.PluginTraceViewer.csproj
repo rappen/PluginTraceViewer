@@ -156,6 +156,7 @@
     <Compile Include="Controls\StatsControl.Designer.cs">
       <DependentUpon>StatsControl.cs</DependentUpon>
     </Compile>
+    <Compile Include="Extensions.cs" />
     <Compile Include="LogUsage.cs" />
     <Compile Include="PluginDescription.cs" />
     <Compile Include="PluginStatistics.cs">
