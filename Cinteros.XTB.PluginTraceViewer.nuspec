@@ -12,13 +12,10 @@
     <description>Investigate the Plug-in Trace Log with easy filtering and display possibilities</description>
     <summary>Investigate the Plug-in Trace Log with easy filtering and display possibilities</summary>
     <releaseNotes>
-      1.2017.12.1 - released 2017-12-21
-
       * Adding column displaying size of the trace message
       * Implemented #49 Persist column order, widths and visibility
       * Fixed #67 Incorrect url when opening log records
       * Fixed #51 Unit confusion made more clear
-
     </releaseNotes>
     <copyright>Copyright 2016 Innofactor AB</copyright>
     <tags>XrmToolBox Plugins PluginTraceViewer</tags>
