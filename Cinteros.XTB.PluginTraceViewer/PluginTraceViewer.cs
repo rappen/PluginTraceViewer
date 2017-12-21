@@ -1,25 +1,23 @@
 ﻿using Cinteros.Xrm.CRMWinForm;
+using Cinteros.XTB.PluginTraceViewer.Const;
+using Cinteros.XTB.PluginTraceViewer.Controls;
 using McTools.Xrm.Connection;
+using Microsoft.Crm.Sdk.Messages;
 using Microsoft.Xrm.Sdk;
 using Microsoft.Xrm.Sdk.Query;
 using System;
 using System.Collections.Generic;
-using System.Data;
 using System.Diagnostics;
+using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Windows.Forms;
 using System.Xml;
-using XrmToolBox.Extensibility;
-using XrmToolBox.Extensibility.Interfaces;
-using XrmToolBox.Extensibility.Args;
-using System.Threading.Tasks;
-using Microsoft.Xrm.Sdk.Messages;
-using Microsoft.Crm.Sdk.Messages;
-using Cinteros.XTB.PluginTraceViewer.Controls;
 using WeifenLuo.WinFormsUI.Docking;
-using System.Drawing;
-using System.IO;
+using XrmToolBox.Extensibility;
+using XrmToolBox.Extensibility.Args;
+using XrmToolBox.Extensibility.Interfaces;
 
 namespace Cinteros.XTB.PluginTraceViewer
 {
@@ -256,9 +254,9 @@ namespace Cinteros.XTB.PluginTraceViewer
         private void UpdateLogSetting(int setting)
         {
             LogUse("UpdateSetting-" + setting);
-            var orgsetting = new Entity("organization");
+            var orgsetting = new Entity(Const.Organization.EntityName);
             orgsetting.Id = (Guid)comboLogSetting.Tag;
-            orgsetting["plugintracelogsetting"] = new OptionSetValue(setting);
+            orgsetting[Const.Organization.PluginTraceLogsetting] = new OptionSetValue(setting);
             SendStatusMessage($"Updating setting for org {orgsetting.Id} to {setting}");
             LogInfo("Updating setting for org {0} to {1}", orgsetting.Id, setting);
             Service.Update(orgsetting);
@@ -269,14 +267,14 @@ namespace Cinteros.XTB.PluginTraceViewer
         private void GetLogSetting(Action<Guid, int> callback)
         {
             LogInfo("GetLogSetting");
-            var QEorganization = new QueryExpression("organization");
-            QEorganization.ColumnSet.AddColumns("name", "plugintracelogsetting");
+            var qx = new QueryExpression(Const.Organization.EntityName);
+            qx.ColumnSet.AddColumns(Const.Organization.PrimaryName, Const.Organization.PluginTraceLogsetting);
             var asyncinfo = new WorkAsyncInfo()
             {
                 Message = "Loading organization settings",
                 Work = (a, args) =>
                 {
-                    args.Result = Service.RetrieveMultiple(QEorganization);
+                    args.Result = Service.RetrieveMultiple(qx);
                 },
                 PostWorkCallBack = (args) =>
                 {
@@ -290,8 +288,8 @@ namespace Cinteros.XTB.PluginTraceViewer
                         if (entity != null)
                         {
                             var id = entity.Id;
-                            var name = entity.Contains("name") ? entity["name"] : "?";
-                            var setting = entity.Contains("plugintracelogsetting") ? ((OptionSetValue)entity["plugintracelogsetting"]).Value : 0;
+                            var name = entity.Contains(Const.Organization.PrimaryName) ? entity[Const.Organization.PrimaryName] : "?";
+                            var setting = entity.Contains(Const.Organization.PluginTraceLogsetting) ? ((OptionSetValue)entity[Const.Organization.PluginTraceLogsetting]).Value : 0;
                             LogInfo("Found org: {0} with setting {1}", name, setting);
                             callback(id, setting);
                         }
@@ -365,9 +363,9 @@ namespace Cinteros.XTB.PluginTraceViewer
             var correlationIds = new List<Guid>();
             foreach (var entity in entities.Entities)
             {   // First determine which correlation ids that occur more than once, we don't want to show corr for single occurences
-                if (entity.Contains("correlationid"))
+                if (entity.Contains(PluginTraceLog.CorrelationId))
                 {
-                    var corrId = (Guid)entity["correlationid"];
+                    var corrId = (Guid)entity[PluginTraceLog.CorrelationId];
                     if (allCorrelationIds.Contains(corrId))
                     {   // id occurs more than once
                         if (!correlationIds.Contains(corrId))
@@ -383,9 +381,9 @@ namespace Cinteros.XTB.PluginTraceViewer
             }
             foreach (var entity in entities.Entities)
             {
-                if (entity.Contains("correlationid"))
+                if (entity.Contains(PluginTraceLog.CorrelationId))
                 {
-                    var corrId = (Guid)entity["correlationid"];
+                    var corrId = (Guid)entity[PluginTraceLog.CorrelationId];
                     if (correlationIds.Contains(corrId))
                     {
                         var index = correlationIds.IndexOf(corrId);
@@ -410,9 +408,9 @@ namespace Cinteros.XTB.PluginTraceViewer
             var cnt = 0;
             foreach (var entity in entities.Entities)
             {
-                if (entity.Contains("exceptiondetails") && !string.IsNullOrWhiteSpace(entity["exceptiondetails"].ToString()))
+                if (entity.Contains(PluginTraceLog.ExceptionDetails) && !string.IsNullOrWhiteSpace(entity[PluginTraceLog.ExceptionDetails].ToString()))
                 {
-                    var summary = entity["exceptiondetails"].ToString();
+                    var summary = entity[PluginTraceLog.ExceptionDetails].ToString();
                     if (summary.Contains("<Message>") && summary.Contains("</Message>"))
                     {
                         summary = summary.Substring(summary.IndexOf("<Message>") + 9);
@@ -445,9 +443,9 @@ namespace Cinteros.XTB.PluginTraceViewer
             var cnt = 0;
             foreach (var entity in entities.Entities)
             {
-                if (entity.Contains("messageblock") && !string.IsNullOrWhiteSpace(entity["messageblock"].ToString()))
+                if (entity.Contains(PluginTraceLog.MessageBlock) && !string.IsNullOrWhiteSpace(entity[PluginTraceLog.MessageBlock].ToString()))
                 {
-                    var trace = entity["messageblock"].ToString();
+                    var trace = entity[PluginTraceLog.MessageBlock].ToString();
                     entity.Attributes.Add("tracesize", trace.Length);
                     cnt++;
                 }
@@ -457,29 +455,29 @@ namespace Cinteros.XTB.PluginTraceViewer
 
         private QueryExpression GetQuery()
         {
-            var QEplugintracelog = new QueryExpression("plugintracelog");
+            var QEplugintracelog = new QueryExpression(PluginTraceLog.EntityName);
             QEplugintracelog.ColumnSet.AddColumns(
-                            "correlationid",
-                            "performanceexecutionstarttime",
-                            "operationtype",
-                            "messagename",
-                            "plugintracelogid",
-                            "primaryentity",
-                            "exceptiondetails",
-                            "messageblock",
-                            "performanceexecutionduration",
-                            "createdon",
-                            "typename",
-                            "depth",
-                            "mode",
-                            "requestid");
-            var LEstep = QEplugintracelog.AddLink("sdkmessageprocessingstep", "pluginstepid", "sdkmessageprocessingstepid", JoinOperator.LeftOuter);
+                            PluginTraceLog.CorrelationId,
+                            PluginTraceLog.PerformanceExecutionStarttime,
+                            PluginTraceLog.OperationType,
+                            PluginTraceLog.MessageName,
+                            PluginTraceLog.PrimaryKey,
+                            PluginTraceLog.PrimaryEntity,
+                            PluginTraceLog.ExceptionDetails,
+                            PluginTraceLog.MessageBlock,
+                            PluginTraceLog.PerformanceExecutionDuration,
+                            PluginTraceLog.CreatedOn,
+                            PluginTraceLog.PrimaryName,
+                            PluginTraceLog.Depth,
+                            PluginTraceLog.Mode,
+                            PluginTraceLog.RequestId);
+            var LEstep = QEplugintracelog.AddLink(SdkMessageProcessingStep.EntityName, PluginTraceLog.PluginStepId, SdkMessageProcessingStep.PrimaryKey, JoinOperator.LeftOuter);
             LEstep.EntityAlias = "step";
-            LEstep.Columns.AddColumns("name", "rank", "stage");
+            LEstep.Columns.AddColumns(SdkMessageProcessingStep.PrimaryName, SdkMessageProcessingStep.Rank, SdkMessageProcessingStep.Stage);
             filterControl.GetQueryFilter(QEplugintracelog);
-            QEplugintracelog.AddOrder("performanceexecutionstarttime", OrderType.Descending);
-            QEplugintracelog.AddOrder("correlationid", OrderType.Ascending);    // This just to group threads together when starting the same second
-            QEplugintracelog.AddOrder("depth", OrderType.Descending);           // This to try to compensate for executionstarttime only accurate to the second
+            QEplugintracelog.AddOrder(PluginTraceLog.PerformanceExecutionStarttime, OrderType.Descending);
+            QEplugintracelog.AddOrder(PluginTraceLog.CorrelationId, OrderType.Ascending);    // This just to group threads together when starting the same second
+            QEplugintracelog.AddOrder(PluginTraceLog.Depth, OrderType.Descending);           // This to try to compensate for executionstarttime only accurate to the second
             return QEplugintracelog;
         }
 
@@ -491,8 +489,8 @@ namespace Cinteros.XTB.PluginTraceViewer
         internal void GridRecordEnter(Entity record)
         {
             buttonOpenLogRecord.Enabled = record != null;
-            traceControl.SetLogText(FixLineBreaks(record != null && record.Contains("messageblock") ? record["messageblock"].ToString() : ""));
-            exceptionControl.SetException(FixLineBreaks(record != null && record.Contains("exceptiondetails") ? record["exceptiondetails"].ToString() : ""),
+            traceControl.SetLogText(FixLineBreaks(record != null && record.Contains(PluginTraceLog.MessageBlock) ? record[PluginTraceLog.MessageBlock].ToString() : ""));
+            exceptionControl.SetException(FixLineBreaks(record != null && record.Contains(PluginTraceLog.ExceptionDetails) ? record[PluginTraceLog.ExceptionDetails].ToString() : ""),
                 "Exception" + (record.Contains("exceptionsummary") ? ": " + record["exceptionsummary"].ToString().Replace("\r\n", " ") : ""));
             statsControl.ShowStatistics(record);
         }

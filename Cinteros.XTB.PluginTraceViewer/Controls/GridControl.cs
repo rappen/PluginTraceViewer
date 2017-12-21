@@ -1,17 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Drawing;
-using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
+﻿using Cinteros.XTB.PluginTraceViewer.Const;
 using Microsoft.Xrm.Sdk;
-using McTools.Xrm.Connection;
-using System.Diagnostics;
 using Microsoft.Xrm.Sdk.Messages;
 using Microsoft.Xrm.Sdk.Query;
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Threading.Tasks;
+using System.Windows.Forms;
 using XrmToolBox.Extensibility;
 
 namespace Cinteros.XTB.PluginTraceViewer.Controls
@@ -237,14 +235,14 @@ namespace Cinteros.XTB.PluginTraceViewer.Controls
         private void tsmiFilterByEntity_Click(object sender, EventArgs e)
         {
             var selected = crmGridView.SelectedCellRecords?.Entities;
-            var selentities = selected?.Select(s => (string)s["primaryentity"]).Distinct().ToList();
+            var selentities = selected?.Select(s => (string)s[PluginTraceLog.PrimaryEntity]).Distinct().ToList();
             ptv.filterControl.AddEntityFilter(selentities);
         }
 
         private void tsmiFilterByMessage_Click(object sender, EventArgs e)
         {
             var selected = crmGridView.SelectedCellRecords?.Entities;
-            var selmessages = selected?.Select(s => (string)s["messagename"]).Distinct().ToList();
+            var selmessages = selected?.Select(s => (string)s[PluginTraceLog.MessageName]).Distinct().ToList();
             if (selmessages.Count == 1)
             {
                 ptv.filterControl.SetMessageFilter(selmessages[0]);
@@ -258,7 +256,7 @@ namespace Cinteros.XTB.PluginTraceViewer.Controls
         private void tsmiFilterByPlugin_Click(object sender, EventArgs e)
         {
             var selected = crmGridView.SelectedCellRecords?.Entities;
-            var selplugins = selected?.Select(s => (string)s["typename"]).Distinct().ToList();
+            var selplugins = selected?.Select(s => (string)s[PluginTraceLog.PrimaryName]).Distinct().ToList();
             ptv.filterControl.AddPluginFilter(selplugins, false);
         }
 
@@ -275,7 +273,7 @@ namespace Cinteros.XTB.PluginTraceViewer.Controls
             {
                 foreach (DataGridViewRow row in crmGridView.Rows)
                 {
-                    var idstr = row.Cells["correlationid"]?.Value?.ToString();
+                    var idstr = row.Cells[PluginTraceLog.CorrelationId]?.Value?.ToString();
                     Guid id;
                     if (Guid.TryParse(idstr, out id) && id.Equals(corrId))
                     {
@@ -319,7 +317,7 @@ namespace Cinteros.XTB.PluginTraceViewer.Controls
             {
                 return;
             }
-            var query = new QueryExpression("plugintracelog");
+            var query = new QueryExpression(PluginTraceLog.EntityName);
             var batches = new List<ExecuteMultipleRequest>();
             EntityCollection result = null;
 
@@ -468,17 +466,17 @@ namespace Cinteros.XTB.PluginTraceViewer.Controls
         {
             rows = rows.Distinct();
             toolStripRecords.Text = $"Records: {rows.Count()}";
-            toolStripDuration.Text = $"Duration: {rows.Select(r => (r.Cells["performanceexecutionduration"].Value as int?)).Sum()} ms";
-            toolStripPlugins.Text = $"Plugins: {rows.Select(r => r.Cells["typename"].Value).Distinct().Count()}";
-            toolStripEntities.Text = $"Entities: {rows.Select(r => r.Cells["primaryentity"].Value).Distinct().Count()}";
-            toolStripCorrelations.Text = $"Correlations: {rows.Select(r => r.Cells["correlationid"].Value).Distinct().Count()}";
+            toolStripDuration.Text = $"Duration: {rows.Select(r => (r.Cells[PluginTraceLog.PerformanceExecutionDuration].Value as int?)).Sum()} ms";
+            toolStripPlugins.Text = $"Plugins: {rows.Select(r => r.Cells[PluginTraceLog.PrimaryName].Value).Distinct().Count()}";
+            toolStripEntities.Text = $"Entities: {rows.Select(r => r.Cells[PluginTraceLog.PrimaryEntity].Value).Distinct().Count()}";
+            toolStripCorrelations.Text = $"Correlations: {rows.Select(r => r.Cells[PluginTraceLog.CorrelationId].Value).Distinct().Count()}";
         }
 
         private Guid GetSelectedCorrelationId()
         {
             var result = Guid.Empty;
             var entities = crmGridView.SelectedCellRecords?.Entities;
-            var ids = entities?.Select(e => (Guid)e["correlationid"]).Distinct();
+            var ids = entities?.Select(e => (Guid)e[PluginTraceLog.CorrelationId]).Distinct();
             if (ids?.Count() == 1)
             {
                 return ids.FirstOrDefault();

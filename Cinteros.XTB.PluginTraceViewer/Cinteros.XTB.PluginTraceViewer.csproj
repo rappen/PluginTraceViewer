@@ -125,6 +125,7 @@
     <Compile Include="About.designer.cs">
       <DependentUpon>About.cs</DependentUpon>
     </Compile>
+    <Compile Include="Const.cs" />
     <Compile Include="Constants.cs" />
     <Compile Include="Controls\ExceptionControl.cs">
       <SubType>Form</SubType>

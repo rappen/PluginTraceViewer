@@ -1,4 +1,5 @@
 ﻿using Cinteros.Xrm.CRMWinForm;
+using Cinteros.XTB.PluginTraceViewer.Const;
 using Cinteros.XTB.PluginTraceViewer.Controls;
 using Microsoft.Xrm.Sdk;
 using Microsoft.Xrm.Sdk.Query;
@@ -17,7 +18,7 @@ namespace Cinteros.XTB.PluginTraceViewer
     public partial class PluginStatistics : Form
     {
         IOrganizationService _service;
-
+        const string PluginTypeAlias = "plugin";
         internal List<string> SelectedPlugins;
 
         public PluginStatistics(IOrganizationService service)
@@ -33,24 +34,24 @@ namespace Cinteros.XTB.PluginTraceViewer
 
         private void PopulateStats()
         {
-            var qex = new QueryExpression("plugintypestatistic");
+            var qex = new QueryExpression(PluginTypeStatistic.EntityName);
             qex.ColumnSet.AddColumns(
-                "createdon",
-                "modifiedon",
-                "executecount",
-                "averageexecutetimeinmilliseconds",
-                "failurecount",
-                "failurepercent",
-                "crashcount",
-                "crashpercent",
-                "crashcontributionpercent",
-                "terminatememorycontributionpercent",
-                "terminatehandlescontributionpercent",
-                "terminatecpucontributionpercent",
-                "terminateothercontributionpercent");
-            var leplugin = qex.AddLink("plugintype", "plugintypeid", "plugintypeid", JoinOperator.LeftOuter);
-            leplugin.EntityAlias = "plugin";
-            leplugin.Columns.AddColumns("name");
+                PluginTypeStatistic.CreatedOn,
+                PluginTypeStatistic.ModifiedOn,
+                PluginTypeStatistic.ExecuteCount,
+                PluginTypeStatistic.Averageexecutetimeinmilliseconds,
+                PluginTypeStatistic.FailureCount,
+                PluginTypeStatistic.FailurePercent,
+                PluginTypeStatistic.CrashCount,
+                PluginTypeStatistic.CrashPercent,
+                PluginTypeStatistic.CrashcontributionPercent,
+                PluginTypeStatistic.TerminatememorycontributionPercent,
+                PluginTypeStatistic.TerminatehandlescontributionPercent,
+                PluginTypeStatistic.TerminatecpucontributionPercent,
+                PluginTypeStatistic.TerminateothercontributionPercent);
+            var leplugin = qex.AddLink(PluginType.EntityName, PluginType.PrimaryKey, PluginTypeStatistic.PluginTypeId, JoinOperator.LeftOuter);
+            leplugin.EntityAlias = PluginTypeAlias;
+            leplugin.Columns.AddColumns(PluginType.PrimaryName);
             var stats = _service.RetrieveMultiple(qex);
             foreach (var stat in stats.Entities)
             {
@@ -69,13 +70,14 @@ namespace Cinteros.XTB.PluginTraceViewer
 
         private string GetPluginName(Entity stat)
         {
-            if (stat.Contains("plugin.name"))
+            var pluginnameattr = $"{PluginTypeAlias}.{PluginType.PrimaryName}";
+            if (stat.Contains(pluginnameattr))
             {
-                if (stat["plugin.name"] is AliasedValue)
+                if (stat[pluginnameattr] is AliasedValue)
                 {
-                    return ((AliasedValue)stat["plugin.name"]).Value.ToString();
+                    return ((AliasedValue)stat[pluginnameattr]).Value.ToString();
                 }
-                return stat["plugin.name"].ToString();
+                return stat[pluginnameattr].ToString();
             }
             return string.Empty;
         }
