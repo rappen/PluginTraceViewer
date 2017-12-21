@@ -156,7 +156,7 @@ namespace Cinteros.XTB.PluginTraceViewer.Controls
             {
                 manualColumnChange = true;
             }
-            else if (e.Button != MouseButtons.Right)
+            else if (e.Button == MouseButtons.Right)
             {
                 foreach (ToolStripMenuItem menu in contextMenuGridView.Items)
                 {
