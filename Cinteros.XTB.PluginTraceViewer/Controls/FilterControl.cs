@@ -190,10 +190,8 @@ namespace Cinteros.XTB.PluginTraceViewer.Controls
                 StagePostOp = chkStage40.Checked,
                 MinDuration = chkDuration.Checked ? (int)numDurationMin.Value : -1,
                 MaxDuration = chkDuration.Checked ? (int)numDurationMax.Value : -1,
-                Records = chkRecords.Checked ? (int)numRecords.Value : -1,
-                VisibleColumns = new List<string>()
+                Records = chkRecords.Checked ? (int)numRecords.Value : -1
             };
-            filter.VisibleColumns.AddRange(ptv.gridControl.VisibleColumns);
             return filter;
         }
 

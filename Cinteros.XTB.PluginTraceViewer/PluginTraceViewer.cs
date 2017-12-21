@@ -229,7 +229,6 @@ namespace Cinteros.XTB.PluginTraceViewer
             if (SettingsManager.Instance.TryLoad(typeof(PluginTraceViewer), out PTVFilter settings, ConnectionDetail?.ConnectionName))
             {
                 filterControl.ApplyFilter(settings);
-                gridControl.VisibleColumns = settings.VisibleColumns;
             }
         }
 
@@ -631,7 +630,8 @@ namespace Cinteros.XTB.PluginTraceViewer
                 Version = version,
                 LocalTime = tsmiLocalTimes.Checked,
                 HighlightIdentical = tsmiHighlight.Checked,
-                HighlightColor = ColorTranslator.ToHtml(gridControl.highlightColor)
+                HighlightColor = ColorTranslator.ToHtml(gridControl.highlightColor),
+                Columns = gridControl?.Columns
             };
         }
 
@@ -678,6 +678,9 @@ namespace Cinteros.XTB.PluginTraceViewer
                 gridControl.highlightColor = ColorTranslator.FromHtml("#FFD0D0");
             }
             gridControl.crmGridView.ShowLocalTimes = settings.LocalTime;
+            gridControl.Columns = settings.Columns;
+            gridControl.UpdateColumnsLayout();
+            gridControl.UpdateMenuChecks();
             filterControl.ShowTZInfo(settings.LocalTime);
             logUsage = settings.UseLog;
             var ass = Assembly.GetExecutingAssembly().GetName();

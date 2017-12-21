@@ -20,9 +20,12 @@ namespace Cinteros.XTB.PluginTraceViewer.Controls
     {
         private PluginTraceViewer ptv;
         private bool refreshingGrid = false;
+        private bool manualColumnChange = false;
+        private bool updatingMenus = false;
         internal Color highlightColor;
         private const int MAX_BATCH = 2;
         private const int PAGE_SIZE = 1000;
+        private List<string> columns;
 
         public GridControl(PluginTraceViewer ptv)
         {
@@ -59,33 +62,84 @@ namespace Cinteros.XTB.PluginTraceViewer.Controls
             }
         }
 
-        public List<string> VisibleColumns
+        public List<string> Columns
         {
             get
             {
-                var columns = new List<string>();
-                foreach (ToolStripMenuItem menu in contextMenuGridView.Items)
-                {
-                    if (menu.CheckOnClick && menu.Tag != null && crmGridView.Columns.Contains(menu.Tag.ToString()) && menu.Checked)
-                    {
-                        columns.Add(menu.Tag.ToString());
-                    }
-                }
+                GetColumnsFromGrid();
                 return columns;
             }
             set
             {
                 if (value != null && value.Count > 0)
                 {
-                    foreach (ToolStripMenuItem menu in contextMenuGridView.Items)
-                    {
-                        if (menu.CheckOnClick && menu.Tag != null && crmGridView.Columns.Contains(menu.Tag.ToString()))
-                        {
-                            menu.Checked = value.Contains(menu.Tag.ToString());
-                        }
-                    }
+                    columns = value;
+                }
+                else
+                {
+                    columns = Columns;
                 }
             }
+        }
+
+        private void GetColumnsFromGrid()
+        {
+            var colArray = new DataGridViewColumn[crmGridView.ColumnCount];
+            crmGridView.Columns.CopyTo(colArray, 0);
+            columns = colArray.OrderBy(c => c.DisplayIndex).Select(c => $"{c.Name}:{(c.Visible ? c.Width : -1)}").ToList();
+        }
+
+        internal void UpdateColumnsLayout()
+        {
+            //RefreshingGrid = true;
+            var anycolwidthspecified = false;
+            var index = 0;
+            foreach (var colinfo in columns.Select(c => c.Split(':')))
+            {
+                var colname = colinfo[0];
+                var colwidth = colinfo.Length > 1 ? int.Parse(colinfo[1]) : 0;
+                if (crmGridView.Columns.Contains(colname))
+                {
+                    var column = crmGridView.Columns[colname];
+                    if (column.DisplayIndex != index)
+                    {
+                        column.DisplayIndex = index;
+                    }
+                    column.Visible = colwidth > -1;
+                    if (colwidth > 0)
+                    {
+                        column.Width = colwidth;
+                        anycolwidthspecified = true;
+                    }
+                    index++;
+                }
+            }
+            if (!anycolwidthspecified)
+            {
+                crmGridView.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells);
+            }
+            //RefreshingGrid = false;
+        }
+
+        internal void UpdateMenuChecks()
+        {
+            if (columns == null)
+            {
+                return;
+            }
+            updatingMenus = true;
+            var visibleColumns = columns
+                .Where(c => !c.Contains(':') || c.Split(':')[1] != "-1")
+                .Select(c => c.Split(':')[0])
+                .ToList();
+            foreach (ToolStripMenuItem menu in contextMenuGridView.Items)
+            {
+                if (menu.Tag != null && crmGridView.Columns.Contains(menu.Tag.ToString()))
+                {   // Menu item with corresponding column
+                    menu.Checked = visibleColumns.Contains(menu.Tag.ToString());
+                }
+            }
+            updatingMenus = false;
         }
 
         private void crmGridView_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
@@ -97,14 +151,30 @@ namespace Cinteros.XTB.PluginTraceViewer.Controls
 
         private void crmGridView_CellMouseDown(object sender, DataGridViewCellMouseEventArgs e)
         {
-            if (e.Button != MouseButtons.Right)
-            {
-                return;
-            }
             var header = e.RowIndex == -1;
-            foreach (ToolStripMenuItem menu in contextMenuGridView.Items)
+            if (header && e.Button == MouseButtons.Left)
             {
-                menu.Visible = header == (menu.Tag != null && crmGridView.Columns.Contains(menu.Tag.ToString()));
+                manualColumnChange = true;
+            }
+            else if (e.Button != MouseButtons.Right)
+            {
+                foreach (ToolStripMenuItem menu in contextMenuGridView.Items)
+                {
+                    menu.Visible = header == (menu.Tag != null && crmGridView.Columns.Contains(menu.Tag.ToString()));
+                }
+            }
+        }
+
+        private void crmGridView_CellMouseUp(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            manualColumnChange = false;
+        }
+
+        private void crmGridView_ColumnChanged(object sender, DataGridViewColumnEventArgs e)
+        {
+            if (manualColumnChange)
+            {
+                GetColumnsFromGrid();
             }
         }
 
@@ -285,6 +355,10 @@ namespace Cinteros.XTB.PluginTraceViewer.Controls
 
         private void tsmiShowColumn_CheckedChanged(object sender, EventArgs e)
         {
+            if (updatingMenus)
+            {
+                return;
+            }
             foreach (ToolStripMenuItem menu in contextMenuGridView.Items)
             {
                 if (!menu.CheckOnClick || menu.Tag == null || !crmGridView.Columns.Contains(menu.Tag.ToString()))
@@ -293,6 +367,7 @@ namespace Cinteros.XTB.PluginTraceViewer.Controls
                 }
                 crmGridView.Columns[menu.Tag.ToString()].Visible = menu.Checked;
             }
+            GetColumnsFromGrid();
         }
 
         internal void PopulateGrid(EntityCollection results)
@@ -309,7 +384,7 @@ namespace Cinteros.XTB.PluginTraceViewer.Controls
                         crmGridView.DataSource = results;
                         refreshingGrid = false;
                         ptv.SendStatusMessage($"Loaded {results.Entities.Count} trace records");
-                        crmGridView.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells);
+                        UpdateColumnsLayout();
                     });
                 },
                 PostWorkCallBack = (args) =>
