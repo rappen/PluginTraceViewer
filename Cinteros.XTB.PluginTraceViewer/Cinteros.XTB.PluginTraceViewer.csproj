@@ -125,6 +125,25 @@
     <Compile Include="About.designer.cs">
       <DependentUpon>About.cs</DependentUpon>
     </Compile>
+    <Compile Include="AppInsights\AiBaseData.cs" />
+    <Compile Include="AppInsights\AiConfig.cs" />
+    <Compile Include="AppInsights\AiData.cs" />
+    <Compile Include="AppInsights\AiDataPoint.cs" />
+    <Compile Include="AppInsights\AiException.cs" />
+    <Compile Include="AppInsights\AiLogRequest.cs" />
+    <Compile Include="AppInsights\AiMeasurements.cs" />
+    <Compile Include="AppInsights\AiParsedStack.cs" />
+    <Compile Include="AppInsights\AiProperties.cs" />
+    <Compile Include="AppInsights\AiSecureConfig.cs" />
+    <Compile Include="AppInsights\AiTags.cs" />
+    <Compile Include="AppInsights\AppInsights.cs" />
+    <Compile Include="AppInsights\Enums\AiDataPointType.cs" />
+    <Compile Include="AppInsights\Enums\AiExceptionSeverity.cs" />
+    <Compile Include="AppInsights\Enums\AiTraceSeverity.cs" />
+    <Compile Include="AppInsights\ExceptionHelper.cs" />
+    <Compile Include="AppInsights\HttpHelper.cs" />
+    <Compile Include="AppInsights\LogHelper.cs" />
+    <Compile Include="AppInsights\Serialization.cs" />
     <Compile Include="Const.cs" />
     <Compile Include="Constants.cs" />
     <Compile Include="Controls\ExceptionControl.cs">

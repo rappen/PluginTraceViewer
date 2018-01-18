@@ -23,16 +23,26 @@ namespace Cinteros.XTB.PluginTraceViewer
 {
     public partial class PluginTraceViewer : PluginControlBase, IGitHubPlugin, IMessageBusHost, IHelpPlugin, IPayPalPlugin, IStatusBarMessenger, IShortcutReceiver
     {
+        private const string aiEndpoint = "https://dc.services.visualstudio.com/v2/track";
+        private const string aiKey = "cc7cb081-b489-421d-bb61-2ee53495c336";    // TestAI 
+
         private bool? logUsage = null;
         internal GridControl gridControl;
         internal FilterControl filterControl;
         private StatsControl statsControl;
         private TraceControl traceControl;
         private ExceptionControl exceptionControl;
+        private AppInsights ai;
 
         public PluginTraceViewer()
         {
             InitializeComponent();
+            ai = new AppInsights(new AiConfig
+            {
+                AiEndpoint = aiEndpoint,
+                InstrumentationKey = aiKey,
+                OperationName = "Plugin Trace Viewer"
+            });
             var theme = new VS2015LightTheme();
             dockContainer.Theme = theme;
             gridControl = new GridControl(this);
@@ -758,11 +768,20 @@ namespace Cinteros.XTB.PluginTraceViewer
             }
         }
 
-        internal void LogUse(string action, bool forceLog = false)
+        internal void LogUse(string action, bool forceLog = false, double? count = null, double? duration = null)
         {
+            ai.WriteEvent(action, count, duration, HandleAIResult);
             if (logUsage == true || forceLog)
             {
                 LogUsage.DoLog(action);
+            }
+        }
+
+        private void HandleAIResult(string result)
+        {
+            if (!string.IsNullOrEmpty(result))
+            {
+                LogError("Failed to write to Application Insights:\n{0}", result);
             }
         }
 

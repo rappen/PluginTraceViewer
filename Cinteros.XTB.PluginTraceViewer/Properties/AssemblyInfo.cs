@@ -10,7 +10,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Jonas Rapp, Innofactor Sweden")]
 [assembly: AssemblyProduct("Cinteros.XTB.PluginTraceViewer")]
-[assembly: AssemblyCopyright("Copyright © Innofactor AB 2016")]
+[assembly: AssemblyCopyright("Copyright © Innofactor AB 2018")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -32,5 +32,5 @@ using System.Runtime.InteropServices;
 // You can specify all the values or you can default the Build and Revision Numbers 
 // by using the '*' as shown below:
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("1.2017.10.991")]
-[assembly: AssemblyFileVersion("1.2017.10.991")]
+[assembly: AssemblyVersion("1.2018.0.1001")]
+[assembly: AssemblyFileVersion("1.2018.0.1001")]
