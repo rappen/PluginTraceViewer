@@ -79,12 +79,13 @@ namespace Cinteros.XTB.PluginTraceViewer
             System.Diagnostics.Process.Start("http://twitter.com/rappen");
         }
 
-        private void chkStatAllow_CheckedChanged(object sender, EventArgs e)
+        private void linkLabel5_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            if (Visible && chkStatAllow.Checked)
-            {
-                MessageBox.Show("Thank You!\n\nHappy debugging :)\n\n/Jonas", "Statistics", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            }
+            MessageBox.Show(@"The evolution of Plugin Trace Viewer is based on feedback issues and anonymous statistics collected about usage.
+The statistics are a valuable source of information for continuing the development to make the tool even easier to use and improve the most popular features.
+
+Thank You,
+Jonas", "Anonymous statistics", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
     }
 }

@@ -26,6 +26,7 @@ namespace Cinteros.XTB.PluginTraceViewer
         private const string aiEndpoint = "https://dc.services.visualstudio.com/v2/track";
         //private const string aiKey = "cc7cb081-b489-421d-bb61-2ee53495c336";    // jonas@rappen.net tenant, TestAI 
         private const string aiKey = "eed73022-2444-45fd-928b-5eebd8fa46a6";    // jonas@rappen.net tenant, XrmToolBox
+        private AppInsights ai = new AppInsights(new AiConfig(aiEndpoint, aiKey) { PluginName = "Plugin Trace Viewer" });
 
         private bool? logUsage = null;
         internal GridControl gridControl;
@@ -33,15 +34,10 @@ namespace Cinteros.XTB.PluginTraceViewer
         private StatsControl statsControl;
         private TraceControl traceControl;
         private ExceptionControl exceptionControl;
-        private AppInsights ai;
 
         public PluginTraceViewer()
         {
             InitializeComponent();
-            ai = new AppInsights(new AiConfig(aiEndpoint, aiKey)
-            {
-                PluginName = "Plugin Trace Viewer"
-            });
             var theme = new VS2015LightTheme();
             dockContainer.Theme = theme;
             gridControl = new GridControl(this);
@@ -159,20 +155,7 @@ namespace Cinteros.XTB.PluginTraceViewer
             var about = new About(this);
             about.StartPosition = FormStartPosition.CenterParent;
             about.lblVersion.Text = Assembly.GetExecutingAssembly().GetName().Version.ToString();
-            about.chkStatAllow.Checked = logUsage != false;
             about.ShowDialog();
-            if (logUsage != about.chkStatAllow.Checked)
-            {
-                logUsage = about.chkStatAllow.Checked;
-                if (logUsage == true)
-                {
-                    LogUse("Accept", true);
-                }
-                else if (logUsage == false)
-                {
-                    LogUse("Deny", true);
-                }
-            }
         }
 
         internal void AlertError(string msg, string capt)
@@ -695,7 +678,7 @@ namespace Cinteros.XTB.PluginTraceViewer
             if (!version.Equals(settings.Version))
             {
                 // Reset some settings when new version is deployed
-                logUsage = null;
+                logUsage = true;
             }
             if (logUsage == null)
             {

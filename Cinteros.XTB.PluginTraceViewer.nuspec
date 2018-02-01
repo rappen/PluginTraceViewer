@@ -5,7 +5,7 @@
     <version>1.0.0</version>
     <title>Plugin Trace Viewer for XrmToolBox</title>
     <authors>Jonas Rapp, Innofactor Sweden</authors>
-    <owners>Innofactor</owners>
+    <owners>rappen</owners>
     <projectUrl>http://ptv.xrmtoolbox.com</projectUrl>
     <iconUrl>http://ptv.xrmtoolbox.com/images/PTV2-150-transp.png</iconUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
@@ -14,7 +14,7 @@
     <releaseNotes>
 * Azure Application Insights for anonymous usage statistics
     </releaseNotes>
-    <copyright>Copyright 2016-2018 Innofactor AB</copyright>
+    <copyright>Copyright 2016-2018 Jonas Rapp</copyright>
     <tags>XrmToolBox Plugins PluginTraceViewer</tags>
     <dependencies>
       <dependency id="XrmToolBox" version="1.2017.10.19" />
