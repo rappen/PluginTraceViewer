@@ -44,9 +44,11 @@ namespace Cinteros.XTB.PluginTraceViewer
 
         internal static bool PromptToLog()
         {
-            var msg = "Anonymous statistics will be collected to improve the functionality of Plugin Trace Viewer.\n\n" +
-                "If you do not wish to allow this, open the About window and uncheck the 'Allow statistics' checkbox.";
-            MessageBox.Show(msg, "Statistics", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            MessageBox.Show(@"The evolution of Plugin Trace Viewer is based on feedback issues and anonymous statistics collected about usage.
+The statistics are a valuable source of information for continuing the development to make the tool even easier to use and improve the most popular features.
+
+Thank You,
+Jonas", "Anonymous statistics", MessageBoxButtons.OK, MessageBoxIcon.Information);
             return true;
         }
     }
