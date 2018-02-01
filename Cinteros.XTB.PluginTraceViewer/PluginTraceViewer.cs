@@ -24,7 +24,8 @@ namespace Cinteros.XTB.PluginTraceViewer
     public partial class PluginTraceViewer : PluginControlBase, IGitHubPlugin, IMessageBusHost, IHelpPlugin, IPayPalPlugin, IStatusBarMessenger, IShortcutReceiver
     {
         private const string aiEndpoint = "https://dc.services.visualstudio.com/v2/track";
-        private const string aiKey = "cc7cb081-b489-421d-bb61-2ee53495c336";    // TestAI 
+        //private const string aiKey = "cc7cb081-b489-421d-bb61-2ee53495c336";    // jonas@rappen.net tenant, TestAI 
+        private const string aiKey = "eed73022-2444-45fd-928b-5eebd8fa46a6";    // jonas@rappen.net tenant, XrmToolBox
 
         private bool? logUsage = null;
         internal GridControl gridControl;
@@ -37,11 +38,9 @@ namespace Cinteros.XTB.PluginTraceViewer
         public PluginTraceViewer()
         {
             InitializeComponent();
-            ai = new AppInsights(new AiConfig
+            ai = new AppInsights(new AiConfig(aiEndpoint, aiKey)
             {
-                AiEndpoint = aiEndpoint,
-                InstrumentationKey = aiKey,
-                OperationName = "Plugin Trace Viewer"
+                PluginName = "Plugin Trace Viewer"
             });
             var theme = new VS2015LightTheme();
             dockContainer.Theme = theme;

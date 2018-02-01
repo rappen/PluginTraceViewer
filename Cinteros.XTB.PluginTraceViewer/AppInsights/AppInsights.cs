@@ -22,8 +22,6 @@ public class AppInsights
     public AppInsights(AiConfig aiConfig)
     {
         _aiConfig = aiConfig;
-        _aiConfig.DeviceType = GetLastDotPart(_aiConfig.DeviceType);
-        _aiConfig.OperationName = GetLastDotPart(_aiConfig.OperationName);
     }
 
     public AppInsights(string endpoint, string ikey) : this(new AiConfig(endpoint, ikey)) { }
@@ -104,17 +102,6 @@ public class AppInsights
         }
 #endif
         handleresult?.Invoke(result);
-    }
-
-    private static string GetLastDotPart(string op)
-    {
-        if (op.Contains("."))
-        {
-            var parts = op.Split('.');
-            op = parts[parts.Length - 1];
-        }
-
-        return op;
     }
 
     private AiLogRequest GetLogRequest(string action)

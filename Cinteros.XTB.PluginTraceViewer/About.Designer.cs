@@ -169,9 +169,9 @@
             // 
             this.bgStats.Controls.Add(this.label1);
             this.bgStats.Controls.Add(this.chkStatAllow);
-            this.bgStats.Location = new System.Drawing.Point(492, 399);
+            this.bgStats.Location = new System.Drawing.Point(492, 444);
             this.bgStats.Name = "bgStats";
-            this.bgStats.Size = new System.Drawing.Size(392, 130);
+            this.bgStats.Size = new System.Drawing.Size(392, 85);
             this.bgStats.TabIndex = 13;
             this.bgStats.TabStop = false;
             this.bgStats.Text = "Statistics";
@@ -182,7 +182,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.label1.Location = new System.Drawing.Point(7, 20);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(379, 72);
+            this.label1.Size = new System.Drawing.Size(379, 62);
             this.label1.TabIndex = 6;
             this.label1.Text = resources.GetString("label1.Text");
             // 
@@ -195,6 +195,7 @@
             this.chkStatAllow.TabIndex = 5;
             this.chkStatAllow.Text = "Allow statistics";
             this.chkStatAllow.UseVisualStyleBackColor = true;
+            this.chkStatAllow.Visible = false;
             this.chkStatAllow.CheckedChanged += new System.EventHandler(this.chkStatAllow_CheckedChanged);
             // 
             // listAssemblies
@@ -227,7 +228,7 @@
             // groupBox1
             // 
             this.groupBox1.Controls.Add(this.listAssemblies);
-            this.groupBox1.Location = new System.Drawing.Point(492, 232);
+            this.groupBox1.Location = new System.Drawing.Point(492, 277);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(392, 151);
             this.groupBox1.TabIndex = 14;

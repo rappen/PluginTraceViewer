@@ -118,10 +118,9 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="label1.Text" xml:space="preserve">
-    <value>Plugin Trace Viewer can collect anonymous statistics.
+    <value>Plugin Trace Viewer collects anonymous statistics.
 This is mainly used to get an indication on which features are most popular.
 The statistics help improve the tool even more.
-No information regarding connected CRM or any kind of data is collected!
-Allowing the application to send statistict is greatly appreciated!</value>
+No information regarding connected CRM or any kind of data is collected!</value>
   </data>
 </root>
