@@ -195,8 +195,15 @@ namespace Cinteros.XTB.PluginTraceViewer.Controls
             return filter;
         }
 
-        internal void GetQueryFilter(QueryExpression QEplugintracelog)
+        internal void GetQueryFilter(QueryExpression QEplugintracelog, bool refreshOnly)
         {
+            if (refreshOnly &&
+                ptv.gridControl.crmGridView.GetDataSource<EntityCollection>() is EntityCollection entities &&
+                entities.Entities.FirstOrDefault(e => e.Contains(Const.PluginTraceLog.PerformanceExecutionStarttime)) is Entity lasttimedlog &&
+                lasttimedlog[Const.PluginTraceLog.PerformanceExecutionStarttime] is DateTime last)
+            {
+                QEplugintracelog.Criteria.AddCondition(Const.PluginTraceLog.PerformanceExecutionStarttime, ConditionOperator.GreaterThan, last);
+            }
             if (chkRecords.Checked)
             {
                 QEplugintracelog.TopCount = (int)numRecords.Value;

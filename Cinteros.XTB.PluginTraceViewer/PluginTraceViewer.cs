@@ -311,6 +311,7 @@ namespace Cinteros.XTB.PluginTraceViewer
             {
                 return;
             }
+            timerRefresh.Stop();
             ClearControls();
             LogUse("RetrieveLogs");
             var asyncinfo = new WorkAsyncInfo()
@@ -336,10 +337,70 @@ namespace Cinteros.XTB.PluginTraceViewer
                         SetTraceSizes(results);
                         ExtractExceptionSummaries(results);
                         gridControl.PopulateGrid(results);
+                        StartRefreshTimer();
                     }
                 }
             };
             WorkAsync(asyncinfo);
+        }
+
+        private void RefreshNewTraces(bool forcerefresh)
+        {
+            timerRefresh.Stop();
+            if (gridControl.crmGridView.DataSource == null || comboRefreshMode.SelectedIndex == 0)
+            {
+                return;
+            }
+            var newlogs = Service.RetrieveMultiple(GetQuery(true));
+            if (newlogs.Entities.Count == 0)
+            {
+                UpdateRefreshButton(0);
+            }
+            else
+            {
+                var logs = gridControl.crmGridView.GetDataSource<EntityCollection>();
+                foreach (var log in logs.Entities)
+                {
+                    newlogs.Remove(log.Id);
+                }
+                UpdateRefreshButton(newlogs.Entities.Count);
+
+                if ((forcerefresh || comboRefreshMode.SelectedIndex == 2) && newlogs.Entities.Count > 0)
+                {
+                    foreach (var log in newlogs.Entities.Reverse())
+                    {
+                        logs.Entities.Insert(0, log);
+                    }
+                    FriendlyfyCorrelationIds(logs);
+                    SetTraceSizes(logs);
+                    ExtractExceptionSummaries(logs);
+                    gridControl.crmGridView.Refresh();
+                    UpdateRefreshButton(0);
+                }
+            }
+            StartRefreshTimer();
+        }
+
+        private void UpdateRefreshButton(int count)
+        {
+            var text = $"{count} new logs";
+            var style = count > 0 ? ToolStripItemDisplayStyle.ImageAndText : ToolStripItemDisplayStyle.Text;
+            if (buttonRefreshLogs.Text != text)
+            {
+                buttonRefreshLogs.Text = text;
+            }
+            if (buttonRefreshLogs.DisplayStyle != style)
+            {
+                buttonRefreshLogs.DisplayStyle = style;
+            }
+        }
+
+        private void StartRefreshTimer()
+        {
+            if (comboRefreshMode.SelectedIndex == 1 || comboRefreshMode.SelectedIndex == 2)
+            {
+                timerRefresh.Start();
+            }
         }
 
         private void ClearControls()
@@ -387,7 +448,14 @@ namespace Cinteros.XTB.PluginTraceViewer
                             index = index > 25 ? index % 26 : -1;
                         }
                         while (index >= 0);
-                        entity.Attributes.Add("correlation", friendlyCorr);
+                        if (entity.Contains("correlation"))
+                        {
+                            entity["correlation"] = friendlyCorr;
+                        }
+                        else
+                        {
+                            entity.Attributes.Add("correlation", friendlyCorr);
+                        }
                     }
                 }
             }
@@ -400,7 +468,9 @@ namespace Cinteros.XTB.PluginTraceViewer
             var cnt = 0;
             foreach (var entity in entities.Entities)
             {
-                if (entity.Contains(PluginTraceLog.ExceptionDetails) && !string.IsNullOrWhiteSpace(entity[PluginTraceLog.ExceptionDetails].ToString()))
+                if (!entity.Contains("exceptionsummary") &&
+                    entity.Contains(PluginTraceLog.ExceptionDetails) &&
+                    !string.IsNullOrWhiteSpace(entity[PluginTraceLog.ExceptionDetails].ToString()))
                 {
                     var summary = entity[PluginTraceLog.ExceptionDetails].ToString();
                     if (summary.Contains("<Message>") && summary.Contains("</Message>"))
@@ -435,7 +505,9 @@ namespace Cinteros.XTB.PluginTraceViewer
             var cnt = 0;
             foreach (var entity in entities.Entities)
             {
-                if (entity.Contains(PluginTraceLog.MessageBlock) && !string.IsNullOrWhiteSpace(entity[PluginTraceLog.MessageBlock].ToString()))
+                if (!entity.Contains("tracesize") &&
+                    entity.Contains(PluginTraceLog.MessageBlock) &&
+                    !string.IsNullOrWhiteSpace(entity[PluginTraceLog.MessageBlock].ToString()))
                 {
                     var trace = entity[PluginTraceLog.MessageBlock].ToString();
                     entity.Attributes.Add("tracesize", trace.Length);
@@ -445,7 +517,7 @@ namespace Cinteros.XTB.PluginTraceViewer
             LogInfo("Set trace sizes for {0} logs", cnt);
         }
 
-        private QueryExpression GetQuery()
+        private QueryExpression GetQuery(bool refreshOnly)
         {
             var QEplugintracelog = new QueryExpression(PluginTraceLog.EntityName);
             QEplugintracelog.ColumnSet.AddColumns(
@@ -466,7 +538,7 @@ namespace Cinteros.XTB.PluginTraceViewer
             var LEstep = QEplugintracelog.AddLink(SdkMessageProcessingStep.EntityName, PluginTraceLog.PluginStepId, SdkMessageProcessingStep.PrimaryKey, JoinOperator.LeftOuter);
             LEstep.EntityAlias = "step";
             LEstep.Columns.AddColumns(SdkMessageProcessingStep.PrimaryName, SdkMessageProcessingStep.Rank, SdkMessageProcessingStep.Stage);
-            filterControl.GetQueryFilter(QEplugintracelog);
+            filterControl.GetQueryFilter(QEplugintracelog, refreshOnly);
             QEplugintracelog.AddOrder(PluginTraceLog.PerformanceExecutionStarttime, OrderType.Descending);
             QEplugintracelog.AddOrder(PluginTraceLog.CorrelationId, OrderType.Ascending);    // This just to group threads together when starting the same second
             QEplugintracelog.AddOrder(PluginTraceLog.Depth, OrderType.Descending);           // This to try to compensate for executionstarttime only accurate to the second
@@ -475,7 +547,9 @@ namespace Cinteros.XTB.PluginTraceViewer
 
         private void buttonRetrieveLogs_Click(object sender, EventArgs e)
         {
-            RefreshTraces(GetQuery());
+            timerRefresh.Stop();
+            RefreshTraces(GetQuery(false));
+            StartRefreshTimer();
         }
 
         internal void GridRecordEnter(Entity record)
@@ -621,7 +695,8 @@ namespace Cinteros.XTB.PluginTraceViewer
                 LocalTime = tsmiLocalTimes.Checked,
                 HighlightIdentical = tsmiHighlight.Checked,
                 HighlightColor = ColorTranslator.ToHtml(gridControl.highlightColor),
-                Columns = gridControl?.Columns
+                Columns = gridControl?.Columns,
+                RefreshMode = comboRefreshMode.SelectedIndex
             };
         }
 
@@ -659,6 +734,9 @@ namespace Cinteros.XTB.PluginTraceViewer
             tsmiWordWrap.Checked = settings.WordWrap;
             tsmiLocalTimes.Checked = settings.LocalTime;
             tsmiHighlight.Checked = settings.HighlightIdentical;
+            comboRefreshMode.SelectedIndex = settings.RefreshMode;
+            timerRefresh.Interval = settings.RefreshInterval;
+            //RefreshModeUpdated();
             try
             {
                 gridControl.highlightColor = ColorTranslator.FromHtml(settings.HighlightColor);
@@ -684,6 +762,14 @@ namespace Cinteros.XTB.PluginTraceViewer
             {
                 logUsage = LogUsage.PromptToLog();
             }
+        }
+
+        private void RefreshModeUpdated()
+        {
+            timerRefresh.Stop();
+            buttonRefreshLogs.Text = "0 new logs";
+            buttonRefreshLogs.Visible = comboRefreshMode.SelectedIndex == 1;
+            StartRefreshTimer();
         }
 
         private void buttonOpenLogRecord_Click(object sender, EventArgs e)
@@ -715,7 +801,7 @@ namespace Cinteros.XTB.PluginTraceViewer
 
         private string GetQueryFetchXML()
         {
-            QueryExpression query = GetQuery();
+            QueryExpression query = GetQuery(false);
             if (query == null)
             {
                 return string.Empty;
@@ -845,6 +931,21 @@ namespace Cinteros.XTB.PluginTraceViewer
         private void tsmiResetWindows_Click(object sender, EventArgs e)
         {
             ResetDockLayout();
+        }
+
+        private void timerRefresh_Tick(object sender, EventArgs e)
+        {
+            RefreshNewTraces(false);
+        }
+
+        private void comboRefreshMode_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            RefreshModeUpdated();
+        }
+
+        private void buttonRefreshLogs_Click(object sender, EventArgs e)
+        {
+            RefreshNewTraces(true);
         }
     }
 }

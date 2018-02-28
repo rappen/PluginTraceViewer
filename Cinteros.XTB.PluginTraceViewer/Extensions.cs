@@ -1,4 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using Microsoft.Xrm.Sdk;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Windows.Forms;
 
 namespace Cinteros.XTB.PluginTraceViewer
@@ -17,6 +20,27 @@ namespace Cinteros.XTB.PluginTraceViewer
                 result.AddRange(child.AllChildren<T>());
             }
             return result;
+        }
+
+        public static bool Contains(this EntityCollection entities, Guid id)
+        {
+            return entities.Entities.Any(e => e.Id.Equals(id));
+        }
+
+        public static void Remove(this EntityCollection entities, Guid id)
+        {
+            var i = 0;
+            while (i < entities.Entities.Count)
+            {
+                if (entities.Entities[i].Id.Equals(id))
+                {
+                    entities.Entities.RemoveAt(i);
+                }
+                else
+                {
+                    i++;
+                }
+            }
         }
     }
 }

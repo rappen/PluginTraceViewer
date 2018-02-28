@@ -15,5 +15,7 @@ namespace Cinteros.XTB.PluginTraceViewer
         public bool HighlightIdentical { get; set; } = true;
         public string HighlightColor { get; set; } = "#FFD0D0";
         public List<string> Columns { get; set; }
+        public int RefreshMode { get; set; }
+        public int RefreshInterval { get; set; } = 2000;
     }
 }
