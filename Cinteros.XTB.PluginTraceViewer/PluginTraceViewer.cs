@@ -731,12 +731,13 @@ namespace Cinteros.XTB.PluginTraceViewer
 
         private void ApplySettings(Settings settings)
         {
+            comboRefreshMode.Enabled = false;
             tsmiWordWrap.Checked = settings.WordWrap;
             tsmiLocalTimes.Checked = settings.LocalTime;
             tsmiHighlight.Checked = settings.HighlightIdentical;
             comboRefreshMode.SelectedIndex = settings.RefreshMode;
             timerRefresh.Interval = settings.RefreshInterval;
-            //RefreshModeUpdated();
+            RefreshModeUpdated();
             try
             {
                 gridControl.highlightColor = ColorTranslator.FromHtml(settings.HighlightColor);
@@ -762,6 +763,7 @@ namespace Cinteros.XTB.PluginTraceViewer
             {
                 logUsage = LogUsage.PromptToLog();
             }
+            comboRefreshMode.Enabled = true;
         }
 
         private void RefreshModeUpdated()
@@ -940,6 +942,11 @@ namespace Cinteros.XTB.PluginTraceViewer
 
         private void comboRefreshMode_SelectedIndexChanged(object sender, EventArgs e)
         {
+            if (!comboRefreshMode.Enabled)
+            {
+                return;
+            }
+            LogUse("RefreshMode-" + comboRefreshMode.SelectedItem);
             RefreshModeUpdated();
         }
 
