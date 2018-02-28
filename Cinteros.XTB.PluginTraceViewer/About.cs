@@ -76,7 +76,7 @@ namespace Cinteros.XTB.PluginTraceViewer
         private void linkLabel4_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             pluginTraceViewer.LogUse("About-OpenTwitter");
-            System.Diagnostics.Process.Start("http://twitter.com/rappen");
+            System.Diagnostics.Process.Start("http://twitter.com/PluginTraceView");
         }
 
         private void linkLabel5_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)

@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(About));
             this.linkLabel1 = new System.Windows.Forms.LinkLabel();
             this.label2 = new System.Windows.Forms.Label();
             this.linkLabel2 = new System.Windows.Forms.LinkLabel();
@@ -119,10 +120,10 @@
             this.linkLabel4.AutoSize = true;
             this.linkLabel4.Location = new System.Drawing.Point(655, 98);
             this.linkLabel4.Name = "linkLabel4";
-            this.linkLabel4.Size = new System.Drawing.Size(51, 13);
+            this.linkLabel4.Size = new System.Drawing.Size(98, 13);
             this.linkLabel4.TabIndex = 9;
             this.linkLabel4.TabStop = true;
-            this.linkLabel4.Text = "@rappen";
+            this.linkLabel4.Text = "@PluginTraceView";
             this.linkLabel4.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel4_LinkClicked);
             // 
             // label4
@@ -155,7 +156,7 @@
             // 
             // pictureBox1
             // 
-            this.pictureBox1.Image = global::Cinteros.XTB.PluginTraceViewer.Properties.Resources.PTV2_logo_400;
+            this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
             this.pictureBox1.Location = new System.Drawing.Point(55, 27);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(407, 502);
