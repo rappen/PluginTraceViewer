@@ -22,8 +22,5 @@
   </metadata>
   <files>
     <file src="Cinteros.XTB.PluginTraceViewer\bin\Release\Cinteros.XTB.PluginTraceViewer.dll" target="lib\net452\Plugins" />
-    <file src="Cinteros.XTB.PluginTraceViewer\bin\Release\Cinteros.Xrm.CRMWinForm.dll" target="lib\net452\Plugins" />
-    <file src="Cinteros.XTB.PluginTraceViewer\bin\Release\WeifenLuo.WinFormsUI.Docking.dll" target="lib\net452\Plugins" />
-    <file src="Cinteros.XTB.PluginTraceViewer\bin\Release\WeifenLuo.WinFormsUI.Docking.ThemeVS2015.dll" target="lib\net452\Plugins" />
   </files>
 </package>
