@@ -61,15 +61,15 @@
             this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
             this.buttonRetrieveLogs = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.toolStripLabel2 = new System.Windows.Forms.ToolStripLabel();
+            this.comboRefreshMode = new System.Windows.Forms.ToolStripComboBox();
+            this.buttonRefreshLogs = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripLabel1 = new System.Windows.Forms.ToolStripLabel();
             this.comboLogSetting = new System.Windows.Forms.ToolStripComboBox();
             this.vS2005Theme1 = new WeifenLuo.WinFormsUI.Docking.VS2005Theme();
             this.dockContainer = new WeifenLuo.WinFormsUI.Docking.DockPanel();
             this.timerRefresh = new System.Windows.Forms.Timer(this.components);
-            this.toolStripLabel2 = new System.Windows.Forms.ToolStripLabel();
-            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
-            this.comboRefreshMode = new System.Windows.Forms.ToolStripComboBox();
-            this.buttonRefreshLogs = new System.Windows.Forms.ToolStripButton();
             this.toolStripMain.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -343,6 +343,39 @@
             this.toolStripSeparator1.Name = "toolStripSeparator1";
             this.toolStripSeparator1.Size = new System.Drawing.Size(6, 31);
             // 
+            // toolStripLabel2
+            // 
+            this.toolStripLabel2.Name = "toolStripLabel2";
+            this.toolStripLabel2.Size = new System.Drawing.Size(80, 28);
+            this.toolStripLabel2.Text = "Refresh Mode";
+            // 
+            // comboRefreshMode
+            // 
+            this.comboRefreshMode.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboRefreshMode.Items.AddRange(new object[] {
+            "Off",
+            "Notify",
+            "Auto"});
+            this.comboRefreshMode.Name = "comboRefreshMode";
+            this.comboRefreshMode.Size = new System.Drawing.Size(121, 31);
+            this.comboRefreshMode.SelectedIndexChanged += new System.EventHandler(this.comboRefreshMode_SelectedIndexChanged);
+            // 
+            // buttonRefreshLogs
+            // 
+            this.buttonRefreshLogs.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.buttonRefreshLogs.Image = ((System.Drawing.Image)(resources.GetObject("buttonRefreshLogs.Image")));
+            this.buttonRefreshLogs.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.buttonRefreshLogs.Name = "buttonRefreshLogs";
+            this.buttonRefreshLogs.Size = new System.Drawing.Size(67, 28);
+            this.buttonRefreshLogs.Text = "0 new logs";
+            this.buttonRefreshLogs.Visible = false;
+            this.buttonRefreshLogs.Click += new System.EventHandler(this.buttonRefreshLogs_Click);
+            // 
+            // toolStripSeparator2
+            // 
+            this.toolStripSeparator2.Name = "toolStripSeparator2";
+            this.toolStripSeparator2.Size = new System.Drawing.Size(6, 31);
+            // 
             // toolStripLabel1
             // 
             this.toolStripLabel1.Name = "toolStripLabel1";
@@ -374,39 +407,6 @@
             // 
             this.timerRefresh.Interval = 1000;
             this.timerRefresh.Tick += new System.EventHandler(this.timerRefresh_Tick);
-            // 
-            // toolStripLabel2
-            // 
-            this.toolStripLabel2.Name = "toolStripLabel2";
-            this.toolStripLabel2.Size = new System.Drawing.Size(80, 28);
-            this.toolStripLabel2.Text = "Refresh Mode";
-            // 
-            // toolStripSeparator2
-            // 
-            this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(6, 31);
-            // 
-            // comboRefreshMode
-            // 
-            this.comboRefreshMode.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboRefreshMode.Items.AddRange(new object[] {
-            "Off",
-            "Notify",
-            "Auto"});
-            this.comboRefreshMode.Name = "comboRefreshMode";
-            this.comboRefreshMode.Size = new System.Drawing.Size(121, 31);
-            this.comboRefreshMode.SelectedIndexChanged += new System.EventHandler(this.comboRefreshMode_SelectedIndexChanged);
-            // 
-            // buttonRefreshLogs
-            // 
-            this.buttonRefreshLogs.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.buttonRefreshLogs.Image = ((System.Drawing.Image)(resources.GetObject("buttonRefreshLogs.Image")));
-            this.buttonRefreshLogs.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.buttonRefreshLogs.Name = "buttonRefreshLogs";
-            this.buttonRefreshLogs.Size = new System.Drawing.Size(67, 28);
-            this.buttonRefreshLogs.Text = "0 new logs";
-            this.buttonRefreshLogs.Visible = false;
-            this.buttonRefreshLogs.Click += new System.EventHandler(this.buttonRefreshLogs_Click);
             // 
             // PluginTraceViewer
             // 
