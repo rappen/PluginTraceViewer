@@ -396,6 +396,7 @@
             // dockContainer
             // 
             this.dockContainer.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.dockContainer.DefaultFloatWindowSize = new System.Drawing.Size(600, 400);
             this.dockContainer.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dockContainer.DocumentStyle = WeifenLuo.WinFormsUI.Docking.DocumentStyle.DockingWindow;
             this.dockContainer.Location = new System.Drawing.Point(0, 31);
