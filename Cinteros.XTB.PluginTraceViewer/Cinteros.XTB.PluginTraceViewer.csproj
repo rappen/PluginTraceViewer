@@ -179,6 +179,7 @@
       <DependentUpon>StatsControl.cs</DependentUpon>
     </Compile>
     <Compile Include="Extensions.cs" />
+    <Compile Include="FindTextHandler.cs" />
     <Compile Include="LogUsage.cs" />
     <Compile Include="PluginDescription.cs" />
     <Compile Include="PluginStatistics.cs">
@@ -193,6 +194,7 @@
     <Compile Include="PluginTraceViewer.designer.cs">
       <DependentUpon>PluginTraceViewer.cs</DependentUpon>
     </Compile>
+    <Compile Include="Prompt.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="PTVFilter.cs" />
     <Compile Include="Settings.cs" />

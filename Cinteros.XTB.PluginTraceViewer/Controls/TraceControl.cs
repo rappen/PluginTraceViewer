@@ -1,17 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Drawing;
-using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
+﻿using System.Windows.Forms;
 
 namespace Cinteros.XTB.PluginTraceViewer.Controls
 {
     public partial class TraceControl : WeifenLuo.WinFormsUI.Docking.DockContent
     {
+        private string findtext = "";
+
         public TraceControl()
         {
             InitializeComponent();
@@ -26,6 +20,12 @@ namespace Cinteros.XTB.PluginTraceViewer.Controls
         internal void Clear()
         {
             textMessage.Clear();
+        }
+
+        private void TraceControl_KeyDown(object sender, KeyEventArgs e)
+        {
+            var textBox = textMessage;
+            findtext = FindTextHandler.HandleFindKeyPress(e, textBox, findtext);
         }
     }
 }

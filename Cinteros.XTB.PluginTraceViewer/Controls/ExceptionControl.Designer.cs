@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.textException = new System.Windows.Forms.TextBox();
+            this.textException = new System.Windows.Forms.RichTextBox();
             this.SuspendLayout();
             // 
             // textException
@@ -37,12 +37,11 @@
             this.textException.Dock = System.Windows.Forms.DockStyle.Fill;
             this.textException.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textException.Location = new System.Drawing.Point(0, 0);
-            this.textException.Multiline = true;
             this.textException.Name = "textException";
             this.textException.ReadOnly = true;
-            this.textException.ScrollBars = System.Windows.Forms.ScrollBars.Both;
             this.textException.Size = new System.Drawing.Size(581, 261);
             this.textException.TabIndex = 6;
+            this.textException.Text = "";
             this.textException.WordWrap = false;
             // 
             // ExceptionControl
@@ -56,18 +55,19 @@
             | WeifenLuo.WinFormsUI.Docking.DockAreas.DockBottom) 
             | WeifenLuo.WinFormsUI.Docking.DockAreas.Document)));
             this.HideOnClose = true;
+            this.KeyPreview = true;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "ExceptionControl";
             this.TabText = "Exception";
             this.TopMost = true;
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.ExceptionControl_KeyDown);
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
         #endregion
 
-        internal System.Windows.Forms.TextBox textException;
+        internal System.Windows.Forms.RichTextBox textException;
     }
 }

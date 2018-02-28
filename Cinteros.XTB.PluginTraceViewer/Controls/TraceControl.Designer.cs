@@ -28,23 +28,21 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.textMessage = new System.Windows.Forms.TextBox();
+            this.textMessage = new System.Windows.Forms.RichTextBox();
             this.SuspendLayout();
             // 
             // textMessage
             // 
-            this.textMessage.AcceptsReturn = true;
             this.textMessage.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.textMessage.Dock = System.Windows.Forms.DockStyle.Fill;
             this.textMessage.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textMessage.Location = new System.Drawing.Point(0, 0);
             this.textMessage.MinimumSize = new System.Drawing.Size(4, 100);
-            this.textMessage.Multiline = true;
             this.textMessage.Name = "textMessage";
             this.textMessage.ReadOnly = true;
-            this.textMessage.ScrollBars = System.Windows.Forms.ScrollBars.Both;
             this.textMessage.Size = new System.Drawing.Size(560, 261);
             this.textMessage.TabIndex = 10;
+            this.textMessage.Text = "";
             this.textMessage.WordWrap = false;
             // 
             // TraceControl
@@ -58,18 +56,19 @@
             | WeifenLuo.WinFormsUI.Docking.DockAreas.DockBottom) 
             | WeifenLuo.WinFormsUI.Docking.DockAreas.Document)));
             this.HideOnClose = true;
+            this.KeyPreview = true;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "TraceControl";
             this.TabText = "Trace Message";
             this.TopMost = true;
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.TraceControl_KeyDown);
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
         #endregion
 
-        internal System.Windows.Forms.TextBox textMessage;
+        internal System.Windows.Forms.RichTextBox textMessage;
     }
 }

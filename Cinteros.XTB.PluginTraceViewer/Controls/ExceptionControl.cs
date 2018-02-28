@@ -1,17 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Drawing;
-using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
+﻿using System.Windows.Forms;
 
 namespace Cinteros.XTB.PluginTraceViewer.Controls
 {
     public partial class ExceptionControl : WeifenLuo.WinFormsUI.Docking.DockContent
     {
+        private string findtext = "";
+
         public ExceptionControl()
         {
             InitializeComponent();
@@ -28,6 +22,12 @@ namespace Cinteros.XTB.PluginTraceViewer.Controls
         {
             textException.Clear();
             TabText = "Exception";
+        }
+
+        private void ExceptionControl_KeyDown(object sender, KeyEventArgs e)
+        {
+            var textBox = textException;
+            findtext = FindTextHandler.HandleFindKeyPress(e, textBox, findtext);
         }
     }
 }
