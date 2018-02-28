@@ -12,12 +12,17 @@
     <description>Investigate the Plug-in Trace Log with easy filtering and display possibilities</description>
     <summary>Investigate the Plug-in Trace Log with easy filtering and display possibilities</summary>
     <releaseNotes>
-* Azure Application Insights for anonymous usage statistics
+#68 Automatically refresh logs: Off / Notify / Auto
+#69 Easy way to set From and To date filter values - click the link next to the label
+#71 Quick Find (CTRL+F) and Find Again (F3) in Trace and Exception message windows
+#9  Allow undocking Trace and Exception message windows
+- Updated UI with nicer menus
+- Merging referenced assemblies to deliver one assembly only
     </releaseNotes>
     <copyright>Copyright 2016-2018 Jonas Rapp</copyright>
     <tags>XrmToolBox Plugins PluginTraceViewer</tags>
     <dependencies>
-      <dependency id="XrmToolBox" version="1.2017.10.19" />
+      <dependency id="XrmToolBox" version="1.2018.1.20" />
     </dependencies>
   </metadata>
   <files>
