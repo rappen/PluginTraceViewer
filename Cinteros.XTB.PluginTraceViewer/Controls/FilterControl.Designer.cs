@@ -28,7 +28,10 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.panelFilter = new System.Windows.Forms.Panel();
+            this.llToDate = new System.Windows.Forms.LinkLabel();
+            this.llFromDate = new System.Windows.Forms.LinkLabel();
             this.textCorrelationId = new System.Windows.Forms.TextBox();
             this.chkCorrelation = new System.Windows.Forms.CheckBox();
             this.labelTimeZone = new System.Windows.Forms.Label();
@@ -57,15 +60,23 @@
             this.numDurationMin = new System.Windows.Forms.NumericUpDown();
             this.numRecords = new System.Windows.Forms.NumericUpDown();
             this.chkExceptions = new System.Windows.Forms.CheckBox();
+            this.dateMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.dateMenuNow = new System.Windows.Forms.ToolStripMenuItem();
+            this.dateMenuToday = new System.Windows.Forms.ToolStripMenuItem();
+            this.dateMenuFirst = new System.Windows.Forms.ToolStripMenuItem();
+            this.dateMenuLast = new System.Windows.Forms.ToolStripMenuItem();
             this.panelFilter.SuspendLayout();
             this.panelOptions.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numDurationMax)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numDurationMin)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numRecords)).BeginInit();
+            this.dateMenu.SuspendLayout();
             this.SuspendLayout();
             // 
             // panelFilter
             // 
+            this.panelFilter.Controls.Add(this.llToDate);
+            this.panelFilter.Controls.Add(this.llFromDate);
             this.panelFilter.Controls.Add(this.textCorrelationId);
             this.panelFilter.Controls.Add(this.chkCorrelation);
             this.panelFilter.Controls.Add(this.labelTimeZone);
@@ -84,6 +95,32 @@
             this.panelFilter.Name = "panelFilter";
             this.panelFilter.Size = new System.Drawing.Size(396, 151);
             this.panelFilter.TabIndex = 1;
+            // 
+            // llToDate
+            // 
+            this.llToDate.AutoSize = true;
+            this.llToDate.LinkBehavior = System.Windows.Forms.LinkBehavior.NeverUnderline;
+            this.llToDate.Location = new System.Drawing.Point(72, 28);
+            this.llToDate.Name = "llToDate";
+            this.llToDate.Size = new System.Drawing.Size(19, 13);
+            this.llToDate.TabIndex = 15;
+            this.llToDate.TabStop = true;
+            this.llToDate.Tag = "to";
+            this.llToDate.Text = ">>";
+            this.llToDate.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.llDate_LinkClicked);
+            // 
+            // llFromDate
+            // 
+            this.llFromDate.AutoSize = true;
+            this.llFromDate.LinkBehavior = System.Windows.Forms.LinkBehavior.NeverUnderline;
+            this.llFromDate.Location = new System.Drawing.Point(72, 4);
+            this.llFromDate.Name = "llFromDate";
+            this.llFromDate.Size = new System.Drawing.Size(19, 13);
+            this.llFromDate.TabIndex = 14;
+            this.llFromDate.TabStop = true;
+            this.llFromDate.Tag = "from";
+            this.llFromDate.Text = ">>";
+            this.llFromDate.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.llDate_LinkClicked);
             // 
             // textCorrelationId
             // 
@@ -440,6 +477,48 @@
             this.chkExceptions.Text = "Exceptions only";
             this.chkExceptions.UseVisualStyleBackColor = true;
             // 
+            // dateMenu
+            // 
+            this.dateMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.dateMenuNow,
+            this.dateMenuToday,
+            this.dateMenuFirst,
+            this.dateMenuLast});
+            this.dateMenu.Name = "dateMenu";
+            this.dateMenu.Size = new System.Drawing.Size(181, 114);
+            // 
+            // dateMenuNow
+            // 
+            this.dateMenuNow.Name = "dateMenuNow";
+            this.dateMenuNow.Size = new System.Drawing.Size(180, 22);
+            this.dateMenuNow.Tag = "now";
+            this.dateMenuNow.Text = "Now";
+            this.dateMenuNow.Click += new System.EventHandler(this.dateMenuItem_Click);
+            // 
+            // dateMenuToday
+            // 
+            this.dateMenuToday.Name = "dateMenuToday";
+            this.dateMenuToday.Size = new System.Drawing.Size(180, 22);
+            this.dateMenuToday.Tag = "today";
+            this.dateMenuToday.Text = "Today";
+            this.dateMenuToday.Click += new System.EventHandler(this.dateMenuItem_Click);
+            // 
+            // dateMenuFirst
+            // 
+            this.dateMenuFirst.Name = "dateMenuFirst";
+            this.dateMenuFirst.Size = new System.Drawing.Size(180, 22);
+            this.dateMenuFirst.Tag = "first";
+            this.dateMenuFirst.Text = "First log record";
+            this.dateMenuFirst.Click += new System.EventHandler(this.dateMenuItem_Click);
+            // 
+            // dateMenuLast
+            // 
+            this.dateMenuLast.Name = "dateMenuLast";
+            this.dateMenuLast.Size = new System.Drawing.Size(180, 22);
+            this.dateMenuLast.Tag = "last";
+            this.dateMenuLast.Text = "Last log record";
+            this.dateMenuLast.Click += new System.EventHandler(this.dateMenuItem_Click);
+            // 
             // FilterControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -465,6 +544,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.numDurationMax)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numDurationMin)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numRecords)).EndInit();
+            this.dateMenu.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -499,5 +579,12 @@
         private System.Windows.Forms.CheckBox chkStage20;
         private System.Windows.Forms.CheckBox chkStage10;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.LinkLabel llFromDate;
+        private System.Windows.Forms.ContextMenuStrip dateMenu;
+        private System.Windows.Forms.ToolStripMenuItem dateMenuNow;
+        private System.Windows.Forms.LinkLabel llToDate;
+        private System.Windows.Forms.ToolStripMenuItem dateMenuToday;
+        private System.Windows.Forms.ToolStripMenuItem dateMenuFirst;
+        private System.Windows.Forms.ToolStripMenuItem dateMenuLast;
     }
 }

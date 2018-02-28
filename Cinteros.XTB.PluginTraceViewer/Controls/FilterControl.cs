@@ -337,39 +337,41 @@ namespace Cinteros.XTB.PluginTraceViewer.Controls
         internal void LoadConstraints()
         {
             ptv.LogInfo("Loading constraints");
-            GetDateConstraint("min", (datemin) =>
+            // These constraints really doesn't add much from a usability perspective, they take time,
+            // and as #39 and #54 shows it can be quite annoying.
+            //GetDateConstraint("min", (datemin) =>
+            //{
+            //    if (!datemin.Equals(DateTime.MinValue))
+            //    {
+            //        dateFrom.MinDate = datemin;
+            //        dateFrom.Value = datemin;
+            //        dateTo.MinDate = datemin;
+            //    }
+            //    GetDateConstraint("max", (datemax) =>
+            //    {
+            //        if (!datemax.Equals(DateTime.MinValue))
+            //        {
+            //            dateFrom.MaxDate = datemax;
+            //            dateTo.MaxDate = datemax;
+            //            dateTo.Value = datemax;
+            //        }
+            GetPlugins((pluginlist) =>
             {
-                if (!datemin.Equals(DateTime.MinValue))
-                {
-                    dateFrom.MinDate = datemin;
-                    dateFrom.Value = datemin;
-                    dateTo.MinDate = datemin;
-                }
-                GetDateConstraint("max", (datemax) =>
-                {
-                    if (!datemax.Equals(DateTime.MinValue))
-                    {
-                        dateFrom.MaxDate = datemax;
-                        dateTo.MaxDate = datemax;
-                        dateTo.Value = datemax;
-                    }
-                    GetPlugins((pluginlist) =>
-                    {
-                        comboPlugin.Items.Clear();
-                        comboPlugin.Items.AddRange(pluginlist.ToArray());
-                    });
-                    GetMessages((messagelist) =>
-                    {
-                        comboMessage.Items.Clear();
-                        comboMessage.Items.AddRange(messagelist.ToArray());
-                    });
-                    GetEntities((entitylist) =>
-                    {
-                        comboEntity.Items.Clear();
-                        comboEntity.Items.AddRange(entitylist.ToArray());
-                    });
-                });
+                comboPlugin.Items.Clear();
+                comboPlugin.Items.AddRange(pluginlist.ToArray());
             });
+            GetMessages((messagelist) =>
+            {
+                comboMessage.Items.Clear();
+                comboMessage.Items.AddRange(messagelist.ToArray());
+            });
+            GetEntities((entitylist) =>
+            {
+                comboEntity.Items.Clear();
+                comboEntity.Items.AddRange(entitylist.ToArray());
+            });
+            //    });
+            //});
         }
 
         private void GetPlugins(Action<List<string>> callback)
@@ -470,11 +472,6 @@ namespace Cinteros.XTB.PluginTraceViewer.Controls
 
         private void GetDateConstraint(string aggregate, Action<DateTime> callback)
         {
-            // These constraints really doesn't add much from a usability perspective, they take time,
-            // and as #39 and #54 shows it can be quite annoying.
-            callback(DateTime.MinValue);
-            return;
-
             ptv.LogInfo("GetDateConstraint {0}", aggregate);
             var date = DateTime.Today;
             var fetch = $"<fetch aggregate='true'><entity name='plugintracelog'><attribute name='createdon' alias='created' aggregate='{aggregate}'/></entity></fetch>";
@@ -524,8 +521,66 @@ namespace Cinteros.XTB.PluginTraceViewer.Controls
                 var off = tz.GetUtcOffset(DateTime.Now);
                 var offtxt = (off.TotalMinutes > 0 ? "+" : "") + off.ToString();
 
-                labelTimeZone.Text = $"{tzname}\nUTC{offtxt})";
+                labelTimeZone.Text = $"{tzname}\nUTC{offtxt}\nFilter times always UTC!";
             }
+        }
+
+        private void llDate_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            if (sender is Control control)
+            {
+                dateMenu.Tag = control.Tag;
+                dateMenu.Show(control, control.Width / 2, control.Height);
+            }
+        }
+
+        private void dateMenuItem_Click(object sender, EventArgs e)
+        {
+            if (sender is ToolStripItem item)
+            {
+                switch (item.Tag)
+                {
+                    case "now":
+                        SetDateValue(DateTime.Now);
+                        break;
+                    case "today":
+                        SetDateValue(DateTime.Today);
+                        break;
+                    case "first":
+                        GetDateConstraint("min", SetDateValue);
+                        break;
+                    case "last":
+                        GetDateConstraint("max", SetDateValue);
+                        break;
+                }
+            }
+        }
+
+        private void SetDateValue(DateTime date)
+        {
+            DateTimePicker dateControl;
+            switch (dateMenu.Tag)
+            {
+                case "from":
+                    dateControl = dateFrom;
+                    checkDateFrom.Checked = true;
+                    break;
+                case "to":
+                    dateControl = dateTo;
+                    checkDateTo.Checked = true;
+                    break;
+                default:
+                    return;
+            }
+            if (dateControl.MinDate > date)
+            {
+                dateControl.MinDate = date;
+            }
+            if (dateControl.MaxDate < date)
+            {
+                dateControl.MaxDate = date;
+            }
+            dateControl.Value = date;
         }
     }
 }
