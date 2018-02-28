@@ -75,6 +75,8 @@
             // 
             // panelFilter
             // 
+            this.panelFilter.Controls.Add(this.dateTo);
+            this.panelFilter.Controls.Add(this.dateFrom);
             this.panelFilter.Controls.Add(this.llToDate);
             this.panelFilter.Controls.Add(this.llFromDate);
             this.panelFilter.Controls.Add(this.textCorrelationId);
@@ -88,8 +90,6 @@
             this.panelFilter.Controls.Add(this.chkPlugin);
             this.panelFilter.Controls.Add(this.checkDateTo);
             this.panelFilter.Controls.Add(this.checkDateFrom);
-            this.panelFilter.Controls.Add(this.dateTo);
-            this.panelFilter.Controls.Add(this.dateFrom);
             this.panelFilter.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelFilter.Location = new System.Drawing.Point(0, 0);
             this.panelFilter.Name = "panelFilter";
@@ -100,7 +100,7 @@
             // 
             this.llToDate.AutoSize = true;
             this.llToDate.LinkBehavior = System.Windows.Forms.LinkBehavior.NeverUnderline;
-            this.llToDate.Location = new System.Drawing.Point(72, 28);
+            this.llToDate.Location = new System.Drawing.Point(76, 28);
             this.llToDate.Name = "llToDate";
             this.llToDate.Size = new System.Drawing.Size(19, 13);
             this.llToDate.TabIndex = 15;
@@ -113,7 +113,7 @@
             // 
             this.llFromDate.AutoSize = true;
             this.llFromDate.LinkBehavior = System.Windows.Forms.LinkBehavior.NeverUnderline;
-            this.llFromDate.Location = new System.Drawing.Point(72, 4);
+            this.llFromDate.Location = new System.Drawing.Point(76, 4);
             this.llFromDate.Name = "llFromDate";
             this.llFromDate.Size = new System.Drawing.Size(19, 13);
             this.llFromDate.TabIndex = 14;
@@ -485,12 +485,12 @@
             this.dateMenuFirst,
             this.dateMenuLast});
             this.dateMenu.Name = "dateMenu";
-            this.dateMenu.Size = new System.Drawing.Size(181, 114);
+            this.dateMenu.Size = new System.Drawing.Size(154, 92);
             // 
             // dateMenuNow
             // 
             this.dateMenuNow.Name = "dateMenuNow";
-            this.dateMenuNow.Size = new System.Drawing.Size(180, 22);
+            this.dateMenuNow.Size = new System.Drawing.Size(153, 22);
             this.dateMenuNow.Tag = "now";
             this.dateMenuNow.Text = "Now";
             this.dateMenuNow.Click += new System.EventHandler(this.dateMenuItem_Click);
@@ -498,7 +498,7 @@
             // dateMenuToday
             // 
             this.dateMenuToday.Name = "dateMenuToday";
-            this.dateMenuToday.Size = new System.Drawing.Size(180, 22);
+            this.dateMenuToday.Size = new System.Drawing.Size(153, 22);
             this.dateMenuToday.Tag = "today";
             this.dateMenuToday.Text = "Today";
             this.dateMenuToday.Click += new System.EventHandler(this.dateMenuItem_Click);
@@ -506,7 +506,7 @@
             // dateMenuFirst
             // 
             this.dateMenuFirst.Name = "dateMenuFirst";
-            this.dateMenuFirst.Size = new System.Drawing.Size(180, 22);
+            this.dateMenuFirst.Size = new System.Drawing.Size(153, 22);
             this.dateMenuFirst.Tag = "first";
             this.dateMenuFirst.Text = "First log record";
             this.dateMenuFirst.Click += new System.EventHandler(this.dateMenuItem_Click);
@@ -514,7 +514,7 @@
             // dateMenuLast
             // 
             this.dateMenuLast.Name = "dateMenuLast";
-            this.dateMenuLast.Size = new System.Drawing.Size(180, 22);
+            this.dateMenuLast.Size = new System.Drawing.Size(153, 22);
             this.dateMenuLast.Tag = "last";
             this.dateMenuLast.Text = "Last log record";
             this.dateMenuLast.Click += new System.EventHandler(this.dateMenuItem_Click);
