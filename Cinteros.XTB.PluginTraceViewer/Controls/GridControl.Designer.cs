@@ -135,7 +135,6 @@
             this.crmGridView.ColumnDisplayIndexChanged += new System.Windows.Forms.DataGridViewColumnEventHandler(this.crmGridView_ColumnChanged);
             this.crmGridView.ColumnWidthChanged += new System.Windows.Forms.DataGridViewColumnEventHandler(this.crmGridView_ColumnChanged);
             this.crmGridView.SelectionChanged += new System.EventHandler(this.crmGridView_SelectionChanged);
-            this.crmGridView.KeyDown += new System.Windows.Forms.KeyEventHandler(this.crmGridView_KeyDown);
             // 
             // correlation
             // 
@@ -349,14 +348,14 @@
             // tsmiCorrelationId
             // 
             this.tsmiCorrelationId.Name = "tsmiCorrelationId";
-            this.tsmiCorrelationId.Size = new System.Drawing.Size(308, 22);
+            this.tsmiCorrelationId.Size = new System.Drawing.Size(313, 22);
             this.tsmiCorrelationId.Text = "Id: ";
             // 
             // tsmiCorrelationSelectThis
             // 
             this.tsmiCorrelationSelectThis.Name = "tsmiCorrelationSelectThis";
-            this.tsmiCorrelationSelectThis.ShortcutKeyDisplayString = "Ctrl+C";
-            this.tsmiCorrelationSelectThis.Size = new System.Drawing.Size(308, 22);
+            this.tsmiCorrelationSelectThis.ShortcutKeyDisplayString = "Shift+C";
+            this.tsmiCorrelationSelectThis.Size = new System.Drawing.Size(313, 22);
             this.tsmiCorrelationSelectThis.Text = "Select all logs with this correlation id";
             this.tsmiCorrelationSelectThis.Click += new System.EventHandler(this.tsmiCorrelationSelectThis_Click);
             // 
@@ -635,7 +634,6 @@
         private System.Windows.Forms.ToolStripMenuItem tsmiFilterByCorrelation;
         private System.Windows.Forms.ToolStripMenuItem tsmiCorrelation;
         private System.Windows.Forms.ToolStripMenuItem tsmiCorrelationId;
-        private System.Windows.Forms.ToolStripMenuItem tsmiCorrelationSelectThis;
         private System.Windows.Forms.ToolStripMenuItem tsmiDelete;
         private System.Windows.Forms.ToolStripMenuItem tsmiDeleteSelected;
         private System.Windows.Forms.ToolStripMenuItem tsmiDeleteAll;
@@ -681,5 +679,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn messagebody;
         private System.Windows.Forms.DataGridViewTextBoxColumn exceptiondetails;
         private System.Windows.Forms.ToolStripMenuItem tsmiShowColTraceSize;
+        internal System.Windows.Forms.ToolStripMenuItem tsmiCorrelationSelectThis;
     }
 }

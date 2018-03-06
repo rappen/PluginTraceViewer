@@ -132,6 +132,10 @@ namespace Cinteros.XTB.PluginTraceViewer
             {
                 buttonRetrieveLogs_Click(null, null);
             }
+            else if (e.Shift && e.KeyCode == Keys.C && gridControl.tsmiCorrelationSelectThis.Enabled && gridControl.crmGridView.Focused)
+            {
+                gridControl.SelectCurrentCorrelation();
+            }
         }
 
         public void ReceiveKeyPressShortcut(KeyPressEventArgs e)

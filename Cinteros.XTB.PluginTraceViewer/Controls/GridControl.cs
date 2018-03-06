@@ -176,14 +176,6 @@ namespace Cinteros.XTB.PluginTraceViewer.Controls
             }
         }
 
-        private void crmGridView_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.Control && e.KeyCode == Keys.C && tsmiCorrelationSelectThis.Enabled)
-            {
-                tsmiCorrelationSelectThis_Click(null, null);
-            }
-        }
-
         private void crmGridView_RecordDoubleClick(object sender, Xrm.CRMWinForm.CRMRecordEventArgs e)
         {
             ptv.OpenLogRecord(crmGridView.SelectedCellRecords.Entities.FirstOrDefault());
@@ -267,6 +259,11 @@ namespace Cinteros.XTB.PluginTraceViewer.Controls
 
         private void tsmiCorrelationSelectThis_Click(object sender, EventArgs e)
         {
+            SelectCurrentCorrelation();
+        }
+
+        internal void SelectCurrentCorrelation()
+        {
             var count = 0;
             var corrId = GetSelectedCorrelationId();
             if (!corrId.Equals(Guid.Empty))
@@ -274,8 +271,7 @@ namespace Cinteros.XTB.PluginTraceViewer.Controls
                 foreach (DataGridViewRow row in crmGridView.Rows)
                 {
                     var idstr = row.Cells[PluginTraceLog.CorrelationId]?.Value?.ToString();
-                    Guid id;
-                    if (Guid.TryParse(idstr, out id) && id.Equals(corrId))
+                    if (Guid.TryParse(idstr, out Guid id) && id.Equals(corrId))
                     {
                         row.Selected = true;
                         count++;
