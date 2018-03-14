@@ -228,8 +228,7 @@ namespace Cinteros.XTB.PluginTraceViewer
 
         private void LoadSettings()
         {
-            Settings settings;
-            if (!SettingsManager.Instance.TryLoad(typeof(PluginTraceViewer), out settings, "Settings"))
+            if (!SettingsManager.Instance.TryLoad(typeof(PluginTraceViewer), out Settings settings, "Settings"))
             {
                 settings = new Settings();
             }
@@ -341,7 +340,7 @@ namespace Cinteros.XTB.PluginTraceViewer
                         SetTraceSizes(results);
                         ExtractExceptionSummaries(results);
                         gridControl.PopulateGrid(results);
-                        StartRefreshTimer();
+                        StartRefreshTimer(false);
                     }
                 }
             };
@@ -355,34 +354,41 @@ namespace Cinteros.XTB.PluginTraceViewer
             {
                 return;
             }
-            var newlogs = Service.RetrieveMultiple(GetQuery(true));
-            if (newlogs.Entities.Count == 0)
+            try
             {
-                UpdateRefreshButton(0);
-            }
-            else
-            {
-                var logs = gridControl.crmGridView.GetDataSource<EntityCollection>();
-                foreach (var log in logs.Entities)
+                var newlogs = Service.RetrieveMultiple(GetQuery(true));
+                if (newlogs.Entities.Count == 0)
                 {
-                    newlogs.Remove(log.Id);
-                }
-                UpdateRefreshButton(newlogs.Entities.Count);
-
-                if ((forcerefresh || comboRefreshMode.SelectedIndex == 2) && newlogs.Entities.Count > 0)
-                {
-                    foreach (var log in newlogs.Entities.Reverse())
-                    {
-                        logs.Entities.Insert(0, log);
-                    }
-                    FriendlyfyCorrelationIds(logs);
-                    SetTraceSizes(logs);
-                    ExtractExceptionSummaries(logs);
-                    gridControl.crmGridView.Refresh();
                     UpdateRefreshButton(0);
                 }
+                else
+                {
+                    var logs = gridControl.crmGridView.GetDataSource<EntityCollection>();
+                    foreach (var log in logs.Entities)
+                    {
+                        newlogs.Remove(log.Id);
+                    }
+                    UpdateRefreshButton(newlogs.Entities.Count);
+
+                    if ((forcerefresh || comboRefreshMode.SelectedIndex == 2) && newlogs.Entities.Count > 0)
+                    {
+                        foreach (var log in newlogs.Entities.Reverse())
+                        {
+                            logs.Entities.Insert(0, log);
+                        }
+                        FriendlyfyCorrelationIds(logs);
+                        SetTraceSizes(logs);
+                        ExtractExceptionSummaries(logs);
+                        gridControl.crmGridView.Refresh();
+                        UpdateRefreshButton(0);
+                    }
+                }
+                StartRefreshTimer(false);
             }
-            StartRefreshTimer();
+            catch
+            {   // If something went wrong, don't check that often
+                StartRefreshTimer(true);
+            }
         }
 
         private void UpdateRefreshButton(int count)
@@ -399,10 +405,21 @@ namespace Cinteros.XTB.PluginTraceViewer
             }
         }
 
-        private void StartRefreshTimer()
+        private void StartRefreshTimer(bool increaseinterval)
         {
             if (comboRefreshMode.SelectedIndex == 1 || comboRefreshMode.SelectedIndex == 2)
             {
+                if (increaseinterval)
+                {   // Something probably went wrong, increase interval until next try
+                    if (timerRefresh.Interval < 30000)
+                    {   // Never slower than 30 sec
+                        timerRefresh.Interval = timerRefresh.Interval * 2;
+                    }
+                }
+                else if (timerRefresh.Tag is int defaultinterval && defaultinterval != timerRefresh.Interval)
+                {   // Reset interval to default
+                    timerRefresh.Interval = defaultinterval;
+                }
                 timerRefresh.Start();
             }
         }
@@ -551,9 +568,7 @@ namespace Cinteros.XTB.PluginTraceViewer
 
         private void buttonRetrieveLogs_Click(object sender, EventArgs e)
         {
-            timerRefresh.Stop();
             RefreshTraces(GetQuery(false));
-            StartRefreshTimer();
         }
 
         internal void GridRecordEnter(Entity record)
@@ -741,6 +756,7 @@ namespace Cinteros.XTB.PluginTraceViewer
             tsmiHighlight.Checked = settings.HighlightIdentical;
             comboRefreshMode.SelectedIndex = settings.RefreshMode;
             timerRefresh.Interval = settings.RefreshInterval;
+            timerRefresh.Tag = settings.RefreshInterval;
             RefreshModeUpdated();
             try
             {
@@ -775,7 +791,7 @@ namespace Cinteros.XTB.PluginTraceViewer
             timerRefresh.Stop();
             buttonRefreshLogs.Text = "0 new logs";
             buttonRefreshLogs.Visible = comboRefreshMode.SelectedIndex == 1;
-            StartRefreshTimer();
+            StartRefreshTimer(false);
         }
 
         private void buttonOpenLogRecord_Click(object sender, EventArgs e)
