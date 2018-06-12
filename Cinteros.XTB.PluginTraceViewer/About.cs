@@ -64,13 +64,7 @@ namespace Cinteros.XTB.PluginTraceViewer
         private void linkLabel2_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             pluginTraceViewer.LogUse("About-OpenBlog");
-            System.Diagnostics.Process.Start("http://jonasrapp.innofactor.se");
-        }
-
-        private void linkLabel3_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
-        {
-            pluginTraceViewer.LogUse("About-OpenInnofactor");
-            System.Diagnostics.Process.Start("http://www.innofactor.se");
+            System.Diagnostics.Process.Start("http://jonasrapp.net");
         }
 
         private void linkLabel4_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)

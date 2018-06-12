@@ -153,7 +153,7 @@ namespace Cinteros.XTB.PluginTraceViewer
             // Don't handle
         }
 
-        private void tsbAbout_Click(object sender, EventArgs e)
+        private void tslAbout_Click(object sender, EventArgs e)
         {
             LogUse("OpenAbout");
             var about = new About(this);
@@ -689,7 +689,7 @@ namespace Cinteros.XTB.PluginTraceViewer
 
         private void SaveFilter()
         {
-            PTVFilter currentfilter = filterControl.GetFilter();
+            var currentfilter = filterControl.GetFilter();
             var sfd = new SaveFileDialog
             {
                 Title = "Select a location to save the filter",

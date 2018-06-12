@@ -33,7 +33,6 @@
             this.toolStripMain = new System.Windows.Forms.ToolStrip();
             this.tsbCloseThisTab = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
-            this.tsbAbout = new System.Windows.Forms.ToolStripButton();
             this.buttonOpen = new System.Windows.Forms.ToolStripDropDownButton();
             this.buttonOpenFilter = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
@@ -67,6 +66,7 @@
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripLabel1 = new System.Windows.Forms.ToolStripLabel();
             this.comboLogSetting = new System.Windows.Forms.ToolStripComboBox();
+            this.tslAbout = new System.Windows.Forms.ToolStripLabel();
             this.vS2005Theme1 = new WeifenLuo.WinFormsUI.Docking.VS2005Theme();
             this.dockContainer = new WeifenLuo.WinFormsUI.Docking.DockPanel();
             this.timerRefresh = new System.Windows.Forms.Timer(this.components);
@@ -79,7 +79,6 @@
             this.toolStripMain.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.tsbCloseThisTab,
             this.toolStripSeparator4,
-            this.tsbAbout,
             this.buttonOpen,
             this.dropdownSave,
             this.dropdownView,
@@ -91,7 +90,8 @@
             this.buttonRefreshLogs,
             this.toolStripSeparator2,
             this.toolStripLabel1,
-            this.comboLogSetting});
+            this.comboLogSetting,
+            this.tslAbout});
             this.toolStripMain.Location = new System.Drawing.Point(0, 0);
             this.toolStripMain.Name = "toolStripMain";
             this.toolStripMain.Size = new System.Drawing.Size(1114, 31);
@@ -112,16 +112,6 @@
             // 
             this.toolStripSeparator4.Name = "toolStripSeparator4";
             this.toolStripSeparator4.Size = new System.Drawing.Size(6, 31);
-            // 
-            // tsbAbout
-            // 
-            this.tsbAbout.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
-            this.tsbAbout.Image = ((System.Drawing.Image)(resources.GetObject("tsbAbout.Image")));
-            this.tsbAbout.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.tsbAbout.Name = "tsbAbout";
-            this.tsbAbout.Size = new System.Drawing.Size(68, 28);
-            this.tsbAbout.Text = "About";
-            this.tsbAbout.Click += new System.EventHandler(this.tsbAbout_Click);
             // 
             // buttonOpen
             // 
@@ -393,6 +383,16 @@
             this.comboLogSetting.Size = new System.Drawing.Size(121, 31);
             this.comboLogSetting.SelectedIndexChanged += new System.EventHandler(this.comboLogSetting_SelectedIndexChanged);
             // 
+            // tslAbout
+            // 
+            this.tslAbout.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.tslAbout.Image = ((System.Drawing.Image)(resources.GetObject("tslAbout.Image")));
+            this.tslAbout.IsLink = true;
+            this.tslAbout.Name = "tslAbout";
+            this.tslAbout.Size = new System.Drawing.Size(106, 28);
+            this.tslAbout.Text = "by Jonas Rapp";
+            this.tslAbout.Click += new System.EventHandler(this.tslAbout_Click);
+            // 
             // dockContainer
             // 
             this.dockContainer.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
@@ -416,6 +416,7 @@
             this.Controls.Add(this.dockContainer);
             this.Controls.Add(this.toolStripMain);
             this.Name = "PluginTraceViewer";
+            this.PluginIcon = ((System.Drawing.Icon)(resources.GetObject("$this.PluginIcon")));
             this.Size = new System.Drawing.Size(1114, 728);
             this.TabIcon = ((System.Drawing.Image)(resources.GetObject("$this.TabIcon")));
             this.ConnectionUpdated += new XrmToolBox.Extensibility.PluginControlBase.ConnectionUpdatedHandler(this.PluginTraceViewer_ConnectionUpdated);
@@ -432,7 +433,6 @@
         internal System.Windows.Forms.ToolStrip toolStripMain;
         private System.Windows.Forms.ToolStripButton tsbCloseThisTab;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator4;
-        private System.Windows.Forms.ToolStripButton tsbAbout;
         private System.Windows.Forms.ToolStripButton buttonRetrieveLogs;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.Windows.Forms.ToolStripDropDownButton dropdownSave;
@@ -469,5 +469,6 @@
         private System.Windows.Forms.ToolStripComboBox comboRefreshMode;
         private System.Windows.Forms.ToolStripButton buttonRefreshLogs;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
+        private System.Windows.Forms.ToolStripLabel tslAbout;
     }
 }
