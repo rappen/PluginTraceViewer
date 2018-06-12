@@ -148,7 +148,6 @@
     <Compile Include="AppInsights\LogHelper.cs" />
     <Compile Include="AppInsights\Serialization.cs" />
     <Compile Include="Const.cs" />
-    <Compile Include="Constants.cs" />
     <Compile Include="Controls\ExceptionControl.cs">
       <SubType>Form</SubType>
     </Compile>

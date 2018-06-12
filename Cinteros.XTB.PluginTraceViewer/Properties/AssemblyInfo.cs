@@ -5,12 +5,12 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("Plug-in Trace Viewer")]
+[assembly: AssemblyTitle("Plugin Trace Viewer")]
 [assembly: AssemblyDescription("XrmToolBox plugin to inspect and filter the Plug-in Trace Log")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("Jonas Rapp, Innofactor Sweden")]
+[assembly: AssemblyCompany("Jonas Rapp, Sweden")]
 [assembly: AssemblyProduct("Cinteros.XTB.PluginTraceViewer")]
-[assembly: AssemblyCopyright("Copyright © Innofactor AB 2018")]
+[assembly: AssemblyCopyright("Copyright © Jonas Rapp 2018")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
