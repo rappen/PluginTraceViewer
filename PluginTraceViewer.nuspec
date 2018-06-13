@@ -22,10 +22,11 @@
     <copyright>Copyright 2016-2018 Jonas Rapp</copyright>
     <tags>XrmToolBox Plugins PluginTraceViewer</tags>
     <dependencies>
-      <dependency id="XrmToolBox" version="1.2018.1.20" />
+      <dependency id="XrmToolBox" version="1.2018.6.24" />
     </dependencies>
   </metadata>
   <files>
+    <file src="Cinteros.XTB.PluginTraceViewer\bin\Release\Rappen.XTB.PTV.dll" target="lib\net452\Plugins" />
     <file src="Cinteros.XTB.PluginTraceViewer\bin\Release\Cinteros.XTB.PluginTraceViewer.dll" target="lib\net452\Plugins" />
   </files>
 </package>
