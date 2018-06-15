@@ -21,7 +21,7 @@ using XrmToolBox.Extensibility.Interfaces;
 
 namespace Cinteros.XTB.PluginTraceViewer
 {
-    public partial class PluginTraceViewer : PluginControlBase, IGitHubPlugin, IMessageBusHost, IHelpPlugin, IPayPalPlugin, IStatusBarMessenger, IShortcutReceiver
+    public partial class PluginTraceViewer : PluginControlBase, IGitHubPlugin, IMessageBusHost, IHelpPlugin, IPayPalPlugin, IStatusBarMessenger, IShortcutReceiver, IAboutPlugin
     {
         private const string aiEndpoint = "https://dc.services.visualstudio.com/v2/track";
         //private const string aiKey = "cc7cb081-b489-421d-bb61-2ee53495c336";    // jonas@rappen.net tenant, TestAI 
@@ -151,6 +151,11 @@ namespace Cinteros.XTB.PluginTraceViewer
         public void ReceivePreviewKeyDownShortcut(PreviewKeyDownEventArgs e)
         {
             // Don't handle
+        }
+
+        public void ShowAboutDialog()
+        {
+            tslAbout_Click(null, null);
         }
 
         private void tslAbout_Click(object sender, EventArgs e)
