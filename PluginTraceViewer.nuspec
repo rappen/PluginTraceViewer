@@ -4,10 +4,10 @@
     <id>Cinteros.XrmToolBox.PluginTraceViewer</id>
     <version>1.0.0</version>
     <title>Plugin Trace Viewer for XrmToolBox</title>
-    <authors>Jonas Rapp, Innofactor Sweden</authors>
+    <authors>Jonas Rapp</authors>
     <owners>rappen</owners>
     <projectUrl>http://ptv.xrmtoolbox.com</projectUrl>
-    <iconUrl>http://ptv.xrmtoolbox.com/images/PTV2-150-transp.png</iconUrl>
+    <iconUrl>http://ptv.xrmtoolbox.com/images/PTV-150-tsp.png</iconUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>Investigate the Plug-in Trace Log with easy filtering and display possibilities</description>
     <summary>Investigate the Plug-in Trace Log with easy filtering and display possibilities</summary>
