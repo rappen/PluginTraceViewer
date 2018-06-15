@@ -12,12 +12,10 @@
     <description>Investigate the Plug-in Trace Log with easy filtering and display possibilities</description>
     <summary>Investigate the Plug-in Trace Log with easy filtering and display possibilities</summary>
     <releaseNotes>
-#68 Automatically refresh logs: Off / Notify / Auto
-#69 Easy way to set From and To date filter values - click the link next to the label
-#71 Quick Find (CTRL+F) and Find Again (F3) in Trace and Exception message windows
-#9  Allow undocking Trace and Exception message windows
-- Updated UI with nicer menus
-- Merging referenced assemblies to deliver one assembly only
+#72 Use [Shift]+C to select all records with same correlation instead of [Ctrl]+C
+#68 Auto Refresh of logs is now more tolerant to network failure
+Rebranding
+Assembly name change
     </releaseNotes>
     <copyright>Copyright 2016-2018 Jonas Rapp</copyright>
     <tags>XrmToolBox Plugins PluginTraceViewer</tags>
