@@ -166,6 +166,7 @@ namespace Cinteros.XTB.PluginTraceViewer.Controls
             {
                 numRecords.Value = filter.Records;
             }
+            ptv.tsmiSuppressLogSettingWarning.Checked = filter.SuppressSettingWarning;
         }
 
         internal PTVFilter GetFilter()
@@ -190,7 +191,8 @@ namespace Cinteros.XTB.PluginTraceViewer.Controls
                 StagePostOp = chkStage40.Checked,
                 MinDuration = chkDuration.Checked ? (int)numDurationMin.Value : -1,
                 MaxDuration = chkDuration.Checked ? (int)numDurationMax.Value : -1,
-                Records = chkRecords.Checked ? (int)numRecords.Value : -1
+                Records = chkRecords.Checked ? (int)numRecords.Value : -1,
+                SuppressSettingWarning = ptv.tsmiSuppressLogSettingWarning.Checked
             };
             return filter;
         }

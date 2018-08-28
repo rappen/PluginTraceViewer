@@ -204,9 +204,39 @@ namespace Cinteros.XTB.PluginTraceViewer
 
         public override void ClosingPlugin(PluginCloseInfo info)
         {
+            ShowLogSettingWarning(info);
             SaveSettings();
             SaveDockPanels();
             LogUse("Close");
+        }
+
+        private void ShowLogSettingWarning(PluginCloseInfo info)
+        {
+            if (comboLogSetting.SelectedIndex == 2 && !tsmiSuppressLogSettingWarning.Checked)
+            {
+                switch (MessageBox.Show("Trace Log Setting is currently set to 'All'.\n" +
+                    "This setting can cause lots of trace log records, which eventually can slow down the system and increase data consumption.\n\n" +
+                    "Change setting to 'Off'?", "Exit Plugin Trace Viewer", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Warning))
+                {
+                    case DialogResult.Yes:
+                        UpdateLogSetting(0);
+                        break;
+                    case DialogResult.No:
+                        switch (MessageBox.Show("Continue showing this warning for this organization?", "Trace Log Setting", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question))
+                        {
+                            case DialogResult.No:
+                                tsmiSuppressLogSettingWarning.Checked = true;
+                                break;
+                            case DialogResult.Cancel:
+                                info.Cancel = true;
+                                break;
+                        }
+                        break;
+                    case DialogResult.Cancel:
+                        info.Cancel = true;
+                        break;
+                }
+            }
         }
 
         private void SaveDockPanels()
@@ -978,6 +1008,19 @@ namespace Cinteros.XTB.PluginTraceViewer
         private void buttonRefreshLogs_Click(object sender, EventArgs e)
         {
             RefreshNewTraces(true);
+        }
+
+        private void tsmiSuppressLogSettingWarning_Click(object sender, EventArgs e)
+        {
+            if (tsmiSuppressLogSettingWarning.Checked)
+            {
+                if (MessageBox.Show("This will supress warning about log setting being active when closing Plugin Trace Viewer.\n" +
+                    "This supression only applies to currently connected organization.", "Trace Log Setting",
+                    MessageBoxButtons.OKCancel, MessageBoxIcon.Information) == DialogResult.Cancel)
+                {
+                    tsmiSuppressLogSettingWarning.Checked = false;
+                }
+            }
         }
     }
 }
