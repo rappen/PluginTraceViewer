@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
             this.crmGridView = new Cinteros.Xrm.CRMWinForm.CRMGridView();
             this.correlation = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.performanceexecutionstarttime = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -47,7 +47,7 @@
             this.correlationid = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.requestid = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.exceptionsummary = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.messagebody = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.messageblock = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.exceptiondetails = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.contextMenuGridView = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.tsmiFilterBy = new System.Windows.Forms.ToolStripMenuItem();
@@ -84,9 +84,14 @@
             this.toolStripEntities = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripCorrelations = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripMatch = new System.Windows.Forms.ToolStripStatusLabel();
+            this.panQuickFilter = new System.Windows.Forms.Panel();
+            this.label1 = new System.Windows.Forms.Label();
+            this.txtQuickFilter = new System.Windows.Forms.TextBox();
+            this.label2 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.crmGridView)).BeginInit();
             this.contextMenuGridView.SuspendLayout();
             this.statusStrip1.SuspendLayout();
+            this.panQuickFilter.SuspendLayout();
             this.SuspendLayout();
             // 
             // crmGridView
@@ -113,19 +118,20 @@
             this.correlationid,
             this.requestid,
             this.exceptionsummary,
-            this.messagebody,
+            this.messageblock,
             this.exceptiondetails});
             this.crmGridView.ContextMenuStrip = this.contextMenuGridView;
             this.crmGridView.Dock = System.Windows.Forms.DockStyle.Fill;
             this.crmGridView.EnableHeadersVisualStyles = false;
-            this.crmGridView.Location = new System.Drawing.Point(0, 0);
+            this.crmGridView.FilterColumns = "messageblock, exceptiondetails";
+            this.crmGridView.Location = new System.Drawing.Point(0, 27);
             this.crmGridView.Name = "crmGridView";
             this.crmGridView.ReadOnly = true;
             this.crmGridView.RowHeadersWidth = 20;
             this.crmGridView.ShowFriendlyNames = true;
             this.crmGridView.ShowIdColumn = false;
             this.crmGridView.ShowIndexColumn = false;
-            this.crmGridView.Size = new System.Drawing.Size(1065, 274);
+            this.crmGridView.Size = new System.Drawing.Size(651, 247);
             this.crmGridView.TabIndex = 26;
             this.crmGridView.RecordDoubleClick += new Cinteros.Xrm.CRMWinForm.CRMRecordEventHandler(this.crmGridView_RecordDoubleClick);
             this.crmGridView.RecordEnter += new Cinteros.Xrm.CRMWinForm.CRMRecordEventHandler(this.crmGridView_RecordEnter);
@@ -138,8 +144,8 @@
             // 
             // correlation
             // 
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.correlation.DefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.correlation.DefaultCellStyle = dataGridViewCellStyle5;
             this.correlation.HeaderText = "Corr";
             this.correlation.Name = "correlation";
             this.correlation.ReadOnly = true;
@@ -256,12 +262,12 @@
             this.exceptionsummary.ReadOnly = true;
             this.exceptionsummary.Width = 200;
             // 
-            // messagebody
+            // messageblock
             // 
-            this.messagebody.HeaderText = "Trace Log (Hidden)";
-            this.messagebody.Name = "messagebody";
-            this.messagebody.ReadOnly = true;
-            this.messagebody.Visible = false;
+            this.messageblock.HeaderText = "Trace Log (Hidden)";
+            this.messageblock.Name = "messageblock";
+            this.messageblock.ReadOnly = true;
+            this.messageblock.Visible = false;
             // 
             // exceptiondetails
             // 
@@ -563,7 +569,7 @@
             this.toolStripMatch});
             this.statusStrip1.Location = new System.Drawing.Point(0, 274);
             this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(1065, 22);
+            this.statusStrip1.Size = new System.Drawing.Size(651, 22);
             this.statusStrip1.SizingGrip = false;
             this.statusStrip1.TabIndex = 27;
             this.statusStrip1.Text = "statusStrip1";
@@ -603,15 +609,57 @@
             this.toolStripMatch.Name = "toolStripMatch";
             this.toolStripMatch.Size = new System.Drawing.Size(0, 17);
             // 
+            // panQuickFilter
+            // 
+            this.panQuickFilter.Controls.Add(this.label1);
+            this.panQuickFilter.Controls.Add(this.txtQuickFilter);
+            this.panQuickFilter.Controls.Add(this.label2);
+            this.panQuickFilter.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panQuickFilter.Location = new System.Drawing.Point(0, 0);
+            this.panQuickFilter.Name = "panQuickFilter";
+            this.panQuickFilter.Size = new System.Drawing.Size(651, 27);
+            this.panQuickFilter.TabIndex = 28;
+            this.panQuickFilter.Visible = false;
+            // 
+            // label1
+            // 
+            this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(448, 7);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(191, 13);
+            this.label1.TabIndex = 20;
+            this.label1.Text = "Filtering Trace Message and Exception";
+            // 
+            // txtQuickFilter
+            // 
+            this.txtQuickFilter.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtQuickFilter.Location = new System.Drawing.Point(97, 4);
+            this.txtQuickFilter.Name = "txtQuickFilter";
+            this.txtQuickFilter.Size = new System.Drawing.Size(292, 20);
+            this.txtQuickFilter.TabIndex = 19;
+            this.txtQuickFilter.TextChanged += new System.EventHandler(this.txtQuickFilter_TextChanged);
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(20, 7);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(60, 13);
+            this.label2.TabIndex = 18;
+            this.label2.Text = "Quick Filter";
+            // 
             // GridControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1065, 296);
+            this.ClientSize = new System.Drawing.Size(651, 296);
             this.CloseButton = false;
             this.CloseButtonVisible = false;
             this.Controls.Add(this.crmGridView);
             this.Controls.Add(this.statusStrip1);
+            this.Controls.Add(this.panQuickFilter);
             this.DockAreas = WeifenLuo.WinFormsUI.Docking.DockAreas.Document;
             this.HideOnClose = true;
             this.Name = "GridControl";
@@ -620,6 +668,8 @@
             this.contextMenuGridView.ResumeLayout(false);
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
+            this.panQuickFilter.ResumeLayout(false);
+            this.panQuickFilter.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -676,9 +726,13 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn correlationid;
         private System.Windows.Forms.DataGridViewTextBoxColumn requestid;
         private System.Windows.Forms.DataGridViewTextBoxColumn exceptionsummary;
-        private System.Windows.Forms.DataGridViewTextBoxColumn messagebody;
+        private System.Windows.Forms.DataGridViewTextBoxColumn messageblock;
         private System.Windows.Forms.DataGridViewTextBoxColumn exceptiondetails;
         private System.Windows.Forms.ToolStripMenuItem tsmiShowColTraceSize;
         internal System.Windows.Forms.ToolStripMenuItem tsmiCorrelationSelectThis;
+        private System.Windows.Forms.TextBox txtQuickFilter;
+        private System.Windows.Forms.Label label2;
+        internal System.Windows.Forms.Panel panQuickFilter;
+        private System.Windows.Forms.Label label1;
     }
 }

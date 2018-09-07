@@ -31,7 +31,7 @@ namespace Cinteros.XTB.PluginTraceViewer.Controls
             InitializeComponent();
         }
 
-        internal void SetDataSource(IOrganizationService service)
+        internal void SetOrgService(IOrganizationService service)
         {
             if (crmGridView.DataSource != null)
             {
@@ -584,6 +584,11 @@ namespace Cinteros.XTB.PluginTraceViewer.Controls
             }
 
             return result;
+        }
+
+        private void txtQuickFilter_TextChanged(object sender, EventArgs e)
+        {
+            crmGridView.FilterText = txtQuickFilter.Text;
         }
     }
 }

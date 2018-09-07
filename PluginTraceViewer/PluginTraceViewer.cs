@@ -101,9 +101,9 @@ namespace Cinteros.XTB.PluginTraceViewer
 
         public string HelpUrl { get { return "http://ptv.xrmtoolbox.com"; } }
 
-        public string RepositoryName { get { return "XrmToolBox.PluginTraceViewer"; } }
+        public string RepositoryName { get { return "PluginTraceViewer"; } }
 
-        public string UserName { get { return "Innofactor"; } }
+        public string UserName { get { return "rappen"; } }
 
         public string DonationDescription
         {
@@ -187,7 +187,7 @@ namespace Cinteros.XTB.PluginTraceViewer
             LogInfo("Connected CRM version: {0}", orgver);
             ClearControls();
             var orgok = orgver >= new Version(7, 1);
-            gridControl.SetDataSource(orgok ? e.Service : null);
+            gridControl.SetOrgService(orgok ? e.Service : null);
             buttonRetrieveLogs.Enabled = orgok;
             tsmiRefreshFilter.Enabled = orgok;
             if (orgok)
@@ -750,7 +750,8 @@ namespace Cinteros.XTB.PluginTraceViewer
                 HighlightIdentical = tsmiHighlight.Checked,
                 HighlightColor = ColorTranslator.ToHtml(gridControl.highlightColor),
                 Columns = gridControl?.Columns,
-                RefreshMode = comboRefreshMode.SelectedIndex
+                RefreshMode = comboRefreshMode.SelectedIndex,
+                ShowQuickFilter = tsmiViewQuickFilter.Checked
             };
         }
 
@@ -806,6 +807,8 @@ namespace Cinteros.XTB.PluginTraceViewer
             gridControl.UpdateColumnsLayout();
             gridControl.UpdateMenuChecks();
             filterControl.ShowTZInfo(settings.LocalTime);
+            tsmiViewQuickFilter.Checked = settings.ShowQuickFilter;
+            gridControl.panQuickFilter.Visible = settings.ShowQuickFilter;
             logUsage = settings.UseLog;
             var ass = Assembly.GetExecutingAssembly().GetName();
             var version = ass.Version.ToString();
@@ -1021,6 +1024,11 @@ namespace Cinteros.XTB.PluginTraceViewer
                     tsmiSuppressLogSettingWarning.Checked = false;
                 }
             }
+        }
+
+        private void tsmiViewQuickFilter_Click(object sender, EventArgs e)
+        {
+            gridControl.panQuickFilter.Visible = tsmiViewQuickFilter.Checked;
         }
     }
 }
