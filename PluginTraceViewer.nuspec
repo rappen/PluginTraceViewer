@@ -12,10 +12,8 @@
     <description>Investigate the Plug-in Trace Log with easy filtering and display possibilities</description>
     <summary>Investigate the Plug-in Trace Log with easy filtering and display possibilities</summary>
     <releaseNotes>
-#72 Use [Shift]+C to select all records with same correlation instead of [Ctrl]+C
-#68 Auto Refresh of logs is now more tolerant to network failure
-Rebranding
-Assembly name change
+#74 Prompt to turn trace log setting to off when closing tool - by request from Microsoft
+#73 Added Quick Filter to quickly filter log records by text in trace message and exception
     </releaseNotes>
     <copyright>Copyright 2016-2018 Jonas Rapp</copyright>
     <tags>XrmToolBox Plugins PluginTraceViewer</tags>
