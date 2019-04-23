@@ -44,13 +44,13 @@
             this.buttonSaveQuery = new System.Windows.Forms.ToolStripMenuItem();
             this.dropdownView = new System.Windows.Forms.ToolStripDropDownButton();
             this.tsmiViewFilter = new System.Windows.Forms.ToolStripMenuItem();
-            this.tsmiViewQuickFilter = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiViewStatistics = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiViewLog = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiViewException = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem4 = new System.Windows.Forms.ToolStripSeparator();
             this.tsmiResetWindows = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripSeparator();
+            this.tsmiViewQuickFilter = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiWordWrap = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiLocalTimes = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiHighlight = new System.Windows.Forms.ToolStripMenuItem();
@@ -171,21 +171,21 @@
             // buttonSaveFilter
             // 
             this.buttonSaveFilter.Name = "buttonSaveFilter";
-            this.buttonSaveFilter.Size = new System.Drawing.Size(115, 22);
+            this.buttonSaveFilter.Size = new System.Drawing.Size(180, 22);
             this.buttonSaveFilter.Text = "Filter...";
             this.buttonSaveFilter.Click += new System.EventHandler(this.buttonSaveFilter_Click);
             // 
             // buttonSaveLogs
             // 
             this.buttonSaveLogs.Name = "buttonSaveLogs";
-            this.buttonSaveLogs.Size = new System.Drawing.Size(115, 22);
+            this.buttonSaveLogs.Size = new System.Drawing.Size(180, 22);
             this.buttonSaveLogs.Text = "Logs...";
             this.buttonSaveLogs.Click += new System.EventHandler(this.buttonSaveLogs_Click);
             // 
             // buttonSaveQuery
             // 
             this.buttonSaveQuery.Name = "buttonSaveQuery";
-            this.buttonSaveQuery.Size = new System.Drawing.Size(115, 22);
+            this.buttonSaveQuery.Size = new System.Drawing.Size(180, 22);
             this.buttonSaveQuery.Text = "Query...";
             this.buttonSaveQuery.Click += new System.EventHandler(this.buttonSaveQuery_Click);
             // 
@@ -222,15 +222,6 @@
             this.tsmiViewFilter.Size = new System.Drawing.Size(227, 30);
             this.tsmiViewFilter.Text = "Filter";
             this.tsmiViewFilter.Click += new System.EventHandler(this.tsmiViewFilter_Click);
-            // 
-            // tsmiViewQuickFilter
-            // 
-            this.tsmiViewQuickFilter.CheckOnClick = true;
-            this.tsmiViewQuickFilter.Image = ((System.Drawing.Image)(resources.GetObject("tsmiViewQuickFilter.Image")));
-            this.tsmiViewQuickFilter.Name = "tsmiViewQuickFilter";
-            this.tsmiViewQuickFilter.Size = new System.Drawing.Size(227, 30);
-            this.tsmiViewQuickFilter.Text = "Quick Filter";
-            this.tsmiViewQuickFilter.Click += new System.EventHandler(this.tsmiViewQuickFilter_Click);
             // 
             // tsmiViewStatistics
             // 
@@ -272,6 +263,15 @@
             // 
             this.toolStripMenuItem2.Name = "toolStripMenuItem2";
             this.toolStripMenuItem2.Size = new System.Drawing.Size(224, 6);
+            // 
+            // tsmiViewQuickFilter
+            // 
+            this.tsmiViewQuickFilter.CheckOnClick = true;
+            this.tsmiViewQuickFilter.Image = ((System.Drawing.Image)(resources.GetObject("tsmiViewQuickFilter.Image")));
+            this.tsmiViewQuickFilter.Name = "tsmiViewQuickFilter";
+            this.tsmiViewQuickFilter.Size = new System.Drawing.Size(227, 30);
+            this.tsmiViewQuickFilter.Text = "Quick Filter";
+            this.tsmiViewQuickFilter.Click += new System.EventHandler(this.tsmiViewQuickFilter_Click);
             // 
             // tsmiWordWrap
             // 

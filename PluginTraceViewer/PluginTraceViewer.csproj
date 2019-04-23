@@ -224,9 +224,6 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\PTV2-logo-400.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="Cinteros.XTB.PluginTraceViewer.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
