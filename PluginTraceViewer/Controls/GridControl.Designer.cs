@@ -33,6 +33,7 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.crmGridView = new Cinteros.Xrm.CRMWinForm.CRMGridView();
             this.correlation = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.createdon = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.performanceexecutionstarttime = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.performanceexecutionduration = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.operationtype = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -63,6 +64,7 @@
             this.tsmiDeleteSelected = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiDeleteAll = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiShowColCorrelation = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiShowColCreated = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiShowColStartTime = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiShowColDuration = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiShowColOperation = new System.Windows.Forms.ToolStripMenuItem();
@@ -104,6 +106,7 @@
             this.crmGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.crmGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.correlation,
+            this.createdon,
             this.performanceexecutionstarttime,
             this.performanceexecutionduration,
             this.operationtype,
@@ -132,7 +135,7 @@
             this.crmGridView.ShowFriendlyNames = true;
             this.crmGridView.ShowIdColumn = false;
             this.crmGridView.ShowIndexColumn = false;
-            this.crmGridView.Size = new System.Drawing.Size(651, 247);
+            this.crmGridView.Size = new System.Drawing.Size(690, 247);
             this.crmGridView.TabIndex = 26;
             this.crmGridView.RecordDoubleClick += new Cinteros.Xrm.CRMWinForm.CRMRecordEventHandler(this.crmGridView_RecordDoubleClick);
             this.crmGridView.RecordEnter += new Cinteros.Xrm.CRMWinForm.CRMRecordEventHandler(this.crmGridView_RecordEnter);
@@ -151,6 +154,14 @@
             this.correlation.Name = "correlation";
             this.correlation.ReadOnly = true;
             this.correlation.Width = 35;
+            // 
+            // createdon
+            // 
+            this.createdon.HeaderText = "Created";
+            this.createdon.Name = "createdon";
+            this.createdon.ReadOnly = true;
+            this.createdon.Visible = false;
+            this.createdon.Width = 80;
             // 
             // performanceexecutionstarttime
             // 
@@ -287,6 +298,7 @@
             this.tsmiCorrelation,
             this.tsmiDelete,
             this.tsmiShowColCorrelation,
+            this.tsmiShowColCreated,
             this.tsmiShowColStartTime,
             this.tsmiShowColDuration,
             this.tsmiShowColOperation,
@@ -303,7 +315,7 @@
             this.tsmiShowColRequestId,
             this.tsmiShowColException});
             this.contextMenuGridView.Name = "contextStripMain";
-            this.contextMenuGridView.Size = new System.Drawing.Size(164, 422);
+            this.contextMenuGridView.Size = new System.Drawing.Size(164, 444);
             this.contextMenuGridView.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuGridView_Opening);
             // 
             // tsmiFilterBy
@@ -401,6 +413,15 @@
             this.tsmiShowColCorrelation.Tag = "correlation";
             this.tsmiShowColCorrelation.Text = "Correlation";
             this.tsmiShowColCorrelation.CheckStateChanged += new System.EventHandler(this.tsmiShowColumn_CheckedChanged);
+            // 
+            // tsmiShowColCreated
+            // 
+            this.tsmiShowColCreated.CheckOnClick = true;
+            this.tsmiShowColCreated.Name = "tsmiShowColCreated";
+            this.tsmiShowColCreated.Size = new System.Drawing.Size(163, 22);
+            this.tsmiShowColCreated.Tag = "createdon";
+            this.tsmiShowColCreated.Text = "Created";
+            this.tsmiShowColCreated.CheckStateChanged += new System.EventHandler(this.tsmiShowColumn_CheckedChanged);
             // 
             // tsmiShowColStartTime
             // 
@@ -572,7 +593,7 @@
             this.toolStripMatch});
             this.statusStrip1.Location = new System.Drawing.Point(0, 274);
             this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(651, 22);
+            this.statusStrip1.Size = new System.Drawing.Size(690, 22);
             this.statusStrip1.SizingGrip = false;
             this.statusStrip1.TabIndex = 27;
             this.statusStrip1.Text = "statusStrip1";
@@ -620,7 +641,7 @@
             this.panQuickFilter.Dock = System.Windows.Forms.DockStyle.Top;
             this.panQuickFilter.Location = new System.Drawing.Point(0, 0);
             this.panQuickFilter.Name = "panQuickFilter";
-            this.panQuickFilter.Size = new System.Drawing.Size(651, 27);
+            this.panQuickFilter.Size = new System.Drawing.Size(690, 27);
             this.panQuickFilter.TabIndex = 28;
             this.panQuickFilter.Visible = false;
             // 
@@ -628,7 +649,7 @@
             // 
             this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(448, 7);
+            this.label1.Location = new System.Drawing.Point(487, 7);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(191, 13);
             this.label1.TabIndex = 20;
@@ -636,11 +657,11 @@
             // 
             // txtQuickFilter
             // 
-            this.txtQuickFilter.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+            this.txtQuickFilter.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtQuickFilter.Location = new System.Drawing.Point(97, 4);
             this.txtQuickFilter.Name = "txtQuickFilter";
-            this.txtQuickFilter.Size = new System.Drawing.Size(292, 20);
+            this.txtQuickFilter.Size = new System.Drawing.Size(331, 20);
             this.txtQuickFilter.TabIndex = 19;
             this.txtQuickFilter.TextChanged += new System.EventHandler(this.txtQuickFilter_TextChanged);
             // 
@@ -657,7 +678,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(651, 296);
+            this.ClientSize = new System.Drawing.Size(690, 296);
             this.CloseButton = false;
             this.CloseButtonVisible = false;
             this.Controls.Add(this.crmGridView);
@@ -691,6 +712,7 @@
         private System.Windows.Forms.ToolStripMenuItem tsmiDeleteSelected;
         private System.Windows.Forms.ToolStripMenuItem tsmiDeleteAll;
         private System.Windows.Forms.ToolStripMenuItem tsmiShowColCorrelation;
+        private System.Windows.Forms.ToolStripMenuItem tsmiShowColCreated;
         private System.Windows.Forms.ToolStripMenuItem tsmiShowColStartTime;
         private System.Windows.Forms.ToolStripMenuItem tsmiShowColDuration;
         private System.Windows.Forms.ToolStripMenuItem tsmiShowColOperation;
@@ -714,6 +736,7 @@
         private System.Windows.Forms.ToolStripStatusLabel toolStripCorrelations;
         private System.Windows.Forms.ToolStripStatusLabel toolStripMatch;
         private System.Windows.Forms.DataGridViewTextBoxColumn correlation;
+        private System.Windows.Forms.DataGridViewTextBoxColumn createdon;
         private System.Windows.Forms.DataGridViewTextBoxColumn performanceexecutionstarttime;
         private System.Windows.Forms.DataGridViewTextBoxColumn performanceexecutionduration;
         private System.Windows.Forms.DataGridViewTextBoxColumn operationtype;
