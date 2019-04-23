@@ -30,6 +30,7 @@
         {
             this.components = new System.ComponentModel.Container();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.crmGridView = new Cinteros.Xrm.CRMWinForm.CRMGridView();
             this.correlation = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.performanceexecutionstarttime = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -153,6 +154,8 @@
             // 
             // performanceexecutionstarttime
             // 
+            dataGridViewCellStyle2.Format = "yyyy-MM-dd HH:mm:ss.fff";
+            this.performanceexecutionstarttime.DefaultCellStyle = dataGridViewCellStyle2;
             this.performanceexecutionstarttime.HeaderText = "Start Time";
             this.performanceexecutionstarttime.Name = "performanceexecutionstarttime";
             this.performanceexecutionstarttime.ReadOnly = true;
@@ -633,7 +636,7 @@
             // 
             // txtQuickFilter
             // 
-            this.txtQuickFilter.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.txtQuickFilter.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtQuickFilter.Location = new System.Drawing.Point(97, 4);
             this.txtQuickFilter.Name = "txtQuickFilter";
