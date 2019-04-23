@@ -414,7 +414,7 @@
             0});
             this.numDurationMax.Location = new System.Drawing.Point(183, 97);
             this.numDurationMax.Maximum = new decimal(new int[] {
-            100000,
+            1000000,
             0,
             0,
             0});
@@ -432,7 +432,7 @@
             0});
             this.numDurationMin.Location = new System.Drawing.Point(93, 97);
             this.numDurationMin.Maximum = new decimal(new int[] {
-            100000,
+            1000000,
             0,
             0,
             0});
