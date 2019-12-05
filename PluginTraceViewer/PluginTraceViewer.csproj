@@ -249,7 +249,7 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>ilmerge.exe /target:library /targetplatform:v4,"C:\Windows\Microsoft.NET\Framework\v4.0.30319" "/out:Rappen.XTB.PTV.dll" "$(TargetFileName)" "Cinteros.Xrm.CRMWinForm.dll"
+    <PostBuildEvent>ilmerge.exe /target:library /targetplatform:v4,"C:\Windows\Microsoft.NET\Framework\v4.0.30319" "/out:Rappen.XTB.PTV.dll" "$(TargetFileName)" "xrmtb.XrmToolBox.Controls.dll"
 
 if $(ConfigurationName) == Debug (
   IF NOT EXIST Plugins mkdir Plugins
