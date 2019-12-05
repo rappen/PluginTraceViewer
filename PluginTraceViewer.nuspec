@@ -20,7 +20,7 @@ Rebranded with 2019 design
     <copyright>Copyright 2016-2018 Jonas Rapp</copyright>
     <tags>XrmToolBox Plugins PluginTraceViewer</tags>
     <dependencies>
-      <dependency id="XrmToolBox" version="1.2018.6.24" />
+      <dependency id="XrmToolBox" version="1.2019.11.35" />
     </dependencies>
   </metadata>
   <files>

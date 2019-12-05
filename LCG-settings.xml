@@ -4,7 +4,7 @@
   <ConstantOptionsExpanded>true</ConstantOptionsExpanded>
   <EntityFilterExpanded>true</EntityFilterExpanded>
   <AttributeFilterExpanded>true</AttributeFilterExpanded>
-  <OutputFolder>C:\Dev\Git\XrmToolBox.PluginTraceViewer\Cinteros.XTB.PluginTraceViewer</OutputFolder>
+  <OutputFolder>C:\Dev\GitHub\PluginTraceViewer\PluginTraceViewer</OutputFolder>
   <NameSpace>Cinteros.XTB.PluginTraceViewer.Const</NameSpace>
   <UseCommonFile>true</UseCommonFile>
   <CommonFile>Const</CommonFile>
@@ -15,8 +15,11 @@
   <StripPrefix>_</StripPrefix>
   <XmlProperties>true</XmlProperties>
   <XmlDescription>false</XmlDescription>
+  <Regions>false</Regions>
+  <RelationShips>false</RelationShips>
   <OptionSets>true</OptionSets>
   <GlobalOptionSets>false</GlobalOptionSets>
+  <CommonAttributes>None</CommonAttributes>
   <EntityFilter>
     <CustomAll>true</CustomAll>
     <CustomFalse>false</CustomFalse>
@@ -37,6 +40,7 @@
     <ManagedFalse>false</ManagedFalse>
     <PrimaryKey>false</PrimaryKey>
     <PrimaryAttribute>false</PrimaryAttribute>
+    <Logical>false</Logical>
   </AttributeFilter>
   <Selection>
     <string>organization:name,plugintracelogsetting</string>
