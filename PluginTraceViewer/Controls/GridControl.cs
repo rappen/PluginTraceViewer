@@ -441,10 +441,22 @@ namespace Cinteros.XTB.PluginTraceViewer.Controls
                         }
                     }
                     toolStripMatch.Visible = true;
-                    toolStripMatch.Text = $"Match: {string.Join(" and ", selectedCells.Select(c => "(" + c.OwningColumn.HeaderCell.Value.ToString() + "=" + c.Value.ToString() + ")"))}";
+                    toolStripMatch.Text = $"Match: {string.Join(" and ", selectedCells.Select(c => GetMatchString(c)))}";
                     UpdateStatusBar(highlightedRows);
                 }
             }
+        }
+
+        private static string GetMatchString(DataGridViewCell c)
+        {
+            var header = c.OwningColumn.HeaderCell.Value.ToString();
+            var value = c.Value.ToString();
+            value = value.Replace("\r\n", " ");
+            if (value.Length > 100)
+            {
+                value = value.Substring(0, 100) + "...";
+            }
+            return $"({header}={value})";
         }
 
         private void ResetAllCellStyles()
