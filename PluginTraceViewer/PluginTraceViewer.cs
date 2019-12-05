@@ -609,6 +609,8 @@ namespace Cinteros.XTB.PluginTraceViewer
         internal void GridRecordEnter(Entity record)
         {
             buttonOpenLogRecord.Enabled = record != null;
+            buttonOpenLogTrace.Enabled = record != null && !string.IsNullOrWhiteSpace(record.GetAttributeValue<string>(PluginTraceLog.MessageBlock));
+            buttonOpenLogException.Enabled = record != null && !string.IsNullOrWhiteSpace(record.GetAttributeValue<string>(PluginTraceLog.ExceptionDetails));
             traceControl.SetLogText(FixLineBreaks(record != null && record.Contains(PluginTraceLog.MessageBlock) ? record[PluginTraceLog.MessageBlock].ToString() : ""));
             exceptionControl.SetException(FixLineBreaks(record != null && record.Contains(PluginTraceLog.ExceptionDetails) ? record[PluginTraceLog.ExceptionDetails].ToString() : ""),
                 "Exception" + (record.Contains("exceptionsummary") ? ": " + record["exceptionsummary"].ToString().Replace("\r\n", " ") : ""));
@@ -1029,6 +1031,40 @@ namespace Cinteros.XTB.PluginTraceViewer
         private void tsmiViewQuickFilter_Click(object sender, EventArgs e)
         {
             gridControl.panQuickFilter.Visible = tsmiViewQuickFilter.Checked;
+        }
+
+        private void buttonOpenLogException_Click(object sender, EventArgs e)
+        {
+            OpenLogException(gridControl.crmGridView.SelectedCellRecords.Entities.FirstOrDefault());
+        }
+
+        private void buttonOpenLogTrace_Click(object sender, EventArgs e)
+        {
+            OpenLogTrace(gridControl.crmGridView.SelectedCellRecords.Entities.FirstOrDefault());
+        }
+
+        private void OpenLogException(Entity record)
+        {
+            if (record == null || string.IsNullOrWhiteSpace(record.GetAttributeValue<string>(PluginTraceLog.ExceptionDetails)))
+            {
+                return;
+            }
+            var filename = record.TraceLogName() + ".exception.txt";
+            filename = Path.Combine(Paths.LogsPath, filename);
+            File.WriteAllText(filename, record.GetAttributeValue<string>(PluginTraceLog.ExceptionDetails));
+            Process.Start(filename);
+        }
+
+        private static void OpenLogTrace(Entity record)
+        {
+            if (record == null)
+            {
+                return;
+            }
+            var filename = record.TraceLogName() + ".txt";
+            filename = Path.Combine(Paths.LogsPath, filename);
+            File.WriteAllText(filename, record.GetAttributeValue<string>(PluginTraceLog.MessageBlock));
+            Process.Start(filename);
         }
     }
 }

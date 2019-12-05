@@ -1,4 +1,5 @@
-﻿using Microsoft.Xrm.Sdk;
+﻿using Cinteros.XTB.PluginTraceViewer.Const;
+using Microsoft.Xrm.Sdk;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -41,6 +42,18 @@ namespace Cinteros.XTB.PluginTraceViewer
                     i++;
                 }
             }
+        }
+
+        public static string TraceLogName(this Entity record)
+        {
+            if (record == null || record.LogicalName != PluginTraceLog.EntityName)
+            {
+                return string.Empty;
+            }
+            var name = record.GetAttributeValue<string>(PluginTraceLog.MessageName) + " " +
+                record.GetAttributeValue<string>(PluginTraceLog.PrimaryEntity) + " " +
+                record.GetAttributeValue<DateTime>(PluginTraceLog.PerformanceExecutionStarttime).ToString("yyyyMMddHHmmssfff");
+            return name;
         }
     }
 }
