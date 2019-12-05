@@ -176,12 +176,12 @@ namespace Cinteros.XTB.PluginTraceViewer.Controls
             }
         }
 
-        private void crmGridView_RecordDoubleClick(object sender, Xrm.CRMWinForm.CRMRecordEventArgs e)
+        private void crmGridView_RecordDoubleClick(object sender, xrmtb.XrmToolBox.Controls.CRMRecordEventArgs e)
         {
             ptv.OpenLogRecord(crmGridView.SelectedCellRecords.Entities.FirstOrDefault());
         }
 
-        private void crmGridView_RecordEnter(object sender, Xrm.CRMWinForm.CRMRecordEventArgs e)
+        private void crmGridView_RecordEnter(object sender, xrmtb.XrmToolBox.Controls.CRMRecordEventArgs e)
         {
             ptv.GridRecordEnter(e.Entity);
         }

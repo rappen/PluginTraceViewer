@@ -1,16 +1,11 @@
-﻿using Cinteros.Xrm.CRMWinForm;
-using Cinteros.XTB.PluginTraceViewer.Const;
+﻿using Cinteros.XTB.PluginTraceViewer.Const;
 using Cinteros.XTB.PluginTraceViewer.Controls;
 using Microsoft.Xrm.Sdk;
 using Microsoft.Xrm.Sdk.Query;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
-using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Cinteros.XTB.PluginTraceViewer

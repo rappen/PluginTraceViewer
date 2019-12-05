@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
-            this.gridPluginStats = new Cinteros.Xrm.CRMWinForm.CRMGridView();
+            this.gridPluginStats = new xrmtb.XrmToolBox.Controls.CRMGridView();
             this.panelTop = new System.Windows.Forms.Panel();
             this.panelBottom = new System.Windows.Forms.Panel();
             this.plugin = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -254,7 +254,7 @@
 
         #endregion
 
-        private Xrm.CRMWinForm.CRMGridView gridPluginStats;
+        private xrmtb.XrmToolBox.Controls.CRMGridView gridPluginStats;
         private System.Windows.Forms.Panel panelTop;
         private System.Windows.Forms.Panel panelBottom;
         private System.Windows.Forms.DataGridViewTextBoxColumn plugin;
