@@ -191,21 +191,21 @@
             // buttonSaveFilter
             // 
             this.buttonSaveFilter.Name = "buttonSaveFilter";
-            this.buttonSaveFilter.Size = new System.Drawing.Size(180, 22);
+            this.buttonSaveFilter.Size = new System.Drawing.Size(115, 22);
             this.buttonSaveFilter.Text = "Filter...";
             this.buttonSaveFilter.Click += new System.EventHandler(this.buttonSaveFilter_Click);
             // 
             // buttonSaveLogs
             // 
             this.buttonSaveLogs.Name = "buttonSaveLogs";
-            this.buttonSaveLogs.Size = new System.Drawing.Size(180, 22);
+            this.buttonSaveLogs.Size = new System.Drawing.Size(115, 22);
             this.buttonSaveLogs.Text = "Logs...";
             this.buttonSaveLogs.Click += new System.EventHandler(this.buttonSaveLogs_Click);
             // 
             // buttonSaveQuery
             // 
             this.buttonSaveQuery.Name = "buttonSaveQuery";
-            this.buttonSaveQuery.Size = new System.Drawing.Size(180, 22);
+            this.buttonSaveQuery.Size = new System.Drawing.Size(115, 22);
             this.buttonSaveQuery.Text = "Query...";
             this.buttonSaveQuery.Click += new System.EventHandler(this.buttonSaveQuery_Click);
             // 

@@ -26,7 +26,7 @@ namespace Cinteros.XTB.PluginTraceViewer
         private const string aiEndpoint = "https://dc.services.visualstudio.com/v2/track";
         //private const string aiKey = "cc7cb081-b489-421d-bb61-2ee53495c336";    // jonas@rappen.net tenant, TestAI 
         private const string aiKey = "eed73022-2444-45fd-928b-5eebd8fa46a6";    // jonas@rappen.net tenant, XrmToolBox
-        private AppInsights ai = new AppInsights(new AiConfig(aiEndpoint, aiKey) { PluginName = "Plugin Trace Viewer" });
+        private AppInsights ai = new AppInsights(aiEndpoint, aiKey, Assembly.GetExecutingAssembly(), "Plugin Trace Viewer");
 
         private bool? logUsage = null;
         internal GridControl gridControl;
@@ -120,9 +120,13 @@ namespace Cinteros.XTB.PluginTraceViewer
 
         public void OnIncomingMessage(MessageBusEventArgs message)
         {
-            if (message.SourcePlugin == "FetchXML Builder" && message.TargetArgument is string)
+            if (message.TargetArgument is string strarg)
             {
-                FetchUpdated(message.TargetArgument);
+                if (message.SourcePlugin == "FetchXML Builder" &&
+                    strarg.ToLowerInvariant().Trim().StartsWith("<fetch"))
+                {
+                    FetchUpdated(strarg);
+                }
             }
         }
 
@@ -836,7 +840,7 @@ namespace Cinteros.XTB.PluginTraceViewer
 
         private void buttonOpenLogRecord_Click(object sender, EventArgs e)
         {
-            OpenLogRecord(gridControl.crmGridView.SelectedCellRecords.Entities.FirstOrDefault());
+            OpenLogRecord(gridControl.crmGridView.SelectedCellRecords.FirstOrDefault());
         }
 
         private void SaveSettings()
@@ -1035,12 +1039,12 @@ namespace Cinteros.XTB.PluginTraceViewer
 
         private void buttonOpenLogException_Click(object sender, EventArgs e)
         {
-            OpenLogException(gridControl.crmGridView.SelectedCellRecords.Entities.FirstOrDefault());
+            OpenLogException(gridControl.crmGridView.SelectedCellRecords.FirstOrDefault());
         }
 
         private void buttonOpenLogTrace_Click(object sender, EventArgs e)
         {
-            OpenLogTrace(gridControl.crmGridView.SelectedCellRecords.Entities.FirstOrDefault());
+            OpenLogTrace(gridControl.crmGridView.SelectedCellRecords.FirstOrDefault());
         }
 
         private void OpenLogException(Entity record)

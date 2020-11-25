@@ -59,7 +59,7 @@ namespace Cinteros.XTB.PluginTraceViewer
 
         private void btnFilter_Click(object sender, EventArgs e)
         {
-            SelectedPlugins = gridPluginStats.SelectedCellRecords.Entities.Select(s => GetPluginName(s)).Where(s=>!string.IsNullOrWhiteSpace(s)).ToList();
+            SelectedPlugins = gridPluginStats.SelectedCellRecords.Select(s => GetPluginName(s)).Where(s=>!string.IsNullOrWhiteSpace(s)).ToList();
             DialogResult = DialogResult.OK;
         }
 

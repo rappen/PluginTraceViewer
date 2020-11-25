@@ -178,7 +178,7 @@ namespace Cinteros.XTB.PluginTraceViewer.Controls
 
         private void crmGridView_RecordDoubleClick(object sender, xrmtb.XrmToolBox.Controls.CRMRecordEventArgs e)
         {
-            ptv.OpenLogRecord(crmGridView.SelectedCellRecords.Entities.FirstOrDefault());
+            ptv.OpenLogRecord(crmGridView.SelectedCellRecords.FirstOrDefault());
         }
 
         private void crmGridView_RecordEnter(object sender, xrmtb.XrmToolBox.Controls.CRMRecordEventArgs e)
@@ -200,7 +200,7 @@ namespace Cinteros.XTB.PluginTraceViewer.Controls
 
         private void contextMenuGridView_Opening(object sender, CancelEventArgs e)
         {
-            var entities = crmGridView.SelectedCellRecords?.Entities;
+            var entities = crmGridView.SelectedCellRecords;
 
             var corrId = GetSelectedCorrelationId();
             if (!corrId.Equals(Guid.Empty))
@@ -212,7 +212,7 @@ namespace Cinteros.XTB.PluginTraceViewer.Controls
             {
                 tsmiCorrelation.Enabled = false;
             }
-            if (entities?.Count > 0)
+            if (entities?.Count() > 0)
             {
                 // If there are records selected — enable 'Delete Selected' action
                 tsmiDeleteSelected.Enabled = true;
@@ -226,14 +226,14 @@ namespace Cinteros.XTB.PluginTraceViewer.Controls
 
         private void tsmiFilterByEntity_Click(object sender, EventArgs e)
         {
-            var selected = crmGridView.SelectedCellRecords?.Entities;
+            var selected = crmGridView.SelectedCellRecords;
             var selentities = selected?.Select(s => (string)s[PluginTraceLog.PrimaryEntity]).Distinct().ToList();
             ptv.filterControl.AddEntityFilter(selentities);
         }
 
         private void tsmiFilterByMessage_Click(object sender, EventArgs e)
         {
-            var selected = crmGridView.SelectedCellRecords?.Entities;
+            var selected = crmGridView.SelectedCellRecords;
             var selmessages = selected?.Select(s => (string)s[PluginTraceLog.MessageName]).Distinct().ToList();
             if (selmessages.Count == 1)
             {
@@ -247,7 +247,7 @@ namespace Cinteros.XTB.PluginTraceViewer.Controls
 
         private void tsmiFilterByPlugin_Click(object sender, EventArgs e)
         {
-            var selected = crmGridView.SelectedCellRecords?.Entities;
+            var selected = crmGridView.SelectedCellRecords;
             var selplugins = selected?.Select(s => (string)s[PluginTraceLog.PrimaryName]).Distinct().ToList();
             ptv.filterControl.AddPluginFilter(selplugins, false);
         }
@@ -287,9 +287,9 @@ namespace Cinteros.XTB.PluginTraceViewer.Controls
 
         private void tsmiDeleteSelected_Click(object sender, EventArgs e)
         {
-            var entities = crmGridView.SelectedCellRecords?.Entities;
+            var entities = crmGridView.SelectedCellRecords;
 
-            if (entities != null && entities.Count > 0)
+            if (entities != null && entities.Count() > 0)
             {
                 Delete(Bundle(entities)).Start();
 
@@ -483,7 +483,7 @@ namespace Cinteros.XTB.PluginTraceViewer.Controls
         private Guid GetSelectedCorrelationId()
         {
             var result = Guid.Empty;
-            var entities = crmGridView.SelectedCellRecords?.Entities;
+            var entities = crmGridView.SelectedCellRecords;
             var ids = entities?.Select(e => (Guid)e[PluginTraceLog.CorrelationId]).Distinct();
             if (ids?.Count() == 1)
             {
