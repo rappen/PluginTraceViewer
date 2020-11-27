@@ -18,9 +18,9 @@ namespace Cinteros.XTB.PluginTraceViewer
         public bool StagePreVal { get; set; } = true;
         public bool StagePreOp { get; set; } = true;
         public bool StagePostOp { get; set; } = true;
-        public int MinDuration { get; set; }
-        public int MaxDuration { get; set; }
-        public int Records { get; set; }
+        public int MinDuration { get; set; } = -1;
+        public int MaxDuration { get; set; } = -1;
+        public int Records { get; set; } = 100;
         public bool SuppressSettingWarning { get; set; }
     }
 }

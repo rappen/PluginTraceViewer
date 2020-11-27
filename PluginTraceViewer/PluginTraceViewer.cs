@@ -127,7 +127,110 @@ namespace Cinteros.XTB.PluginTraceViewer
                 {
                     FetchUpdated(strarg);
                 }
+                else if (ParseFilterArgs(strarg) is PTVFilter filter)
+                {
+                    filterControl?.ApplyFilter(filter);
+                    RefreshTraces(GetQuery(false));
+                }
             }
+        }
+
+        private PTVFilter ParseFilterArgs(string strarg)
+        {
+            var result = new PTVFilter();
+            foreach (var filterpair in strarg.Split('\n').Select(f => f.Trim()).Where(f => !string.IsNullOrEmpty(f)))
+            {
+                if (filterpair.Contains("="))
+                {
+                    var key = filterpair.Split('=')[0];
+                    var value = filterpair.Split('=')[1];
+                    if (!string.IsNullOrWhiteSpace(key))
+                    {
+                        switch (key.ToLowerInvariant().Trim())
+                        {
+                            case "plugin":
+                                result.Plugin = value;
+                                break;
+                            case "message":
+                                result.Message = value;
+                                break;
+                            case "entity":
+                                result.Entity = value;
+                                break;
+                            case "correlationid":
+                                result.CorrelationId = value;
+                                break;
+                            case "exceptionsonly":
+                                if (bool.TryParse(value, out bool exceptions))
+                                {
+                                    result.Exceptions = exceptions;
+                                }
+                                break;
+                            case "plugins":
+                                if (bool.TryParse(value, out bool plugins))
+                                {
+                                    result.Exceptions = plugins;
+                                }
+                                break;
+                            case "workflows":
+                                if (bool.TryParse(value, out bool workflows))
+                                {
+                                    result.Exceptions = workflows;
+                                }
+                                break;
+                            case "sync":
+                                if (bool.TryParse(value, out bool sync))
+                                {
+                                    result.Exceptions = sync;
+                                }
+                                break;
+                            case "async":
+                                if (bool.TryParse(value, out bool async))
+                                {
+                                    result.Exceptions = async;
+                                }
+                                break;
+                            case "preval":
+                                if (bool.TryParse(value, out bool preval))
+                                {
+                                    result.Exceptions = preval;
+                                }
+                                break;
+                            case "preop":
+                                if (bool.TryParse(value, out bool preop))
+                                {
+                                    result.Exceptions = preop;
+                                }
+                                break;
+                            case "postop":
+                                if (bool.TryParse(value, out bool postop))
+                                {
+                                    result.Exceptions = postop;
+                                }
+                                break;
+                            case "durationmin":
+                                if (int.TryParse(value, out int durationmin))
+                                {
+                                    result.MinDuration = durationmin;
+                                }
+                                break;
+                            case "durationmax":
+                                if (int.TryParse(value, out int durationmax))
+                                {
+                                    result.MinDuration = durationmax;
+                                }
+                                break;
+                            case "records":
+                                if (int.TryParse(value, out int records))
+                                {
+                                    result.MinDuration = records;
+                                }
+                                break;
+                        }
+                    }
+                }
+            }
+            return result;
         }
 
         public void ReceiveKeyDownShortcut(KeyEventArgs e)
