@@ -92,9 +92,20 @@ namespace Cinteros.XTB.PluginTraceViewer.Controls
                 comboPlugin.Text = string.Empty;
             }
             var plugins = comboPlugin.Text.Trim().Split(',').Where(s => !string.IsNullOrWhiteSpace(s)).Select(s => s.Trim()).ToList();
-            plugins = plugins.Concat(newplugins.Where(s => !plugins.Contains(s))).ToList();
+            plugins = plugins.Concat(newplugins.Select(ParsePluginType).Where(s => !plugins.Contains(s))).ToList();
             comboPlugin.Text = string.Join(", ", plugins);
             chkPlugin.Checked = true;
+        }
+
+        private string ParsePluginType(string plugin)
+        {
+            if (!string.IsNullOrWhiteSpace(plugin) &&
+                (!ptv.tsmiFullyQualifiedPluginNames.Checked ||
+                 (plugin.Contains(",") && plugin.Contains("Version="))))
+            {   // Looks like new fully qualified format of the plugintype, break before first comma and add wildcard
+                return plugin.Split(',')[0] + "*";
+            }
+            return plugin;
         }
 
         internal void AddCorrelationFilter(Guid newCorrId)

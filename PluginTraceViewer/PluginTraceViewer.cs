@@ -475,10 +475,10 @@ namespace Cinteros.XTB.PluginTraceViewer
                     {
                         AlertError($"Failed to load trace logs:\n{args.Error.Message}", "Load");
                     }
-                    else if (args.Result is EntityCollection)
+                    else if (args.Result is EntityCollection results)
                     {
-                        var results = args.Result as EntityCollection;
                         FriendlyfyCorrelationIds(results);
+                        SimplifyPluginTypes(results);
                         SetTraceSizes(results);
                         ExtractExceptionSummaries(results);
                         gridControl.PopulateGrid(results);
@@ -571,6 +571,24 @@ namespace Cinteros.XTB.PluginTraceViewer
             traceControl.Clear();
             exceptionControl.Clear();
             statsControl.Clear();
+        }
+
+        private void SimplifyPluginTypes(EntityCollection entities)
+        {
+            if (tsmiFullyQualifiedPluginNames.Checked)
+            {
+                return;
+            }
+            foreach (var entity in entities.Entities)
+            {
+                if (entity.TryGetAttributeValue(PluginTraceLog.PrimaryName, out string plugin))
+                {
+                    if (plugin.Contains(",") && plugin.Contains("Version="))
+                    {   // Looks like new fully qualified format of the plugintype, break before first comma and add wildcard
+                        entity[PluginTraceLog.PrimaryName] = plugin.Split(',')[0];
+                    }
+                }
+            }
         }
 
         private void FriendlyfyCorrelationIds(EntityCollection entities)
@@ -856,6 +874,7 @@ namespace Cinteros.XTB.PluginTraceViewer
                 UseLog = logUsage,
                 Version = version,
                 LocalTime = tsmiLocalTimes.Checked,
+                FullyQualifiedPluginNames = tsmiFullyQualifiedPluginNames.Checked,
                 HighlightIdentical = tsmiHighlight.Checked,
                 HighlightColor = ColorTranslator.ToHtml(gridControl.highlightColor),
                 Columns = gridControl?.Columns,
@@ -898,6 +917,7 @@ namespace Cinteros.XTB.PluginTraceViewer
             comboRefreshMode.Enabled = false;
             tsmiWordWrap.Checked = settings.WordWrap;
             tsmiLocalTimes.Checked = settings.LocalTime;
+            tsmiFullyQualifiedPluginNames.Checked = settings.FullyQualifiedPluginNames;
             tsmiHighlight.Checked = settings.HighlightIdentical;
             comboRefreshMode.SelectedIndex = settings.RefreshMode;
             timerRefresh.Interval = settings.RefreshInterval;
@@ -1056,6 +1076,14 @@ namespace Cinteros.XTB.PluginTraceViewer
             if (result == DialogResult.OK && stats.SelectedPlugins != null && stats.SelectedPlugins.Count > 0)
             {
                 filterControl.AddPluginFilter(stats.SelectedPlugins, true);
+            }
+        }
+
+        private void tsmiFullyQualifiedPluginNames_Click(object sender, EventArgs e)
+        {
+            if (MessageBox.Show("Setting changed. Retrieve logs again to see results.\n\nRetrieve logs now?", "Plugin Names", MessageBoxButtons.YesNo, MessageBoxIcon.Information) == DialogResult.Yes)
+            {
+                RefreshTraces(GetQuery(false));
             }
         }
 
