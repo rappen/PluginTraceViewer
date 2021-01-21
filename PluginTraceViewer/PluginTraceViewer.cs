@@ -477,11 +477,12 @@ namespace Cinteros.XTB.PluginTraceViewer
                     }
                     else if (args.Result is EntityCollection results)
                     {
-                        FriendlyfyCorrelationIds(results);
-                        SimplifyPluginTypes(results);
-                        SetTraceSizes(results);
-                        ExtractExceptionSummaries(results);
-                        gridControl.PopulateGrid(results);
+                        var entities = results.Entities;
+                        FriendlyfyCorrelationIds(entities);
+                        SimplifyPluginTypes(entities);
+                        SetTraceSizes(entities);
+                        ExtractExceptionSummaries(entities);
+                        gridControl.PopulateGrid(entities);
                         StartRefreshTimer(false);
                     }
                 }
@@ -505,8 +506,8 @@ namespace Cinteros.XTB.PluginTraceViewer
                 }
                 else
                 {
-                    var logs = gridControl.crmGridView.GetDataSource<EntityCollection>();
-                    foreach (var log in logs.Entities)
+                    var logs = gridControl.crmGridView.DataSource as DataCollection<Entity>;
+                    foreach (var log in logs)
                     {
                         newlogs.Remove(log.Id);
                     }
@@ -516,9 +517,10 @@ namespace Cinteros.XTB.PluginTraceViewer
                     {
                         foreach (var log in newlogs.Entities.Reverse())
                         {
-                            logs.Entities.Insert(0, log);
+                            logs.Insert(0, log);
                         }
                         FriendlyfyCorrelationIds(logs);
+                        SimplifyPluginTypes(logs);
                         SetTraceSizes(logs);
                         ExtractExceptionSummaries(logs);
                         gridControl.crmGridView.Refresh();
@@ -573,13 +575,13 @@ namespace Cinteros.XTB.PluginTraceViewer
             statsControl.Clear();
         }
 
-        private void SimplifyPluginTypes(EntityCollection entities)
+        private void SimplifyPluginTypes(IEnumerable<Entity> entities)
         {
             if (tsmiFullyQualifiedPluginNames.Checked)
             {
                 return;
             }
-            foreach (var entity in entities.Entities)
+            foreach (var entity in entities)
             {
                 if (entity.TryGetAttributeValue(PluginTraceLog.PrimaryName, out string plugin))
                 {
@@ -591,11 +593,11 @@ namespace Cinteros.XTB.PluginTraceViewer
             }
         }
 
-        private void FriendlyfyCorrelationIds(EntityCollection entities)
+        private void FriendlyfyCorrelationIds(IEnumerable<Entity> entities)
         {
             var allCorrelationIds = new List<Guid>();
             var correlationIds = new List<Guid>();
-            foreach (var entity in entities.Entities)
+            foreach (var entity in entities)
             {   // First determine which correlation ids that occur more than once, we don't want to show corr for single occurences
                 if (entity.Contains(PluginTraceLog.CorrelationId))
                 {
@@ -613,7 +615,7 @@ namespace Cinteros.XTB.PluginTraceViewer
                     }
                 }
             }
-            foreach (var entity in entities.Entities)
+            foreach (var entity in entities)
             {
                 if (entity.Contains(PluginTraceLog.CorrelationId))
                 {
@@ -642,12 +644,12 @@ namespace Cinteros.XTB.PluginTraceViewer
             }
         }
 
-        private void ExtractExceptionSummaries(EntityCollection entities)
+        private void ExtractExceptionSummaries(IEnumerable<Entity> entities)
         {
             const string fault = "(Fault Detail is equal to Microsoft.Xrm.Sdk.OrganizationServiceFault).: ";
             const string unhandled = "Unhandled Exception: ";
             var cnt = 0;
-            foreach (var entity in entities.Entities)
+            foreach (var entity in entities)
             {
                 if (!entity.Contains("exceptionsummary") &&
                     entity.Contains(PluginTraceLog.ExceptionDetails) &&
@@ -681,10 +683,10 @@ namespace Cinteros.XTB.PluginTraceViewer
             LogInfo("Extracted exception summary from {0} logs", cnt);
         }
 
-        private void SetTraceSizes(EntityCollection entities)
+        private void SetTraceSizes(IEnumerable<Entity> entities)
         {
             var cnt = 0;
-            foreach (var entity in entities.Entities)
+            foreach (var entity in entities)
             {
                 if (!entity.Contains("tracesize") &&
                     entity.Contains(PluginTraceLog.MessageBlock) &&

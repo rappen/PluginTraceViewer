@@ -294,11 +294,11 @@ namespace Cinteros.XTB.PluginTraceViewer.Controls
                 Delete(Bundle(entities)).Start();
 
                 // Deleting log records from the list
-                var source = crmGridView.GetDataSource<EntityCollection>();
+                var source = crmGridView.GetDataSource<IEnumerable<Entity>>().ToList();
 
                 foreach (var entity in entities)
                 {
-                    source.Entities.Remove(entity);
+                    source.Remove(entity);
                 }
 
                 // Refresh unfortunately crashes with InvalidAsynchronousStateException "Target thread does not exist anymore
@@ -334,12 +334,12 @@ namespace Cinteros.XTB.PluginTraceViewer.Controls
             // Deleting log records
             Delete(batches).Start();
 
-            var source = crmGridView.GetDataSource<EntityCollection>();
+            var source = crmGridView.GetDataSource<IEnumerable<Entity>>().ToList();
 
             // TODO: Prompt user - reload logs? Otherwise just clear the list
             if (source != null)
             {
-                source.Entities.Clear();
+                source.Clear();
 
                 // Refresh unfortunately crashes with InvalidAsynchronousStateException "Target thread does not exist anymore
                 // grid.Refresh();
@@ -364,9 +364,9 @@ namespace Cinteros.XTB.PluginTraceViewer.Controls
             GetColumnsFromGrid();
         }
 
-        internal void PopulateGrid(EntityCollection results)
+        internal void PopulateGrid(IEnumerable<Entity> results)
         {
-            ptv.LogInfo("PopulateGrid with {0} logs", results.Entities.Count);
+            ptv.LogInfo("PopulateGrid with {0} logs", results.Count());
             var asyncinfo = new WorkAsyncInfo()
             {
                 Message = "Populating result view",
@@ -377,7 +377,7 @@ namespace Cinteros.XTB.PluginTraceViewer.Controls
                         refreshingGrid = true;
                         crmGridView.DataSource = results;
                         refreshingGrid = false;
-                        ptv.SendStatusMessage($"Loaded {results.Entities.Count} trace records");
+                        ptv.SendStatusMessage($"Loaded {results.Count()} trace records");
                         UpdateColumnsLayout();
                     });
                 },
