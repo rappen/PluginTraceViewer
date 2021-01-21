@@ -1,4 +1,5 @@
 ﻿using System.Windows.Forms;
+using WeifenLuo.WinFormsUI.Docking;
 
 namespace Cinteros.XTB.PluginTraceViewer.Controls
 {
@@ -17,6 +18,24 @@ namespace Cinteros.XTB.PluginTraceViewer.Controls
             textException.Text = text;
             textException.SelectionStart = 0;
             TabText = caption;
+            if (string.IsNullOrWhiteSpace(text))
+            {
+                DockState =
+                    DockState == DockState.DockTop ? DockState.DockTopAutoHide :
+                    DockState == DockState.DockBottom ? DockState.DockBottomAutoHide :
+                    DockState == DockState.DockLeft ? DockState.DockLeftAutoHide :
+                    DockState == DockState.DockRight ? DockState.DockRightAutoHide :
+                    DockState;
+            }
+            else
+            {
+                DockState =
+                    DockState == DockState.DockTopAutoHide ? DockState.DockTop :
+                    DockState == DockState.DockBottomAutoHide ? DockState.DockBottom :
+                    DockState == DockState.DockLeftAutoHide ? DockState.DockLeft :
+                    DockState == DockState.DockRightAutoHide ? DockState.DockRight :
+                    DockState;
+            }
         }
 
         internal void Clear()
