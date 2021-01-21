@@ -12,16 +12,17 @@
     <description>Investigate the Plug-in Trace Log with easy filtering and display possibilities</description>
     <summary>Investigate the Plug-in Trace Log with easy filtering and display possibilities</summary>
     <releaseNotes>
-#126 Integration from other tools can now open PTV with specific filters.
+#142 Auto hide Exception window for logs without exception 
+#129 Auto Refresh fixed again after it stopped working
+#143 Fully Qualified Plugin Type names are now optional
     </releaseNotes>
-    <copyright>Copyright 2016-2020 Jonas Rapp</copyright>
+    <copyright>Copyright 2016-2021 Jonas Rapp</copyright>
     <tags>XrmToolBox Plugins PluginTraceViewer</tags>
     <dependencies>
-      <dependency id="XrmToolBox" version="1.2019.11.35" />
+      <dependency id="XrmToolBox" version="1.2020.12.43" />
     </dependencies>
   </metadata>
   <files>
     <file src="PluginTraceViewer\bin\Release\Rappen.XTB.PTV.dll" target="lib\net452\Plugins" />
-    <file src="PluginTraceViewer\bin\Release\Cinteros.XTB.PluginTraceViewer.dll" target="lib\net452\Plugins" />
   </files>
 </package>
