@@ -587,7 +587,7 @@ namespace Cinteros.XTB.PluginTraceViewer.Controls
                 var off = tz.GetUtcOffset(DateTime.Now);
                 var offtxt = (off.TotalMinutes > 0 ? "+" : "") + off.ToString();
 
-                labelTimeZone.Text = $"{tzname}\nUTC{offtxt}\nFilter times always UTC!";
+                labelTimeZone.Text = $"{tzname} UTC{offtxt} Filter times always UTC!";
             }
         }
 

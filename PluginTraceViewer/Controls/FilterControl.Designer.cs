@@ -30,10 +30,14 @@
         {
             this.components = new System.ComponentModel.Container();
             this.panelFilter = new System.Windows.Forms.Panel();
+            this.dateTo = new System.Windows.Forms.DateTimePicker();
+            this.dateFrom = new System.Windows.Forms.DateTimePicker();
             this.llToDate = new System.Windows.Forms.LinkLabel();
             this.llFromDate = new System.Windows.Forms.LinkLabel();
             this.textCorrelationId = new System.Windows.Forms.TextBox();
             this.chkCorrelation = new System.Windows.Forms.CheckBox();
+            this.textRequestId = new System.Windows.Forms.TextBox();
+            this.chkRequestId = new System.Windows.Forms.CheckBox();
             this.labelTimeZone = new System.Windows.Forms.Label();
             this.comboEntity = new System.Windows.Forms.ComboBox();
             this.chkEntity = new System.Windows.Forms.CheckBox();
@@ -43,8 +47,6 @@
             this.chkPlugin = new System.Windows.Forms.CheckBox();
             this.checkDateTo = new System.Windows.Forms.CheckBox();
             this.checkDateFrom = new System.Windows.Forms.CheckBox();
-            this.dateTo = new System.Windows.Forms.DateTimePicker();
-            this.dateFrom = new System.Windows.Forms.DateTimePicker();
             this.panelOptions = new System.Windows.Forms.Panel();
             this.chkOperWF = new System.Windows.Forms.CheckBox();
             this.chkOperPlugins = new System.Windows.Forms.CheckBox();
@@ -65,8 +67,6 @@
             this.dateMenuToday = new System.Windows.Forms.ToolStripMenuItem();
             this.dateMenuFirst = new System.Windows.Forms.ToolStripMenuItem();
             this.dateMenuLast = new System.Windows.Forms.ToolStripMenuItem();
-            this.textRequestId = new System.Windows.Forms.TextBox();
-            this.chkRequestId = new System.Windows.Forms.CheckBox();
             this.panelFilter.SuspendLayout();
             this.panelOptions.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numDurationMax)).BeginInit();
@@ -97,17 +97,41 @@
             this.panelFilter.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelFilter.Location = new System.Drawing.Point(0, 0);
             this.panelFilter.Name = "panelFilter";
-            this.panelFilter.Size = new System.Drawing.Size(396, 173);
+            this.panelFilter.Size = new System.Drawing.Size(773, 147);
             this.panelFilter.TabIndex = 1;
+            // 
+            // dateTo
+            // 
+            this.dateTo.CustomFormat = "yyyy-MM-dd HH:mm";
+            this.dateTo.Enabled = false;
+            this.dateTo.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
+            this.dateTo.Location = new System.Drawing.Point(298, 4);
+            this.dateTo.MaxDate = new System.DateTime(2099, 12, 31, 0, 0, 0, 0);
+            this.dateTo.MinDate = new System.DateTime(2000, 1, 1, 0, 0, 0, 0);
+            this.dateTo.Name = "dateTo";
+            this.dateTo.Size = new System.Drawing.Size(130, 20);
+            this.dateTo.TabIndex = 6;
+            // 
+            // dateFrom
+            // 
+            this.dateFrom.CustomFormat = "yyyy-MM-dd HH:mm";
+            this.dateFrom.Enabled = false;
+            this.dateFrom.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
+            this.dateFrom.Location = new System.Drawing.Point(97, 4);
+            this.dateFrom.MaxDate = new System.DateTime(2099, 12, 31, 0, 0, 0, 0);
+            this.dateFrom.MinDate = new System.DateTime(2000, 1, 1, 0, 0, 0, 0);
+            this.dateFrom.Name = "dateFrom";
+            this.dateFrom.Size = new System.Drawing.Size(130, 20);
+            this.dateFrom.TabIndex = 3;
             // 
             // llToDate
             // 
             this.llToDate.AutoSize = true;
             this.llToDate.LinkBehavior = System.Windows.Forms.LinkBehavior.NeverUnderline;
-            this.llToDate.Location = new System.Drawing.Point(76, 28);
+            this.llToDate.Location = new System.Drawing.Point(277, 7);
             this.llToDate.Name = "llToDate";
             this.llToDate.Size = new System.Drawing.Size(19, 13);
-            this.llToDate.TabIndex = 15;
+            this.llToDate.TabIndex = 5;
             this.llToDate.TabStop = true;
             this.llToDate.Tag = "to";
             this.llToDate.Text = ">>";
@@ -117,10 +141,10 @@
             // 
             this.llFromDate.AutoSize = true;
             this.llFromDate.LinkBehavior = System.Windows.Forms.LinkBehavior.NeverUnderline;
-            this.llFromDate.Location = new System.Drawing.Point(76, 4);
+            this.llFromDate.Location = new System.Drawing.Point(76, 7);
             this.llFromDate.Name = "llFromDate";
             this.llFromDate.Size = new System.Drawing.Size(19, 13);
-            this.llFromDate.TabIndex = 14;
+            this.llFromDate.TabIndex = 2;
             this.llFromDate.TabStop = true;
             this.llFromDate.Tag = "from";
             this.llFromDate.Text = ">>";
@@ -131,26 +155,47 @@
             this.textCorrelationId.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.textCorrelationId.Enabled = false;
-            this.textCorrelationId.Location = new System.Drawing.Point(97, 120);
+            this.textCorrelationId.Location = new System.Drawing.Point(97, 100);
             this.textCorrelationId.Name = "textCorrelationId";
-            this.textCorrelationId.Size = new System.Drawing.Size(292, 20);
-            this.textCorrelationId.TabIndex = 13;
+            this.textCorrelationId.Size = new System.Drawing.Size(669, 20);
+            this.textCorrelationId.TabIndex = 14;
             // 
             // chkCorrelation
             // 
             this.chkCorrelation.AutoSize = true;
-            this.chkCorrelation.Location = new System.Drawing.Point(3, 122);
+            this.chkCorrelation.Location = new System.Drawing.Point(3, 102);
             this.chkCorrelation.Name = "chkCorrelation";
             this.chkCorrelation.Size = new System.Drawing.Size(88, 17);
-            this.chkCorrelation.TabIndex = 12;
+            this.chkCorrelation.TabIndex = 13;
             this.chkCorrelation.Text = "Correlation Id";
             this.chkCorrelation.UseVisualStyleBackColor = true;
             this.chkCorrelation.CheckedChanged += new System.EventHandler(this.chkCorrelation_CheckedChanged);
             // 
+            // textRequestId
+            // 
+            this.textRequestId.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.textRequestId.Enabled = false;
+            this.textRequestId.Location = new System.Drawing.Point(97, 124);
+            this.textRequestId.Name = "textRequestId";
+            this.textRequestId.Size = new System.Drawing.Size(669, 20);
+            this.textRequestId.TabIndex = 16;
+            // 
+            // chkRequestId
+            // 
+            this.chkRequestId.AutoSize = true;
+            this.chkRequestId.Location = new System.Drawing.Point(3, 126);
+            this.chkRequestId.Name = "chkRequestId";
+            this.chkRequestId.Size = new System.Drawing.Size(78, 17);
+            this.chkRequestId.TabIndex = 15;
+            this.chkRequestId.Text = "Request Id";
+            this.chkRequestId.UseVisualStyleBackColor = true;
+            this.chkRequestId.CheckedChanged += new System.EventHandler(this.chkRequestId_CheckedChanged);
+            // 
             // labelTimeZone
             // 
             this.labelTimeZone.AutoSize = true;
-            this.labelTimeZone.Location = new System.Drawing.Point(233, 4);
+            this.labelTimeZone.Location = new System.Drawing.Point(434, 7);
             this.labelTimeZone.Name = "labelTimeZone";
             this.labelTimeZone.Size = new System.Drawing.Size(71, 13);
             this.labelTimeZone.TabIndex = 11;
@@ -162,19 +207,19 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.comboEntity.Enabled = false;
             this.comboEntity.FormattingEnabled = true;
-            this.comboEntity.Location = new System.Drawing.Point(97, 96);
+            this.comboEntity.Location = new System.Drawing.Point(97, 76);
             this.comboEntity.Name = "comboEntity";
-            this.comboEntity.Size = new System.Drawing.Size(292, 21);
+            this.comboEntity.Size = new System.Drawing.Size(669, 21);
             this.comboEntity.Sorted = true;
-            this.comboEntity.TabIndex = 10;
+            this.comboEntity.TabIndex = 12;
             // 
             // chkEntity
             // 
             this.chkEntity.AutoSize = true;
-            this.chkEntity.Location = new System.Drawing.Point(3, 98);
+            this.chkEntity.Location = new System.Drawing.Point(3, 78);
             this.chkEntity.Name = "chkEntity";
             this.chkEntity.Size = new System.Drawing.Size(52, 17);
-            this.chkEntity.TabIndex = 9;
+            this.chkEntity.TabIndex = 11;
             this.chkEntity.Text = "Entity";
             this.chkEntity.UseVisualStyleBackColor = true;
             this.chkEntity.CheckedChanged += new System.EventHandler(this.chkEntity_CheckedChanged);
@@ -185,18 +230,18 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.comboMessage.Enabled = false;
             this.comboMessage.FormattingEnabled = true;
-            this.comboMessage.Location = new System.Drawing.Point(97, 72);
+            this.comboMessage.Location = new System.Drawing.Point(97, 52);
             this.comboMessage.Name = "comboMessage";
-            this.comboMessage.Size = new System.Drawing.Size(292, 21);
-            this.comboMessage.TabIndex = 8;
+            this.comboMessage.Size = new System.Drawing.Size(669, 21);
+            this.comboMessage.TabIndex = 10;
             // 
             // chkMessage
             // 
             this.chkMessage.AutoSize = true;
-            this.chkMessage.Location = new System.Drawing.Point(3, 74);
+            this.chkMessage.Location = new System.Drawing.Point(3, 54);
             this.chkMessage.Name = "chkMessage";
             this.chkMessage.Size = new System.Drawing.Size(69, 17);
-            this.chkMessage.TabIndex = 7;
+            this.chkMessage.TabIndex = 9;
             this.chkMessage.Text = "Message";
             this.chkMessage.UseVisualStyleBackColor = true;
             this.chkMessage.CheckedChanged += new System.EventHandler(this.chkMessage_CheckedChanged);
@@ -207,18 +252,18 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.comboPlugin.Enabled = false;
             this.comboPlugin.FormattingEnabled = true;
-            this.comboPlugin.Location = new System.Drawing.Point(97, 48);
+            this.comboPlugin.Location = new System.Drawing.Point(97, 28);
             this.comboPlugin.Name = "comboPlugin";
-            this.comboPlugin.Size = new System.Drawing.Size(292, 21);
-            this.comboPlugin.TabIndex = 6;
+            this.comboPlugin.Size = new System.Drawing.Size(669, 21);
+            this.comboPlugin.TabIndex = 8;
             // 
             // chkPlugin
             // 
             this.chkPlugin.AutoSize = true;
-            this.chkPlugin.Location = new System.Drawing.Point(3, 50);
+            this.chkPlugin.Location = new System.Drawing.Point(3, 30);
             this.chkPlugin.Name = "chkPlugin";
             this.chkPlugin.Size = new System.Drawing.Size(55, 17);
-            this.chkPlugin.TabIndex = 5;
+            this.chkPlugin.TabIndex = 7;
             this.chkPlugin.Text = "Plugin";
             this.chkPlugin.UseVisualStyleBackColor = true;
             this.chkPlugin.CheckedChanged += new System.EventHandler(this.chkPlugin_CheckedChanged);
@@ -226,48 +271,24 @@
             // checkDateTo
             // 
             this.checkDateTo.AutoSize = true;
-            this.checkDateTo.Location = new System.Drawing.Point(3, 27);
+            this.checkDateTo.Location = new System.Drawing.Point(242, 6);
             this.checkDateTo.Name = "checkDateTo";
-            this.checkDateTo.Size = new System.Drawing.Size(65, 17);
-            this.checkDateTo.TabIndex = 3;
-            this.checkDateTo.Text = "Date To";
+            this.checkDateTo.Size = new System.Drawing.Size(39, 17);
+            this.checkDateTo.TabIndex = 4;
+            this.checkDateTo.Text = "To";
             this.checkDateTo.UseVisualStyleBackColor = true;
             this.checkDateTo.CheckedChanged += new System.EventHandler(this.checkDateTo_CheckedChanged);
             // 
             // checkDateFrom
             // 
             this.checkDateFrom.AutoSize = true;
-            this.checkDateFrom.Location = new System.Drawing.Point(3, 3);
+            this.checkDateFrom.Location = new System.Drawing.Point(3, 6);
             this.checkDateFrom.Name = "checkDateFrom";
             this.checkDateFrom.Size = new System.Drawing.Size(75, 17);
             this.checkDateFrom.TabIndex = 1;
             this.checkDateFrom.Text = "Date From";
             this.checkDateFrom.UseVisualStyleBackColor = true;
             this.checkDateFrom.CheckedChanged += new System.EventHandler(this.checkDateFrom_CheckedChanged);
-            // 
-            // dateTo
-            // 
-            this.dateTo.CustomFormat = "yyyy-MM-dd HH:mm";
-            this.dateTo.Enabled = false;
-            this.dateTo.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.dateTo.Location = new System.Drawing.Point(97, 24);
-            this.dateTo.MaxDate = new System.DateTime(2099, 12, 31, 0, 0, 0, 0);
-            this.dateTo.MinDate = new System.DateTime(2000, 1, 1, 0, 0, 0, 0);
-            this.dateTo.Name = "dateTo";
-            this.dateTo.Size = new System.Drawing.Size(130, 20);
-            this.dateTo.TabIndex = 4;
-            // 
-            // dateFrom
-            // 
-            this.dateFrom.CustomFormat = "yyyy-MM-dd HH:mm";
-            this.dateFrom.Enabled = false;
-            this.dateFrom.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.dateFrom.Location = new System.Drawing.Point(97, 0);
-            this.dateFrom.MaxDate = new System.DateTime(2099, 12, 31, 0, 0, 0, 0);
-            this.dateFrom.MinDate = new System.DateTime(2000, 1, 1, 0, 0, 0, 0);
-            this.dateFrom.Name = "dateFrom";
-            this.dateFrom.Size = new System.Drawing.Size(130, 20);
-            this.dateFrom.TabIndex = 2;
             // 
             // panelOptions
             // 
@@ -286,9 +307,9 @@
             this.panelOptions.Controls.Add(this.numRecords);
             this.panelOptions.Controls.Add(this.chkExceptions);
             this.panelOptions.Dock = System.Windows.Forms.DockStyle.Right;
-            this.panelOptions.Location = new System.Drawing.Point(396, 0);
+            this.panelOptions.Location = new System.Drawing.Point(773, 0);
             this.panelOptions.Name = "panelOptions";
-            this.panelOptions.Size = new System.Drawing.Size(255, 173);
+            this.panelOptions.Size = new System.Drawing.Size(255, 147);
             this.panelOptions.TabIndex = 2;
             // 
             // chkOperWF
@@ -296,7 +317,7 @@
             this.chkOperWF.AutoSize = true;
             this.chkOperWF.Checked = true;
             this.chkOperWF.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkOperWF.Location = new System.Drawing.Point(93, 27);
+            this.chkOperWF.Location = new System.Drawing.Point(93, 30);
             this.chkOperWF.Name = "chkOperWF";
             this.chkOperWF.Size = new System.Drawing.Size(88, 17);
             this.chkOperWF.TabIndex = 3;
@@ -308,7 +329,7 @@
             this.chkOperPlugins.AutoSize = true;
             this.chkOperPlugins.Checked = true;
             this.chkOperPlugins.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkOperPlugins.Location = new System.Drawing.Point(3, 27);
+            this.chkOperPlugins.Location = new System.Drawing.Point(3, 30);
             this.chkOperPlugins.Name = "chkOperPlugins";
             this.chkOperPlugins.Size = new System.Drawing.Size(60, 17);
             this.chkOperPlugins.TabIndex = 2;
@@ -320,7 +341,7 @@
             this.chkModeAsync.AutoSize = true;
             this.chkModeAsync.Checked = true;
             this.chkModeAsync.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkModeAsync.Location = new System.Drawing.Point(93, 50);
+            this.chkModeAsync.Location = new System.Drawing.Point(93, 53);
             this.chkModeAsync.Name = "chkModeAsync";
             this.chkModeAsync.Size = new System.Drawing.Size(55, 17);
             this.chkModeAsync.TabIndex = 5;
@@ -332,7 +353,7 @@
             this.chkModeSync.AutoSize = true;
             this.chkModeSync.Checked = true;
             this.chkModeSync.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkModeSync.Location = new System.Drawing.Point(3, 50);
+            this.chkModeSync.Location = new System.Drawing.Point(3, 53);
             this.chkModeSync.Name = "chkModeSync";
             this.chkModeSync.Size = new System.Drawing.Size(50, 17);
             this.chkModeSync.TabIndex = 4;
@@ -344,7 +365,7 @@
             this.chkStage40.AutoSize = true;
             this.chkStage40.Checked = true;
             this.chkStage40.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkStage40.Location = new System.Drawing.Point(183, 74);
+            this.chkStage40.Location = new System.Drawing.Point(183, 77);
             this.chkStage40.Name = "chkStage40";
             this.chkStage40.Size = new System.Drawing.Size(61, 17);
             this.chkStage40.TabIndex = 8;
@@ -356,7 +377,7 @@
             this.chkStage20.AutoSize = true;
             this.chkStage20.Checked = true;
             this.chkStage20.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkStage20.Location = new System.Drawing.Point(93, 74);
+            this.chkStage20.Location = new System.Drawing.Point(93, 77);
             this.chkStage20.Name = "chkStage20";
             this.chkStage20.Size = new System.Drawing.Size(56, 17);
             this.chkStage20.TabIndex = 7;
@@ -368,7 +389,7 @@
             this.chkStage10.AutoSize = true;
             this.chkStage10.Checked = true;
             this.chkStage10.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkStage10.Location = new System.Drawing.Point(3, 74);
+            this.chkStage10.Location = new System.Drawing.Point(3, 77);
             this.chkStage10.Name = "chkStage10";
             this.chkStage10.Size = new System.Drawing.Size(57, 17);
             this.chkStage10.TabIndex = 6;
@@ -378,7 +399,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(165, 99);
+            this.label1.Location = new System.Drawing.Point(165, 102);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(10, 13);
             this.label1.TabIndex = 14;
@@ -389,7 +410,7 @@
             this.chkRecords.AutoSize = true;
             this.chkRecords.Checked = true;
             this.chkRecords.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkRecords.Location = new System.Drawing.Point(3, 122);
+            this.chkRecords.Location = new System.Drawing.Point(3, 125);
             this.chkRecords.Name = "chkRecords";
             this.chkRecords.Size = new System.Drawing.Size(66, 17);
             this.chkRecords.TabIndex = 12;
@@ -400,7 +421,7 @@
             // chkDuration
             // 
             this.chkDuration.AutoSize = true;
-            this.chkDuration.Location = new System.Drawing.Point(3, 98);
+            this.chkDuration.Location = new System.Drawing.Point(3, 101);
             this.chkDuration.Name = "chkDuration";
             this.chkDuration.Size = new System.Drawing.Size(66, 17);
             this.chkDuration.TabIndex = 9;
@@ -416,7 +437,7 @@
             0,
             0,
             0});
-            this.numDurationMax.Location = new System.Drawing.Point(183, 97);
+            this.numDurationMax.Location = new System.Drawing.Point(183, 100);
             this.numDurationMax.Maximum = new decimal(new int[] {
             1000000,
             0,
@@ -434,7 +455,7 @@
             0,
             0,
             0});
-            this.numDurationMin.Location = new System.Drawing.Point(93, 97);
+            this.numDurationMin.Location = new System.Drawing.Point(93, 100);
             this.numDurationMin.Maximum = new decimal(new int[] {
             1000000,
             0,
@@ -451,7 +472,7 @@
             0,
             0,
             0});
-            this.numRecords.Location = new System.Drawing.Point(93, 121);
+            this.numRecords.Location = new System.Drawing.Point(93, 124);
             this.numRecords.Maximum = new decimal(new int[] {
             5000,
             0,
@@ -474,7 +495,7 @@
             // chkExceptions
             // 
             this.chkExceptions.AutoSize = true;
-            this.chkExceptions.Location = new System.Drawing.Point(3, 3);
+            this.chkExceptions.Location = new System.Drawing.Point(3, 6);
             this.chkExceptions.Name = "chkExceptions";
             this.chkExceptions.Size = new System.Drawing.Size(100, 17);
             this.chkExceptions.TabIndex = 1;
@@ -523,32 +544,11 @@
             this.dateMenuLast.Text = "Last log record";
             this.dateMenuLast.Click += new System.EventHandler(this.dateMenuItem_Click);
             // 
-            // textRequestId
-            // 
-            this.textRequestId.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.textRequestId.Enabled = false;
-            this.textRequestId.Location = new System.Drawing.Point(97, 144);
-            this.textRequestId.Name = "textRequestId";
-            this.textRequestId.Size = new System.Drawing.Size(292, 20);
-            this.textRequestId.TabIndex = 15;
-            // 
-            // chkRequestId
-            // 
-            this.chkRequestId.AutoSize = true;
-            this.chkRequestId.Location = new System.Drawing.Point(3, 146);
-            this.chkRequestId.Name = "chkRequestId";
-            this.chkRequestId.Size = new System.Drawing.Size(78, 17);
-            this.chkRequestId.TabIndex = 14;
-            this.chkRequestId.Text = "Request Id";
-            this.chkRequestId.UseVisualStyleBackColor = true;
-            this.chkRequestId.CheckedChanged += new System.EventHandler(this.chkRequestId_CheckedChanged);
-            // 
             // FilterControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(651, 173);
+            this.ClientSize = new System.Drawing.Size(1028, 147);
             this.Controls.Add(this.panelFilter);
             this.Controls.Add(this.panelOptions);
             this.DockAreas = ((WeifenLuo.WinFormsUI.Docking.DockAreas)((((WeifenLuo.WinFormsUI.Docking.DockAreas.DockLeft | WeifenLuo.WinFormsUI.Docking.DockAreas.DockRight) 
