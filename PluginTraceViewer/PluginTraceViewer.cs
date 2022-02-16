@@ -160,6 +160,9 @@ namespace Cinteros.XTB.PluginTraceViewer
                             case "correlationid":
                                 result.CorrelationId = value;
                                 break;
+                            case PluginTraceLog.RequestId:
+                                result.RequestId = value;
+                                break;
                             case "exceptionsonly":
                                 if (bool.TryParse(value, out bool exceptions))
                                 {
