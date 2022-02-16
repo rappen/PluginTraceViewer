@@ -1,0 +1,3 @@
+[submodule "Rappen.XTB.Helper"]
+	path = Rappen.XTB.Helper
+	url = https://github.com/rappen/Rappen.XTB.Helper
