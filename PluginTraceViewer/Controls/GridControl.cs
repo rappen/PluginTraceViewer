@@ -39,7 +39,7 @@ namespace Cinteros.XTB.PluginTraceViewer.Controls
             }
             if (service != null)
             {
-                crmGridView.OrganizationService = service;
+                crmGridView.Service = service;
             }
         }
 
@@ -176,12 +176,12 @@ namespace Cinteros.XTB.PluginTraceViewer.Controls
             }
         }
 
-        private void crmGridView_RecordDoubleClick(object sender, xrmtb.XrmToolBox.Controls.CRMRecordEventArgs e)
+        private void crmGridView_RecordDoubleClick(object sender, Rappen.XTB.Helpers.Controls.XRMRecordEventArgs e)
         {
             ptv.OpenLogRecord(crmGridView.SelectedCellRecords.FirstOrDefault());
         }
 
-        private void crmGridView_RecordEnter(object sender, xrmtb.XrmToolBox.Controls.CRMRecordEventArgs e)
+        private void crmGridView_RecordEnter(object sender, Rappen.XTB.Helpers.Controls.XRMRecordEventArgs e)
         {
             ptv.GridRecordEnter(e.Entity);
         }

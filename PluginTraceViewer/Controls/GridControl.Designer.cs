@@ -31,7 +31,7 @@
             this.components = new System.ComponentModel.Container();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
-            this.crmGridView = new xrmtb.XrmToolBox.Controls.CRMGridView();
+            this.crmGridView = new Rappen.XTB.Helpers.Controls.XRMDataGridView();
             this.correlation = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.createdon = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.performanceexecutionstarttime = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -138,8 +138,8 @@
             this.crmGridView.ShowIndexColumn = false;
             this.crmGridView.Size = new System.Drawing.Size(690, 247);
             this.crmGridView.TabIndex = 26;
-            this.crmGridView.RecordDoubleClick += new xrmtb.XrmToolBox.Controls.CRMRecordEventHandler(this.crmGridView_RecordDoubleClick);
-            this.crmGridView.RecordEnter += new xrmtb.XrmToolBox.Controls.CRMRecordEventHandler(this.crmGridView_RecordEnter);
+            this.crmGridView.RecordDoubleClick += new Rappen.XTB.Helpers.Controls.XRMRecordEventHandler(this.crmGridView_RecordDoubleClick);
+            this.crmGridView.RecordEnter += new Rappen.XTB.Helpers.Controls.XRMRecordEventHandler(this.crmGridView_RecordEnter);
             this.crmGridView.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.crmGridView_CellFormatting);
             this.crmGridView.CellMouseDown += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.crmGridView_CellMouseDown);
             this.crmGridView.CellMouseUp += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.crmGridView_CellMouseUp);
@@ -737,7 +737,7 @@
         private System.Windows.Forms.ToolStripMenuItem tsmiShowColCorrelationId;
         private System.Windows.Forms.ToolStripMenuItem tsmiShowColRequestId;
         private System.Windows.Forms.ToolStripMenuItem tsmiShowColException;
-        internal xrmtb.XrmToolBox.Controls.CRMGridView crmGridView;
+        internal Rappen.XTB.Helpers.Controls.XRMDataGridView crmGridView;
         private System.Windows.Forms.StatusStrip statusStrip1;
         private System.Windows.Forms.ToolStripStatusLabel toolStripRecords;
         private System.Windows.Forms.ToolStripStatusLabel toolStripDuration;
