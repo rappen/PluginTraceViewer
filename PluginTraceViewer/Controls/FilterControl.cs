@@ -60,6 +60,11 @@ namespace Cinteros.XTB.PluginTraceViewer.Controls
             textCorrelationId.Enabled = chkCorrelation.Checked;
         }
 
+        private void chkRequestId_CheckedChanged(object sender, EventArgs e)
+        {
+            textRequestId.Enabled = chkRequestId.Checked;
+        }
+
         private void chkDurationMin_CheckedChanged(object sender, EventArgs e)
         {
             numDurationMin.Enabled = chkDuration.Checked;
@@ -141,6 +146,39 @@ namespace Cinteros.XTB.PluginTraceViewer.Controls
             return results;
         }
 
+        internal void AddRequestIdFilter(Guid newReqId)
+        {
+            if (!newReqId.Equals(Guid.Empty))
+            {
+                var reqIds = GetCurrentRequestIdFilter(true);
+                if (!reqIds.Contains(newReqId))
+                {
+                    reqIds.Add(newReqId);
+                }
+                chkRequestId.Checked = true;
+                textRequestId.Text = string.Join(", ", reqIds);
+                ptv.LogUse("AddRequestIdFilter");
+            }
+        }
+
+        private List<Guid> GetCurrentRequestIdFilter(bool silent)
+        {
+            var results = new List<Guid>();
+            foreach (var idstr in textRequestId.Text.Split(',').Select(i => i.Trim()))
+            {
+                var id = Guid.Empty;
+                if (Guid.TryParse(idstr, out id) && !results.Contains(id))
+                {
+                    results.Add(id);
+                }
+                else if (!silent)
+                {
+                    MessageBox.Show($"\"{idstr}\" is not a valid guid.", "Request Id", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
+            }
+            return results;
+        }
+
         internal void ApplyFilter(PTVFilter filter)
         {
             checkDateFrom.Checked = !filter.DateFrom.Equals(DateTime.MinValue);
@@ -161,6 +199,8 @@ namespace Cinteros.XTB.PluginTraceViewer.Controls
             comboEntity.Text = filter.Entity;
             chkCorrelation.Checked = !string.IsNullOrEmpty(filter.CorrelationId);
             textCorrelationId.Text = filter.CorrelationId;
+            chkRequestId.Checked = !string.IsNullOrEmpty(filter.RequestId);
+            textRequestId.Text = filter.RequestId;
             chkExceptions.Checked = filter.Exceptions;
             chkOperPlugins.Checked = filter.OperationPlugin;
             chkOperWF.Checked = filter.OperationWF;
@@ -192,6 +232,7 @@ namespace Cinteros.XTB.PluginTraceViewer.Controls
                 Message = chkMessage.Checked ? comboMessage.Text : string.Empty,
                 Entity = chkEntity.Checked ? comboEntity.Text : string.Empty,
                 CorrelationId = chkCorrelation.Checked ? textCorrelationId.Text : string.Empty,
+                RequestId = chkRequestId.Checked ? textRequestId.Text : string.Empty,
                 Exceptions = chkExceptions.Checked,
                 OperationPlugin = chkOperPlugins.Checked,
                 OperationWF = chkOperWF.Checked,
@@ -293,6 +334,11 @@ namespace Cinteros.XTB.PluginTraceViewer.Controls
             {
                 var ids = GetCurrentCorrelationIdFilter(false);
                 QEplugintracelog.Criteria.AddCondition("correlationid", ConditionOperator.In, ids.Select(i => i.ToString()).ToArray());
+            }
+            if (chkRequestId.Checked)
+            {
+                var ids = GetCurrentRequestIdFilter(false);
+                QEplugintracelog.Criteria.AddCondition(Const.PluginTraceLog.RequestId, ConditionOperator.In, ids.Select(i => i.ToString()).ToArray());
             }
             if (chkExceptions.Checked)
             {

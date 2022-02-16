@@ -65,6 +65,8 @@
             this.dateMenuToday = new System.Windows.Forms.ToolStripMenuItem();
             this.dateMenuFirst = new System.Windows.Forms.ToolStripMenuItem();
             this.dateMenuLast = new System.Windows.Forms.ToolStripMenuItem();
+            this.textRequestId = new System.Windows.Forms.TextBox();
+            this.chkRequestId = new System.Windows.Forms.CheckBox();
             this.panelFilter.SuspendLayout();
             this.panelOptions.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numDurationMax)).BeginInit();
@@ -81,6 +83,8 @@
             this.panelFilter.Controls.Add(this.llFromDate);
             this.panelFilter.Controls.Add(this.textCorrelationId);
             this.panelFilter.Controls.Add(this.chkCorrelation);
+            this.panelFilter.Controls.Add(this.textRequestId);
+            this.panelFilter.Controls.Add(this.chkRequestId);
             this.panelFilter.Controls.Add(this.labelTimeZone);
             this.panelFilter.Controls.Add(this.comboEntity);
             this.panelFilter.Controls.Add(this.chkEntity);
@@ -93,7 +97,7 @@
             this.panelFilter.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelFilter.Location = new System.Drawing.Point(0, 0);
             this.panelFilter.Name = "panelFilter";
-            this.panelFilter.Size = new System.Drawing.Size(396, 151);
+            this.panelFilter.Size = new System.Drawing.Size(396, 173);
             this.panelFilter.TabIndex = 1;
             // 
             // llToDate
@@ -284,7 +288,7 @@
             this.panelOptions.Dock = System.Windows.Forms.DockStyle.Right;
             this.panelOptions.Location = new System.Drawing.Point(396, 0);
             this.panelOptions.Name = "panelOptions";
-            this.panelOptions.Size = new System.Drawing.Size(255, 151);
+            this.panelOptions.Size = new System.Drawing.Size(255, 173);
             this.panelOptions.TabIndex = 2;
             // 
             // chkOperWF
@@ -519,11 +523,32 @@
             this.dateMenuLast.Text = "Last log record";
             this.dateMenuLast.Click += new System.EventHandler(this.dateMenuItem_Click);
             // 
+            // textRequestId
+            // 
+            this.textRequestId.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.textRequestId.Enabled = false;
+            this.textRequestId.Location = new System.Drawing.Point(97, 144);
+            this.textRequestId.Name = "textRequestId";
+            this.textRequestId.Size = new System.Drawing.Size(292, 20);
+            this.textRequestId.TabIndex = 15;
+            // 
+            // chkRequestId
+            // 
+            this.chkRequestId.AutoSize = true;
+            this.chkRequestId.Location = new System.Drawing.Point(3, 146);
+            this.chkRequestId.Name = "chkRequestId";
+            this.chkRequestId.Size = new System.Drawing.Size(78, 17);
+            this.chkRequestId.TabIndex = 14;
+            this.chkRequestId.Text = "Request Id";
+            this.chkRequestId.UseVisualStyleBackColor = true;
+            this.chkRequestId.CheckedChanged += new System.EventHandler(this.chkRequestId_CheckedChanged);
+            // 
             // FilterControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(651, 151);
+            this.ClientSize = new System.Drawing.Size(651, 173);
             this.Controls.Add(this.panelFilter);
             this.Controls.Add(this.panelOptions);
             this.DockAreas = ((WeifenLuo.WinFormsUI.Docking.DockAreas)((((WeifenLuo.WinFormsUI.Docking.DockAreas.DockLeft | WeifenLuo.WinFormsUI.Docking.DockAreas.DockRight) 
@@ -586,5 +611,7 @@
         private System.Windows.Forms.ToolStripMenuItem dateMenuToday;
         private System.Windows.Forms.ToolStripMenuItem dateMenuFirst;
         private System.Windows.Forms.ToolStripMenuItem dateMenuLast;
+        private System.Windows.Forms.TextBox textRequestId;
+        private System.Windows.Forms.CheckBox chkRequestId;
     }
 }

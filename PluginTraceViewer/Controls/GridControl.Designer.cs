@@ -91,6 +91,7 @@
             this.label1 = new System.Windows.Forms.Label();
             this.txtQuickFilter = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
+            this.tsmiFilterByRequestId = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.crmGridView)).BeginInit();
             this.contextMenuGridView.SuspendLayout();
             this.statusStrip1.SuspendLayout();
@@ -324,7 +325,8 @@
             this.tsmiFilterByEntity,
             this.tsmiFilterByMessage,
             this.tsmiFilterByPlugin,
-            this.tsmiFilterByCorrelation});
+            this.tsmiFilterByCorrelation,
+            this.tsmiFilterByRequestId});
             this.tsmiFilterBy.Name = "tsmiFilterBy";
             this.tsmiFilterBy.Size = new System.Drawing.Size(163, 22);
             this.tsmiFilterBy.Text = "Filter by selected";
@@ -379,6 +381,13 @@
             this.tsmiCorrelationSelectThis.Size = new System.Drawing.Size(313, 22);
             this.tsmiCorrelationSelectThis.Text = "Select all logs with this correlation id";
             this.tsmiCorrelationSelectThis.Click += new System.EventHandler(this.tsmiCorrelationSelectThis_Click);
+            // 
+            // tsmiFilterByRequestId
+            // 
+            this.tsmiFilterByRequestId.Name = "tsmiFilterByRequestId";
+            this.tsmiFilterByRequestId.Size = new System.Drawing.Size(133, 22);
+            this.tsmiFilterByRequestId.Text = "Request Id";
+            this.tsmiFilterByRequestId.Click += new System.EventHandler(this.tsmiFilterByRequestId_Click);
             // 
             // tsmiDelete
             // 
@@ -706,6 +715,7 @@
         private System.Windows.Forms.ToolStripMenuItem tsmiFilterByMessage;
         private System.Windows.Forms.ToolStripMenuItem tsmiFilterByPlugin;
         private System.Windows.Forms.ToolStripMenuItem tsmiFilterByCorrelation;
+        private System.Windows.Forms.ToolStripMenuItem tsmiFilterByRequestId;
         private System.Windows.Forms.ToolStripMenuItem tsmiCorrelation;
         private System.Windows.Forms.ToolStripMenuItem tsmiCorrelationId;
         private System.Windows.Forms.ToolStripMenuItem tsmiDelete;

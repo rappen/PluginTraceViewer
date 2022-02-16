@@ -257,6 +257,11 @@ namespace Cinteros.XTB.PluginTraceViewer.Controls
             ptv.filterControl.AddCorrelationFilter(GetSelectedCorrelationId());
         }
 
+        private void tsmiFilterByRequestId_Click(object sender, EventArgs e)
+        {
+            ptv.filterControl.AddRequestIdFilter(GetSelectedRequestId());
+        }
+
         private void tsmiCorrelationSelectThis_Click(object sender, EventArgs e)
         {
             SelectCurrentCorrelation();
@@ -485,6 +490,18 @@ namespace Cinteros.XTB.PluginTraceViewer.Controls
             var result = Guid.Empty;
             var entities = crmGridView.SelectedCellRecords;
             var ids = entities?.Select(e => (Guid)e[PluginTraceLog.CorrelationId]).Distinct();
+            if (ids?.Count() == 1)
+            {
+                return ids.FirstOrDefault();
+            }
+            return Guid.Empty;
+        }
+
+        private Guid GetSelectedRequestId()
+        {
+            var result = Guid.Empty;
+            var entities = crmGridView.SelectedCellRecords;
+            var ids = entities?.Select(e => (Guid)e[PluginTraceLog.RequestId]).Distinct();
             if (ids?.Count() == 1)
             {
                 return ids.FirstOrDefault();

@@ -10,6 +10,7 @@ namespace Cinteros.XTB.PluginTraceViewer
         public string Message { get; set; }
         public string Entity { get; set; }
         public string CorrelationId { get; set; }
+        public string RequestId { get; set; }
         public bool Exceptions { get; set; }
         public bool OperationPlugin { get; set; } = true;
         public bool OperationWF { get; set; } = true;
