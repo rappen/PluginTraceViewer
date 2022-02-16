@@ -12,14 +12,15 @@
     <description>Investigate the Plug-in Trace Log with easy filtering and display possibilities</description>
     <summary>Investigate the Plug-in Trace Log with easy filtering and display possibilities</summary>
     <releaseNotes>
-#142 Auto hide Exception window for logs without exception 
-#129 Auto Refresh fixed again after it stopped working
-#143 Fully Qualified Plugin Type names are now optional
+* #167 @fowl2 added filter of Request Id
+* A bit redesign the layout of Filter view
+* Using Rappen.XTB.Helper instead of xrmtb.XrmToolBox.Controls and
+  removing ILMerge to make it easier.
     </releaseNotes>
-    <copyright>Copyright 2016-2021 Jonas Rapp</copyright>
+    <copyright>Copyright 2016-2022 Jonas Rapp</copyright>
     <tags>XrmToolBox Plugins PluginTraceViewer</tags>
     <dependencies>
-      <dependency id="XrmToolBox" version="1.2020.12.43" />
+      <dependency id="XrmToolBox" version="1.2021.12.53" />
     </dependencies>
   </metadata>
   <files>
