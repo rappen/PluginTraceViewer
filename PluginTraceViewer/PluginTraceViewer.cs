@@ -1,5 +1,6 @@
 ﻿using Cinteros.XTB.PluginTraceViewer.Const;
 using Cinteros.XTB.PluginTraceViewer.Controls;
+using Cinteros.XTB.PluginTraceViewer.Forms;
 using McTools.Xrm.Connection;
 using Microsoft.Crm.Sdk.Messages;
 using Microsoft.Xrm.Sdk;
@@ -277,12 +278,6 @@ namespace Cinteros.XTB.PluginTraceViewer
             about.ShowDialog();
         }
 
-        internal void AlertError(string msg, string capt)
-        {
-            LogError(msg);
-            MessageBox.Show(msg, capt, MessageBoxButtons.OK, MessageBoxIcon.Error);
-        }
-
         private void PluginTraceViewer_Load(object sender, EventArgs e)
         {
             SetupDockControls();
@@ -420,7 +415,7 @@ namespace Cinteros.XTB.PluginTraceViewer
                 {
                     if (args.Error != null)
                     {
-                        AlertError($"Failed to load plugin types:\n{args.Error.Message}", "Load");
+                        ErrorDetail.ShowDialog(this, args.Error, "Load Settings");
                     }
                     else if (args.Result is EntityCollection)
                     {
@@ -476,7 +471,7 @@ namespace Cinteros.XTB.PluginTraceViewer
                     UpdateUI(() => { Enabled = true; });
                     if (args.Error != null)
                     {
-                        AlertError($"Failed to load trace logs:\n{args.Error.Message}", "Load");
+                        ErrorDetail.ShowDialog(this, args.Error, "Load Traces");
                     }
                     else if (args.Result is EntityCollection results)
                     {

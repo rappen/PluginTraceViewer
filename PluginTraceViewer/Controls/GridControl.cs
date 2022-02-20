@@ -1,4 +1,5 @@
 ﻿using Cinteros.XTB.PluginTraceViewer.Const;
+using Cinteros.XTB.PluginTraceViewer.Forms;
 using Microsoft.Xrm.Sdk;
 using Microsoft.Xrm.Sdk.Messages;
 using Microsoft.Xrm.Sdk.Query;
@@ -390,7 +391,7 @@ namespace Cinteros.XTB.PluginTraceViewer.Controls
                 {
                     if (args.Error != null)
                     {
-                        ptv.AlertError($"Failed to populate result view:\n{args.Error.Message}", "Load");
+                        ErrorDetail.ShowDialog(ptv, args.Error, "Populating Results");
                     }
                 }
             };

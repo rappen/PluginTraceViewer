@@ -14,6 +14,7 @@
     <releaseNotes>
 * #167 @fowl2 added filter of Request Id
 * A bit redesign the layout of Filter view
+* Using Error Detail from FXB
 * Using Rappen.XTB.Helper instead of xrmtb.XrmToolBox.Controls and
   removing ILMerge to make it easier.
     </releaseNotes>
