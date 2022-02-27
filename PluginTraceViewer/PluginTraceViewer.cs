@@ -1,6 +1,5 @@
 ﻿using Cinteros.XTB.PluginTraceViewer.Const;
 using Cinteros.XTB.PluginTraceViewer.Controls;
-using Cinteros.XTB.PluginTraceViewer.Forms;
 using McTools.Xrm.Connection;
 using Microsoft.Crm.Sdk.Messages;
 using Microsoft.Xrm.Sdk;
@@ -409,7 +408,7 @@ namespace Cinteros.XTB.PluginTraceViewer
                 {
                     if (args.Error != null)
                     {
-                        ErrorDetail.ShowDialog(this, args.Error, "Load Settings");
+                        ShowErrorDialog(args.Error, "Load Settings");
                     }
                     else if (args.Result is EntityCollection)
                     {
@@ -465,7 +464,7 @@ namespace Cinteros.XTB.PluginTraceViewer
                     UpdateUI(() => { Enabled = true; });
                     if (args.Error != null)
                     {
-                        ErrorDetail.ShowDialog(this, args.Error, "Load Traces");
+                        ShowErrorDialog(args.Error, "Load Traces");
                     }
                     else if (args.Result is EntityCollection results)
                     {

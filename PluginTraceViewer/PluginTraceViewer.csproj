@@ -246,12 +246,6 @@
     <Compile Include="Controls\StatsControl.Designer.cs">
       <DependentUpon>StatsControl.cs</DependentUpon>
     </Compile>
-    <Compile Include="ErrorDetail.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="ErrorDetail.designer.cs">
-      <DependentUpon>ErrorDetail.cs</DependentUpon>
-    </Compile>
     <Compile Include="Extensions.cs" />
     <Compile Include="FindTextHandler.cs" />
     <Compile Include="LogUsage.cs" />
@@ -303,9 +297,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\StatsControl.resx">
       <DependentUpon>StatsControl.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="ErrorDetail.resx">
-      <DependentUpon>ErrorDetail.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="PluginStatistics.resx">
       <DependentUpon>PluginStatistics.cs</DependentUpon>
