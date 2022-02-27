@@ -6,21 +6,21 @@
 
     [Export(typeof(IXrmToolBoxPlugin)),
         ExportMetadata("Name", "Plugin Trace Viewer"),
-        ExportMetadata("Description", "Investigate the Plug-in Trace Log with easy filtering and display possibilities"),
+        ExportMetadata("Description", "Investigate the Plugin Trace Log with easy filtering and display possibilities"),
         ExportMetadata("SmallImageBase64", "iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAMAAABEpIrGAAAAFXRFWHRDcmVhdGlvbiBUaW1lAAfiBgMSATGIy+9yAAAAB3RJTUUH4wMKDhEPveFKswAAAAlwSFlzAAAK8AAACvABQqw0mAAAAPlQTFRF//+93ue9rca9jKW1e5y1hKW1pb291t69IVqtAEKtAEq9c5S17/e9a5S1AEK1AFLWAFrvAGP/WoS1vc69GFKtAFLeAFrnEEqtlK21AErOAGP3Y6Wca6WUe62EEGvvc5y13u8h//8AIXPenLW91ucpGHPnCEqtzucxSnu15++9xt45CGv3KXvWxta9c6WM7/cQhLV7vdZCUpSt7/cIKWO1tc5K9/8I1uchlL1r9/+9Y6WUnMZjSoy1rc5Szt4x9/8AIXveWpylhLVzpcZa5+8YQoy9jK21MYTOSpS1Y5ycAErGOYTG3u8Yrc5KUoS1Y4y1QnO1jL1rjLVzlYMOFwAAAAF0Uk5TAEDm2GYAAAH6SURBVHjabVPreppAEEWLlyUKrkYxRqNDC20qCZHUNIqaGEUNtiHt+z9MZxblUjN/YOecb+bM7FlJSmJy0+6H4Vm7MZE+ilKoM1UJgkBlVv3mBM69MaXZ4SI6zYC9l7J4UVdaPBU1xdqk8QLT+H/RZOEkhTf5SbRYeMTzAl8sRuOV9+fvozcfLQY+MQ5drnWqb0ImZtTFipSGKlXcZQlLygXvYkAm9D+7M39vf0fMsLf+zBSzsAYS+mpK2QjgPnUM3pBQ1viVYRi2TWuaAzjpSawKdqjxnmi7RmEr/HDb+U3o2uEd7JFnnHdhtfO7zoMdEbYwFwTgXN1IG5TwCpeYWMIj9wAGfA8rIvxCQlCVZIUgIhgwjgg+eKLCExLqguDCFBN7zAvCcD3o0HEuCNTChRfT3C5gFxH4LbzSxFvRgkQuo+29HKbAEuuhL4SgyGsccwrezHWNZA9TuFs8PaN1GFrrh4Yle4fNjAEeyFM/AUfC69LREwWV3zp3yaqBvi7c020odbptK+UWuqwh/diG8Iwwb1XtxISvSDDjk/JN+KFyfhGnvqQJmpWLLNVILDsgP8Sm/Hw0ZTs27WW327s64v3E9m12keg41Gdy+mE0ztWM81uKXsw+rUqVqVrt8Kw0hdVzp69TLjOmYDBWPitJH0Yu/0mWC8UM+g9OIVkPegGvAwAAAABJRU5ErkJggg=="),
         ExportMetadata("BigImageBase64", "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"),
         ExportMetadata("BackgroundColor", "#FFFFC0"),
         ExportMetadata("PrimaryFontColor", "#0000C0"),
         ExportMetadata("SecondaryFontColor", "#0000FF")]
-    public class PluginTraceViewerPlugin : PluginBase
+    public class PluginTraceViewerPlugin : PluginBase, IPayPalPlugin
     {
-        #region Public Methods
+        public string DonationDescription => "Plugin Trace Viewer Fan Club";
+
+        public string EmailAccount => "jonas@rappen.net";
 
         public override IXrmToolBoxPluginControl GetControl()
         {
             return new PluginTraceViewer();
         }
-
-        #endregion Public Methods
     }
 }

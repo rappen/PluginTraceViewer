@@ -100,21 +100,15 @@ namespace Cinteros.XTB.PluginTraceViewer
             }
         }
 
-        public string HelpUrl { get { return "http://ptv.xrmtoolbox.com"; } }
+        public string HelpUrl => "http://ptv.xrmtoolbox.com";
 
-        public string RepositoryName { get { return "PluginTraceViewer"; } }
+        public string RepositoryName => "PluginTraceViewer";
 
-        public string UserName { get { return "rappen"; } }
+        public string UserName => "rappen";
 
-        public string DonationDescription
-        {
-            get { return "Plug-in Trace Viewer Fan Club"; }
-        }
+        public string DonationDescription => "Plugin Trace Viewer Fan Club";
 
-        public string EmailAccount
-        {
-            get { return "jonas@rappen.net"; }
-        }
+        public string EmailAccount => "jonas@rappen.net";
 
         public event EventHandler<MessageBusEventArgs> OnOutgoingMessage;
         public event EventHandler<StatusBarMessageEventArgs> SendMessageToStatusBar;
