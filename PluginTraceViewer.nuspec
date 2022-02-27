@@ -6,22 +6,22 @@
     <title>Plugin Trace Viewer for XrmToolBox</title>
     <authors>Jonas Rapp</authors>
     <owners>rappen</owners>
-    <projectUrl>http://ptv.xrmtoolbox.com</projectUrl>
-    <iconUrl>http://ptv.xrmtoolbox.com/images/PTV-150-tsp.png</iconUrl>
+    <projectUrl>https://jonasr.app/PTV</projectUrl>
+    <iconUrl>https://jonasr.app/wp-content/uploads/PTV-150-tsp.png</iconUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
-    <description>Investigate the Plug-in Trace Log with easy filtering and display possibilities</description>
-    <summary>Investigate the Plug-in Trace Log with easy filtering and display possibilities</summary>
+    <description>Investigate the Plugin Trace Log with easy filtering and display possibilities</description>
+    <summary>Investigate the Plugin Trace Log with easy filtering and display possibilities</summary>
     <releaseNotes>
 * #167 @fowl2 added filter of Request Id
 * A bit redesign the layout of Filter view
-* Using Error Detail from FXB
+* Using Error Detail from XrmToolBox.Extensibility
 * Using Rappen.XTB.Helper instead of xrmtb.XrmToolBox.Controls and
   removing ILMerge to make it easier.
     </releaseNotes>
     <copyright>Copyright 2016-2022 Jonas Rapp</copyright>
     <tags>XrmToolBox Plugins PluginTraceViewer</tags>
     <dependencies>
-      <dependency id="XrmToolBox" version="1.2021.12.53" />
+      <dependency id="XrmToolBox" version="1.2022.2.54" />
     </dependencies>
   </metadata>
   <files>
