@@ -31,8 +31,6 @@
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(PluginTraceViewer));
             this.toolStripMain = new System.Windows.Forms.ToolStrip();
-            this.tsbCloseThisTab = new System.Windows.Forms.ToolStripButton();
-            this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
             this.buttonOpen = new System.Windows.Forms.ToolStripDropDownButton();
             this.buttonOpenFilter = new System.Windows.Forms.ToolStripMenuItem();
             this.buttonOpenFXB = new System.Windows.Forms.ToolStripMenuItem();
@@ -83,8 +81,6 @@
             // 
             this.toolStripMain.ImageScalingSize = new System.Drawing.Size(24, 24);
             this.toolStripMain.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.tsbCloseThisTab,
-            this.toolStripSeparator4,
             this.buttonOpen,
             this.dropdownSave,
             this.dropdownView,
@@ -103,21 +99,6 @@
             this.toolStripMain.Size = new System.Drawing.Size(1114, 31);
             this.toolStripMain.TabIndex = 24;
             this.toolStripMain.Text = "toolStrip1";
-            // 
-            // tsbCloseThisTab
-            // 
-            this.tsbCloseThisTab.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.tsbCloseThisTab.Image = ((System.Drawing.Image)(resources.GetObject("tsbCloseThisTab.Image")));
-            this.tsbCloseThisTab.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.tsbCloseThisTab.Name = "tsbCloseThisTab";
-            this.tsbCloseThisTab.Size = new System.Drawing.Size(28, 28);
-            this.tsbCloseThisTab.Text = "Close this tab";
-            this.tsbCloseThisTab.Click += new System.EventHandler(this.tsbCloseThisTab_Click);
-            // 
-            // toolStripSeparator4
-            // 
-            this.toolStripSeparator4.Name = "toolStripSeparator4";
-            this.toolStripSeparator4.Size = new System.Drawing.Size(6, 31);
             // 
             // buttonOpen
             // 
@@ -490,8 +471,6 @@
         #endregion
 
         internal System.Windows.Forms.ToolStrip toolStripMain;
-        private System.Windows.Forms.ToolStripButton tsbCloseThisTab;
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparator4;
         private System.Windows.Forms.ToolStripButton buttonRetrieveLogs;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.Windows.Forms.ToolStripDropDownButton dropdownSave;

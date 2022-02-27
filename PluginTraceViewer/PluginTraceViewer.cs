@@ -779,11 +779,6 @@ namespace Cinteros.XTB.PluginTraceViewer
             return string.Empty;
         }
 
-        private void tsbCloseThisTab_Click(object sender, EventArgs e)
-        {
-            CloseTool();
-        }
-
         private void tsmiWordWrap_CheckedChanged(object sender, EventArgs e)
         {
             traceControl.textMessage.WordWrap = tsmiWordWrap.Checked;
