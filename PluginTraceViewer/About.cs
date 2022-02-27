@@ -59,19 +59,19 @@ namespace Cinteros.XTB.PluginTraceViewer
         private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             pluginTraceViewer.LogUse("About-OpenHomepage");
-            System.Diagnostics.Process.Start("http://ptv.xrmtoolbox.com");
+            System.Diagnostics.Process.Start("https://jonasr.app/PTV");
         }
 
         private void linkLabel2_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             pluginTraceViewer.LogUse("About-OpenBlog");
-            System.Diagnostics.Process.Start("http://jonasrapp.net");
+            System.Diagnostics.Process.Start("https://jonasr.app");
         }
 
         private void linkLabel4_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             pluginTraceViewer.LogUse("About-OpenTwitter");
-            System.Diagnostics.Process.Start("http://twitter.com/PluginTraceView");
+            System.Diagnostics.Process.Start("https://twitter.com/PluginTraceView");
         }
 
         private void linkLabel5_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)

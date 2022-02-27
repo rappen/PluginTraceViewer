@@ -58,7 +58,7 @@
             this.linkLabel1.Size = new System.Drawing.Size(190, 22);
             this.linkLabel1.TabIndex = 2;
             this.linkLabel1.TabStop = true;
-            this.linkLabel1.Text = "ptv.xrmtoolbox.com";
+            this.linkLabel1.Text = "JonasR.app/PTV";
             this.linkLabel1.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel1_LinkClicked);
             // 
             // label2

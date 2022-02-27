@@ -99,7 +99,7 @@ namespace Cinteros.XTB.PluginTraceViewer
             }
         }
 
-        public string HelpUrl => "http://ptv.xrmtoolbox.com";
+        public string HelpUrl => "https://jonasr.app/PTV";
 
         public string RepositoryName => "PluginTraceViewer";
 
