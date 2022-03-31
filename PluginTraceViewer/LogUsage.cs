@@ -41,15 +41,5 @@ namespace Cinteros.XTB.PluginTraceViewer
             }
             catch { }
         }
-
-        internal static bool PromptToLog()
-        {
-            MessageBox.Show(@"The evolution of Plugin Trace Viewer is based on feedback issues and anonymous statistics collected about usage.
-The statistics are a valuable source of information for continuing the development to make the tool even easier to use and improve the most popular features.
-
-Thank You,
-Jonas", "Anonymous statistics", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            return true;
-        }
     }
 }

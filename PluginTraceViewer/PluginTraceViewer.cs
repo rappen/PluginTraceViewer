@@ -28,7 +28,6 @@ namespace Cinteros.XTB.PluginTraceViewer
         private const string aiKey = "eed73022-2444-45fd-928b-5eebd8fa46a6";    // jonas@rappen.net tenant, XrmToolBox
         private AppInsights ai = new AppInsights(aiEndpoint, aiKey, Assembly.GetExecutingAssembly(), "Plugin Trace Viewer");
 
-        private bool? logUsage = null;
         internal GridControl gridControl;
         internal FilterControl filterControl;
         private StatsControl statsControl;
@@ -859,7 +858,6 @@ namespace Cinteros.XTB.PluginTraceViewer
             return new Settings
             {
                 WordWrap = tsmiWordWrap.Checked,
-                UseLog = logUsage,
                 Version = version,
                 LocalTime = tsmiLocalTimes.Checked,
                 FullyQualifiedPluginNames = tsmiFullyQualifiedPluginNames.Checked,
@@ -926,17 +924,14 @@ namespace Cinteros.XTB.PluginTraceViewer
             filterControl.ShowTZInfo(settings.LocalTime);
             tsmiViewQuickFilter.Checked = settings.ShowQuickFilter;
             gridControl.panQuickFilter.Visible = settings.ShowQuickFilter;
-            logUsage = settings.UseLog;
             var ass = Assembly.GetExecutingAssembly().GetName();
             var version = ass.Version.ToString();
             if (!version.Equals(settings.Version))
             {
                 // Reset some settings when new version is deployed
-                logUsage = true;
-            }
-            if (logUsage == null)
-            {
-                logUsage = LogUsage.PromptToLog();
+                settings.Version = version;
+                SettingsManager.Instance.Save(typeof(PluginTraceViewer), settings, "Settings");
+                Process.Start($"https://jonasr.app/PTV/releases/#{version}");
             }
             comboRefreshMode.Enabled = true;
         }
@@ -1016,10 +1011,7 @@ namespace Cinteros.XTB.PluginTraceViewer
         internal void LogUse(string action, bool forceLog = false, double? count = null, double? duration = null)
         {
             ai.WriteEvent(action, count, duration, HandleAIResult);
-            if (logUsage == true || forceLog)
-            {
-                LogUsage.DoLog(action);
-            }
+            LogUsage.DoLog(action);
         }
 
         private void HandleAIResult(string result)

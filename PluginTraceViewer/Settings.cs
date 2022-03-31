@@ -5,7 +5,6 @@ namespace Cinteros.XTB.PluginTraceViewer
     public class Settings
     {
         public bool WordWrap { get; set; }
-        public bool? UseLog { get; set; } = null;
         public string Version { get; set; }
         public bool LocalTime { get; set; } = false;
         public bool FullyQualifiedPluginNames { get; set; } = false;
