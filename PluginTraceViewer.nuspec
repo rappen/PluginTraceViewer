@@ -12,12 +12,8 @@
     <description>Investigate the Plugin Trace Log with easy filtering and display possibilities</description>
     <summary>Investigate the Plugin Trace Log with easy filtering and display possibilities</summary>
     <releaseNotes>
-* #167 @fowl2 added filter of Request Id.
-* A bit redesign the layout of Filter view.
-* Using Error Detail from XrmToolBox.Extensibility.
-* Using Rappen.XTB.Helper instead of xrmtb.XrmToolBox.Controls and
-  removing ILMerge to make it easier.
-* A few minor fixes.
+See latest release notes, and all history:
+https://jonasr.app/bdu/releases/#$versionnumber$
     </releaseNotes>
     <copyright>Copyright 2016-2022 Jonas Rapp</copyright>
     <tags>XrmToolBox Plugins PluginTraceViewer</tags>
