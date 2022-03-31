@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("Plugin Trace Viewer")]
-[assembly: AssemblyDescription("XrmToolBox plugin to inspect and filter the Plug-in Trace Log")]
+[assembly: AssemblyDescription("XrmToolBox plugin to inspect and filter the Plugin Trace Log")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Jonas Rapp, Sweden")]
 [assembly: AssemblyProduct("Plugin Trace Viewer")]
-[assembly: AssemblyCopyright("Copyright © Jonas Rapp 2018-2022")]
+[assembly: AssemblyCopyright("Copyright © Jonas Rapp 2016-2022")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -31,5 +31,5 @@ using System.Runtime.InteropServices;
 // You can specify all the values or you can default the Build and Revision Numbers 
 // by using the '*' as shown below:
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("1.2022.0.0909")]
-[assembly: AssemblyFileVersion("1.2022.0.0909")]
+[assembly: AssemblyVersion("1.2022.0.0910")]
+[assembly: AssemblyFileVersion("1.2022.0.0910")]
