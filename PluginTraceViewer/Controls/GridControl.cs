@@ -144,7 +144,7 @@ namespace Cinteros.XTB.PluginTraceViewer.Controls
         {
             var tooltipcolumn = e.ColumnIndex == crmGridView.Columns["correlation"].Index ? "correlationid" : crmGridView.Columns[e.ColumnIndex].Name;
             var cell = crmGridView[e.ColumnIndex, e.RowIndex];
-            cell.ToolTipText = crmGridView.Rows[e.RowIndex].Cells[tooltipcolumn].Value.ToString();
+            cell.ToolTipText = crmGridView.Rows[e.RowIndex].Cells[tooltipcolumn].Value?.ToString();
         }
 
         private void crmGridView_CellMouseDown(object sender, DataGridViewCellMouseEventArgs e)

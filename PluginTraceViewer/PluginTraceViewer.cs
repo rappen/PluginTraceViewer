@@ -4,7 +4,7 @@ using McTools.Xrm.Connection;
 using Microsoft.Crm.Sdk.Messages;
 using Microsoft.Xrm.Sdk;
 using Microsoft.Xrm.Sdk.Query;
-using Rappen.XTB.Helpers.Serialization;
+using Rappen.XRM.Helpers.Serialization;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -24,8 +24,10 @@ namespace Cinteros.XTB.PluginTraceViewer
     public partial class PluginTraceViewer : PluginControlBase, IGitHubPlugin, IMessageBusHost, IHelpPlugin, IPayPalPlugin, IStatusBarMessenger, IShortcutReceiver, IAboutPlugin
     {
         private const string aiEndpoint = "https://dc.services.visualstudio.com/v2/track";
-        //private const string aiKey = "cc7cb081-b489-421d-bb61-2ee53495c336";    // jonas@rappen.net tenant, TestAI 
+
+        //private const string aiKey = "cc7cb081-b489-421d-bb61-2ee53495c336";    // jonas@rappen.net tenant, TestAI
         private const string aiKey = "eed73022-2444-45fd-928b-5eebd8fa46a6";    // jonas@rappen.net tenant, XrmToolBox
+
         private AppInsights ai = new AppInsights(aiEndpoint, aiKey, Assembly.GetExecutingAssembly(), "Plugin Trace Viewer");
 
         internal GridControl gridControl;
@@ -85,14 +87,19 @@ namespace Cinteros.XTB.PluginTraceViewer
             {
                 case "Cinteros.XTB.PluginTraceViewer.Controls.GridControl":
                     return gridControl;
+
                 case "Cinteros.XTB.PluginTraceViewer.Controls.FilterControl":
                     return filterControl;
+
                 case "Cinteros.XTB.PluginTraceViewer.Controls.StatsControl":
                     return statsControl;
+
                 case "Cinteros.XTB.PluginTraceViewer.Controls.TraceControl":
                     return traceControl;
+
                 case "Cinteros.XTB.PluginTraceViewer.Controls.ExceptionControl":
                     return exceptionControl;
+
                 default:
                     return null;
             }
@@ -109,6 +116,7 @@ namespace Cinteros.XTB.PluginTraceViewer
         public string EmailAccount => "jonas@rappen.net";
 
         public event EventHandler<MessageBusEventArgs> OnOutgoingMessage;
+
         public event EventHandler<StatusBarMessageEventArgs> SendMessageToStatusBar;
 
         public void OnIncomingMessage(MessageBusEventArgs message)
@@ -144,78 +152,93 @@ namespace Cinteros.XTB.PluginTraceViewer
                             case "plugin":
                                 result.Plugin = value;
                                 break;
+
                             case "message":
                                 result.Message = value;
                                 break;
+
                             case "entity":
                                 result.Entity = value;
                                 break;
+
                             case "correlationid":
                                 result.CorrelationId = value;
                                 break;
+
                             case PluginTraceLog.RequestId:
                                 result.RequestId = value;
                                 break;
+
                             case "exceptionsonly":
                                 if (bool.TryParse(value, out bool exceptions))
                                 {
                                     result.Exceptions = exceptions;
                                 }
                                 break;
+
                             case "plugins":
                                 if (bool.TryParse(value, out bool plugins))
                                 {
                                     result.Exceptions = plugins;
                                 }
                                 break;
+
                             case "workflows":
                                 if (bool.TryParse(value, out bool workflows))
                                 {
                                     result.Exceptions = workflows;
                                 }
                                 break;
+
                             case "sync":
                                 if (bool.TryParse(value, out bool sync))
                                 {
                                     result.Exceptions = sync;
                                 }
                                 break;
+
                             case "async":
                                 if (bool.TryParse(value, out bool async))
                                 {
                                     result.Exceptions = async;
                                 }
                                 break;
+
                             case "preval":
                                 if (bool.TryParse(value, out bool preval))
                                 {
                                     result.Exceptions = preval;
                                 }
                                 break;
+
                             case "preop":
                                 if (bool.TryParse(value, out bool preop))
                                 {
                                     result.Exceptions = preop;
                                 }
                                 break;
+
                             case "postop":
                                 if (bool.TryParse(value, out bool postop))
                                 {
                                     result.Exceptions = postop;
                                 }
                                 break;
+
                             case "durationmin":
                                 if (int.TryParse(value, out int durationmin))
                                 {
                                     result.MinDuration = durationmin;
                                 }
                                 break;
+
                             case "durationmax":
                                 if (int.TryParse(value, out int durationmax))
                                 {
                                     result.MinDuration = durationmax;
                                 }
                                 break;
+
                             case "records":
                                 if (int.TryParse(value, out int records))
                                 {
@@ -318,17 +341,20 @@ namespace Cinteros.XTB.PluginTraceViewer
                     case DialogResult.Yes:
                         UpdateLogSetting(0);
                         break;
+
                     case DialogResult.No:
                         switch (MessageBox.Show("Continue showing this warning for this organization?", "Trace Log Setting", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question))
                         {
                             case DialogResult.No:
                                 tsmiSuppressLogSettingWarning.Checked = true;
                                 break;
+
                             case DialogResult.Cancel:
                                 info.Cancel = true;
                                 break;
                         }
                         break;
+
                     case DialogResult.Cancel:
                         info.Cancel = true;
                         break;
@@ -496,25 +522,27 @@ namespace Cinteros.XTB.PluginTraceViewer
                 }
                 else
                 {
-                    var logs = gridControl.crmGridView.DataSource as DataCollection<Entity>;
-                    foreach (var log in logs)
+                    if (gridControl.crmGridView.DataSource is DataCollection<Entity> logs)
                     {
-                        newlogs.Remove(log.Id);
-                    }
-                    UpdateRefreshButton(newlogs.Entities.Count);
-
-                    if ((forcerefresh || comboRefreshMode.SelectedIndex == 2) && newlogs.Entities.Count > 0)
-                    {
-                        foreach (var log in newlogs.Entities.Reverse())
+                        foreach (var log in logs)
                         {
-                            logs.Insert(0, log);
+                            newlogs.Remove(log.Id);
                         }
-                        FriendlyfyCorrelationIds(logs);
-                        SimplifyPluginTypes(logs);
-                        SetTraceSizes(logs);
-                        ExtractExceptionSummaries(logs);
-                        gridControl.crmGridView.Refresh();
-                        UpdateRefreshButton(0);
+                        UpdateRefreshButton(newlogs.Entities.Count);
+
+                        if ((forcerefresh || comboRefreshMode.SelectedIndex == 2) && newlogs.Entities.Count > 0)
+                        {
+                            foreach (var log in newlogs.Entities.Reverse())
+                            {
+                                logs.Insert(0, log);
+                            }
+                            FriendlyfyCorrelationIds(logs);
+                            SimplifyPluginTypes(logs);
+                            SetTraceSizes(logs);
+                            ExtractExceptionSummaries(logs);
+                            gridControl.crmGridView.Refresh();
+                            UpdateRefreshButton(0);
+                        }
                     }
                 }
                 StartRefreshTimer(false);

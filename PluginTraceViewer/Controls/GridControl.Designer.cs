@@ -105,6 +105,7 @@
             this.crmGridView.AllowUserToOrderColumns = true;
             this.crmGridView.AllowUserToResizeRows = false;
             this.crmGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.crmGridView.ColumnOrder = "";
             this.crmGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.correlation,
             this.createdon,
@@ -129,10 +130,12 @@
             this.crmGridView.Dock = System.Windows.Forms.DockStyle.Fill;
             this.crmGridView.EnableHeadersVisualStyles = false;
             this.crmGridView.FilterColumns = "messageblock, exceptiondetails";
+            this.crmGridView.LayoutXML = null;
             this.crmGridView.Location = new System.Drawing.Point(0, 27);
             this.crmGridView.Name = "crmGridView";
             this.crmGridView.ReadOnly = true;
             this.crmGridView.RowHeadersWidth = 20;
+            this.crmGridView.Service = null;
             this.crmGridView.ShowFriendlyNames = true;
             this.crmGridView.ShowIdColumn = false;
             this.crmGridView.ShowIndexColumn = false;
