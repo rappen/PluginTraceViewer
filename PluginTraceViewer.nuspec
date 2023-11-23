@@ -12,13 +12,13 @@
     <description>Investigate the Plugin Trace Log with easy filtering and display possibilities</description>
     <summary>Investigate the Plugin Trace Log with easy filtering and display possibilities</summary>
     <releaseNotes>
-See latest release notes, and all history:
+Why update Plugin Trace Viewer? Read latest release notes!
 https://jonasr.app/bdu/releases/#$versionnumber$
     </releaseNotes>
-    <copyright>Copyright 2016-2022 Jonas Rapp</copyright>
+    <copyright>Copyright 2016-2023 Jonas Rapp</copyright>
     <tags>XrmToolBox Plugins PluginTraceViewer</tags>
     <dependencies>
-      <dependency id="XrmToolBox" version="1.2022.2.54" />
+      <dependency id="XrmToolBox" version="1.2023.10.67" />
     </dependencies>
   </metadata>
   <files>
