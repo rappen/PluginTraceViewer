@@ -105,7 +105,7 @@ namespace Cinteros.XTB.PluginTraceViewer.Controls
                     "crashpercent", "crashcount", "terminatehandlescontributionpercent", "executecount", "failurecount",
                     "terminatecpucontributionpercent", "modifiedon", "createdon", "terminateothercontributionpercent", "crashcontributionpercent");
                 var leType = qex.AddLink("plugintype", "plugintypeid", "plugintypeid");
-                leType.LinkCriteria.AddCondition("typename", ConditionOperator.Equal, typename);
+                leType.LinkCriteria.AddCondition("typename", ConditionOperator.BeginsWith, typename);
                 var res = ptv.Service.RetrieveMultiple(qex);
                 if (res.Entities.Count == 1)
                 {
