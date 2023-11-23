@@ -54,6 +54,7 @@
             this.tsmiWordWrap = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiLocalTimes = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiFullyQualifiedPluginNames = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiHidePluginFromStep = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiHighlight = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem3 = new System.Windows.Forms.ToolStripSeparator();
             this.tsmiRefreshFilter = new System.Windows.Forms.ToolStripMenuItem();
@@ -205,6 +206,7 @@
             this.tsmiWordWrap,
             this.tsmiLocalTimes,
             this.tsmiFullyQualifiedPluginNames,
+            this.tsmiHidePluginFromStep,
             this.tsmiHighlight,
             this.toolStripMenuItem3,
             this.tsmiRefreshFilter,
@@ -302,6 +304,15 @@
             this.tsmiFullyQualifiedPluginNames.Size = new System.Drawing.Size(225, 22);
             this.tsmiFullyQualifiedPluginNames.Text = "Fully Qualified Plugin names";
             this.tsmiFullyQualifiedPluginNames.Click += new System.EventHandler(this.tsmiFullyQualifiedPluginNames_Click);
+            // 
+            // tsmiHidePluginFromStep
+            // 
+            this.tsmiHidePluginFromStep.CheckOnClick = true;
+            this.tsmiHidePluginFromStep.Image = ((System.Drawing.Image)(resources.GetObject("tsmiHidePluginFromStep.Image")));
+            this.tsmiHidePluginFromStep.Name = "tsmiHidePluginFromStep";
+            this.tsmiHidePluginFromStep.Size = new System.Drawing.Size(225, 22);
+            this.tsmiHidePluginFromStep.Text = "Hide Plugin names from Steps";
+            this.tsmiHidePluginFromStep.Click += new System.EventHandler(this.tsmiHidePluginFromStep_Click);
             // 
             // tsmiHighlight
             // 
@@ -514,5 +525,6 @@
         private System.Windows.Forms.ToolStripMenuItem buttonOpenLogTrace;
         private System.Windows.Forms.ToolStripMenuItem buttonOpenLogException;
         internal System.Windows.Forms.ToolStripMenuItem tsmiFullyQualifiedPluginNames;
+        internal System.Windows.Forms.ToolStripMenuItem tsmiHidePluginFromStep;
     }
 }

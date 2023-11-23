@@ -496,6 +496,7 @@ namespace Cinteros.XTB.PluginTraceViewer
                         var entities = results.Entities;
                         FriendlyfyCorrelationIds(entities);
                         SimplifyPluginTypes(entities);
+                        HidePluginsFromSteps(entities);
                         SetTraceSizes(entities);
                         ExtractExceptionSummaries(entities);
                         gridControl.PopulateGrid(entities);
@@ -606,6 +607,34 @@ namespace Cinteros.XTB.PluginTraceViewer
                     if (plugin.Contains(",") && plugin.Contains("Version="))
                     {   // Looks like new fully qualified format of the plugintype, break before first comma and add wildcard
                         entity[PluginTraceLog.PrimaryName] = plugin.Split(',')[0];
+                    }
+                }
+            }
+        }
+
+        private void HidePluginsFromSteps(DataCollection<Entity> entities)
+        {
+            if (!tsmiHidePluginFromStep.Checked)
+            {
+                return;
+            }
+            foreach (var entity in entities)
+            {
+                if (entity.TryGetAttributeValue(PluginTraceLog.PrimaryName, out string plugin) &&
+                    entity.TryGetAttributeValue("step.name", out AliasedValue stepalias) &&
+                    stepalias.Value is string step)
+                {
+                    if (step.StartsWith(plugin))
+                    {
+                        entity["step.name"] = step.Replace(plugin, "").Trim(':').Trim();
+                    }
+                    else if (step.Contains(":"))
+                    {
+                        var stepplugin = step.Split(':')[0];
+                        if (plugin.StartsWith(stepplugin))
+                        {
+                            entity["step.name"] = step.Replace(stepplugin, "").Trim(':').Trim();
+                        }
                     }
                 }
             }
@@ -901,6 +930,7 @@ namespace Cinteros.XTB.PluginTraceViewer
                 Version = version,
                 LocalTime = tsmiLocalTimes.Checked,
                 FullyQualifiedPluginNames = tsmiFullyQualifiedPluginNames.Checked,
+                HidePluginFromStep = tsmiHidePluginFromStep.Checked,
                 HighlightIdentical = tsmiHighlight.Checked,
                 HighlightColor = ColorTranslator.ToHtml(gridControl.highlightColor),
                 Columns = gridControl?.Columns,
@@ -944,6 +974,7 @@ namespace Cinteros.XTB.PluginTraceViewer
             tsmiWordWrap.Checked = settings.WordWrap;
             tsmiLocalTimes.Checked = settings.LocalTime;
             tsmiFullyQualifiedPluginNames.Checked = settings.FullyQualifiedPluginNames;
+            tsmiHidePluginFromStep.Checked = settings.HidePluginFromStep;
             tsmiHighlight.Checked = settings.HighlightIdentical;
             comboRefreshMode.SelectedIndex = settings.RefreshMode;
             timerRefresh.Interval = settings.RefreshInterval;
@@ -1105,6 +1136,11 @@ namespace Cinteros.XTB.PluginTraceViewer
             {
                 RefreshTraces(GetQuery(false));
             }
+        }
+
+        private void tsmiHidePluginFromStep_Click(object sender, EventArgs e)
+        {
+            RefreshTraces(GetQuery(false));
         }
 
         private void tsmiLocalTimes_Click(object sender, EventArgs e)
