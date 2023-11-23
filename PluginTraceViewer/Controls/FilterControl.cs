@@ -286,7 +286,7 @@ namespace Cinteros.XTB.PluginTraceViewer.Controls
                     }
                     else
                     {
-                        pluginFilterInclude.AddCondition("typename", plugin.Contains("*") ? ConditionOperator.Like : ConditionOperator.Equal, plugin.Replace("*", "%").Trim());
+                        pluginFilterInclude.AddCondition("typename", plugin.Contains("*") ? ConditionOperator.Like : ConditionOperator.BeginsWith, plugin.Replace("*", "%").Trim());
                     }
                 }
             }
@@ -463,7 +463,7 @@ namespace Cinteros.XTB.PluginTraceViewer.Controls
                     else if (args.Result is EntityCollection)
                     {
                         var entities = ((EntityCollection)args.Result).Entities;
-                        var plugins = entities.Where(e => e.Attributes.Contains("typename")).Select(e => e.Attributes["typename"].ToString()).ToList();
+                        var plugins = entities.Where(e => e.Attributes.Contains("typename")).Select(e => e.Attributes["typename"].ToString().Split(',')[0].Trim()).ToList();
                         ptv.LogInfo("GetPlugins = {0}", plugins.Count);
                         callback(plugins);
                     }
@@ -609,12 +609,15 @@ namespace Cinteros.XTB.PluginTraceViewer.Controls
                     case "now":
                         SetDateValue(DateTime.Now);
                         break;
+
                     case "today":
                         SetDateValue(DateTime.Today);
                         break;
+
                     case "first":
                         GetDateConstraint("min", SetDateValue);
                         break;
+
                     case "last":
                         GetDateConstraint("max", SetDateValue);
                         break;
@@ -631,10 +634,12 @@ namespace Cinteros.XTB.PluginTraceViewer.Controls
                     dateControl = dateFrom;
                     checkDateFrom.Checked = true;
                     break;
+
                 case "to":
                     dateControl = dateTo;
                     checkDateTo.Checked = true;
                     break;
+
                 default:
                     return;
             }
