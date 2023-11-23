@@ -665,6 +665,7 @@ namespace Cinteros.XTB.PluginTraceViewer
         private void ExtractExceptionSummaries(IEnumerable<Entity> entities)
         {
             const string fault = "(Fault Detail is equal to Microsoft.Xrm.Sdk.OrganizationServiceFault).: ";
+            const string fault2 = "System.ServiceModel.FaultException`1[Microsoft.Xrm.Sdk.OrganizationServiceFault]: ";
             const string unhandled = "Unhandled Exception: ";
             var cnt = 0;
             foreach (var entity in entities)
@@ -681,6 +682,17 @@ namespace Cinteros.XTB.PluginTraceViewer
                         while (summary.Contains(fault))
                         {
                             summary = summary.Substring(summary.IndexOf(fault) + fault.Length);
+                        }
+                    }
+                    else if (summary.Contains(fault2))
+                    {
+                        if (summary.Contains("\r\nMessage: "))
+                        {
+                            summary = summary.Substring(summary.IndexOf("\r\nMessage: ") + 11);
+                        }
+                        if (summary.Contains("\r\nTimeStamp:"))
+                        {
+                            summary = summary.Substring(0, summary.IndexOf("\r\nTimeStamp:"));
                         }
                     }
                     else if (summary.StartsWith(unhandled))
