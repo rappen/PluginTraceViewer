@@ -540,6 +540,8 @@ namespace Cinteros.XTB.PluginTraceViewer
                             }
                             FriendlyfyCorrelationIds(logs);
                             SimplifyPluginTypes(logs);
+                            HidePluginsFromSteps(logs);
+                            HideEntitiesFromSteps(logs);
                             SetTraceSizes(logs);
                             ExtractExceptionSummaries(logs);
                             gridControl.crmGridView.Refresh();
