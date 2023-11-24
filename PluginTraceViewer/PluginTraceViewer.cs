@@ -497,6 +497,7 @@ namespace Cinteros.XTB.PluginTraceViewer
                         FriendlyfyCorrelationIds(entities);
                         SimplifyPluginTypes(entities);
                         HidePluginsFromSteps(entities);
+                        HideEntitiesFromSteps(entities);
                         SetTraceSizes(entities);
                         ExtractExceptionSummaries(entities);
                         gridControl.PopulateGrid(entities);
@@ -620,10 +621,9 @@ namespace Cinteros.XTB.PluginTraceViewer
             }
             foreach (var entity in entities)
             {
-                if (entity.TryGetAttributeValue(PluginTraceLog.PrimaryName, out string plugin) &&
-                    entity.TryGetAttributeValue("step.name", out AliasedValue stepalias) &&
-                    stepalias.Value is string step)
+                if (entity.TryGetAttributeValue(PluginTraceLog.PrimaryName, out string plugin))
                 {
+                    var step = GetStepName(entity);
                     if (step.StartsWith(plugin))
                     {
                         entity["step.name"] = step.Replace(plugin, "").Trim(':').Trim();
@@ -638,6 +638,42 @@ namespace Cinteros.XTB.PluginTraceViewer
                     }
                 }
             }
+        }
+
+        private void HideEntitiesFromSteps(DataCollection<Entity> entities)
+        {
+            if (!tsmiHidePluginFromStep.Checked)
+            {
+                return;
+            }
+            foreach (var entity in entities)
+            {
+                var step = GetStepName(entity);
+                if (!string.IsNullOrWhiteSpace(step) &&
+                    entity.TryGetAttributeValue(PluginTraceLog.PrimaryEntity, out string triggerentity) &&
+                    !string.IsNullOrWhiteSpace(triggerentity) &&
+                    step.EndsWith($"{triggerentity}"))
+                {
+                    entity["step.name"] = step.Replace(triggerentity, "").Replace(" of ", "").Trim();
+                }
+            }
+        }
+
+        private static string GetStepName(Entity entity)
+        {
+            if (entity.TryGetAttributeValue(PluginTraceLog.PrimaryName, out string plugin) &&
+                entity.Contains("step.name"))
+            {
+                if (entity["step.name"] is AliasedValue stepalias && stepalias.Value is string stepname)
+                {
+                    return stepname;
+                }
+                else if (entity["step.name"] is string steptext)
+                {
+                    return steptext;
+                }
+            }
+            return string.Empty;
         }
 
         private void FriendlyfyCorrelationIds(IEnumerable<Entity> entities)
@@ -1139,6 +1175,11 @@ namespace Cinteros.XTB.PluginTraceViewer
         }
 
         private void tsmiHidePluginFromStep_Click(object sender, EventArgs e)
+        {
+            RefreshTraces(GetQuery(false));
+        }
+
+        private void tsmiHideEntityFromStep_Click(object sender, EventArgs e)
         {
             RefreshTraces(GetQuery(false));
         }
