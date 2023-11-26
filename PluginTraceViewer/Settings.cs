@@ -15,5 +15,6 @@ namespace Cinteros.XTB.PluginTraceViewer
         public int RefreshInterval { get; set; } = 2000;
         public bool ShowQuickFilter { get; set; } = true;
         public bool HidePluginFromStep { get; set; } = true;
+        public bool HideEntityFromStep { get; set; } = true;
     }
 }

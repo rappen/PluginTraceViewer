@@ -644,7 +644,7 @@ namespace Cinteros.XTB.PluginTraceViewer
 
         private void HideEntitiesFromSteps(DataCollection<Entity> entities)
         {
-            if (!tsmiHidePluginFromStep.Checked)
+            if (!tsmiHideEntityFromStep.Checked)
             {
                 return;
             }
@@ -969,6 +969,7 @@ namespace Cinteros.XTB.PluginTraceViewer
                 LocalTime = tsmiLocalTimes.Checked,
                 FullyQualifiedPluginNames = tsmiFullyQualifiedPluginNames.Checked,
                 HidePluginFromStep = tsmiHidePluginFromStep.Checked,
+                HideEntityFromStep = tsmiHideEntityFromStep.Checked,
                 HighlightIdentical = tsmiHighlight.Checked,
                 HighlightColor = ColorTranslator.ToHtml(gridControl.highlightColor),
                 Columns = gridControl?.Columns,
@@ -1013,6 +1014,7 @@ namespace Cinteros.XTB.PluginTraceViewer
             tsmiLocalTimes.Checked = settings.LocalTime;
             tsmiFullyQualifiedPluginNames.Checked = settings.FullyQualifiedPluginNames;
             tsmiHidePluginFromStep.Checked = settings.HidePluginFromStep;
+            tsmiHideEntityFromStep.Checked = settings.HideEntityFromStep;
             tsmiHighlight.Checked = settings.HighlightIdentical;
             comboRefreshMode.SelectedIndex = settings.RefreshMode;
             timerRefresh.Interval = settings.RefreshInterval;
