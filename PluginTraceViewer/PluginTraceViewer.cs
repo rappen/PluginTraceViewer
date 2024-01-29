@@ -761,6 +761,22 @@ namespace Cinteros.XTB.PluginTraceViewer
                         {
                             summary = summary.Substring(0, summary.IndexOf("\r\nTimeStamp:"));
                         }
+                        if (string.IsNullOrWhiteSpace(summary))
+                        {
+                            summary = entity[PluginTraceLog.ExceptionDetails].ToString();
+                            if (summary.Contains("\r\nErrorCode: "))
+                            {
+                                summary = summary.Substring(summary.IndexOf("\r\nErrorCode: ") + 13);
+                            }
+                            if (summary.Contains("\r\n"))
+                            {
+                                summary = summary.Substring(0, summary.IndexOf("\r\n"));
+                            }
+                        }
+                        if (string.IsNullOrWhiteSpace(summary))
+                        {
+                            summary = "OrganizationServiceFault with no message";
+                        }
                     }
                     else if (summary.StartsWith(unhandled))
                     {
