@@ -732,7 +732,8 @@ namespace Cinteros.XTB.PluginTraceViewer
         private void ExtractExceptionSummaries(IEnumerable<Entity> entities)
         {
             const string fault = "(Fault Detail is equal to Microsoft.Xrm.Sdk.OrganizationServiceFault).: ";
-            const string fault2 = "System.ServiceModel.FaultException`1[Microsoft.Xrm.Sdk.OrganizationServiceFault]: ";
+            const string fault2 = "System.ServiceModel.FaultException`1[Microsoft.Xrm.Sdk.OrganizationServiceFault]";
+            const string faultdetails = "(Fault Detail is equal to Exception details";
             const string unhandled = "Unhandled Exception: ";
             var cnt = 0;
             foreach (var entity in entities)
@@ -753,24 +754,35 @@ namespace Cinteros.XTB.PluginTraceViewer
                     }
                     else if (summary.Contains(fault2))
                     {
-                        if (summary.Contains("\r\nMessage: "))
+                        summary = summary.Replace(fault2, "").Replace("  ", " ").Trim().Trim(':').Trim().Trim(':').Trim().Trim(':').Trim();
+                        var faultdetat = summary.IndexOf(faultdetails);
+                        var messageat = summary.IndexOf("\r\nMessage: ");
+                        if (faultdetat > 0 && faultdetat < messageat)
                         {
-                            summary = summary.Substring(summary.IndexOf("\r\nMessage: ") + 11);
+                            summary = summary.Substring(0, faultdetat).Trim().Trim(':').Trim();
+                        }
+                        else if (summary.Contains("\r\nMessage: "))
+                        {
+                            summary = summary.Substring(summary.IndexOf("\r\nMessage: ") + 11).Trim();
                         }
                         if (summary.Contains("\r\nTimeStamp:"))
                         {
-                            summary = summary.Substring(0, summary.IndexOf("\r\nTimeStamp:"));
+                            summary = summary.Substring(0, summary.IndexOf("\r\nTimeStamp:")).Trim();
+                        }
+                        if (summary.Contains("\r\nErrorCode:"))
+                        {
+                            summary = summary.Substring(summary.IndexOf("\r\nErrorCode:")).Trim();
                         }
                         if (string.IsNullOrWhiteSpace(summary))
                         {
                             summary = entity[PluginTraceLog.ExceptionDetails].ToString();
                             if (summary.Contains("\r\nErrorCode: "))
                             {
-                                summary = summary.Substring(summary.IndexOf("\r\nErrorCode: ") + 13);
+                                summary = summary.Substring(summary.IndexOf("\r\nErrorCode: ") + 13).Trim();
                             }
                             if (summary.Contains("\r\n"))
                             {
-                                summary = summary.Substring(0, summary.IndexOf("\r\n"));
+                                summary = summary.Substring(0, summary.IndexOf("\r\n")).Trim();
                             }
                         }
                         if (string.IsNullOrWhiteSpace(summary))
