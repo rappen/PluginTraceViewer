@@ -39,6 +39,7 @@ namespace Cinteros.XTB.PluginTraceViewer
         public PluginTraceViewer()
         {
             InitializeComponent();
+            tslAbout.ToolTipText = $"Version: {Assembly.GetExecutingAssembly().GetName().Version}";
             var theme = new VS2015LightTheme();
             dockContainer.Theme = theme;
             gridControl = new GridControl(this);
@@ -1329,6 +1330,11 @@ namespace Cinteros.XTB.PluginTraceViewer
             filename = Path.Combine(Paths.LogsPath, filename);
             File.WriteAllText(filename, record.GetAttributeValue<string>(PluginTraceLog.MessageBlock));
             Process.Start(filename);
+        }
+
+        private void tsbBymeacoffee_Click(object sender, EventArgs e)
+        {
+            Process.Start("https://www.buymeacoffee.com/rappen");
         }
     }
 }
