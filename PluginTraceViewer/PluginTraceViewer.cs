@@ -335,7 +335,7 @@ namespace Cinteros.XTB.PluginTraceViewer
         {
             if (comboLogSetting.SelectedIndex == 2 && !tsmiSuppressLogSettingWarning.Checked)
             {
-                switch (MessageBox.Show("Trace Log Setting is currently set to 'All'.\n" +
+                switch (MessageBox.Show($"Trace Log Setting is currently set to 'All'\nin environment '{ConnectionDetail.ConnectionName}'.\n\n" +
                     "This setting can cause lots of trace log records, which eventually can slow down the system and increase data consumption.\n\n" +
                     "Change setting to 'Off'?", "Exit Plugin Trace Viewer", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Warning))
                 {
