@@ -42,7 +42,7 @@ namespace Cinteros.XTB.PluginTraceViewer.Controls
                     record.Url,
                     $"Open this {record.Metadata?.ToDisplayName()?.ToLowerInvariant()} record in environment {connectionDetail.ConnectionName}");
             }
-            AddLinkPanel("Table", "", "Record name", "", "Click on records and they will be opened", true);
+            AddLinkPanel("Table", "", "Record name", "", "Click on record name to open in the browser", true);
             ClientSize = new Size(500, sptLinks.Panel1.Controls.Count * PANELHEIGHT + 40);
             btnClose.Focus();
         }
