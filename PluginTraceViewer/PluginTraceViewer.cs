@@ -5,6 +5,7 @@ using Microsoft.Crm.Sdk.Messages;
 using Microsoft.Xrm.Sdk;
 using Microsoft.Xrm.Sdk.Query;
 using Rappen.XRM.Helpers.Serialization;
+using Rappen.XTB.Helpers;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -26,26 +27,34 @@ namespace Cinteros.XTB.PluginTraceViewer
         private const string aiEndpoint = "https://dc.services.visualstudio.com/v2/track";
 
         //private const string aiKey = "cc7cb081-b489-421d-bb61-2ee53495c336";    // jonas@rappen.net tenant, TestAI
-        private const string aiKey = "eed73022-2444-45fd-928b-5eebd8fa46a6";    // jonas@rappen.net tenant, XrmToolBox
+        private const string aiKey1 = "eed73022-2444-45fd-928b-5eebd8fa46a6";    // jonas@rappen.net tenant, XrmToolBox
 
-        private AppInsights ai = new AppInsights(aiEndpoint, aiKey, Assembly.GetExecutingAssembly(), "Plugin Trace Viewer");
+        private const string aiKey2 = "d46e9c12-ee8b-4b28-9643-dae62ae7d3d4";    // jonas@jonasr.app, XrmToolBoxTools
+
+        private readonly AppInsights ai1;
+        private readonly AppInsights ai2;
 
         internal GridControl gridControl;
         internal FilterControl filterControl;
         private StatsControl statsControl;
         private TraceControl traceControl;
         private ExceptionControl exceptionControl;
+        internal RecordList recordlist;
+        private Entity lasttracerecord;
 
         public PluginTraceViewer()
         {
             InitializeComponent();
+            UrlUtils.TOOL_NAME = "PluginTraceViewer";
             tslAbout.ToolTipText = $"Version: {Assembly.GetExecutingAssembly().GetName().Version}";
+            ai1 = new AppInsights(aiEndpoint, aiKey1, Assembly.GetExecutingAssembly(), "Plugin Trace Viewer");
+            ai2 = new AppInsights(aiEndpoint, aiKey2, Assembly.GetExecutingAssembly(), "Plugin Trace Viewer");
             var theme = new VS2015LightTheme();
             dockContainer.Theme = theme;
             gridControl = new GridControl(this);
             filterControl = new FilterControl(this);
             statsControl = new StatsControl(this);
-            traceControl = new TraceControl();
+            traceControl = new TraceControl(this);
             exceptionControl = new ExceptionControl();
         }
 
@@ -298,7 +307,7 @@ namespace Cinteros.XTB.PluginTraceViewer
         {
             SetupDockControls();
             LoadSettings();
-            LogUse("Load");
+            LogUse("Load", ai2: true);
         }
 
         private void PluginTraceViewer_ConnectionUpdated(object sender, ConnectionUpdatedEventArgs e)
@@ -306,6 +315,7 @@ namespace Cinteros.XTB.PluginTraceViewer
             LoadFilter();
             var orgver = new Version(e.ConnectionDetail.OrganizationVersion);
             LogInfo("Connected CRM version: {0}", orgver);
+            recordlist = new RecordList(e.ConnectionDetail, Service);
             ClearControls();
             var orgok = orgver >= new Version(7, 1);
             gridControl.SetOrgService(orgok ? e.Service : null);
@@ -328,7 +338,7 @@ namespace Cinteros.XTB.PluginTraceViewer
             ShowLogSettingWarning(info);
             SaveSettings();
             SaveDockPanels();
-            LogUse("Close");
+            LogUse("Close", ai2: true);
         }
 
         private void ShowLogSettingWarning(PluginCloseInfo info)
@@ -861,13 +871,18 @@ namespace Cinteros.XTB.PluginTraceViewer
 
         internal void GridRecordEnter(Entity record)
         {
+            if (record == lasttracerecord)
+            {
+                return;
+            }
             buttonOpenLogRecord.Enabled = record != null;
             buttonOpenLogTrace.Enabled = record != null && !string.IsNullOrWhiteSpace(record.GetAttributeValue<string>(PluginTraceLog.MessageBlock));
             buttonOpenLogException.Enabled = record != null && !string.IsNullOrWhiteSpace(record.GetAttributeValue<string>(PluginTraceLog.ExceptionDetails));
-            traceControl.SetLogText(FixLineBreaks(record != null && record.Contains(PluginTraceLog.MessageBlock) ? record[PluginTraceLog.MessageBlock].ToString() : ""));
-            exceptionControl.SetException(FixLineBreaks(record != null && record.Contains(PluginTraceLog.ExceptionDetails) ? record[PluginTraceLog.ExceptionDetails].ToString() : ""),
+            traceControl.SetLogText(record != null && record.Contains(PluginTraceLog.MessageBlock) ? record[PluginTraceLog.MessageBlock].ToString() : "", record);
+            exceptionControl.SetException(record != null && record.Contains(PluginTraceLog.ExceptionDetails) ? record[PluginTraceLog.ExceptionDetails].ToString() : "",
                 "Exception" + (record.Contains("exceptionsummary") ? ": " + record["exceptionsummary"].ToString().Replace("\r\n", " ") : ""));
             statsControl.ShowStatistics(record);
+            lasttracerecord = record;
         }
 
         private string FixLineBreaks(string text)
@@ -1003,7 +1018,8 @@ namespace Cinteros.XTB.PluginTraceViewer
                 HighlightColor = ColorTranslator.ToHtml(gridControl.highlightColor),
                 Columns = gridControl?.Columns,
                 RefreshMode = comboRefreshMode.SelectedIndex,
-                ShowQuickFilter = tsmiViewQuickFilter.Checked
+                ShowQuickFilter = tsmiViewQuickFilter.Checked,
+                IdentifyRecords = tsmiIdentifyRecords.Checked
             };
         }
 
@@ -1048,6 +1064,7 @@ namespace Cinteros.XTB.PluginTraceViewer
             comboRefreshMode.SelectedIndex = settings.RefreshMode;
             timerRefresh.Interval = settings.RefreshInterval;
             timerRefresh.Tag = settings.RefreshInterval;
+            tsmiIdentifyRecords.Checked = settings.IdentifyRecords;
             RefreshModeUpdated();
             try
             {
@@ -1071,6 +1088,7 @@ namespace Cinteros.XTB.PluginTraceViewer
                 // Reset some settings when new version is deployed
                 settings.Version = version;
                 SettingsManager.Instance.Save(typeof(PluginTraceViewer), settings, "Settings");
+                LogUse("ShowWelcome", ai2: true);
                 Process.Start($"https://jonasr.app/PTV/releases/#{version}");
             }
             comboRefreshMode.Enabled = true;
@@ -1148,10 +1166,16 @@ namespace Cinteros.XTB.PluginTraceViewer
             }
         }
 
-        internal void LogUse(string action, bool forceLog = false, double? count = null, double? duration = null)
+        internal void LogUse(string action, bool forceLog = false, double? count = null, double? duration = null, bool ai1 = true, bool ai2 = false)
         {
-            ai.WriteEvent(action, count, duration, HandleAIResult);
-            LogUsage.DoLog(action);
+            if (ai1)
+            {
+                this.ai1.WriteEvent(action, count, duration, HandleAIResult);
+            }
+            if (ai2)
+            {
+                this.ai2.WriteEvent(action, count, duration, HandleAIResult);
+            }
         }
 
         private void HandleAIResult(string result)
@@ -1334,7 +1358,12 @@ namespace Cinteros.XTB.PluginTraceViewer
 
         private void tsbBymeacoffee_Click(object sender, EventArgs e)
         {
-            Process.Start("https://www.buymeacoffee.com/rappen");
+            UrlUtils.OpenUrl("https://www.buymeacoffee.com/rappen");
+        }
+
+        private void tsmiIdentifyRecords_Click(object sender, EventArgs e)
+        {
+            traceControl?.ShowMessageText(tsmiIdentifyRecords.Checked);
         }
     }
 }

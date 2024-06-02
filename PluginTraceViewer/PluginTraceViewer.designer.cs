@@ -73,10 +73,11 @@
             this.toolStripLabel1 = new System.Windows.Forms.ToolStripLabel();
             this.comboLogSetting = new System.Windows.Forms.ToolStripComboBox();
             this.tslAbout = new System.Windows.Forms.ToolStripLabel();
+            this.tsbBymeacoffee = new System.Windows.Forms.ToolStripButton();
             this.vS2005Theme1 = new WeifenLuo.WinFormsUI.Docking.VS2005Theme();
             this.dockContainer = new WeifenLuo.WinFormsUI.Docking.DockPanel();
             this.timerRefresh = new System.Windows.Forms.Timer(this.components);
-            this.tsbBymeacoffee = new System.Windows.Forms.ToolStripButton();
+            this.tsmiIdentifyRecords = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMain.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -100,6 +101,7 @@
             this.tsbBymeacoffee});
             this.toolStripMain.Location = new System.Drawing.Point(0, 0);
             this.toolStripMain.Name = "toolStripMain";
+            this.toolStripMain.Padding = new System.Windows.Forms.Padding(0, 0, 2, 0);
             this.toolStripMain.Size = new System.Drawing.Size(1114, 39);
             this.toolStripMain.TabIndex = 24;
             this.toolStripMain.Text = "toolStrip1";
@@ -177,21 +179,21 @@
             // buttonSaveFilter
             // 
             this.buttonSaveFilter.Name = "buttonSaveFilter";
-            this.buttonSaveFilter.Size = new System.Drawing.Size(180, 22);
+            this.buttonSaveFilter.Size = new System.Drawing.Size(115, 22);
             this.buttonSaveFilter.Text = "Filter...";
             this.buttonSaveFilter.Click += new System.EventHandler(this.buttonSaveFilter_Click);
             // 
             // buttonSaveLogs
             // 
             this.buttonSaveLogs.Name = "buttonSaveLogs";
-            this.buttonSaveLogs.Size = new System.Drawing.Size(180, 22);
+            this.buttonSaveLogs.Size = new System.Drawing.Size(115, 22);
             this.buttonSaveLogs.Text = "Logs...";
             this.buttonSaveLogs.Click += new System.EventHandler(this.buttonSaveLogs_Click);
             // 
             // buttonSaveQuery
             // 
             this.buttonSaveQuery.Name = "buttonSaveQuery";
-            this.buttonSaveQuery.Size = new System.Drawing.Size(180, 22);
+            this.buttonSaveQuery.Size = new System.Drawing.Size(115, 22);
             this.buttonSaveQuery.Text = "Query...";
             this.buttonSaveQuery.Click += new System.EventHandler(this.buttonSaveQuery_Click);
             // 
@@ -217,7 +219,8 @@
             this.toolStripMenuItem1,
             this.tsmiPluginStats,
             this.toolStripMenuItem5,
-            this.tsmiSuppressLogSettingWarning});
+            this.tsmiSuppressLogSettingWarning,
+            this.tsmiIdentifyRecords});
             this.dropdownView.Image = ((System.Drawing.Image)(resources.GetObject("dropdownView.Image")));
             this.dropdownView.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.dropdownView.Name = "dropdownView";
@@ -442,7 +445,7 @@
             "Exception",
             "All"});
             this.comboLogSetting.Name = "comboLogSetting";
-            this.comboLogSetting.Size = new System.Drawing.Size(121, 39);
+            this.comboLogSetting.Size = new System.Drawing.Size(75, 39);
             this.comboLogSetting.SelectedIndexChanged += new System.EventHandler(this.comboLogSetting_SelectedIndexChanged);
             // 
             // tslAbout
@@ -454,6 +457,18 @@
             this.tslAbout.Size = new System.Drawing.Size(114, 36);
             this.tslAbout.Text = "by Jonas Rapp";
             this.tslAbout.Click += new System.EventHandler(this.tslAbout_Click);
+            // 
+            // tsbBymeacoffee
+            // 
+            this.tsbBymeacoffee.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.tsbBymeacoffee.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.tsbBymeacoffee.Image = ((System.Drawing.Image)(resources.GetObject("tsbBymeacoffee.Image")));
+            this.tsbBymeacoffee.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tsbBymeacoffee.Name = "tsbBymeacoffee";
+            this.tsbBymeacoffee.Size = new System.Drawing.Size(36, 36);
+            this.tsbBymeacoffee.Text = "toolStripButton1";
+            this.tsbBymeacoffee.ToolTipText = "By Me a Coffee!";
+            this.tsbBymeacoffee.Click += new System.EventHandler(this.tsbBymeacoffee_Click);
             // 
             // dockContainer
             // 
@@ -471,17 +486,13 @@
             this.timerRefresh.Interval = 1000;
             this.timerRefresh.Tick += new System.EventHandler(this.timerRefresh_Tick);
             // 
-            // tsbBymeacoffee
+            // tsmiIdentifyRecords
             // 
-            this.tsbBymeacoffee.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
-            this.tsbBymeacoffee.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.tsbBymeacoffee.Image = ((System.Drawing.Image)(resources.GetObject("tsbBymeacoffee.Image")));
-            this.tsbBymeacoffee.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.tsbBymeacoffee.Name = "tsbBymeacoffee";
-            this.tsbBymeacoffee.Size = new System.Drawing.Size(36, 36);
-            this.tsbBymeacoffee.Text = "toolStripButton1";
-            this.tsbBymeacoffee.ToolTipText = "By Me a Coffee!";
-            this.tsbBymeacoffee.Click += new System.EventHandler(this.tsbBymeacoffee_Click);
+            this.tsmiIdentifyRecords.CheckOnClick = true;
+            this.tsmiIdentifyRecords.Name = "tsmiIdentifyRecords";
+            this.tsmiIdentifyRecords.Size = new System.Drawing.Size(250, 38);
+            this.tsmiIdentifyRecords.Text = "Identify records";
+            this.tsmiIdentifyRecords.Click += new System.EventHandler(this.tsmiIdentifyRecords_Click);
             // 
             // PluginTraceViewer
             // 
@@ -551,5 +562,6 @@
         internal System.Windows.Forms.ToolStripMenuItem tsmiHidePluginFromStep;
         internal System.Windows.Forms.ToolStripMenuItem tsmiHideEntityFromStep;
         private System.Windows.Forms.ToolStripButton tsbBymeacoffee;
+        internal System.Windows.Forms.ToolStripMenuItem tsmiIdentifyRecords;
     }
 }

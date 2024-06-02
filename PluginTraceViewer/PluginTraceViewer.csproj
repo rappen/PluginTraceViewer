@@ -183,6 +183,13 @@
     <Compile Include="Controls\GridControl.Designer.cs">
       <DependentUpon>GridControl.cs</DependentUpon>
     </Compile>
+    <Compile Include="Link.cs" />
+    <Compile Include="Controls\RecordLinks.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Controls\RecordLinks.Designer.cs">
+      <DependentUpon>RecordLinks.cs</DependentUpon>
+    </Compile>
     <Compile Include="Controls\TraceControl.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -197,7 +204,6 @@
     </Compile>
     <Compile Include="Extensions.cs" />
     <Compile Include="FindTextHandler.cs" />
-    <Compile Include="LogUsage.cs" />
     <Compile Include="PluginDescription.cs" />
     <Compile Include="PluginStatistics.cs">
       <SubType>Form</SubType>
@@ -219,6 +225,7 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="PTVFilter.cs" />
+    <Compile Include="Record.cs" />
     <Compile Include="Settings.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -245,6 +252,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\GridControl.resx">
       <DependentUpon>GridControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\RecordLinks.resx">
+      <DependentUpon>RecordLinks.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\TraceControl.resx">
       <DependentUpon>TraceControl.cs</DependentUpon>
