@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using Rappen.XTB.Helpers;
+using System.Collections.Generic;
 using System.Data;
 using System.Diagnostics;
 using System.Linq;
@@ -58,24 +59,6 @@ namespace Cinteros.XTB.PluginTraceViewer
                 assemblyName;
         }
 
-        private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
-        {
-            pluginTraceViewer.LogUse("About-OpenHomepage");
-            System.Diagnostics.Process.Start("https://jonasr.app/PTV");
-        }
-
-        private void linkLabel2_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
-        {
-            pluginTraceViewer.LogUse("About-OpenBlog");
-            System.Diagnostics.Process.Start("https://jonasr.app");
-        }
-
-        private void linkLabel4_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
-        {
-            pluginTraceViewer.LogUse("About-OpenTwitter");
-            System.Diagnostics.Process.Start("https://twitter.com/PluginTraceView");
-        }
-
         private void linkLabel5_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             MessageBox.Show(@"The evolution of Plugin Trace Viewer is based on feedback issues and anonymous statistics collected about usage.
@@ -83,6 +66,11 @@ The statistics are a valuable source of information for continuing the developme
 
 Thank You,
 Jonas", "Anonymous statistics", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+
+        private void link_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            UrlUtils.OpenUrl(sender);
         }
     }
 }
