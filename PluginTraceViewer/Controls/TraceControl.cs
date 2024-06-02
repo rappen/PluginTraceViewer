@@ -27,6 +27,7 @@ namespace Cinteros.XTB.PluginTraceViewer.Controls
             InitializeComponent();
             lblLoading.Dock = DockStyle.Fill;
             lblLoading.Visible = true;
+            panLinks.Visible = false;
         }
 
         internal void SetLogText(string log, Entity tracer)
@@ -104,6 +105,7 @@ namespace Cinteros.XTB.PluginTraceViewer.Controls
             }
             lblLoading.Visible = false;
             btnShowAllRecordLinks.Enabled = links.Any();
+            btnShowAllRecordLinks.Text = $"Show {links.Where(l => l.LogTextIdentifier != "Target").Select(l => l.Record).Distinct().Count()} records";
             textMessage.Text = Links.InsertRecordsInLog(log, links);
             links.ForEach(SetRecordLink);
             lblTrigger.Visible = !string.IsNullOrEmpty(linkRecord.Text);
@@ -151,6 +153,7 @@ namespace Cinteros.XTB.PluginTraceViewer.Controls
         internal void Clear()
         {
             textMessage.Clear();
+            panLinks.Visible = false;
         }
 
         private void TraceControl_KeyDown(object sender, KeyEventArgs e)
