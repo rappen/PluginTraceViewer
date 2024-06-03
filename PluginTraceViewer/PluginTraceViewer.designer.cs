@@ -31,6 +31,8 @@
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(PluginTraceViewer));
             this.toolStripMain = new System.Windows.Forms.ToolStrip();
+            this.buttonRetrieveLogs = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
             this.buttonOpen = new System.Windows.Forms.ToolStripDropDownButton();
             this.buttonOpenFilter = new System.Windows.Forms.ToolStripMenuItem();
             this.buttonOpenFXB = new System.Windows.Forms.ToolStripMenuItem();
@@ -42,6 +44,15 @@
             this.buttonSaveFilter = new System.Windows.Forms.ToolStripMenuItem();
             this.buttonSaveLogs = new System.Windows.Forms.ToolStripMenuItem();
             this.buttonSaveQuery = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.toolStripLabel2 = new System.Windows.Forms.ToolStripLabel();
+            this.comboRefreshMode = new System.Windows.Forms.ToolStripComboBox();
+            this.buttonRefreshLogs = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
+            this.toolStripLabel1 = new System.Windows.Forms.ToolStripLabel();
+            this.comboLogSetting = new System.Windows.Forms.ToolStripComboBox();
+            this.tslAbout = new System.Windows.Forms.ToolStripLabel();
+            this.tsbBymeacoffee = new System.Windows.Forms.ToolStripButton();
             this.tsddTraces = new System.Windows.Forms.ToolStripDropDownButton();
             this.tsmiViewQuickFilter = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiLocalTimes = new System.Windows.Forms.ToolStripMenuItem();
@@ -57,24 +68,13 @@
             this.tsmiViewStatistics = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiViewLog = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiViewException = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiPluginStats = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem3 = new System.Windows.Forms.ToolStripSeparator();
             this.tsmiResetWindows = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem4 = new System.Windows.Forms.ToolStripSeparator();
             this.tsmiRefreshFilter = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem5 = new System.Windows.Forms.ToolStripSeparator();
             this.tsmiSuppressLogSettingWarning = new System.Windows.Forms.ToolStripMenuItem();
-            this.tsmiPluginStats = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
-            this.buttonRetrieveLogs = new System.Windows.Forms.ToolStripButton();
-            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
-            this.toolStripLabel2 = new System.Windows.Forms.ToolStripLabel();
-            this.comboRefreshMode = new System.Windows.Forms.ToolStripComboBox();
-            this.buttonRefreshLogs = new System.Windows.Forms.ToolStripButton();
-            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
-            this.toolStripLabel1 = new System.Windows.Forms.ToolStripLabel();
-            this.comboLogSetting = new System.Windows.Forms.ToolStripComboBox();
-            this.tslAbout = new System.Windows.Forms.ToolStripLabel();
-            this.tsbBymeacoffee = new System.Windows.Forms.ToolStripButton();
             this.vS2005Theme1 = new WeifenLuo.WinFormsUI.Docking.VS2005Theme();
             this.dockContainer = new WeifenLuo.WinFormsUI.Docking.DockPanel();
             this.timerRefresh = new System.Windows.Forms.Timer(this.components);
@@ -85,13 +85,10 @@
             // 
             this.toolStripMain.ImageScalingSize = new System.Drawing.Size(32, 32);
             this.toolStripMain.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.buttonRetrieveLogs,
+            this.toolStripSeparator3,
             this.buttonOpen,
             this.dropdownSave,
-            this.tsddTraces,
-            this.tsddLayout,
-            this.tsddWindows,
-            this.toolStripSeparator3,
-            this.buttonRetrieveLogs,
             this.toolStripSeparator1,
             this.toolStripLabel2,
             this.comboRefreshMode,
@@ -100,13 +97,32 @@
             this.toolStripLabel1,
             this.comboLogSetting,
             this.tslAbout,
-            this.tsbBymeacoffee});
+            this.tsbBymeacoffee,
+            this.tsddTraces,
+            this.tsddLayout,
+            this.tsddWindows});
             this.toolStripMain.Location = new System.Drawing.Point(0, 0);
             this.toolStripMain.Name = "toolStripMain";
             this.toolStripMain.Padding = new System.Windows.Forms.Padding(0, 0, 2, 0);
-            this.toolStripMain.Size = new System.Drawing.Size(1715, 39);
+            this.toolStripMain.Size = new System.Drawing.Size(1249, 39);
             this.toolStripMain.TabIndex = 24;
             this.toolStripMain.Text = "toolStrip1";
+            // 
+            // buttonRetrieveLogs
+            // 
+            this.buttonRetrieveLogs.Enabled = false;
+            this.buttonRetrieveLogs.Image = ((System.Drawing.Image)(resources.GetObject("buttonRetrieveLogs.Image")));
+            this.buttonRetrieveLogs.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.buttonRetrieveLogs.Name = "buttonRetrieveLogs";
+            this.buttonRetrieveLogs.Size = new System.Drawing.Size(136, 36);
+            this.buttonRetrieveLogs.Text = "Retrieve Logs (F5)";
+            this.buttonRetrieveLogs.ToolTipText = "Retrieve Logs <F5>";
+            this.buttonRetrieveLogs.Click += new System.EventHandler(this.buttonRetrieveLogs_Click);
+            // 
+            // toolStripSeparator3
+            // 
+            this.toolStripSeparator3.Name = "toolStripSeparator3";
+            this.toolStripSeparator3.Size = new System.Drawing.Size(6, 39);
             // 
             // buttonOpen
             // 
@@ -199,225 +215,6 @@
             this.buttonSaveQuery.Text = "Query...";
             this.buttonSaveQuery.Click += new System.EventHandler(this.buttonSaveQuery_Click);
             // 
-            // tsddTraces
-            // 
-            this.tsddTraces.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.tsmiViewQuickFilter,
-            this.tsmiLocalTimes,
-            this.tsmiFullyQualifiedPluginNames,
-            this.tsmiHidePluginFromStep,
-            this.tsmiHideEntityFromStep,
-            this.tsmiHighlight});
-            this.tsddTraces.Image = ((System.Drawing.Image)(resources.GetObject("tsddTraces.Image")));
-            this.tsddTraces.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.tsddTraces.Name = "tsddTraces";
-            this.tsddTraces.Size = new System.Drawing.Size(84, 36);
-            this.tsddTraces.Text = "Traces";
-            // 
-            // tsmiViewQuickFilter
-            // 
-            this.tsmiViewQuickFilter.CheckOnClick = true;
-            this.tsmiViewQuickFilter.Image = ((System.Drawing.Image)(resources.GetObject("tsmiViewQuickFilter.Image")));
-            this.tsmiViewQuickFilter.Name = "tsmiViewQuickFilter";
-            this.tsmiViewQuickFilter.Size = new System.Drawing.Size(250, 38);
-            this.tsmiViewQuickFilter.Text = "Quick Filter";
-            this.tsmiViewQuickFilter.Click += new System.EventHandler(this.tsmiViewQuickFilter_Click);
-            // 
-            // tsmiLocalTimes
-            // 
-            this.tsmiLocalTimes.CheckOnClick = true;
-            this.tsmiLocalTimes.Image = ((System.Drawing.Image)(resources.GetObject("tsmiLocalTimes.Image")));
-            this.tsmiLocalTimes.Name = "tsmiLocalTimes";
-            this.tsmiLocalTimes.Size = new System.Drawing.Size(250, 38);
-            this.tsmiLocalTimes.Text = "Local Times";
-            this.tsmiLocalTimes.Click += new System.EventHandler(this.tsmiLocalTimes_Click);
-            // 
-            // tsmiFullyQualifiedPluginNames
-            // 
-            this.tsmiFullyQualifiedPluginNames.CheckOnClick = true;
-            this.tsmiFullyQualifiedPluginNames.Image = ((System.Drawing.Image)(resources.GetObject("tsmiFullyQualifiedPluginNames.Image")));
-            this.tsmiFullyQualifiedPluginNames.Name = "tsmiFullyQualifiedPluginNames";
-            this.tsmiFullyQualifiedPluginNames.Size = new System.Drawing.Size(269, 38);
-            this.tsmiFullyQualifiedPluginNames.Text = "Show fully qualified Plugin names";
-            this.tsmiFullyQualifiedPluginNames.Click += new System.EventHandler(this.tsmiFullyQualifiedPluginNames_Click);
-            // 
-            // tsmiHidePluginFromStep
-            // 
-            this.tsmiHidePluginFromStep.CheckOnClick = true;
-            this.tsmiHidePluginFromStep.Image = ((System.Drawing.Image)(resources.GetObject("tsmiHidePluginFromStep.Image")));
-            this.tsmiHidePluginFromStep.Name = "tsmiHidePluginFromStep";
-            this.tsmiHidePluginFromStep.Size = new System.Drawing.Size(269, 38);
-            this.tsmiHidePluginFromStep.Text = "Hide Plugin names from Steps";
-            this.tsmiHidePluginFromStep.Click += new System.EventHandler(this.tsmiHidePluginFromStep_Click);
-            // 
-            // tsmiHideEntityFromStep
-            // 
-            this.tsmiHideEntityFromStep.CheckOnClick = true;
-            this.tsmiHideEntityFromStep.Image = ((System.Drawing.Image)(resources.GetObject("tsmiHideEntityFromStep.Image")));
-            this.tsmiHideEntityFromStep.Name = "tsmiHideEntityFromStep";
-            this.tsmiHideEntityFromStep.Size = new System.Drawing.Size(269, 38);
-            this.tsmiHideEntityFromStep.Text = "Hide Entity names from Steps";
-            this.tsmiHideEntityFromStep.Click += new System.EventHandler(this.tsmiHideEntityFromStep_Click);
-            // 
-            // tsmiHighlight
-            // 
-            this.tsmiHighlight.Checked = true;
-            this.tsmiHighlight.CheckOnClick = true;
-            this.tsmiHighlight.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.tsmiHighlight.Image = ((System.Drawing.Image)(resources.GetObject("tsmiHighlight.Image")));
-            this.tsmiHighlight.Name = "tsmiHighlight";
-            this.tsmiHighlight.Size = new System.Drawing.Size(269, 38);
-            this.tsmiHighlight.Text = "Highlight identical cells";
-            this.tsmiHighlight.Click += new System.EventHandler(this.tsmiHighlight_Click);
-            // 
-            // tsddLayout
-            // 
-            this.tsddLayout.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.tsmiIdentifyRecords,
-            this.tsmiWordWrap});
-            this.tsddLayout.Image = ((System.Drawing.Image)(resources.GetObject("tsddLayout.Image")));
-            this.tsddLayout.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.tsddLayout.Name = "tsddLayout";
-            this.tsddLayout.Size = new System.Drawing.Size(77, 36);
-            this.tsddLayout.Text = "Logs";
-            // 
-            // tsmiIdentifyRecords
-            // 
-            this.tsmiIdentifyRecords.CheckOnClick = true;
-            this.tsmiIdentifyRecords.Image = ((System.Drawing.Image)(resources.GetObject("tsmiIdentifyRecords.Image")));
-            this.tsmiIdentifyRecords.Name = "tsmiIdentifyRecords";
-            this.tsmiIdentifyRecords.Size = new System.Drawing.Size(256, 38);
-            this.tsmiIdentifyRecords.Text = "Identify records";
-            this.tsmiIdentifyRecords.Click += new System.EventHandler(this.tsmiIdentifyRecords_Click);
-            // 
-            // tsmiWordWrap
-            // 
-            this.tsmiWordWrap.CheckOnClick = true;
-            this.tsmiWordWrap.Image = ((System.Drawing.Image)(resources.GetObject("tsmiWordWrap.Image")));
-            this.tsmiWordWrap.Name = "tsmiWordWrap";
-            this.tsmiWordWrap.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.Z)));
-            this.tsmiWordWrap.Size = new System.Drawing.Size(256, 38);
-            this.tsmiWordWrap.Text = "Wrap text in log window";
-            this.tsmiWordWrap.CheckedChanged += new System.EventHandler(this.tsmiWordWrap_CheckedChanged);
-            // 
-            // tsddWindows
-            // 
-            this.tsddWindows.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.tsmiViewFilter,
-            this.tsmiViewStatistics,
-            this.tsmiViewLog,
-            this.tsmiViewException,
-            this.tsmiPluginStats,
-            this.toolStripMenuItem3,
-            this.tsmiResetWindows,
-            this.toolStripMenuItem4,
-            this.tsmiRefreshFilter,
-            this.toolStripMenuItem5,
-            this.tsmiSuppressLogSettingWarning});
-            this.tsddWindows.Image = ((System.Drawing.Image)(resources.GetObject("tsddWindows.Image")));
-            this.tsddWindows.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.tsddWindows.Name = "tsddWindows";
-            this.tsddWindows.Size = new System.Drawing.Size(101, 36);
-            this.tsddWindows.Text = "Windows";
-            // 
-            // tsmiViewFilter
-            // 
-            this.tsmiViewFilter.Image = ((System.Drawing.Image)(resources.GetObject("tsmiViewFilter.Image")));
-            this.tsmiViewFilter.Name = "tsmiViewFilter";
-            this.tsmiViewFilter.Size = new System.Drawing.Size(242, 38);
-            this.tsmiViewFilter.Text = "Filter";
-            this.tsmiViewFilter.Click += new System.EventHandler(this.tsmiViewFilter_Click);
-            // 
-            // tsmiViewStatistics
-            // 
-            this.tsmiViewStatistics.Image = ((System.Drawing.Image)(resources.GetObject("tsmiViewStatistics.Image")));
-            this.tsmiViewStatistics.Name = "tsmiViewStatistics";
-            this.tsmiViewStatistics.Size = new System.Drawing.Size(242, 38);
-            this.tsmiViewStatistics.Text = "Statistics";
-            this.tsmiViewStatistics.Visible = false;
-            this.tsmiViewStatistics.Click += new System.EventHandler(this.tsmiViewStatistics_Click);
-            // 
-            // tsmiViewLog
-            // 
-            this.tsmiViewLog.Image = ((System.Drawing.Image)(resources.GetObject("tsmiViewLog.Image")));
-            this.tsmiViewLog.Name = "tsmiViewLog";
-            this.tsmiViewLog.Size = new System.Drawing.Size(242, 38);
-            this.tsmiViewLog.Text = "Trace Message";
-            this.tsmiViewLog.Click += new System.EventHandler(this.tsmiViewLog_Click);
-            // 
-            // tsmiViewException
-            // 
-            this.tsmiViewException.Image = ((System.Drawing.Image)(resources.GetObject("tsmiViewException.Image")));
-            this.tsmiViewException.Name = "tsmiViewException";
-            this.tsmiViewException.Size = new System.Drawing.Size(242, 38);
-            this.tsmiViewException.Text = "Exception";
-            this.tsmiViewException.Click += new System.EventHandler(this.tsmiViewException_Click);
-            // 
-            // toolStripMenuItem3
-            // 
-            this.toolStripMenuItem3.Name = "toolStripMenuItem3";
-            this.toolStripMenuItem3.Size = new System.Drawing.Size(239, 6);
-            // 
-            // tsmiResetWindows
-            // 
-            this.tsmiResetWindows.Image = ((System.Drawing.Image)(resources.GetObject("tsmiResetWindows.Image")));
-            this.tsmiResetWindows.Name = "tsmiResetWindows";
-            this.tsmiResetWindows.Size = new System.Drawing.Size(242, 38);
-            this.tsmiResetWindows.Text = "Reset window layout";
-            this.tsmiResetWindows.Click += new System.EventHandler(this.tsmiResetWindows_Click);
-            // 
-            // toolStripMenuItem4
-            // 
-            this.toolStripMenuItem4.Name = "toolStripMenuItem4";
-            this.toolStripMenuItem4.Size = new System.Drawing.Size(239, 6);
-            // 
-            // tsmiRefreshFilter
-            // 
-            this.tsmiRefreshFilter.Enabled = false;
-            this.tsmiRefreshFilter.Image = ((System.Drawing.Image)(resources.GetObject("tsmiRefreshFilter.Image")));
-            this.tsmiRefreshFilter.Name = "tsmiRefreshFilter";
-            this.tsmiRefreshFilter.Size = new System.Drawing.Size(242, 38);
-            this.tsmiRefreshFilter.Text = "Refresh Filter Options";
-            this.tsmiRefreshFilter.Click += new System.EventHandler(this.tsmiRefreshFilter_Click);
-            // 
-            // toolStripMenuItem5
-            // 
-            this.toolStripMenuItem5.Name = "toolStripMenuItem5";
-            this.toolStripMenuItem5.Size = new System.Drawing.Size(239, 6);
-            // 
-            // tsmiSuppressLogSettingWarning
-            // 
-            this.tsmiSuppressLogSettingWarning.CheckOnClick = true;
-            this.tsmiSuppressLogSettingWarning.Image = ((System.Drawing.Image)(resources.GetObject("tsmiSuppressLogSettingWarning.Image")));
-            this.tsmiSuppressLogSettingWarning.Name = "tsmiSuppressLogSettingWarning";
-            this.tsmiSuppressLogSettingWarning.Size = new System.Drawing.Size(242, 38);
-            this.tsmiSuppressLogSettingWarning.Text = "Suppress log setting warning";
-            this.tsmiSuppressLogSettingWarning.Click += new System.EventHandler(this.tsmiSuppressLogSettingWarning_Click);
-            // 
-            // tsmiPluginStats
-            // 
-            this.tsmiPluginStats.Name = "tsmiPluginStats";
-            this.tsmiPluginStats.Size = new System.Drawing.Size(242, 38);
-            this.tsmiPluginStats.Text = "Show all Plugin Statistics...";
-            this.tsmiPluginStats.Visible = false;
-            this.tsmiPluginStats.Click += new System.EventHandler(this.tsmiPluginStats_Click);
-            // 
-            // toolStripSeparator3
-            // 
-            this.toolStripSeparator3.Name = "toolStripSeparator3";
-            this.toolStripSeparator3.Size = new System.Drawing.Size(6, 39);
-            // 
-            // buttonRetrieveLogs
-            // 
-            this.buttonRetrieveLogs.Enabled = false;
-            this.buttonRetrieveLogs.Image = ((System.Drawing.Image)(resources.GetObject("buttonRetrieveLogs.Image")));
-            this.buttonRetrieveLogs.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.buttonRetrieveLogs.Name = "buttonRetrieveLogs";
-            this.buttonRetrieveLogs.Size = new System.Drawing.Size(136, 36);
-            this.buttonRetrieveLogs.Text = "Retrieve Logs (F5)";
-            this.buttonRetrieveLogs.ToolTipText = "Retrieve Logs <F5>";
-            this.buttonRetrieveLogs.Click += new System.EventHandler(this.buttonRetrieveLogs_Click);
-            // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
@@ -432,12 +229,13 @@
             // comboRefreshMode
             // 
             this.comboRefreshMode.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboRefreshMode.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.comboRefreshMode.Items.AddRange(new object[] {
             "Off",
             "Notify",
             "Auto"});
             this.comboRefreshMode.Name = "comboRefreshMode";
-            this.comboRefreshMode.Size = new System.Drawing.Size(121, 39);
+            this.comboRefreshMode.Size = new System.Drawing.Size(80, 39);
             this.comboRefreshMode.SelectedIndexChanged += new System.EventHandler(this.comboRefreshMode_SelectedIndexChanged);
             // 
             // buttonRefreshLogs
@@ -465,6 +263,7 @@
             // comboLogSetting
             // 
             this.comboLogSetting.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboLogSetting.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.comboLogSetting.Items.AddRange(new object[] {
             "Off",
             "Exception",
@@ -495,6 +294,209 @@
             this.tsbBymeacoffee.ToolTipText = "By Me a Coffee!";
             this.tsbBymeacoffee.Click += new System.EventHandler(this.tsbBymeacoffee_Click);
             // 
+            // tsddTraces
+            // 
+            this.tsddTraces.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.tsmiViewQuickFilter,
+            this.tsmiLocalTimes,
+            this.tsmiFullyQualifiedPluginNames,
+            this.tsmiHidePluginFromStep,
+            this.tsmiHideEntityFromStep,
+            this.tsmiHighlight});
+            this.tsddTraces.Image = ((System.Drawing.Image)(resources.GetObject("tsddTraces.Image")));
+            this.tsddTraces.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tsddTraces.Name = "tsddTraces";
+            this.tsddTraces.Size = new System.Drawing.Size(84, 36);
+            this.tsddTraces.Text = "Traces";
+            // 
+            // tsmiViewQuickFilter
+            // 
+            this.tsmiViewQuickFilter.CheckOnClick = true;
+            this.tsmiViewQuickFilter.Image = ((System.Drawing.Image)(resources.GetObject("tsmiViewQuickFilter.Image")));
+            this.tsmiViewQuickFilter.Name = "tsmiViewQuickFilter";
+            this.tsmiViewQuickFilter.Size = new System.Drawing.Size(265, 34);
+            this.tsmiViewQuickFilter.Text = "Quick Filter";
+            this.tsmiViewQuickFilter.Click += new System.EventHandler(this.tsmiViewQuickFilter_Click);
+            // 
+            // tsmiLocalTimes
+            // 
+            this.tsmiLocalTimes.CheckOnClick = true;
+            this.tsmiLocalTimes.Image = ((System.Drawing.Image)(resources.GetObject("tsmiLocalTimes.Image")));
+            this.tsmiLocalTimes.Name = "tsmiLocalTimes";
+            this.tsmiLocalTimes.Size = new System.Drawing.Size(265, 34);
+            this.tsmiLocalTimes.Text = "Local Times";
+            this.tsmiLocalTimes.Click += new System.EventHandler(this.tsmiLocalTimes_Click);
+            // 
+            // tsmiFullyQualifiedPluginNames
+            // 
+            this.tsmiFullyQualifiedPluginNames.CheckOnClick = true;
+            this.tsmiFullyQualifiedPluginNames.Image = ((System.Drawing.Image)(resources.GetObject("tsmiFullyQualifiedPluginNames.Image")));
+            this.tsmiFullyQualifiedPluginNames.Name = "tsmiFullyQualifiedPluginNames";
+            this.tsmiFullyQualifiedPluginNames.Size = new System.Drawing.Size(265, 34);
+            this.tsmiFullyQualifiedPluginNames.Text = "Show fully qualified Plugin names";
+            this.tsmiFullyQualifiedPluginNames.Click += new System.EventHandler(this.tsmiFullyQualifiedPluginNames_Click);
+            // 
+            // tsmiHidePluginFromStep
+            // 
+            this.tsmiHidePluginFromStep.CheckOnClick = true;
+            this.tsmiHidePluginFromStep.Image = ((System.Drawing.Image)(resources.GetObject("tsmiHidePluginFromStep.Image")));
+            this.tsmiHidePluginFromStep.Name = "tsmiHidePluginFromStep";
+            this.tsmiHidePluginFromStep.Size = new System.Drawing.Size(265, 34);
+            this.tsmiHidePluginFromStep.Text = "Hide Plugin names from Steps";
+            this.tsmiHidePluginFromStep.Click += new System.EventHandler(this.tsmiHidePluginFromStep_Click);
+            // 
+            // tsmiHideEntityFromStep
+            // 
+            this.tsmiHideEntityFromStep.CheckOnClick = true;
+            this.tsmiHideEntityFromStep.Image = ((System.Drawing.Image)(resources.GetObject("tsmiHideEntityFromStep.Image")));
+            this.tsmiHideEntityFromStep.Name = "tsmiHideEntityFromStep";
+            this.tsmiHideEntityFromStep.Size = new System.Drawing.Size(265, 34);
+            this.tsmiHideEntityFromStep.Text = "Hide Entity names from Steps";
+            this.tsmiHideEntityFromStep.Click += new System.EventHandler(this.tsmiHideEntityFromStep_Click);
+            // 
+            // tsmiHighlight
+            // 
+            this.tsmiHighlight.Checked = true;
+            this.tsmiHighlight.CheckOnClick = true;
+            this.tsmiHighlight.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.tsmiHighlight.Image = ((System.Drawing.Image)(resources.GetObject("tsmiHighlight.Image")));
+            this.tsmiHighlight.Name = "tsmiHighlight";
+            this.tsmiHighlight.Size = new System.Drawing.Size(265, 34);
+            this.tsmiHighlight.Text = "Highlight identical cells";
+            this.tsmiHighlight.Click += new System.EventHandler(this.tsmiHighlight_Click);
+            // 
+            // tsddLayout
+            // 
+            this.tsddLayout.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.tsmiIdentifyRecords,
+            this.tsmiWordWrap});
+            this.tsddLayout.Image = ((System.Drawing.Image)(resources.GetObject("tsddLayout.Image")));
+            this.tsddLayout.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tsddLayout.Name = "tsddLayout";
+            this.tsddLayout.Size = new System.Drawing.Size(77, 36);
+            this.tsddLayout.Text = "Logs";
+            // 
+            // tsmiIdentifyRecords
+            // 
+            this.tsmiIdentifyRecords.CheckOnClick = true;
+            this.tsmiIdentifyRecords.Image = ((System.Drawing.Image)(resources.GetObject("tsmiIdentifyRecords.Image")));
+            this.tsmiIdentifyRecords.Name = "tsmiIdentifyRecords";
+            this.tsmiIdentifyRecords.Size = new System.Drawing.Size(252, 34);
+            this.tsmiIdentifyRecords.Text = "Identify records";
+            this.tsmiIdentifyRecords.Click += new System.EventHandler(this.tsmiIdentifyRecords_Click);
+            // 
+            // tsmiWordWrap
+            // 
+            this.tsmiWordWrap.CheckOnClick = true;
+            this.tsmiWordWrap.Image = ((System.Drawing.Image)(resources.GetObject("tsmiWordWrap.Image")));
+            this.tsmiWordWrap.Name = "tsmiWordWrap";
+            this.tsmiWordWrap.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.Z)));
+            this.tsmiWordWrap.Size = new System.Drawing.Size(252, 34);
+            this.tsmiWordWrap.Text = "Wrap text in log window";
+            this.tsmiWordWrap.CheckedChanged += new System.EventHandler(this.tsmiWordWrap_CheckedChanged);
+            // 
+            // tsddWindows
+            // 
+            this.tsddWindows.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.tsmiViewFilter,
+            this.tsmiViewStatistics,
+            this.tsmiViewLog,
+            this.tsmiViewException,
+            this.tsmiPluginStats,
+            this.toolStripMenuItem3,
+            this.tsmiResetWindows,
+            this.toolStripMenuItem4,
+            this.tsmiRefreshFilter,
+            this.toolStripMenuItem5,
+            this.tsmiSuppressLogSettingWarning});
+            this.tsddWindows.Image = ((System.Drawing.Image)(resources.GetObject("tsddWindows.Image")));
+            this.tsddWindows.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tsddWindows.Name = "tsddWindows";
+            this.tsddWindows.Size = new System.Drawing.Size(101, 36);
+            this.tsddWindows.Text = "Windows";
+            // 
+            // tsmiViewFilter
+            // 
+            this.tsmiViewFilter.Image = ((System.Drawing.Image)(resources.GetObject("tsmiViewFilter.Image")));
+            this.tsmiViewFilter.Name = "tsmiViewFilter";
+            this.tsmiViewFilter.Size = new System.Drawing.Size(238, 34);
+            this.tsmiViewFilter.Text = "Filter";
+            this.tsmiViewFilter.Click += new System.EventHandler(this.tsmiViewFilter_Click);
+            // 
+            // tsmiViewStatistics
+            // 
+            this.tsmiViewStatistics.Image = ((System.Drawing.Image)(resources.GetObject("tsmiViewStatistics.Image")));
+            this.tsmiViewStatistics.Name = "tsmiViewStatistics";
+            this.tsmiViewStatistics.Size = new System.Drawing.Size(238, 34);
+            this.tsmiViewStatistics.Text = "Statistics";
+            this.tsmiViewStatistics.Visible = false;
+            this.tsmiViewStatistics.Click += new System.EventHandler(this.tsmiViewStatistics_Click);
+            // 
+            // tsmiViewLog
+            // 
+            this.tsmiViewLog.Image = ((System.Drawing.Image)(resources.GetObject("tsmiViewLog.Image")));
+            this.tsmiViewLog.Name = "tsmiViewLog";
+            this.tsmiViewLog.Size = new System.Drawing.Size(238, 34);
+            this.tsmiViewLog.Text = "Trace Message";
+            this.tsmiViewLog.Click += new System.EventHandler(this.tsmiViewLog_Click);
+            // 
+            // tsmiViewException
+            // 
+            this.tsmiViewException.Image = ((System.Drawing.Image)(resources.GetObject("tsmiViewException.Image")));
+            this.tsmiViewException.Name = "tsmiViewException";
+            this.tsmiViewException.Size = new System.Drawing.Size(238, 34);
+            this.tsmiViewException.Text = "Exception";
+            this.tsmiViewException.Click += new System.EventHandler(this.tsmiViewException_Click);
+            // 
+            // tsmiPluginStats
+            // 
+            this.tsmiPluginStats.Name = "tsmiPluginStats";
+            this.tsmiPluginStats.Size = new System.Drawing.Size(238, 34);
+            this.tsmiPluginStats.Text = "Show all Plugin Statistics...";
+            this.tsmiPluginStats.Visible = false;
+            this.tsmiPluginStats.Click += new System.EventHandler(this.tsmiPluginStats_Click);
+            // 
+            // toolStripMenuItem3
+            // 
+            this.toolStripMenuItem3.Name = "toolStripMenuItem3";
+            this.toolStripMenuItem3.Size = new System.Drawing.Size(235, 6);
+            // 
+            // tsmiResetWindows
+            // 
+            this.tsmiResetWindows.Image = ((System.Drawing.Image)(resources.GetObject("tsmiResetWindows.Image")));
+            this.tsmiResetWindows.Name = "tsmiResetWindows";
+            this.tsmiResetWindows.Size = new System.Drawing.Size(238, 34);
+            this.tsmiResetWindows.Text = "Reset window layout";
+            this.tsmiResetWindows.Click += new System.EventHandler(this.tsmiResetWindows_Click);
+            // 
+            // toolStripMenuItem4
+            // 
+            this.toolStripMenuItem4.Name = "toolStripMenuItem4";
+            this.toolStripMenuItem4.Size = new System.Drawing.Size(235, 6);
+            // 
+            // tsmiRefreshFilter
+            // 
+            this.tsmiRefreshFilter.Enabled = false;
+            this.tsmiRefreshFilter.Image = ((System.Drawing.Image)(resources.GetObject("tsmiRefreshFilter.Image")));
+            this.tsmiRefreshFilter.Name = "tsmiRefreshFilter";
+            this.tsmiRefreshFilter.Size = new System.Drawing.Size(238, 34);
+            this.tsmiRefreshFilter.Text = "Refresh Filter Options";
+            this.tsmiRefreshFilter.Click += new System.EventHandler(this.tsmiRefreshFilter_Click);
+            // 
+            // toolStripMenuItem5
+            // 
+            this.toolStripMenuItem5.Name = "toolStripMenuItem5";
+            this.toolStripMenuItem5.Size = new System.Drawing.Size(235, 6);
+            // 
+            // tsmiSuppressLogSettingWarning
+            // 
+            this.tsmiSuppressLogSettingWarning.CheckOnClick = true;
+            this.tsmiSuppressLogSettingWarning.Image = ((System.Drawing.Image)(resources.GetObject("tsmiSuppressLogSettingWarning.Image")));
+            this.tsmiSuppressLogSettingWarning.Name = "tsmiSuppressLogSettingWarning";
+            this.tsmiSuppressLogSettingWarning.Size = new System.Drawing.Size(238, 34);
+            this.tsmiSuppressLogSettingWarning.Text = "Suppress log setting warning";
+            this.tsmiSuppressLogSettingWarning.Click += new System.EventHandler(this.tsmiSuppressLogSettingWarning_Click);
+            // 
             // dockContainer
             // 
             this.dockContainer.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
@@ -503,7 +505,7 @@
             this.dockContainer.DocumentStyle = WeifenLuo.WinFormsUI.Docking.DocumentStyle.DockingWindow;
             this.dockContainer.Location = new System.Drawing.Point(0, 39);
             this.dockContainer.Name = "dockContainer";
-            this.dockContainer.Size = new System.Drawing.Size(1715, 689);
+            this.dockContainer.Size = new System.Drawing.Size(1249, 689);
             this.dockContainer.TabIndex = 32;
             // 
             // timerRefresh
@@ -519,7 +521,7 @@
             this.Controls.Add(this.toolStripMain);
             this.Name = "PluginTraceViewer";
             this.PluginIcon = ((System.Drawing.Icon)(resources.GetObject("$this.PluginIcon")));
-            this.Size = new System.Drawing.Size(1715, 728);
+            this.Size = new System.Drawing.Size(1249, 728);
             this.TabIcon = ((System.Drawing.Image)(resources.GetObject("$this.TabIcon")));
             this.ConnectionUpdated += new XrmToolBox.Extensibility.PluginControlBase.ConnectionUpdatedHandler(this.PluginTraceViewer_ConnectionUpdated);
             this.Load += new System.EventHandler(this.PluginTraceViewer_Load);
