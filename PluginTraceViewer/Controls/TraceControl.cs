@@ -14,6 +14,7 @@ namespace Cinteros.XTB.PluginTraceViewer.Controls
     public partial class TraceControl : WeifenLuo.WinFormsUI.Docking.DockContent
     {
         private const string guidregex = @"([a-z0-9]{8}[-][a-z0-9]{4}[-][a-z0-9]{4}[-][a-z0-9]{4}[-][a-z0-9]{12})";
+        private char[] spacechars = new[] { ' ', '\t', '\n', '\r', ':', '=' };
         private string findtext = "";
         private Entity tracerecord;
         private string triggerentity;
@@ -55,9 +56,7 @@ namespace Cinteros.XTB.PluginTraceViewer.Controls
 
         private async void FindingLinks()
         {
-            var spacechars = new[] { ' ', '\t', '\n', '\r', ':', '=' };
             var spacestring = new string(spacechars);
-
             linkRecord.Text = "";
             //linkUser.Text = "";
             //linkIniUser.Text = "";
@@ -105,7 +104,7 @@ namespace Cinteros.XTB.PluginTraceViewer.Controls
             }
             lblLoading.Visible = false;
             btnShowAllRecordLinks.Enabled = links.Any();
-            btnShowAllRecordLinks.Text = $"Show {links.Where(l => l.LogTextIdentifier != "Target").Select(l => l.Record).Distinct().Count()} records";
+            btnShowAllRecordLinks.Text = $"Show {links.Where(l => l.TypeIdentifier != "Target").Select(l => l.Record).Distinct().Count()} records";
             textMessage.Text = Links.InsertRecordsInLog(log, links);
             links.ForEach(SetRecordLink);
             lblTrigger.Visible = !string.IsNullOrEmpty(linkRecord.Text);
@@ -116,8 +115,18 @@ namespace Cinteros.XTB.PluginTraceViewer.Controls
         {
             foreach (var link in links.Where(l => l.IsAdded))
             {
+                // Yellow on the name of the record
                 textMessage.Select(link.AddedPosition + 1, link.Length - 1);
                 textMessage.SelectionBackColor = System.Drawing.Color.Yellow;
+
+                // Gray on the table identifier
+                var beforeid = textMessage.Text.Substring(0, link.AddedPosition).Trim(spacechars).LastIndexOf(link.LogIdentifier);
+                textMessage.Select(beforeid, link.LogIdentifier.Length);
+                textMessage.SelectionBackColor = System.Drawing.Color.LightGray;
+
+                // Green on the guid
+                textMessage.Select(link.AddedPosition - 36, 36);
+                textMessage.SelectionBackColor = System.Drawing.Color.LightGreen;
             }
             textMessage.DeselectAll();
         }
@@ -125,7 +134,7 @@ namespace Cinteros.XTB.PluginTraceViewer.Controls
         private void SetRecordLink(Link link)
         {
             //LinkLabel linklabel = null;
-            switch (link.LogTextIdentifier)
+            switch (link.TypeIdentifier)
             {
                 //case "UserId":
                 //    linklabel = linkUser;
@@ -179,7 +188,7 @@ namespace Cinteros.XTB.PluginTraceViewer.Controls
         private void btnShowAllRecordLinks_Click(object sender, EventArgs e)
         {
             var allrecords = new RecordLinks();
-            allrecords.SetRecords(links.Where(l => l.LogTextIdentifier != "Target").Select(l => l.Record).Distinct(), ptv.ConnectionDetail);
+            allrecords.SetRecords(links.Where(l => l.TypeIdentifier != "Target").Select(l => l.Record).Distinct(), ptv.ConnectionDetail);
             allrecords.ShowDialog();
         }
     }

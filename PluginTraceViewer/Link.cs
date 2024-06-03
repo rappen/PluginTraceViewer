@@ -6,7 +6,8 @@ namespace Cinteros.XTB.PluginTraceViewer
     public class Link
     {
         public Record Record;
-        public string LogTextIdentifier;
+        public string LogIdentifier;
+        public string TypeIdentifier;
         public int OriginalPosition;
         public string AddedString;
         public int AddedPosition;
@@ -20,19 +21,20 @@ namespace Cinteros.XTB.PluginTraceViewer
                 return null;
             }
             var link = new Link();
+            link.LogIdentifier = guidname;
             string table;
             switch (guidname.ToLowerInvariant())
             {
                 case "user":
                 case "userid":
-                    link.LogTextIdentifier = "UserId";
+                    link.TypeIdentifier = "UserId";
                     table = "systemuser";
                     break;
 
                 case "inituserid":
                 case "inituserappid":
                 case "initiating user":
-                    link.LogTextIdentifier = "InitUserId";
+                    link.TypeIdentifier = "InitUserId";
                     table = "systemuser";
                     break;
 
@@ -43,14 +45,14 @@ namespace Cinteros.XTB.PluginTraceViewer
                 case "target":
                 case "record":
                 case "id":
-                    link.LogTextIdentifier = "Target";
+                    link.TypeIdentifier = "Target";
                     table = entity;
                     break;
 
                 case "environment":
                 case "environmentid":
                     table = null;
-                    link.LogTextIdentifier = "EnvironmentId";
+                    link.TypeIdentifier = "EnvironmentId";
                     link.Record = new Record
                     {
                         Id = guid,
