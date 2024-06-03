@@ -508,6 +508,7 @@ namespace Cinteros.XTB.PluginTraceViewer
                     {
                         var entities = results.Entities;
                         FriendlyfyCorrelationIds(entities);
+                        SplittingStartDateTime(entities);
                         SimplifyPluginTypes(entities);
                         HidePluginsFromSteps(entities);
                         HideEntitiesFromSteps(entities);
@@ -552,6 +553,7 @@ namespace Cinteros.XTB.PluginTraceViewer
                                 logs.Insert(0, log);
                             }
                             FriendlyfyCorrelationIds(logs);
+                            SplittingStartDateTime(logs);
                             SimplifyPluginTypes(logs);
                             HidePluginsFromSteps(logs);
                             HideEntitiesFromSteps(logs);
@@ -738,6 +740,18 @@ namespace Cinteros.XTB.PluginTraceViewer
                             entity.Attributes.Add("correlation", friendlyCorr);
                         }
                     }
+                }
+            }
+        }
+
+        private void SplittingStartDateTime(IEnumerable<Entity> entities)
+        {
+            foreach (var entity in entities)
+            {   // First determine which correlation ids that occur more than once, we don't want to show corr for single occurences
+                if (entity.Contains(PluginTraceLog.PerformanceExecutionStarttime))
+                {
+                    var start = (DateTime)entity[PluginTraceLog.PerformanceExecutionStarttime];
+                    entity.Attributes.Add("startdate", start);
                 }
             }
         }
