@@ -33,6 +33,7 @@
             // 
             // textException
             // 
+            this.textException.BackColor = System.Drawing.SystemColors.Window;
             this.textException.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.textException.Dock = System.Windows.Forms.DockStyle.Fill;
             this.textException.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -48,6 +49,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.SystemColors.Window;
             this.ClientSize = new System.Drawing.Size(581, 261);
             this.Controls.Add(this.textException);
             this.HideOnClose = true;
