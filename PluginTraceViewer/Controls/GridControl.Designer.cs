@@ -29,34 +29,15 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
-            this.crmGridView = new Rappen.XTB.Helpers.Controls.XRMDataGridView();
-            this.correlation = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.createdon = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.performanceexecutionstarttime = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.performanceexecutionduration = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.operationtype = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.typename = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.stepname = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.depth = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.mode = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.stage = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.rank = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.messagename = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.primaryentity = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.tracesize = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.correlationid = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.requestid = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.exceptionsummary = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.messageblock = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.exceptiondetails = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.contextMenuGridView = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.tsmiFilterBy = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiFilterByEntity = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiFilterByMessage = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiFilterByPlugin = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiFilterByCorrelation = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiFilterByRequestId = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiCorrelation = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiCorrelationId = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiCorrelationSelectThis = new System.Windows.Forms.ToolStripMenuItem();
@@ -91,209 +72,31 @@
             this.label1 = new System.Windows.Forms.Label();
             this.txtQuickFilter = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
-            this.tsmiFilterByRequestId = new System.Windows.Forms.ToolStripMenuItem();
-            ((System.ComponentModel.ISupportInitialize)(this.crmGridView)).BeginInit();
+            this.crmGridView = new Rappen.XTB.Helpers.Controls.XRMDataGridView();
+            this.correlation = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.createdon = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.performanceexecutionstarttime = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.performanceexecutionduration = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.operationtype = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.typename = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.stepname = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.depth = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.mode = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.stage = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.rank = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.messagename = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.primaryentity = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.tracesize = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.correlationid = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.requestid = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.exceptionsummary = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.messageblock = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.exceptiondetails = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.contextMenuGridView.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.panQuickFilter.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.crmGridView)).BeginInit();
             this.SuspendLayout();
-            // 
-            // crmGridView
-            // 
-            this.crmGridView.AllowUserToAddRows = false;
-            this.crmGridView.AllowUserToDeleteRows = false;
-            this.crmGridView.AllowUserToOrderColumns = true;
-            this.crmGridView.AllowUserToResizeRows = false;
-            this.crmGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.crmGridView.ColumnOrder = "";
-            this.crmGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.correlation,
-            this.createdon,
-            this.performanceexecutionstarttime,
-            this.performanceexecutionduration,
-            this.operationtype,
-            this.typename,
-            this.stepname,
-            this.depth,
-            this.mode,
-            this.stage,
-            this.rank,
-            this.messagename,
-            this.primaryentity,
-            this.tracesize,
-            this.correlationid,
-            this.requestid,
-            this.exceptionsummary,
-            this.messageblock,
-            this.exceptiondetails});
-            this.crmGridView.ContextMenuStrip = this.contextMenuGridView;
-            this.crmGridView.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.crmGridView.EnableHeadersVisualStyles = false;
-            this.crmGridView.FilterColumns = "messageblock, exceptiondetails";
-            this.crmGridView.LayoutXML = null;
-            this.crmGridView.Location = new System.Drawing.Point(0, 27);
-            this.crmGridView.Name = "crmGridView";
-            this.crmGridView.ReadOnly = true;
-            this.crmGridView.RowHeadersWidth = 20;
-            this.crmGridView.Service = null;
-            this.crmGridView.ShowFriendlyNames = true;
-            this.crmGridView.ShowIdColumn = false;
-            this.crmGridView.ShowIndexColumn = false;
-            this.crmGridView.Size = new System.Drawing.Size(690, 247);
-            this.crmGridView.TabIndex = 26;
-            this.crmGridView.RecordDoubleClick += new Rappen.XTB.Helpers.Controls.XRMRecordEventHandler(this.crmGridView_RecordDoubleClick);
-            this.crmGridView.RecordEnter += new Rappen.XTB.Helpers.Controls.XRMRecordEventHandler(this.crmGridView_RecordEnter);
-            this.crmGridView.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.crmGridView_CellFormatting);
-            this.crmGridView.CellMouseDown += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.crmGridView_CellMouseDown);
-            this.crmGridView.CellMouseUp += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.crmGridView_CellMouseUp);
-            this.crmGridView.ColumnDisplayIndexChanged += new System.Windows.Forms.DataGridViewColumnEventHandler(this.crmGridView_ColumnChanged);
-            this.crmGridView.ColumnWidthChanged += new System.Windows.Forms.DataGridViewColumnEventHandler(this.crmGridView_ColumnChanged);
-            this.crmGridView.SelectionChanged += new System.EventHandler(this.crmGridView_SelectionChanged);
-            // 
-            // correlation
-            // 
-            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.correlation.DefaultCellStyle = dataGridViewCellStyle5;
-            this.correlation.HeaderText = "Corr";
-            this.correlation.Name = "correlation";
-            this.correlation.ReadOnly = true;
-            this.correlation.Width = 35;
-            // 
-            // createdon
-            // 
-            this.createdon.HeaderText = "Created";
-            this.createdon.Name = "createdon";
-            this.createdon.ReadOnly = true;
-            this.createdon.Visible = false;
-            this.createdon.Width = 80;
-            // 
-            // performanceexecutionstarttime
-            // 
-            dataGridViewCellStyle2.Format = "yyyy-MM-dd HH:mm:ss.fff";
-            this.performanceexecutionstarttime.DefaultCellStyle = dataGridViewCellStyle2;
-            this.performanceexecutionstarttime.HeaderText = "Start Time";
-            this.performanceexecutionstarttime.Name = "performanceexecutionstarttime";
-            this.performanceexecutionstarttime.ReadOnly = true;
-            this.performanceexecutionstarttime.Width = 80;
-            // 
-            // performanceexecutionduration
-            // 
-            this.performanceexecutionduration.HeaderText = "Duration";
-            this.performanceexecutionduration.Name = "performanceexecutionduration";
-            this.performanceexecutionduration.ReadOnly = true;
-            this.performanceexecutionduration.Width = 50;
-            // 
-            // operationtype
-            // 
-            this.operationtype.HeaderText = "Operation";
-            this.operationtype.Name = "operationtype";
-            this.operationtype.ReadOnly = true;
-            this.operationtype.Width = 78;
-            // 
-            // typename
-            // 
-            this.typename.HeaderText = "Plugin";
-            this.typename.Name = "typename";
-            this.typename.ReadOnly = true;
-            this.typename.Width = 61;
-            // 
-            // stepname
-            // 
-            this.stepname.DataPropertyName = "step.name";
-            this.stepname.HeaderText = "Step";
-            this.stepname.Name = "stepname";
-            this.stepname.ReadOnly = true;
-            // 
-            // depth
-            // 
-            this.depth.HeaderText = "Depth";
-            this.depth.Name = "depth";
-            this.depth.ReadOnly = true;
-            this.depth.Width = 61;
-            // 
-            // mode
-            // 
-            this.mode.HeaderText = "Mode";
-            this.mode.Name = "mode";
-            this.mode.ReadOnly = true;
-            this.mode.Width = 59;
-            // 
-            // stage
-            // 
-            this.stage.DataPropertyName = "step.stage";
-            this.stage.FillWeight = 70F;
-            this.stage.HeaderText = "Stage";
-            this.stage.Name = "stage";
-            this.stage.ReadOnly = true;
-            // 
-            // rank
-            // 
-            this.rank.DataPropertyName = "step.rank";
-            this.rank.FillWeight = 50F;
-            this.rank.HeaderText = "Rank";
-            this.rank.Name = "rank";
-            this.rank.ReadOnly = true;
-            this.rank.Width = 50;
-            // 
-            // messagename
-            // 
-            this.messagename.HeaderText = "Message";
-            this.messagename.Name = "messagename";
-            this.messagename.ReadOnly = true;
-            this.messagename.Width = 75;
-            // 
-            // primaryentity
-            // 
-            this.primaryentity.HeaderText = "Entity";
-            this.primaryentity.Name = "primaryentity";
-            this.primaryentity.ReadOnly = true;
-            this.primaryentity.Width = 58;
-            // 
-            // tracesize
-            // 
-            this.tracesize.HeaderText = "Trace Size";
-            this.tracesize.Name = "tracesize";
-            this.tracesize.ReadOnly = true;
-            this.tracesize.Visible = false;
-            this.tracesize.Width = 40;
-            // 
-            // correlationid
-            // 
-            this.correlationid.HeaderText = "Correlation GUID";
-            this.correlationid.Name = "correlationid";
-            this.correlationid.ReadOnly = true;
-            this.correlationid.Visible = false;
-            this.correlationid.Width = 150;
-            // 
-            // requestid
-            // 
-            this.requestid.HeaderText = "Request GUID";
-            this.requestid.Name = "requestid";
-            this.requestid.ReadOnly = true;
-            this.requestid.Visible = false;
-            this.requestid.Width = 150;
-            // 
-            // exceptionsummary
-            // 
-            this.exceptionsummary.HeaderText = "Exception";
-            this.exceptionsummary.Name = "exceptionsummary";
-            this.exceptionsummary.ReadOnly = true;
-            this.exceptionsummary.Width = 200;
-            // 
-            // messageblock
-            // 
-            this.messageblock.HeaderText = "Trace Log (Hidden)";
-            this.messageblock.Name = "messageblock";
-            this.messageblock.ReadOnly = true;
-            this.messageblock.Visible = false;
-            // 
-            // exceptiondetails
-            // 
-            this.exceptiondetails.HeaderText = "Exception Details (Hidden)";
-            this.exceptiondetails.Name = "exceptiondetails";
-            this.exceptiondetails.ReadOnly = true;
-            this.exceptiondetails.Visible = false;
-            this.exceptiondetails.Width = 150;
             // 
             // contextMenuGridView
             // 
@@ -362,6 +165,13 @@
             this.tsmiFilterByCorrelation.Text = "Correlation";
             this.tsmiFilterByCorrelation.Click += new System.EventHandler(this.tsmiFilterByCorrelation_Click);
             // 
+            // tsmiFilterByRequestId
+            // 
+            this.tsmiFilterByRequestId.Name = "tsmiFilterByRequestId";
+            this.tsmiFilterByRequestId.Size = new System.Drawing.Size(133, 22);
+            this.tsmiFilterByRequestId.Text = "Request Id";
+            this.tsmiFilterByRequestId.Click += new System.EventHandler(this.tsmiFilterByRequestId_Click);
+            // 
             // tsmiCorrelation
             // 
             this.tsmiCorrelation.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -384,13 +194,6 @@
             this.tsmiCorrelationSelectThis.Size = new System.Drawing.Size(313, 22);
             this.tsmiCorrelationSelectThis.Text = "Select all logs with this correlation id";
             this.tsmiCorrelationSelectThis.Click += new System.EventHandler(this.tsmiCorrelationSelectThis_Click);
-            // 
-            // tsmiFilterByRequestId
-            // 
-            this.tsmiFilterByRequestId.Name = "tsmiFilterByRequestId";
-            this.tsmiFilterByRequestId.Size = new System.Drawing.Size(133, 22);
-            this.tsmiFilterByRequestId.Text = "Request Id";
-            this.tsmiFilterByRequestId.Click += new System.EventHandler(this.tsmiFilterByRequestId_Click);
             // 
             // tsmiDelete
             // 
@@ -605,7 +408,7 @@
             this.toolStripMatch});
             this.statusStrip1.Location = new System.Drawing.Point(0, 274);
             this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(690, 22);
+            this.statusStrip1.Size = new System.Drawing.Size(1116, 22);
             this.statusStrip1.SizingGrip = false;
             this.statusStrip1.TabIndex = 27;
             this.statusStrip1.Text = "statusStrip1";
@@ -653,7 +456,7 @@
             this.panQuickFilter.Dock = System.Windows.Forms.DockStyle.Top;
             this.panQuickFilter.Location = new System.Drawing.Point(0, 0);
             this.panQuickFilter.Name = "panQuickFilter";
-            this.panQuickFilter.Size = new System.Drawing.Size(690, 27);
+            this.panQuickFilter.Size = new System.Drawing.Size(1116, 27);
             this.panQuickFilter.TabIndex = 28;
             this.panQuickFilter.Visible = false;
             // 
@@ -661,7 +464,7 @@
             // 
             this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(487, 7);
+            this.label1.Location = new System.Drawing.Point(913, 7);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(191, 13);
             this.label1.TabIndex = 20;
@@ -673,7 +476,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtQuickFilter.Location = new System.Drawing.Point(97, 4);
             this.txtQuickFilter.Name = "txtQuickFilter";
-            this.txtQuickFilter.Size = new System.Drawing.Size(331, 20);
+            this.txtQuickFilter.Size = new System.Drawing.Size(757, 20);
             this.txtQuickFilter.TabIndex = 19;
             this.txtQuickFilter.TextChanged += new System.EventHandler(this.txtQuickFilter_TextChanged);
             // 
@@ -686,11 +489,208 @@
             this.label2.TabIndex = 18;
             this.label2.Text = "Quick Filter";
             // 
+            // crmGridView
+            // 
+            this.crmGridView.AllowUserToAddRows = false;
+            this.crmGridView.AllowUserToDeleteRows = false;
+            this.crmGridView.AllowUserToOrderColumns = true;
+            this.crmGridView.AllowUserToResizeRows = false;
+            this.crmGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.crmGridView.ColumnOrder = "";
+            this.crmGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.correlation,
+            this.createdon,
+            this.performanceexecutionstarttime,
+            this.performanceexecutionduration,
+            this.operationtype,
+            this.typename,
+            this.stepname,
+            this.depth,
+            this.mode,
+            this.stage,
+            this.rank,
+            this.messagename,
+            this.primaryentity,
+            this.tracesize,
+            this.correlationid,
+            this.requestid,
+            this.exceptionsummary,
+            this.messageblock,
+            this.exceptiondetails});
+            this.crmGridView.ContextMenuStrip = this.contextMenuGridView;
+            this.crmGridView.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.crmGridView.EnableHeadersVisualStyles = false;
+            this.crmGridView.FilterColumns = "messageblock, exceptiondetails";
+            this.crmGridView.LayoutXML = "";
+            this.crmGridView.Location = new System.Drawing.Point(0, 27);
+            this.crmGridView.Name = "crmGridView";
+            this.crmGridView.ReadOnly = true;
+            this.crmGridView.RowHeadersWidth = 20;
+            this.crmGridView.Service = null;
+            this.crmGridView.ShowFriendlyNames = true;
+            this.crmGridView.ShowIdColumn = false;
+            this.crmGridView.ShowIndexColumn = false;
+            this.crmGridView.Size = new System.Drawing.Size(1116, 247);
+            this.crmGridView.TabIndex = 26;
+            this.crmGridView.RecordDoubleClick += new Rappen.XTB.Helpers.Controls.XRMRecordEventHandler(this.crmGridView_RecordDoubleClick);
+            this.crmGridView.RecordEnter += new Rappen.XTB.Helpers.Controls.XRMRecordEventHandler(this.crmGridView_RecordEnter);
+            this.crmGridView.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.crmGridView_CellFormatting);
+            this.crmGridView.CellMouseDown += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.crmGridView_CellMouseDown);
+            this.crmGridView.CellMouseUp += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.crmGridView_CellMouseUp);
+            this.crmGridView.ColumnDisplayIndexChanged += new System.Windows.Forms.DataGridViewColumnEventHandler(this.crmGridView_ColumnChanged);
+            this.crmGridView.ColumnWidthChanged += new System.Windows.Forms.DataGridViewColumnEventHandler(this.crmGridView_ColumnChanged);
+            this.crmGridView.SelectionChanged += new System.EventHandler(this.crmGridView_SelectionChanged);
+            // 
+            // correlation
+            // 
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.correlation.DefaultCellStyle = dataGridViewCellStyle1;
+            this.correlation.HeaderText = "Corr";
+            this.correlation.Name = "correlation";
+            this.correlation.ReadOnly = true;
+            this.correlation.Width = 35;
+            // 
+            // createdon
+            // 
+            this.createdon.HeaderText = "Created";
+            this.createdon.Name = "createdon";
+            this.createdon.ReadOnly = true;
+            this.createdon.Visible = false;
+            this.createdon.Width = 80;
+            // 
+            // performanceexecutionstarttime
+            // 
+            dataGridViewCellStyle2.Format = "yyyy-MM-dd HH:mm:ss.fff";
+            this.performanceexecutionstarttime.DefaultCellStyle = dataGridViewCellStyle2;
+            this.performanceexecutionstarttime.HeaderText = "Start Time";
+            this.performanceexecutionstarttime.Name = "performanceexecutionstarttime";
+            this.performanceexecutionstarttime.ReadOnly = true;
+            this.performanceexecutionstarttime.Width = 125;
+            // 
+            // performanceexecutionduration
+            // 
+            this.performanceexecutionduration.HeaderText = "Duration";
+            this.performanceexecutionduration.Name = "performanceexecutionduration";
+            this.performanceexecutionduration.ReadOnly = true;
+            this.performanceexecutionduration.Width = 40;
+            // 
+            // operationtype
+            // 
+            this.operationtype.HeaderText = "Operation";
+            this.operationtype.Name = "operationtype";
+            this.operationtype.ReadOnly = true;
+            this.operationtype.Width = 80;
+            // 
+            // typename
+            // 
+            this.typename.HeaderText = "Plugin";
+            this.typename.Name = "typename";
+            this.typename.ReadOnly = true;
+            this.typename.Width = 150;
+            // 
+            // stepname
+            // 
+            this.stepname.DataPropertyName = "step.name";
+            this.stepname.HeaderText = "Step";
+            this.stepname.Name = "stepname";
+            this.stepname.ReadOnly = true;
+            // 
+            // depth
+            // 
+            this.depth.HeaderText = "Depth";
+            this.depth.Name = "depth";
+            this.depth.ReadOnly = true;
+            this.depth.Width = 40;
+            // 
+            // mode
+            // 
+            this.mode.HeaderText = "Mode";
+            this.mode.Name = "mode";
+            this.mode.ReadOnly = true;
+            this.mode.Width = 60;
+            // 
+            // stage
+            // 
+            this.stage.DataPropertyName = "step.stage";
+            this.stage.FillWeight = 70F;
+            this.stage.HeaderText = "Stage";
+            this.stage.Name = "stage";
+            this.stage.ReadOnly = true;
+            this.stage.Width = 80;
+            // 
+            // rank
+            // 
+            this.rank.DataPropertyName = "step.rank";
+            this.rank.FillWeight = 50F;
+            this.rank.HeaderText = "Rank";
+            this.rank.Name = "rank";
+            this.rank.ReadOnly = true;
+            this.rank.Width = 40;
+            // 
+            // messagename
+            // 
+            this.messagename.HeaderText = "Message";
+            this.messagename.Name = "messagename";
+            this.messagename.ReadOnly = true;
+            this.messagename.Width = 75;
+            // 
+            // primaryentity
+            // 
+            this.primaryentity.HeaderText = "Entity";
+            this.primaryentity.Name = "primaryentity";
+            this.primaryentity.ReadOnly = true;
+            // 
+            // tracesize
+            // 
+            this.tracesize.HeaderText = "Trace Size";
+            this.tracesize.Name = "tracesize";
+            this.tracesize.ReadOnly = true;
+            this.tracesize.Visible = false;
+            this.tracesize.Width = 40;
+            // 
+            // correlationid
+            // 
+            this.correlationid.HeaderText = "Correlation GUID";
+            this.correlationid.Name = "correlationid";
+            this.correlationid.ReadOnly = true;
+            this.correlationid.Visible = false;
+            this.correlationid.Width = 150;
+            // 
+            // requestid
+            // 
+            this.requestid.HeaderText = "Request GUID";
+            this.requestid.Name = "requestid";
+            this.requestid.ReadOnly = true;
+            this.requestid.Visible = false;
+            this.requestid.Width = 150;
+            // 
+            // exceptionsummary
+            // 
+            this.exceptionsummary.HeaderText = "Exception";
+            this.exceptionsummary.Name = "exceptionsummary";
+            this.exceptionsummary.ReadOnly = true;
+            this.exceptionsummary.Width = 200;
+            // 
+            // messageblock
+            // 
+            this.messageblock.HeaderText = "Trace Log (Hidden)";
+            this.messageblock.Name = "messageblock";
+            this.messageblock.ReadOnly = true;
+            this.messageblock.Visible = false;
+            // 
+            // exceptiondetails
+            // 
+            this.exceptiondetails.HeaderText = "Exception Details (Hidden)";
+            this.exceptiondetails.Name = "exceptiondetails";
+            this.exceptiondetails.ReadOnly = true;
+            this.exceptiondetails.Visible = false;
+            this.exceptiondetails.Width = 150;
+            // 
             // GridControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(690, 296);
+            this.ClientSize = new System.Drawing.Size(1116, 296);
             this.CloseButton = false;
             this.CloseButtonVisible = false;
             this.Controls.Add(this.crmGridView);
@@ -700,12 +700,12 @@
             this.HideOnClose = true;
             this.Name = "GridControl";
             this.TabText = "Plugin Trace Logs";
-            ((System.ComponentModel.ISupportInitialize)(this.crmGridView)).EndInit();
             this.contextMenuGridView.ResumeLayout(false);
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
             this.panQuickFilter.ResumeLayout(false);
             this.panQuickFilter.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.crmGridView)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -748,6 +748,12 @@
         private System.Windows.Forms.ToolStripStatusLabel toolStripEntities;
         private System.Windows.Forms.ToolStripStatusLabel toolStripCorrelations;
         private System.Windows.Forms.ToolStripStatusLabel toolStripMatch;
+        private System.Windows.Forms.ToolStripMenuItem tsmiShowColTraceSize;
+        internal System.Windows.Forms.ToolStripMenuItem tsmiCorrelationSelectThis;
+        private System.Windows.Forms.TextBox txtQuickFilter;
+        private System.Windows.Forms.Label label2;
+        internal System.Windows.Forms.Panel panQuickFilter;
+        private System.Windows.Forms.Label label1;
         private System.Windows.Forms.DataGridViewTextBoxColumn correlation;
         private System.Windows.Forms.DataGridViewTextBoxColumn createdon;
         private System.Windows.Forms.DataGridViewTextBoxColumn performanceexecutionstarttime;
@@ -767,11 +773,5 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn exceptionsummary;
         private System.Windows.Forms.DataGridViewTextBoxColumn messageblock;
         private System.Windows.Forms.DataGridViewTextBoxColumn exceptiondetails;
-        private System.Windows.Forms.ToolStripMenuItem tsmiShowColTraceSize;
-        internal System.Windows.Forms.ToolStripMenuItem tsmiCorrelationSelectThis;
-        private System.Windows.Forms.TextBox txtQuickFilter;
-        private System.Windows.Forms.Label label2;
-        internal System.Windows.Forms.Panel panQuickFilter;
-        private System.Windows.Forms.Label label1;
     }
 }
