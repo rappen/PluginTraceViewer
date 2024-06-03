@@ -41,6 +41,7 @@ namespace Cinteros.XTB.PluginTraceViewer
         private ExceptionControl exceptionControl;
         internal RecordList recordlist;
         private Entity lasttracerecord;
+        private List<string> defaultcolumns;
 
         public PluginTraceViewer()
         {
@@ -306,6 +307,7 @@ namespace Cinteros.XTB.PluginTraceViewer
         private void PluginTraceViewer_Load(object sender, EventArgs e)
         {
             SetupDockControls();
+            defaultcolumns = gridControl.Columns;
             LoadSettings();
             LogUse("Load", ai2: true);
         }
@@ -1364,6 +1366,13 @@ namespace Cinteros.XTB.PluginTraceViewer
         private void tsmiIdentifyRecords_Click(object sender, EventArgs e)
         {
             traceControl?.ShowMessageText(tsmiIdentifyRecords.Checked);
+        }
+
+        private void tsmiResetColumns_Click(object sender, EventArgs e)
+        {
+            gridControl.Columns = defaultcolumns;
+            gridControl.UpdateColumnsLayout();
+            gridControl.UpdateMenuChecks();
         }
     }
 }
