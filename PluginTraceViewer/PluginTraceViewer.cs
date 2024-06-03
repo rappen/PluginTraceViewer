@@ -584,7 +584,7 @@ namespace Cinteros.XTB.PluginTraceViewer
 
         private void StartRefreshTimer(bool increaseinterval)
         {
-            if (comboRefreshMode.SelectedIndex == 1 || comboRefreshMode.SelectedIndex == 2)
+            if (comboLogSetting.IsDisposed != true && (comboRefreshMode.SelectedIndex == 1 || comboRefreshMode.SelectedIndex == 2))
             {
                 if (increaseinterval)
                 {   // Something probably went wrong, increase interval until next try
