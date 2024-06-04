@@ -6,10 +6,15 @@ namespace Cinteros.XTB.PluginTraceViewer
     {
         public DateTime DateFrom { get; set; }
         public DateTime DateTo { get; set; }
+        public bool FilterPlugin { get; set; }
         public string Plugin { get; set; }
+        public bool FilterMessage { get; set; }
         public string Message { get; set; }
+        public bool FilterEntity { get; set; }
         public string Entity { get; set; }
+        public bool FilterCorr { get; set; }
         public string CorrelationId { get; set; }
+        public bool FilterReq { get; set; }
         public string RequestId { get; set; }
         public bool Exceptions { get; set; }
         public bool OperationPlugin { get; set; } = true;

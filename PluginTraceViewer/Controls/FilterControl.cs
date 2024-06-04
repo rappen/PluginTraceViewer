@@ -191,15 +191,15 @@ namespace Cinteros.XTB.PluginTraceViewer.Controls
             {
                 dateTo.Value = filter.DateTo;
             }
-            chkPlugin.Checked = !string.IsNullOrEmpty(filter.Plugin);
+            chkPlugin.Checked = filter.FilterPlugin;
             comboPlugin.Text = filter.Plugin;
-            chkMessage.Checked = !string.IsNullOrEmpty(filter.Message);
+            chkMessage.Checked = filter.FilterMessage;
             comboMessage.Text = filter.Message;
-            chkEntity.Checked = !string.IsNullOrEmpty(filter.Entity);
+            chkEntity.Checked = filter.FilterEntity;
             comboEntity.Text = filter.Entity;
-            chkCorrelation.Checked = !string.IsNullOrEmpty(filter.CorrelationId);
+            chkCorrelation.Checked = filter.FilterCorr;
             textCorrelationId.Text = filter.CorrelationId;
-            chkRequestId.Checked = !string.IsNullOrEmpty(filter.RequestId);
+            chkRequestId.Checked = filter.FilterReq;
             textRequestId.Text = filter.RequestId;
             chkExceptions.Checked = filter.Exceptions;
             chkOperPlugins.Checked = filter.OperationPlugin;
@@ -228,11 +228,16 @@ namespace Cinteros.XTB.PluginTraceViewer.Controls
             {
                 DateFrom = checkDateFrom.Checked ? dateFrom.Value : DateTime.MinValue,
                 DateTo = checkDateTo.Checked ? dateTo.Value : DateTime.MinValue,
-                Plugin = chkPlugin.Checked ? comboPlugin.Text : string.Empty,
-                Message = chkMessage.Checked ? comboMessage.Text : string.Empty,
-                Entity = chkEntity.Checked ? comboEntity.Text : string.Empty,
-                CorrelationId = chkCorrelation.Checked ? textCorrelationId.Text : string.Empty,
-                RequestId = chkRequestId.Checked ? textRequestId.Text : string.Empty,
+                FilterPlugin = chkPlugin.Checked,
+                Plugin = comboPlugin.Text,
+                FilterMessage = chkMessage.Checked,
+                Message = comboMessage.Text,
+                FilterEntity = chkEntity.Checked,
+                Entity = comboEntity.Text,
+                FilterCorr = chkCorrelation.Checked,
+                CorrelationId = textCorrelationId.Text,
+                FilterReq = chkRequestId.Checked,
+                RequestId = textRequestId.Text,
                 Exceptions = chkExceptions.Checked,
                 OperationPlugin = chkOperPlugins.Checked,
                 OperationWF = chkOperWF.Checked,
