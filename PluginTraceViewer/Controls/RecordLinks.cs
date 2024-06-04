@@ -41,7 +41,7 @@ namespace Cinteros.XTB.PluginTraceViewer.Controls
                     record.Metadata != null ? $"Table: {record.Metadata.LogicalName}" : record.Name,
                     record.Name,
                     record.Url,
-                    $"Open this {record.Metadata?.ToDisplayName()?.ToLowerInvariant()} record in environment {connectionDetail.ConnectionName}");
+                    $"Open this {record.Metadata?.ToDisplayName()?.ToLowerInvariant()} record.\n{record.Url}");
             }
             AddLinkPanel("Table", "", "Record name", "", "Click on record name to open in the browser", true);
             ClientSize = new Size(500, sptLinks.Panel1.Controls.Count * PANELHEIGHT + 40);
