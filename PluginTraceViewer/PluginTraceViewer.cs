@@ -1072,6 +1072,17 @@ namespace Cinteros.XTB.PluginTraceViewer
         private void ApplySettings(Settings settings)
         {
             comboRefreshMode.Enabled = false;
+            var ass = Assembly.GetExecutingAssembly().GetName();
+            var version = ass.Version.ToString();
+            if (!version.Equals(settings.Version))
+            {
+                // Reset some settings when new version is deployed
+                settings.Version = version;
+                settings.Columns = defaultcolumns;
+                SettingsManager.Instance.Save(typeof(PluginTraceViewer), settings, "Settings");
+                LogUse("ShowWelcome", ai2: true);
+                Process.Start($"https://jonasr.app/PTV/releases/#{version}");
+            }
             tsmiWordWrap.Checked = settings.WordWrap;
             tsmiLocalTimes.Checked = settings.LocalTime;
             tsmiFullyQualifiedPluginNames.Checked = settings.FullyQualifiedPluginNames;
@@ -1099,16 +1110,6 @@ namespace Cinteros.XTB.PluginTraceViewer
             filterControl.ShowTZInfo(settings.LocalTime);
             tsmiViewQuickFilter.Checked = settings.ShowQuickFilter;
             gridControl.panQuickFilter.Visible = settings.ShowQuickFilter;
-            var ass = Assembly.GetExecutingAssembly().GetName();
-            var version = ass.Version.ToString();
-            if (!version.Equals(settings.Version))
-            {
-                // Reset some settings when new version is deployed
-                settings.Version = version;
-                SettingsManager.Instance.Save(typeof(PluginTraceViewer), settings, "Settings");
-                LogUse("ShowWelcome", ai2: true);
-                Process.Start($"https://jonasr.app/PTV/releases/#{version}");
-            }
             comboRefreshMode.Enabled = true;
         }
 
