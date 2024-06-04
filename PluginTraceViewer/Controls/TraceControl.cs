@@ -49,6 +49,7 @@ namespace Cinteros.XTB.PluginTraceViewer.Controls
         internal async Task ShowMessageTextAsync(bool highlightguids, bool showlinks)
         {
             panLinks.Visible = showlinks;
+            picIcon.Left = ClientSize.Width - picIcon.Width - (showlinks ? 0 : 16);
             linkRecord.Text = "";
             textMessage.Text = originallog;
             if (string.IsNullOrWhiteSpace(originallog))

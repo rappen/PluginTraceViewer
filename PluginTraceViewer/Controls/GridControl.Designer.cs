@@ -29,9 +29,10 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(GridControl));
             this.contextMenuGridView = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.tsmiFilterBy = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiFilterByEntity = new System.Windows.Forms.ToolStripMenuItem();
@@ -47,6 +48,7 @@
             this.tsmiDeleteAll = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiShowColCorrelation = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiShowColCreated = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiShowColStartDate = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiShowColStartTime = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiShowColDuration = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiShowColOperation = new System.Windows.Forms.ToolStripMenuItem();
@@ -94,11 +96,12 @@
             this.exceptionsummary = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.messageblock = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.exceptiondetails = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.tsmiShowColStartDate = new System.Windows.Forms.ToolStripMenuItem();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.contextMenuGridView.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.panQuickFilter.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.crmGridView)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // contextMenuGridView
@@ -126,7 +129,7 @@
             this.tsmiShowColRequestId,
             this.tsmiShowColException});
             this.contextMenuGridView.Name = "contextStripMain";
-            this.contextMenuGridView.Size = new System.Drawing.Size(181, 488);
+            this.contextMenuGridView.Size = new System.Drawing.Size(164, 466);
             this.contextMenuGridView.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuGridView_Opening);
             // 
             // tsmiFilterBy
@@ -138,7 +141,7 @@
             this.tsmiFilterByCorrelation,
             this.tsmiFilterByRequestId});
             this.tsmiFilterBy.Name = "tsmiFilterBy";
-            this.tsmiFilterBy.Size = new System.Drawing.Size(180, 22);
+            this.tsmiFilterBy.Size = new System.Drawing.Size(163, 22);
             this.tsmiFilterBy.Text = "Filter by selected";
             // 
             // tsmiFilterByEntity
@@ -182,7 +185,7 @@
             this.tsmiCorrelationId,
             this.tsmiCorrelationSelectThis});
             this.tsmiCorrelation.Name = "tsmiCorrelation";
-            this.tsmiCorrelation.Size = new System.Drawing.Size(180, 22);
+            this.tsmiCorrelation.Size = new System.Drawing.Size(163, 22);
             this.tsmiCorrelation.Text = "Correlation";
             // 
             // tsmiCorrelationId
@@ -205,7 +208,7 @@
             this.tsmiDeleteSelected,
             this.tsmiDeleteAll});
             this.tsmiDelete.Name = "tsmiDelete";
-            this.tsmiDelete.Size = new System.Drawing.Size(180, 22);
+            this.tsmiDelete.Size = new System.Drawing.Size(163, 22);
             this.tsmiDelete.Text = "Delete";
             // 
             // tsmiDeleteSelected
@@ -228,7 +231,7 @@
             this.tsmiShowColCorrelation.CheckOnClick = true;
             this.tsmiShowColCorrelation.CheckState = System.Windows.Forms.CheckState.Checked;
             this.tsmiShowColCorrelation.Name = "tsmiShowColCorrelation";
-            this.tsmiShowColCorrelation.Size = new System.Drawing.Size(180, 22);
+            this.tsmiShowColCorrelation.Size = new System.Drawing.Size(163, 22);
             this.tsmiShowColCorrelation.Tag = "correlation";
             this.tsmiShowColCorrelation.Text = "Correlation";
             this.tsmiShowColCorrelation.CheckStateChanged += new System.EventHandler(this.tsmiShowColumn_CheckedChanged);
@@ -237,10 +240,21 @@
             // 
             this.tsmiShowColCreated.CheckOnClick = true;
             this.tsmiShowColCreated.Name = "tsmiShowColCreated";
-            this.tsmiShowColCreated.Size = new System.Drawing.Size(180, 22);
+            this.tsmiShowColCreated.Size = new System.Drawing.Size(163, 22);
             this.tsmiShowColCreated.Tag = "createdon";
             this.tsmiShowColCreated.Text = "Created";
             this.tsmiShowColCreated.CheckStateChanged += new System.EventHandler(this.tsmiShowColumn_CheckedChanged);
+            // 
+            // tsmiShowColStartDate
+            // 
+            this.tsmiShowColStartDate.Checked = true;
+            this.tsmiShowColStartDate.CheckOnClick = true;
+            this.tsmiShowColStartDate.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.tsmiShowColStartDate.Name = "tsmiShowColStartDate";
+            this.tsmiShowColStartDate.Size = new System.Drawing.Size(163, 22);
+            this.tsmiShowColStartDate.Tag = "performanceexecutionstartdate";
+            this.tsmiShowColStartDate.Text = "Start Date";
+            this.tsmiShowColStartDate.CheckStateChanged += new System.EventHandler(this.tsmiShowColumn_CheckedChanged);
             // 
             // tsmiShowColStartTime
             // 
@@ -248,7 +262,7 @@
             this.tsmiShowColStartTime.CheckOnClick = true;
             this.tsmiShowColStartTime.CheckState = System.Windows.Forms.CheckState.Checked;
             this.tsmiShowColStartTime.Name = "tsmiShowColStartTime";
-            this.tsmiShowColStartTime.Size = new System.Drawing.Size(180, 22);
+            this.tsmiShowColStartTime.Size = new System.Drawing.Size(163, 22);
             this.tsmiShowColStartTime.Tag = "performanceexecutionstarttime";
             this.tsmiShowColStartTime.Text = "Start Time";
             this.tsmiShowColStartTime.CheckStateChanged += new System.EventHandler(this.tsmiShowColumn_CheckedChanged);
@@ -259,7 +273,7 @@
             this.tsmiShowColDuration.CheckOnClick = true;
             this.tsmiShowColDuration.CheckState = System.Windows.Forms.CheckState.Checked;
             this.tsmiShowColDuration.Name = "tsmiShowColDuration";
-            this.tsmiShowColDuration.Size = new System.Drawing.Size(180, 22);
+            this.tsmiShowColDuration.Size = new System.Drawing.Size(163, 22);
             this.tsmiShowColDuration.Tag = "performanceexecutionduration";
             this.tsmiShowColDuration.Text = "Duration";
             this.tsmiShowColDuration.CheckStateChanged += new System.EventHandler(this.tsmiShowColumn_CheckedChanged);
@@ -270,7 +284,7 @@
             this.tsmiShowColOperation.CheckOnClick = true;
             this.tsmiShowColOperation.CheckState = System.Windows.Forms.CheckState.Checked;
             this.tsmiShowColOperation.Name = "tsmiShowColOperation";
-            this.tsmiShowColOperation.Size = new System.Drawing.Size(180, 22);
+            this.tsmiShowColOperation.Size = new System.Drawing.Size(163, 22);
             this.tsmiShowColOperation.Tag = "operationtype";
             this.tsmiShowColOperation.Text = "Operation";
             this.tsmiShowColOperation.CheckStateChanged += new System.EventHandler(this.tsmiShowColumn_CheckedChanged);
@@ -281,7 +295,7 @@
             this.tsmiShowColPlugin.CheckOnClick = true;
             this.tsmiShowColPlugin.CheckState = System.Windows.Forms.CheckState.Checked;
             this.tsmiShowColPlugin.Name = "tsmiShowColPlugin";
-            this.tsmiShowColPlugin.Size = new System.Drawing.Size(180, 22);
+            this.tsmiShowColPlugin.Size = new System.Drawing.Size(163, 22);
             this.tsmiShowColPlugin.Tag = "typename";
             this.tsmiShowColPlugin.Text = "Plugin";
             this.tsmiShowColPlugin.CheckStateChanged += new System.EventHandler(this.tsmiShowColumn_CheckedChanged);
@@ -292,7 +306,7 @@
             this.tsmiShowColStep.CheckOnClick = true;
             this.tsmiShowColStep.CheckState = System.Windows.Forms.CheckState.Checked;
             this.tsmiShowColStep.Name = "tsmiShowColStep";
-            this.tsmiShowColStep.Size = new System.Drawing.Size(180, 22);
+            this.tsmiShowColStep.Size = new System.Drawing.Size(163, 22);
             this.tsmiShowColStep.Tag = "stepname";
             this.tsmiShowColStep.Text = "Step";
             this.tsmiShowColStep.CheckStateChanged += new System.EventHandler(this.tsmiShowColumn_CheckedChanged);
@@ -303,7 +317,7 @@
             this.tsmiShowColDepth.CheckOnClick = true;
             this.tsmiShowColDepth.CheckState = System.Windows.Forms.CheckState.Checked;
             this.tsmiShowColDepth.Name = "tsmiShowColDepth";
-            this.tsmiShowColDepth.Size = new System.Drawing.Size(180, 22);
+            this.tsmiShowColDepth.Size = new System.Drawing.Size(163, 22);
             this.tsmiShowColDepth.Tag = "depth";
             this.tsmiShowColDepth.Text = "Depth";
             this.tsmiShowColDepth.CheckStateChanged += new System.EventHandler(this.tsmiShowColumn_CheckedChanged);
@@ -314,7 +328,7 @@
             this.tsmiShowColMode.CheckOnClick = true;
             this.tsmiShowColMode.CheckState = System.Windows.Forms.CheckState.Checked;
             this.tsmiShowColMode.Name = "tsmiShowColMode";
-            this.tsmiShowColMode.Size = new System.Drawing.Size(180, 22);
+            this.tsmiShowColMode.Size = new System.Drawing.Size(163, 22);
             this.tsmiShowColMode.Tag = "mode";
             this.tsmiShowColMode.Text = "Mode";
             this.tsmiShowColMode.CheckStateChanged += new System.EventHandler(this.tsmiShowColumn_CheckedChanged);
@@ -325,7 +339,7 @@
             this.tsmiShowColStage.CheckOnClick = true;
             this.tsmiShowColStage.CheckState = System.Windows.Forms.CheckState.Checked;
             this.tsmiShowColStage.Name = "tsmiShowColStage";
-            this.tsmiShowColStage.Size = new System.Drawing.Size(180, 22);
+            this.tsmiShowColStage.Size = new System.Drawing.Size(163, 22);
             this.tsmiShowColStage.Tag = "stage";
             this.tsmiShowColStage.Text = "Stage";
             this.tsmiShowColStage.CheckStateChanged += new System.EventHandler(this.tsmiShowColumn_CheckedChanged);
@@ -336,7 +350,7 @@
             this.tsmiShowColRank.CheckOnClick = true;
             this.tsmiShowColRank.CheckState = System.Windows.Forms.CheckState.Checked;
             this.tsmiShowColRank.Name = "tsmiShowColRank";
-            this.tsmiShowColRank.Size = new System.Drawing.Size(180, 22);
+            this.tsmiShowColRank.Size = new System.Drawing.Size(163, 22);
             this.tsmiShowColRank.Tag = "rank";
             this.tsmiShowColRank.Text = "Rank";
             this.tsmiShowColRank.CheckStateChanged += new System.EventHandler(this.tsmiShowColumn_CheckedChanged);
@@ -347,7 +361,7 @@
             this.tsmiShowColMessage.CheckOnClick = true;
             this.tsmiShowColMessage.CheckState = System.Windows.Forms.CheckState.Checked;
             this.tsmiShowColMessage.Name = "tsmiShowColMessage";
-            this.tsmiShowColMessage.Size = new System.Drawing.Size(180, 22);
+            this.tsmiShowColMessage.Size = new System.Drawing.Size(163, 22);
             this.tsmiShowColMessage.Tag = "messagename";
             this.tsmiShowColMessage.Text = "Message";
             this.tsmiShowColMessage.CheckStateChanged += new System.EventHandler(this.tsmiShowColumn_CheckedChanged);
@@ -358,7 +372,7 @@
             this.tsmiShowColEntity.CheckOnClick = true;
             this.tsmiShowColEntity.CheckState = System.Windows.Forms.CheckState.Checked;
             this.tsmiShowColEntity.Name = "tsmiShowColEntity";
-            this.tsmiShowColEntity.Size = new System.Drawing.Size(180, 22);
+            this.tsmiShowColEntity.Size = new System.Drawing.Size(163, 22);
             this.tsmiShowColEntity.Tag = "primaryentity";
             this.tsmiShowColEntity.Text = "Entity";
             this.tsmiShowColEntity.CheckStateChanged += new System.EventHandler(this.tsmiShowColumn_CheckedChanged);
@@ -367,7 +381,7 @@
             // 
             this.tsmiShowColTraceSize.CheckOnClick = true;
             this.tsmiShowColTraceSize.Name = "tsmiShowColTraceSize";
-            this.tsmiShowColTraceSize.Size = new System.Drawing.Size(180, 22);
+            this.tsmiShowColTraceSize.Size = new System.Drawing.Size(163, 22);
             this.tsmiShowColTraceSize.Tag = "tracesize";
             this.tsmiShowColTraceSize.Text = "Trace Size";
             this.tsmiShowColTraceSize.CheckStateChanged += new System.EventHandler(this.tsmiShowColumn_CheckedChanged);
@@ -376,7 +390,7 @@
             // 
             this.tsmiShowColCorrelationId.CheckOnClick = true;
             this.tsmiShowColCorrelationId.Name = "tsmiShowColCorrelationId";
-            this.tsmiShowColCorrelationId.Size = new System.Drawing.Size(180, 22);
+            this.tsmiShowColCorrelationId.Size = new System.Drawing.Size(163, 22);
             this.tsmiShowColCorrelationId.Tag = "correlationid";
             this.tsmiShowColCorrelationId.Text = "Correlation GUID";
             this.tsmiShowColCorrelationId.CheckStateChanged += new System.EventHandler(this.tsmiShowColumn_CheckedChanged);
@@ -385,7 +399,7 @@
             // 
             this.tsmiShowColRequestId.CheckOnClick = true;
             this.tsmiShowColRequestId.Name = "tsmiShowColRequestId";
-            this.tsmiShowColRequestId.Size = new System.Drawing.Size(180, 22);
+            this.tsmiShowColRequestId.Size = new System.Drawing.Size(163, 22);
             this.tsmiShowColRequestId.Tag = "requestid";
             this.tsmiShowColRequestId.Text = "Request GUID";
             this.tsmiShowColRequestId.CheckStateChanged += new System.EventHandler(this.tsmiShowColumn_CheckedChanged);
@@ -396,7 +410,7 @@
             this.tsmiShowColException.CheckOnClick = true;
             this.tsmiShowColException.CheckState = System.Windows.Forms.CheckState.Checked;
             this.tsmiShowColException.Name = "tsmiShowColException";
-            this.tsmiShowColException.Size = new System.Drawing.Size(180, 22);
+            this.tsmiShowColException.Size = new System.Drawing.Size(163, 22);
             this.tsmiShowColException.Tag = "exceptionsummary";
             this.tsmiShowColException.Text = "Exception";
             this.tsmiShowColException.CheckStateChanged += new System.EventHandler(this.tsmiShowColumn_CheckedChanged);
@@ -460,7 +474,7 @@
             this.panQuickFilter.Dock = System.Windows.Forms.DockStyle.Top;
             this.panQuickFilter.Location = new System.Drawing.Point(0, 0);
             this.panQuickFilter.Name = "panQuickFilter";
-            this.panQuickFilter.Size = new System.Drawing.Size(1116, 27);
+            this.panQuickFilter.Size = new System.Drawing.Size(1116, 32);
             this.panQuickFilter.TabIndex = 28;
             this.panQuickFilter.Visible = false;
             // 
@@ -468,7 +482,7 @@
             // 
             this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(913, 7);
+            this.label1.Location = new System.Drawing.Point(913, 9);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(191, 13);
             this.label1.TabIndex = 20;
@@ -478,16 +492,16 @@
             // 
             this.txtQuickFilter.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtQuickFilter.Location = new System.Drawing.Point(97, 4);
+            this.txtQuickFilter.Location = new System.Drawing.Point(104, 6);
             this.txtQuickFilter.Name = "txtQuickFilter";
-            this.txtQuickFilter.Size = new System.Drawing.Size(757, 20);
+            this.txtQuickFilter.Size = new System.Drawing.Size(750, 20);
             this.txtQuickFilter.TabIndex = 19;
             this.txtQuickFilter.TextChanged += new System.EventHandler(this.txtQuickFilter_TextChanged);
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(20, 7);
+            this.label2.Location = new System.Drawing.Point(38, 9);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(60, 13);
             this.label2.TabIndex = 18;
@@ -499,6 +513,8 @@
             this.crmGridView.AllowUserToDeleteRows = false;
             this.crmGridView.AllowUserToOrderColumns = true;
             this.crmGridView.AllowUserToResizeRows = false;
+            this.crmGridView.BackgroundColor = System.Drawing.SystemColors.Window;
+            this.crmGridView.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.crmGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.crmGridView.ColumnOrder = "";
             this.crmGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
@@ -527,15 +543,16 @@
             this.crmGridView.EnableHeadersVisualStyles = false;
             this.crmGridView.FilterColumns = "messageblock, exceptiondetails";
             this.crmGridView.LayoutXML = "";
-            this.crmGridView.Location = new System.Drawing.Point(0, 27);
+            this.crmGridView.Location = new System.Drawing.Point(0, 32);
             this.crmGridView.Name = "crmGridView";
             this.crmGridView.ReadOnly = true;
+            this.crmGridView.RowHeadersVisible = false;
             this.crmGridView.RowHeadersWidth = 20;
             this.crmGridView.Service = null;
             this.crmGridView.ShowFriendlyNames = true;
             this.crmGridView.ShowIdColumn = false;
             this.crmGridView.ShowIndexColumn = false;
-            this.crmGridView.Size = new System.Drawing.Size(1116, 247);
+            this.crmGridView.Size = new System.Drawing.Size(1116, 242);
             this.crmGridView.TabIndex = 26;
             this.crmGridView.RecordDoubleClick += new Rappen.XTB.Helpers.Controls.XRMRecordEventHandler(this.crmGridView_RecordDoubleClick);
             this.crmGridView.RecordEnter += new Rappen.XTB.Helpers.Controls.XRMRecordEventHandler(this.crmGridView_RecordEnter);
@@ -548,8 +565,8 @@
             // 
             // correlation
             // 
-            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.correlation.DefaultCellStyle = dataGridViewCellStyle7;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.correlation.DefaultCellStyle = dataGridViewCellStyle1;
             this.correlation.HeaderText = "Corr";
             this.correlation.Name = "correlation";
             this.correlation.ReadOnly = true;
@@ -566,8 +583,8 @@
             // performanceexecutionstartdate
             // 
             this.performanceexecutionstartdate.DataPropertyName = "startdate";
-            dataGridViewCellStyle8.Format = "yyyy-MM-dd";
-            this.performanceexecutionstartdate.DefaultCellStyle = dataGridViewCellStyle8;
+            dataGridViewCellStyle2.Format = "yyyy-MM-dd";
+            this.performanceexecutionstartdate.DefaultCellStyle = dataGridViewCellStyle2;
             this.performanceexecutionstartdate.HeaderText = "Start Date";
             this.performanceexecutionstartdate.Name = "performanceexecutionstartdate";
             this.performanceexecutionstartdate.ReadOnly = true;
@@ -575,8 +592,8 @@
             // 
             // performanceexecutionstarttime
             // 
-            dataGridViewCellStyle9.Format = "HH:mm:ss.fff";
-            this.performanceexecutionstarttime.DefaultCellStyle = dataGridViewCellStyle9;
+            dataGridViewCellStyle3.Format = "HH:mm:ss.fff";
+            this.performanceexecutionstarttime.DefaultCellStyle = dataGridViewCellStyle3;
             this.performanceexecutionstarttime.HeaderText = "Start Time";
             this.performanceexecutionstarttime.Name = "performanceexecutionstarttime";
             this.performanceexecutionstarttime.ReadOnly = true;
@@ -701,29 +718,31 @@
             this.exceptiondetails.Visible = false;
             this.exceptiondetails.Width = 150;
             // 
-            // tsmiShowColStartDate
+            // pictureBox1
             // 
-            this.tsmiShowColStartDate.Checked = true;
-            this.tsmiShowColStartDate.CheckOnClick = true;
-            this.tsmiShowColStartDate.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.tsmiShowColStartDate.Name = "tsmiShowColStartDate";
-            this.tsmiShowColStartDate.Size = new System.Drawing.Size(180, 22);
-            this.tsmiShowColStartDate.Tag = "performanceexecutionstartdate";
-            this.tsmiShowColStartDate.Text = "Start Date";
-            this.tsmiShowColStartDate.CheckStateChanged += new System.EventHandler(this.tsmiShowColumn_CheckedChanged);
+            this.pictureBox1.BackColor = System.Drawing.Color.Transparent;
+            this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
+            this.pictureBox1.Location = new System.Drawing.Point(0, 0);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(32, 30);
+            this.pictureBox1.TabIndex = 29;
+            this.pictureBox1.TabStop = false;
             // 
             // GridControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.SystemColors.Window;
             this.ClientSize = new System.Drawing.Size(1116, 296);
             this.CloseButton = false;
             this.CloseButtonVisible = false;
+            this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.crmGridView);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.panQuickFilter);
             this.DockAreas = WeifenLuo.WinFormsUI.Docking.DockAreas.Document;
             this.HideOnClose = true;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "GridControl";
             this.TabText = "Plugin Trace Logs";
             this.contextMenuGridView.ResumeLayout(false);
@@ -732,6 +751,7 @@
             this.panQuickFilter.ResumeLayout(false);
             this.panQuickFilter.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.crmGridView)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -801,5 +821,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn exceptionsummary;
         private System.Windows.Forms.DataGridViewTextBoxColumn messageblock;
         private System.Windows.Forms.DataGridViewTextBoxColumn exceptiondetails;
+        private System.Windows.Forms.PictureBox pictureBox1;
     }
 }

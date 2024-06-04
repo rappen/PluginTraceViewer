@@ -574,7 +574,7 @@ namespace Cinteros.XTB.PluginTraceViewer
 
         private void UpdateRefreshButton(int count)
         {
-            var text = $"{count} new logs";
+            var text = $"{count} new";
             var style = count > 0 ? ToolStripItemDisplayStyle.ImageAndText : ToolStripItemDisplayStyle.Text;
             if (buttonRefreshLogs.Text != text)
             {

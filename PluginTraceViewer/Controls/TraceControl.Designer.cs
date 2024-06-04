@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(TraceControl));
             this.textMessage = new System.Windows.Forms.RichTextBox();
             this.panLinks = new System.Windows.Forms.Panel();
             this.lblLoading = new System.Windows.Forms.Label();
@@ -36,7 +37,9 @@
             this.linkRecord = new System.Windows.Forms.LinkLabel();
             this.lblTrigger = new System.Windows.Forms.Label();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.picIcon = new System.Windows.Forms.PictureBox();
             this.panLinks.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.picIcon)).BeginInit();
             this.SuspendLayout();
             // 
             // textMessage
@@ -50,7 +53,7 @@
             this.textMessage.Name = "textMessage";
             this.textMessage.ReadOnly = true;
             this.textMessage.ShowSelectionMargin = true;
-            this.textMessage.Size = new System.Drawing.Size(560, 228);
+            this.textMessage.Size = new System.Drawing.Size(584, 228);
             this.textMessage.TabIndex = 10;
             this.textMessage.Text = "";
             this.textMessage.WordWrap = false;
@@ -65,7 +68,7 @@
             this.panLinks.Dock = System.Windows.Forms.DockStyle.Top;
             this.panLinks.Location = new System.Drawing.Point(0, 0);
             this.panLinks.Name = "panLinks";
-            this.panLinks.Size = new System.Drawing.Size(560, 33);
+            this.panLinks.Size = new System.Drawing.Size(584, 33);
             this.panLinks.TabIndex = 11;
             this.panLinks.Paint += new System.Windows.Forms.PaintEventHandler(this.panLinks_Paint);
             // 
@@ -84,7 +87,7 @@
             // 
             this.btnShowAllRecordLinks.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnShowAllRecordLinks.Enabled = false;
-            this.btnShowAllRecordLinks.Location = new System.Drawing.Point(442, 4);
+            this.btnShowAllRecordLinks.Location = new System.Drawing.Point(424, 4);
             this.btnShowAllRecordLinks.Name = "btnShowAllRecordLinks";
             this.btnShowAllRecordLinks.Size = new System.Drawing.Size(106, 23);
             this.btnShowAllRecordLinks.TabIndex = 6;
@@ -112,15 +115,27 @@
             this.lblTrigger.TabIndex = 8;
             this.lblTrigger.Text = "Trigged by";
             // 
+            // picIcon
+            // 
+            this.picIcon.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.picIcon.Image = ((System.Drawing.Image)(resources.GetObject("picIcon.Image")));
+            this.picIcon.Location = new System.Drawing.Point(536, 0);
+            this.picIcon.Name = "picIcon";
+            this.picIcon.Size = new System.Drawing.Size(32, 32);
+            this.picIcon.TabIndex = 12;
+            this.picIcon.TabStop = false;
+            // 
             // TraceControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Window;
-            this.ClientSize = new System.Drawing.Size(560, 261);
+            this.ClientSize = new System.Drawing.Size(584, 261);
+            this.Controls.Add(this.picIcon);
             this.Controls.Add(this.textMessage);
             this.Controls.Add(this.panLinks);
             this.HideOnClose = true;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.KeyPreview = true;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
@@ -130,6 +145,7 @@
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.TraceControl_KeyDown);
             this.panLinks.ResumeLayout(false);
             this.panLinks.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.picIcon)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -143,5 +159,6 @@
         private System.Windows.Forms.Button btnShowAllRecordLinks;
         private System.Windows.Forms.Label lblLoading;
         private System.Windows.Forms.Label lblTrigger;
+        private System.Windows.Forms.PictureBox picIcon;
     }
 }
