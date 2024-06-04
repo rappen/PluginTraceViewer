@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Cinteros.XTB.PluginTraceViewer
 {
@@ -9,10 +10,10 @@ namespace Cinteros.XTB.PluginTraceViewer
         public Guid Id;
         public string LogIdentifier;
         public string TypeIdentifier;
-        public int OriginalPosition;
-        public int CurrentlyPosition;
-        public string AddedString;
-        public int AddedLength;
+        public int GuidPosition;
+        public int GuidLength;
+        public int LinkPosition;
+        public string LinkName;
         public bool IsAdded;
 
         internal static Link GetRecordLink(bool lookuprecord, RecordList recordlist, string entity, string guidname, string id)
@@ -38,6 +39,7 @@ namespace Cinteros.XTB.PluginTraceViewer
                 case "inituserid":
                 case "inituserappid":
                 case "initiating user":
+                case "initiatinguserid":
                     link.TypeIdentifier = "InitUserId";
                     table = "systemuser";
                     break;
@@ -46,15 +48,21 @@ namespace Cinteros.XTB.PluginTraceViewer
                     table = "systemuser";
                     break;
 
+                case "businessunitid":
+                    table = "businessunit";
+                    break;
+
                 case "target":
                 case "record":
                 case "id":
+                case "primaryentityid":
                     link.TypeIdentifier = "Target";
                     table = entity;
                     break;
 
                 case "environment":
                 case "environmentid":
+                case "organization":
                     table = null;
                     link.TypeIdentifier = "EnvironmentId";
                     link.Record = new Record
@@ -73,27 +81,45 @@ namespace Cinteros.XTB.PluginTraceViewer
             {
                 link.Record = record;
             }
+            //else
+            //{
+            //    link.Record = new Record
+            //    {
+            //        EntityName = table,
+            //        Id = guid,
+            //        Name = $"Unfound table {table}"
+            //    };
+            //}
             return link;
         }
+
+        public override string ToString() => $"{LogIdentifier} {Id} {LinkName}";
     }
 
     public class Links : List<Link>
     {
+        private static char[] separators = { ';', ':', '(', ')', '[', ']', '{', '}', '<', '>', '/', '|', '^', '"', '\'', '\\', '/', '`' };
+
         internal static string InsertRecordsInLog(string log, List<Link> links)
         {
             var extratextlength = 0;
             foreach (var link in links)
             {
-                link.AddedString = $" {link.Record?.Name}";
-                link.CurrentlyPosition = link.OriginalPosition + extratextlength;
-                var length = Math.Max(log.Length - link.CurrentlyPosition - 1, 0);
-                if (length >= 0 &&
-                    !string.IsNullOrWhiteSpace(link.Record?.Name) &&
-                    !log.Substring(link.CurrentlyPosition, length).Trim().StartsWith(link.Record?.Name))
+                link.LinkName = $" {link.Record?.Name}";
+                link.GuidPosition += extratextlength;
+                link.LinkPosition += extratextlength;
+                var length = Math.Max(log.Length - link.LinkPosition - 1, 0);
+                if (length >= 0 && !string.IsNullOrWhiteSpace(link.Record?.Name))
                 {
-                    link.AddedLength = link.AddedString.Length;
-                    log = log.Insert(link.CurrentlyPosition, link.AddedString);
-                    extratextlength += link.AddedLength;
+                    if (!log.Substring(link.LinkPosition, length).Trim().StartsWith(link.Record?.Name))
+                    {
+                        while (link.LinkPosition < log.Length && separators.Contains(log[link.LinkPosition]))
+                        {
+                            link.LinkPosition++;
+                        }
+                        log = log.Insert(link.LinkPosition, link.LinkName);
+                        extratextlength += link.LinkName.Length;
+                    }
                     link.IsAdded = true;
                 }
             }

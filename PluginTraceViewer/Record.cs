@@ -31,10 +31,7 @@ namespace Cinteros.XTB.PluginTraceViewer
             Entity = entity;
         }
 
-        public override string ToString()
-        {
-            return $"{EntityName}/{Metadata?.LogicalName}/{Name}/{Id}";
-        }
+        public override string ToString() => $"{EntityName}/{Name}/{Id}";
     }
 
     public class RecordList
@@ -79,23 +76,33 @@ namespace Cinteros.XTB.PluginTraceViewer
                 {
                     var record = new Record();
                     record.Metadata = meta;
-                    record.Entity = service.Retrieve(entityName, id, new ColumnSet(meta.PrimaryNameAttribute));
-                    record.Url = new EntityReference(entityName, id).GetEntityUrl(conndet);
-                    record.Name = record.Entity.GetAttributeValue<string>(meta.PrimaryNameAttribute);
                     record.EntityName = entityName;
                     record.Id = id;
+                    record.Entity = service.Retrieve(entityName, id, new ColumnSet(meta.PrimaryNameAttribute));
+                    record.Name = record.Entity?.GetAttributeValue<string>(meta.PrimaryNameAttribute) ?? "<record does not exist>";
+                    record.Url = new EntityReference(entityName, id).GetEntityUrl(conndet);
                     Records.Add(record);
                     return record;
                 }
-                catch
-                {
-                    if (!thrashlist.Contains($"{entityName}:{id}"))
-                    {
-                        thrashlist.Add($"{entityName}:{id}");
-                    }
-                }
+                catch { }
+            }
+            if (!thrashlist.Contains($"{entityName}:{id}"))
+            {
+                thrashlist.Add($"{entityName}:{id}");
             }
             return null;
+        }
+
+        private Entity TryGetRecord(string entityName, Guid id, EntityMetadata meta)
+        {
+            try
+            {
+                return service.Retrieve(entityName, id, new ColumnSet(meta.PrimaryNameAttribute));
+            }
+            catch
+            {
+                return null;
+            }
         }
     }
 }
