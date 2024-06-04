@@ -41,47 +41,56 @@ namespace Cinteros.XTB.PluginTraceViewer.Controls
             tracerecord = tracer;
             triggerentity = tracer[PluginTraceLog.PrimaryEntity].ToString();
             originallog = log.Replace("\r\n", "\n");
-            ShowMessageText(ptv.tsmiIdentifyRecords.Checked);
+            _ = ShowMessageTextAsync(ptv.tsmiHighlightGuids.Checked, ptv.tsmiIdentifyRecords.Checked);
         }
 
-        internal void ShowMessageText(bool showlinks)
+        internal async Task ShowMessageTextAsync(bool highlightguids, bool showlinks)
         {
             panLinks.Visible = showlinks;
-            textMessage.Text = originallog;
-            if (showlinks)
-            {
-                FindingLinks();
-            }
-        }
-
-        private async void FindingLinks()
-        {
-            var spacestring = new string(spacechars);
             linkRecord.Text = "";
-            //linkUser.Text = "";
-            //linkIniUser.Text = "";
-
+            textMessage.Text = originallog;
             if (string.IsNullOrWhiteSpace(originallog))
             {
                 return;
             }
-            lblLoading.Visible = true;
-            btnShowAllRecordLinks.Enabled = false;
-            var currectentity = tracerecord;
-            var log = textMessage.Text;
-            var mc = Regex.Matches(log, guidregex);
-            links = new Links();
-            await Task.Run(() =>
+            if (highlightguids || showlinks)
             {
-                foreach (Match m in mc)
+                lblLoading.Visible = showlinks;
+                btnShowAllRecordLinks.Enabled = false;
+                var currectentity = tracerecord;
+                var log = textMessage.Text;
+                links = new Links();
+                await Task.Run(() => MatchGuids(links, log, currectentity, showlinks));
+                if (currectentity != tracerecord || log != textMessage.Text)
+                {   // This will cancel if UI is now on another trace line since this is async
+                    return;
+                }
+                if (showlinks)
                 {
-                    if (currectentity != tracerecord)
-                    {
-                        return;
-                    }
-                    var logbeforeguid = log.Substring(0, m.Index);
-                    logbeforeguid = logbeforeguid.TrimEnd(spacechars);
-                    var guidname = "";
+                    lblLoading.Visible = false;
+                    btnShowAllRecordLinks.Enabled = links.Any();
+                    btnShowAllRecordLinks.Text = $"Show {links.Where(l => l.TypeIdentifier != "Target" && l.Record != null).Select(l => l.Record).Distinct().Count()} records";
+                    textMessage.Text = Links.InsertRecordsInLog(log, links);
+                    links.ForEach(SetRecordLink);
+                    lblTrigger.Visible = !string.IsNullOrEmpty(linkRecord.Text);
+                }
+                HighlightRecords(links, showlinks);
+            }
+        }
+
+        private void MatchGuids(Links links, string log, Entity currectentity, bool lookuprecords)
+        {
+            foreach (Match m in Regex.Matches(log, guidregex))
+            {
+                if (currectentity != tracerecord)
+                {   // This will cancel if UI is now on another trace line since this is async
+                    return;
+                }
+                var logbeforeguid = log.Substring(0, m.Index);
+                logbeforeguid = logbeforeguid.TrimEnd(spacechars);
+                var guidname = "";
+                if (lookuprecords)
+                {
                     if (logbeforeguid.ToLowerInvariant().EndsWith("initiating user"))
                     {
                         guidname = "Initiating User";
@@ -90,43 +99,36 @@ namespace Cinteros.XTB.PluginTraceViewer.Controls
                     {
                         guidname = logbeforeguid.Substring(pos + 1);
                     }
-                    if (!string.IsNullOrWhiteSpace(guidname) &&
-                        Link.GetRecordLink(ptv.recordlist, triggerentity, guidname, m.Value) is Link link)
-                    {
-                        link.OriginalPosition = m.Index + m.Length;
-                        links.Add(link);
-                    }
                 }
-            });
-            if (currectentity != tracerecord)
-            {
-                return;
+                if (Link.GetRecordLink(lookuprecords, ptv.recordlist, triggerentity, guidname, m.Value) is Link link)
+                {
+                    link.OriginalPosition = m.Index + m.Length;
+                    link.CurrentlyPosition = link.OriginalPosition;
+                    links.Add(link);
+                }
             }
-            lblLoading.Visible = false;
-            btnShowAllRecordLinks.Enabled = links.Any();
-            btnShowAllRecordLinks.Text = $"Show {links.Where(l => l.TypeIdentifier != "Target").Select(l => l.Record).Distinct().Count()} records";
-            textMessage.Text = Links.InsertRecordsInLog(log, links);
-            links.ForEach(SetRecordLink);
-            lblTrigger.Visible = !string.IsNullOrEmpty(linkRecord.Text);
-            HighlightRecords(links);
         }
 
-        private void HighlightRecords(List<Link> links)
+        private void HighlightRecords(List<Link> links, bool showlinks)
         {
-            foreach (var link in links.Where(l => l.IsAdded))
+            foreach (var link in links)
             {
-                // Yellow on the name of the record
-                textMessage.Select(link.AddedPosition + 1, link.Length - 1);
+                if (link.IsAdded)
+                {
+                    // Green on the name of the record
+                    textMessage.Select(link.CurrentlyPosition + 1, link.AddedLength - 1);
+                    textMessage.SelectionBackColor = System.Drawing.Color.LightGreen;
+                    // Gray on the table identifier
+                    var beforeid = textMessage.Text.Substring(0, link.CurrentlyPosition).Trim(spacechars).LastIndexOf(link.LogIdentifier);
+                    if (beforeid >= 0)
+                    {
+                        textMessage.Select(beforeid, link.LogIdentifier.Length);
+                        textMessage.SelectionBackColor = System.Drawing.Color.LightGray;
+                    }
+                }
+                // Yellow on the guid
+                textMessage.Select(link.CurrentlyPosition - 36, 36);
                 textMessage.SelectionBackColor = System.Drawing.Color.Yellow;
-
-                // Gray on the table identifier
-                var beforeid = textMessage.Text.Substring(0, link.AddedPosition).Trim(spacechars).LastIndexOf(link.LogIdentifier);
-                textMessage.Select(beforeid, link.LogIdentifier.Length);
-                textMessage.SelectionBackColor = System.Drawing.Color.LightGray;
-
-                // Green on the guid
-                textMessage.Select(link.AddedPosition - 36, 36);
-                textMessage.SelectionBackColor = System.Drawing.Color.LightGreen;
             }
             textMessage.DeselectAll();
         }
@@ -188,7 +190,7 @@ namespace Cinteros.XTB.PluginTraceViewer.Controls
         private void btnShowAllRecordLinks_Click(object sender, EventArgs e)
         {
             var allrecords = new RecordLinks();
-            allrecords.SetRecords(links.Where(l => l.TypeIdentifier != "Target").Select(l => l.Record).Distinct(), ptv.ConnectionDetail);
+            allrecords.SetRecords(links.Where(l => l.TypeIdentifier != "Target" && l.Record != null).Select(l => l.Record).Distinct(), ptv.ConnectionDetail);
             allrecords.ShowDialog();
         }
     }

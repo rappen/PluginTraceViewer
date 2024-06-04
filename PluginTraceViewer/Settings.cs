@@ -17,5 +17,6 @@ namespace Cinteros.XTB.PluginTraceViewer
         public bool HidePluginFromStep { get; set; } = true;
         public bool HideEntityFromStep { get; set; } = true;
         public bool IdentifyRecords { get; set; } = true;
+        public bool HighlightGuids { get; set; } = true;
     }
 }

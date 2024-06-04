@@ -1035,7 +1035,8 @@ namespace Cinteros.XTB.PluginTraceViewer
                 Columns = gridControl?.Columns,
                 RefreshMode = comboRefreshMode.SelectedIndex,
                 ShowQuickFilter = tsmiViewQuickFilter.Checked,
-                IdentifyRecords = tsmiIdentifyRecords.Checked
+                IdentifyRecords = tsmiIdentifyRecords.Checked,
+                HighlightGuids = tsmiHighlightGuids.Checked
             };
         }
 
@@ -1081,6 +1082,7 @@ namespace Cinteros.XTB.PluginTraceViewer
             timerRefresh.Interval = settings.RefreshInterval;
             timerRefresh.Tag = settings.RefreshInterval;
             tsmiIdentifyRecords.Checked = settings.IdentifyRecords;
+            tsmiHighlightGuids.Checked = settings.HighlightGuids;
             RefreshModeUpdated();
             try
             {
@@ -1379,7 +1381,7 @@ namespace Cinteros.XTB.PluginTraceViewer
 
         private void tsmiIdentifyRecords_Click(object sender, EventArgs e)
         {
-            traceControl?.ShowMessageText(tsmiIdentifyRecords.Checked);
+            traceControl?.ShowMessageTextAsync(tsmiHighlightGuids.Checked, tsmiIdentifyRecords.Checked);
         }
 
         private void tsmiResetColumns_Click(object sender, EventArgs e)

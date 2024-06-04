@@ -29,6 +29,7 @@ namespace Cinteros.XTB.PluginTraceViewer.Controls
                 //.Union(records.Where(r => r.Metadata?.LogicalName == "systemuser").OrderBy(r => r.Name))
                 //.Union(records.Where(r => r.Metadata?.LogicalName == "team").OrderBy(r => r.Name))
                 //.Union(records.OrderBy(r => r.Metadata?.LogicalName))
+                .Where(r => r != null)
                 .Distinct()
                 .OrderBy(r => r.Name)
                 .OrderBy(r => r.Metadata?.LogicalName)

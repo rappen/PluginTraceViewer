@@ -6,22 +6,26 @@ namespace Cinteros.XTB.PluginTraceViewer
     public class Link
     {
         public Record Record;
+        public Guid Id;
         public string LogIdentifier;
         public string TypeIdentifier;
         public int OriginalPosition;
+        public int CurrentlyPosition;
         public string AddedString;
-        public int AddedPosition;
-        public int Length;
+        public int AddedLength;
         public bool IsAdded;
 
-        internal static Link GetRecordLink(RecordList recordlist, string entity, string guidname, string id)
+        internal static Link GetRecordLink(bool lookuprecord, RecordList recordlist, string entity, string guidname, string id)
         {
             if (!Guid.TryParse(id, out var guid))
             {
                 return null;
             }
-            var link = new Link();
-            link.LogIdentifier = guidname;
+            var link = new Link
+            {
+                LogIdentifier = guidname,
+                Id = guid
+            };
             string table;
             switch (guidname.ToLowerInvariant())
             {
@@ -65,12 +69,11 @@ namespace Cinteros.XTB.PluginTraceViewer
                     table = guidname;
                     break;
             }
-            if (recordlist.Get(table, guid) is Record record)
+            if (lookuprecord && recordlist.Get(table, guid) is Record record)
             {
                 link.Record = record;
-                return link;
             }
-            return null;
+            return link;
         }
     }
 
@@ -81,14 +84,16 @@ namespace Cinteros.XTB.PluginTraceViewer
             var extratextlength = 0;
             foreach (var link in links)
             {
-                link.AddedString = $" {link.Record.Name}";
-                link.AddedPosition = link.OriginalPosition + extratextlength;
-                var length = log.Length - link.AddedPosition - 1;
-                if (length > 0 && !log.Substring(link.AddedPosition, length).Trim().StartsWith(link.Record.Name))
+                link.AddedString = $" {link.Record?.Name}";
+                link.CurrentlyPosition = link.OriginalPosition + extratextlength;
+                var length = log.Length - link.CurrentlyPosition - 1;
+                if (length > 0 &&
+                    !string.IsNullOrWhiteSpace(link.Record?.Name) &&
+                    !log.Substring(link.CurrentlyPosition, length).Trim().StartsWith(link.Record?.Name))
                 {
-                    link.Length = link.AddedString.Length;
-                    log = log.Insert(link.AddedPosition, link.AddedString);
-                    extratextlength += link.Length;
+                    link.AddedLength = link.AddedString.Length;
+                    log = log.Insert(link.CurrentlyPosition, link.AddedString);
+                    extratextlength += link.AddedLength;
                     link.IsAdded = true;
                 }
             }
