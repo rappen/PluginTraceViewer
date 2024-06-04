@@ -76,6 +76,7 @@ namespace Cinteros.XTB.PluginTraceViewer.Controls
                 }
                 HighlightRecords(links, showlinks);
             }
+            textMessage.Select(0, 0);
         }
 
         private void MatchGuids(Links links, string log, Entity currectentity, bool lookuprecords)
@@ -92,7 +93,7 @@ namespace Cinteros.XTB.PluginTraceViewer.Controls
                 if (lookuprecords)
                 {
                     if (logbeforeguid.ToLowerInvariant().EndsWith("initiating user"))
-                    {
+                    {   // MS traces...
                         guidname = "Initiating User";
                     }
                     else if (logbeforeguid.LastIndexOfAny(spacechars) is int pos && pos >= 0)
@@ -135,6 +136,10 @@ namespace Cinteros.XTB.PluginTraceViewer.Controls
 
         private void SetRecordLink(Link link)
         {
+            if (link.Record == null)
+            {
+                return;
+            }
             //LinkLabel linklabel = null;
             switch (link.TypeIdentifier)
             {
@@ -148,7 +153,7 @@ namespace Cinteros.XTB.PluginTraceViewer.Controls
 
                 case "Target":
                     var msgtable = $"{tracerecord["messagename"]} {link.Record.Metadata.ToDisplayName()} ";
-                    linkRecord.Text = $"{msgtable}{link.Record.Name}";
+                    linkRecord.Text = $"{msgtable}{link.Record.Name ?? link.Id.ToString()}";
                     linkRecord.Tag = link.Record.Url;
                     linkRecord.LinkArea = new LinkArea(msgtable.Length, linkRecord.Text.Length - msgtable.Length);
                     break;

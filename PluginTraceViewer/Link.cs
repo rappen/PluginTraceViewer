@@ -86,8 +86,8 @@ namespace Cinteros.XTB.PluginTraceViewer
             {
                 link.AddedString = $" {link.Record?.Name}";
                 link.CurrentlyPosition = link.OriginalPosition + extratextlength;
-                var length = log.Length - link.CurrentlyPosition - 1;
-                if (length > 0 &&
+                var length = Math.Max(log.Length - link.CurrentlyPosition - 1, 0);
+                if (length >= 0 &&
                     !string.IsNullOrWhiteSpace(link.Record?.Name) &&
                     !log.Substring(link.CurrentlyPosition, length).Trim().StartsWith(link.Record?.Name))
                 {
