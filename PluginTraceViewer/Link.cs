@@ -125,5 +125,14 @@ namespace Cinteros.XTB.PluginTraceViewer
             }
             return log;
         }
+
+        internal Link Target => this.FirstOrDefault(l => l.TypeIdentifier == "Target");
+
+        internal List<Record> LinkRecords => this
+            .Where(l => l.Record != null)
+            .Where(l => l.Id != Target?.Id)
+            .Select(l => l.Record)
+            .Distinct()
+            .ToList();
     }
 }

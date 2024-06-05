@@ -51,6 +51,8 @@ namespace Cinteros.XTB.PluginTraceViewer.Controls
             panLinks.Visible = showlinks;
             picIcon.Left = ClientSize.Width - picIcon.Width - (showlinks ? 0 : 16);
             linkRecord.Text = "";
+            btnShowAllRecordLinks.Enabled = false;
+            btnShowAllRecordLinks.Text = $"Show records";
             textMessage.Text = originallog;
             if (string.IsNullOrWhiteSpace(originallog))
             {
@@ -71,8 +73,8 @@ namespace Cinteros.XTB.PluginTraceViewer.Controls
                 if (showlinks)
                 {
                     lblLoading.Visible = false;
-                    btnShowAllRecordLinks.Enabled = links.Any();
-                    btnShowAllRecordLinks.Text = $"Show {links.Where(l => l.TypeIdentifier != "Target" && l.Record != null).Select(l => l.Record).Distinct().Count()} records";
+                    btnShowAllRecordLinks.Enabled = links.LinkRecords.Any();
+                    btnShowAllRecordLinks.Text = links.LinkRecords.Any() ? $"Show {links.LinkRecords.Count()} records" : "No extra records";
                     textMessage.Text = Links.InsertRecordsInLog(log, links);
                     links.ForEach(SetRecordLink);
                     lblTrigger.Visible = !string.IsNullOrEmpty(linkRecord.Text);
@@ -109,6 +111,10 @@ namespace Cinteros.XTB.PluginTraceViewer.Controls
                     else if (logbeforeguid.LastIndexOfAny(spacechars) is int pos && pos >= 0)
                     {
                         guidname = logbeforeguid.Substring(pos + 1).Split('.').Last().Trim();
+                    }
+                    if (logbeforeguid.Substring(0, logbeforeguid.Length - guidname.Length).TrimEnd(spacechars).ToLowerInvariant().Equals("in execute"))
+                    {   // Low-code Plugin indication
+                        guidname = "Target";
                     }
                 }
                 if (Link.GetRecordLink(lookuprecords, ptv.recordlist, triggerentity, guidname, m.Value) is Link link)
@@ -207,7 +213,7 @@ namespace Cinteros.XTB.PluginTraceViewer.Controls
         private void btnShowAllRecordLinks_Click(object sender, EventArgs e)
         {
             var allrecords = new RecordLinks();
-            allrecords.SetRecords(links.Where(l => l.TypeIdentifier != "Target" && l.Record != null).Select(l => l.Record).Distinct(), ptv.ConnectionDetail);
+            allrecords.SetRecords(links.LinkRecords, ptv.ConnectionDetail);
             allrecords.ShowDialog();
         }
 
