@@ -449,7 +449,7 @@
             // 
             this.tsmiViewFilter.Image = ((System.Drawing.Image)(resources.GetObject("tsmiViewFilter.Image")));
             this.tsmiViewFilter.Name = "tsmiViewFilter";
-            this.tsmiViewFilter.Size = new System.Drawing.Size(226, 22);
+            this.tsmiViewFilter.Size = new System.Drawing.Size(242, 38);
             this.tsmiViewFilter.Text = "Filter";
             this.tsmiViewFilter.Click += new System.EventHandler(this.tsmiViewFilter_Click);
             // 
@@ -457,7 +457,7 @@
             // 
             this.tsmiViewStatistics.Image = ((System.Drawing.Image)(resources.GetObject("tsmiViewStatistics.Image")));
             this.tsmiViewStatistics.Name = "tsmiViewStatistics";
-            this.tsmiViewStatistics.Size = new System.Drawing.Size(226, 22);
+            this.tsmiViewStatistics.Size = new System.Drawing.Size(242, 38);
             this.tsmiViewStatistics.Text = "Statistics";
             this.tsmiViewStatistics.Visible = false;
             this.tsmiViewStatistics.Click += new System.EventHandler(this.tsmiViewStatistics_Click);
@@ -466,7 +466,7 @@
             // 
             this.tsmiViewLog.Image = ((System.Drawing.Image)(resources.GetObject("tsmiViewLog.Image")));
             this.tsmiViewLog.Name = "tsmiViewLog";
-            this.tsmiViewLog.Size = new System.Drawing.Size(226, 22);
+            this.tsmiViewLog.Size = new System.Drawing.Size(242, 38);
             this.tsmiViewLog.Text = "Trace Message Log";
             this.tsmiViewLog.Click += new System.EventHandler(this.tsmiViewLog_Click);
             // 
@@ -474,14 +474,14 @@
             // 
             this.tsmiViewException.Image = ((System.Drawing.Image)(resources.GetObject("tsmiViewException.Image")));
             this.tsmiViewException.Name = "tsmiViewException";
-            this.tsmiViewException.Size = new System.Drawing.Size(226, 22);
+            this.tsmiViewException.Size = new System.Drawing.Size(242, 38);
             this.tsmiViewException.Text = "Exception";
             this.tsmiViewException.Click += new System.EventHandler(this.tsmiViewException_Click);
             // 
             // tsmiPluginStats
             // 
             this.tsmiPluginStats.Name = "tsmiPluginStats";
-            this.tsmiPluginStats.Size = new System.Drawing.Size(226, 22);
+            this.tsmiPluginStats.Size = new System.Drawing.Size(242, 38);
             this.tsmiPluginStats.Text = "Show all Plugin Statistics...";
             this.tsmiPluginStats.Visible = false;
             this.tsmiPluginStats.Click += new System.EventHandler(this.tsmiPluginStats_Click);
@@ -489,41 +489,41 @@
             // toolStripMenuItem3
             // 
             this.toolStripMenuItem3.Name = "toolStripMenuItem3";
-            this.toolStripMenuItem3.Size = new System.Drawing.Size(223, 6);
+            this.toolStripMenuItem3.Size = new System.Drawing.Size(239, 6);
             // 
             // tsmiResetWindows
             // 
             this.tsmiResetWindows.Image = ((System.Drawing.Image)(resources.GetObject("tsmiResetWindows.Image")));
             this.tsmiResetWindows.Name = "tsmiResetWindows";
-            this.tsmiResetWindows.Size = new System.Drawing.Size(226, 22);
+            this.tsmiResetWindows.Size = new System.Drawing.Size(242, 38);
             this.tsmiResetWindows.Text = "Reset window layout";
             this.tsmiResetWindows.Click += new System.EventHandler(this.tsmiResetWindows_Click);
             // 
             // toolStripMenuItem4
             // 
             this.toolStripMenuItem4.Name = "toolStripMenuItem4";
-            this.toolStripMenuItem4.Size = new System.Drawing.Size(223, 6);
+            this.toolStripMenuItem4.Size = new System.Drawing.Size(239, 6);
             // 
             // tsmiRefreshFilter
             // 
             this.tsmiRefreshFilter.Enabled = false;
             this.tsmiRefreshFilter.Image = ((System.Drawing.Image)(resources.GetObject("tsmiRefreshFilter.Image")));
             this.tsmiRefreshFilter.Name = "tsmiRefreshFilter";
-            this.tsmiRefreshFilter.Size = new System.Drawing.Size(226, 22);
+            this.tsmiRefreshFilter.Size = new System.Drawing.Size(242, 38);
             this.tsmiRefreshFilter.Text = "Refresh Filter Options";
             this.tsmiRefreshFilter.Click += new System.EventHandler(this.tsmiRefreshFilter_Click);
             // 
             // toolStripMenuItem5
             // 
             this.toolStripMenuItem5.Name = "toolStripMenuItem5";
-            this.toolStripMenuItem5.Size = new System.Drawing.Size(223, 6);
+            this.toolStripMenuItem5.Size = new System.Drawing.Size(239, 6);
             // 
             // tsmiSuppressLogSettingWarning
             // 
             this.tsmiSuppressLogSettingWarning.CheckOnClick = true;
             this.tsmiSuppressLogSettingWarning.Image = ((System.Drawing.Image)(resources.GetObject("tsmiSuppressLogSettingWarning.Image")));
             this.tsmiSuppressLogSettingWarning.Name = "tsmiSuppressLogSettingWarning";
-            this.tsmiSuppressLogSettingWarning.Size = new System.Drawing.Size(226, 22);
+            this.tsmiSuppressLogSettingWarning.Size = new System.Drawing.Size(242, 38);
             this.tsmiSuppressLogSettingWarning.Text = "Suppress log setting warning";
             this.tsmiSuppressLogSettingWarning.Click += new System.EventHandler(this.tsmiSuppressLogSettingWarning_Click);
             // 
