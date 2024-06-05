@@ -12,11 +12,13 @@
     <description>Investigate the Plugin Trace Log with easy filtering and display possibilities</description>
     <summary>Investigate the Plugin Trace Log with easy filtering and display possibilities</summary>
     <releaseNotes>
-I brought milliseconds back!
-My old/new feature was explained here:
-https://jonasr.app/ms/
+I try to identify records by reading the log.
+Why?
+So we all can read the logs more easily than ever.
+How does it find records? Is it magic? Is it ms Copilot? Is it mr ChatGPT?
+Nope, it's just me, Jonas.
 
-Why update Plugin Trace Viewer? Read latest release notes!
+Read latest release notes!
 https://jonasr.app/ptv/releases/#$versionnumber$
     </releaseNotes>
     <copyright>Copyright 2016-2024 Jonas Rapp</copyright>
@@ -26,6 +28,6 @@ https://jonasr.app/ptv/releases/#$versionnumber$
     </dependencies>
   </metadata>
   <files>
-    <file src="PluginTraceViewer\bin\Release\Rappen.XTB.PTV.dll" target="lib\net452\Plugins" />
+    <file src="PluginTraceViewer\bin\Release\Rappen.XTB.PTV.dll" target="lib\net48\Plugins" />
   </files>
 </package>
