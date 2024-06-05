@@ -51,8 +51,6 @@
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripLabel1 = new System.Windows.Forms.ToolStripLabel();
             this.comboLogSetting = new System.Windows.Forms.ToolStripComboBox();
-            this.tslAbout = new System.Windows.Forms.ToolStripLabel();
-            this.tsbBuymeacoffee = new System.Windows.Forms.ToolStripButton();
             this.tsddTraces = new System.Windows.Forms.ToolStripDropDownButton();
             this.tsmiViewQuickFilter = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiLocalTimes = new System.Windows.Forms.ToolStripMenuItem();
@@ -81,6 +79,8 @@
             this.tsmiRefreshFilter = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem5 = new System.Windows.Forms.ToolStripSeparator();
             this.tsmiSuppressLogSettingWarning = new System.Windows.Forms.ToolStripMenuItem();
+            this.tslAbout = new System.Windows.Forms.ToolStripLabel();
+            this.tsbBuymeacoffee = new System.Windows.Forms.ToolStripButton();
             this.vS2005Theme1 = new WeifenLuo.WinFormsUI.Docking.VS2005Theme();
             this.dockContainer = new WeifenLuo.WinFormsUI.Docking.DockPanel();
             this.timerRefresh = new System.Windows.Forms.Timer(this.components);
@@ -106,7 +106,7 @@
             this.tsddLayout,
             this.tsddWindows,
             this.tslAbout,
-            this.tsbBuymeacoffee,});
+            this.tsbBuymeacoffee});
             this.toolStripMain.Location = new System.Drawing.Point(0, 0);
             this.toolStripMain.Name = "toolStripMain";
             this.toolStripMain.Padding = new System.Windows.Forms.Padding(0, 0, 2, 0);
@@ -280,28 +280,6 @@
             this.comboLogSetting.Size = new System.Drawing.Size(75, 39);
             this.comboLogSetting.SelectedIndexChanged += new System.EventHandler(this.comboLogSetting_SelectedIndexChanged);
             // 
-            // tslAbout
-            // 
-            this.tslAbout.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
-            this.tslAbout.Image = ((System.Drawing.Image)(resources.GetObject("tslAbout.Image")));
-            this.tslAbout.IsLink = true;
-            this.tslAbout.Name = "tslAbout";
-            this.tslAbout.Size = new System.Drawing.Size(114, 36);
-            this.tslAbout.Text = "by Jonas Rapp";
-            this.tslAbout.Click += new System.EventHandler(this.tslAbout_Click);
-            // 
-            // tsbBuymeacoffee
-            // 
-            this.tsbBuymeacoffee.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
-            this.tsbBuymeacoffee.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.tsbBuymeacoffee.Image = ((System.Drawing.Image)(resources.GetObject("tsbBuymeacoffee.Image")));
-            this.tsbBuymeacoffee.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.tsbBuymeacoffee.Name = "tsbBuymeacoffee";
-            this.tsbBuymeacoffee.Size = new System.Drawing.Size(36, 36);
-            this.tsbBuymeacoffee.Text = "By Me a Coffee!";
-            this.tsbBuymeacoffee.ToolTipText = "Support my tool by Buy Me a Coffee!";
-            this.tsbBuymeacoffee.Click += new System.EventHandler(this.tsbBymeacoffee_Click);
-            // 
             // tsddTraces
             // 
             this.tsddTraces.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -473,7 +451,7 @@
             // 
             this.tsmiViewFilter.Image = ((System.Drawing.Image)(resources.GetObject("tsmiViewFilter.Image")));
             this.tsmiViewFilter.Name = "tsmiViewFilter";
-            this.tsmiViewFilter.Size = new System.Drawing.Size(238, 34);
+            this.tsmiViewFilter.Size = new System.Drawing.Size(242, 38);
             this.tsmiViewFilter.Text = "Filter";
             this.tsmiViewFilter.Click += new System.EventHandler(this.tsmiViewFilter_Click);
             // 
@@ -481,7 +459,7 @@
             // 
             this.tsmiViewStatistics.Image = ((System.Drawing.Image)(resources.GetObject("tsmiViewStatistics.Image")));
             this.tsmiViewStatistics.Name = "tsmiViewStatistics";
-            this.tsmiViewStatistics.Size = new System.Drawing.Size(238, 34);
+            this.tsmiViewStatistics.Size = new System.Drawing.Size(242, 38);
             this.tsmiViewStatistics.Text = "Statistics";
             this.tsmiViewStatistics.Visible = false;
             this.tsmiViewStatistics.Click += new System.EventHandler(this.tsmiViewStatistics_Click);
@@ -490,7 +468,7 @@
             // 
             this.tsmiViewLog.Image = ((System.Drawing.Image)(resources.GetObject("tsmiViewLog.Image")));
             this.tsmiViewLog.Name = "tsmiViewLog";
-            this.tsmiViewLog.Size = new System.Drawing.Size(238, 34);
+            this.tsmiViewLog.Size = new System.Drawing.Size(242, 38);
             this.tsmiViewLog.Text = "Trace Message Log";
             this.tsmiViewLog.Click += new System.EventHandler(this.tsmiViewLog_Click);
             // 
@@ -498,14 +476,14 @@
             // 
             this.tsmiViewException.Image = ((System.Drawing.Image)(resources.GetObject("tsmiViewException.Image")));
             this.tsmiViewException.Name = "tsmiViewException";
-            this.tsmiViewException.Size = new System.Drawing.Size(238, 34);
+            this.tsmiViewException.Size = new System.Drawing.Size(242, 38);
             this.tsmiViewException.Text = "Exception";
             this.tsmiViewException.Click += new System.EventHandler(this.tsmiViewException_Click);
             // 
             // tsmiPluginStats
             // 
             this.tsmiPluginStats.Name = "tsmiPluginStats";
-            this.tsmiPluginStats.Size = new System.Drawing.Size(238, 34);
+            this.tsmiPluginStats.Size = new System.Drawing.Size(242, 38);
             this.tsmiPluginStats.Text = "Show all Plugin Statistics...";
             this.tsmiPluginStats.Visible = false;
             this.tsmiPluginStats.Click += new System.EventHandler(this.tsmiPluginStats_Click);
@@ -513,43 +491,65 @@
             // toolStripMenuItem3
             // 
             this.toolStripMenuItem3.Name = "toolStripMenuItem3";
-            this.toolStripMenuItem3.Size = new System.Drawing.Size(235, 6);
+            this.toolStripMenuItem3.Size = new System.Drawing.Size(239, 6);
             // 
             // tsmiResetWindows
             // 
             this.tsmiResetWindows.Image = ((System.Drawing.Image)(resources.GetObject("tsmiResetWindows.Image")));
             this.tsmiResetWindows.Name = "tsmiResetWindows";
-            this.tsmiResetWindows.Size = new System.Drawing.Size(238, 34);
+            this.tsmiResetWindows.Size = new System.Drawing.Size(242, 38);
             this.tsmiResetWindows.Text = "Reset window layout";
             this.tsmiResetWindows.Click += new System.EventHandler(this.tsmiResetWindows_Click);
             // 
             // toolStripMenuItem4
             // 
             this.toolStripMenuItem4.Name = "toolStripMenuItem4";
-            this.toolStripMenuItem4.Size = new System.Drawing.Size(235, 6);
+            this.toolStripMenuItem4.Size = new System.Drawing.Size(239, 6);
             // 
             // tsmiRefreshFilter
             // 
             this.tsmiRefreshFilter.Enabled = false;
             this.tsmiRefreshFilter.Image = ((System.Drawing.Image)(resources.GetObject("tsmiRefreshFilter.Image")));
             this.tsmiRefreshFilter.Name = "tsmiRefreshFilter";
-            this.tsmiRefreshFilter.Size = new System.Drawing.Size(238, 34);
+            this.tsmiRefreshFilter.Size = new System.Drawing.Size(242, 38);
             this.tsmiRefreshFilter.Text = "Refresh Filter Options";
             this.tsmiRefreshFilter.Click += new System.EventHandler(this.tsmiRefreshFilter_Click);
             // 
             // toolStripMenuItem5
             // 
             this.toolStripMenuItem5.Name = "toolStripMenuItem5";
-            this.toolStripMenuItem5.Size = new System.Drawing.Size(235, 6);
+            this.toolStripMenuItem5.Size = new System.Drawing.Size(239, 6);
             // 
             // tsmiSuppressLogSettingWarning
             // 
             this.tsmiSuppressLogSettingWarning.CheckOnClick = true;
             this.tsmiSuppressLogSettingWarning.Image = ((System.Drawing.Image)(resources.GetObject("tsmiSuppressLogSettingWarning.Image")));
             this.tsmiSuppressLogSettingWarning.Name = "tsmiSuppressLogSettingWarning";
-            this.tsmiSuppressLogSettingWarning.Size = new System.Drawing.Size(238, 34);
+            this.tsmiSuppressLogSettingWarning.Size = new System.Drawing.Size(242, 38);
             this.tsmiSuppressLogSettingWarning.Text = "Suppress log setting warning";
             this.tsmiSuppressLogSettingWarning.Click += new System.EventHandler(this.tsmiSuppressLogSettingWarning_Click);
+            // 
+            // tslAbout
+            // 
+            this.tslAbout.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.tslAbout.Image = ((System.Drawing.Image)(resources.GetObject("tslAbout.Image")));
+            this.tslAbout.IsLink = true;
+            this.tslAbout.Name = "tslAbout";
+            this.tslAbout.Size = new System.Drawing.Size(114, 36);
+            this.tslAbout.Text = "by Jonas Rapp";
+            this.tslAbout.Click += new System.EventHandler(this.tslAbout_Click);
+            // 
+            // tsbBuymeacoffee
+            // 
+            this.tsbBuymeacoffee.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.tsbBuymeacoffee.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.tsbBuymeacoffee.Image = ((System.Drawing.Image)(resources.GetObject("tsbBuymeacoffee.Image")));
+            this.tsbBuymeacoffee.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tsbBuymeacoffee.Name = "tsbBuymeacoffee";
+            this.tsbBuymeacoffee.Size = new System.Drawing.Size(36, 36);
+            this.tsbBuymeacoffee.Text = "By Me a Coffee!";
+            this.tsbBuymeacoffee.ToolTipText = "Support my tool by Buy Me a Coffee!";
+            this.tsbBuymeacoffee.Click += new System.EventHandler(this.tsbBymeacoffee_Click);
             // 
             // dockContainer
             // 
