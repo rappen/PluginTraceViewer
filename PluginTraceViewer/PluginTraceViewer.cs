@@ -507,13 +507,7 @@ namespace Cinteros.XTB.PluginTraceViewer
                     else if (args.Result is EntityCollection results)
                     {
                         var entities = results.Entities;
-                        FriendlyfyCorrelationIds(entities);
-                        SplittingStartDateTime(entities);
-                        SimplifyPluginTypes(entities);
-                        HidePluginsFromSteps(entities);
-                        HideEntitiesFromSteps(entities);
-                        SetTraceSizes(entities);
-                        ExtractExceptionSummaries(entities);
+                        FixingLogRecords(entities);
                         gridControl.PopulateGrid(entities);
                         StartRefreshTimer(false);
                     }
@@ -552,13 +546,7 @@ namespace Cinteros.XTB.PluginTraceViewer
                             {
                                 logs.Insert(0, log);
                             }
-                            FriendlyfyCorrelationIds(logs);
-                            SplittingStartDateTime(logs);
-                            SimplifyPluginTypes(logs);
-                            HidePluginsFromSteps(logs);
-                            HideEntitiesFromSteps(logs);
-                            SetTraceSizes(logs);
-                            ExtractExceptionSummaries(logs);
+                            FixingLogRecords(logs);
                             gridControl.crmGridView.Refresh();
                             UpdateRefreshButton(0);
                         }
@@ -570,6 +558,17 @@ namespace Cinteros.XTB.PluginTraceViewer
             {   // If something went wrong, don't check that often
                 StartRefreshTimer(true);
             }
+        }
+
+        private void FixingLogRecords(DataCollection<Entity> logs)
+        {
+            FriendlyfyCorrelationIds(logs);
+            SplittingStartDateTime(logs);
+            SimplifyPluginTypes(logs);
+            HidePluginsFromSteps(logs);
+            HideEntitiesFromSteps(logs);
+            SetTraceSizes(logs);
+            ExtractExceptionSummaries(logs);
         }
 
         private void UpdateRefreshButton(int count)
@@ -751,7 +750,7 @@ namespace Cinteros.XTB.PluginTraceViewer
                 if (entity.Contains(PluginTraceLog.PerformanceExecutionStarttime))
                 {
                     var start = (DateTime)entity[PluginTraceLog.PerformanceExecutionStarttime];
-                    entity.Attributes.Add("startdate", start);
+                    entity["startdate"] = start;
                 }
             }
         }
