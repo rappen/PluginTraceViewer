@@ -18,17 +18,12 @@ namespace Cinteros.XTB.PluginTraceViewer.Controls
             InitializeComponent();
         }
 
-        public void SetRecords(IEnumerable<Record> records, ConnectionDetail cd)
+        public void SetRecords(IEnumerable<Record> records, Record target, ConnectionDetail cd)
         {
             connectionDetail = cd;
             sptLinks.Panel1.Controls.Clear();
             var recs =
                 records
-                //.Where(r => r.Metadata?.LogicalName == "account").OrderBy(r => r.Name)
-                //.Union(records.Where(r => r.Metadata?.LogicalName == "contact").OrderBy(r => r.Name))
-                //.Union(records.Where(r => r.Metadata?.LogicalName == "systemuser").OrderBy(r => r.Name))
-                //.Union(records.Where(r => r.Metadata?.LogicalName == "team").OrderBy(r => r.Name))
-                //.Union(records.OrderBy(r => r.Metadata?.LogicalName))
                 .Where(r => r != null)
                 .Distinct()
                 .OrderBy(r => r.Name)
@@ -42,6 +37,16 @@ namespace Cinteros.XTB.PluginTraceViewer.Controls
                     record.Name,
                     record.Url,
                     $"Open this {record.Metadata?.ToDisplayName()?.ToLowerInvariant()} record.\n{record.Url}");
+            }
+            if (target != null)
+            {
+                AddLinkPanel(
+                    target.Metadata?.ToDisplayName() ?? target.Name,
+                    target.Metadata != null ? $"Triggered plugin by table: {target.Metadata.LogicalName}" : target.Name,
+                    target.Name,
+                    target.Url,
+                    $"Open this {target.Metadata?.ToDisplayName()?.ToLowerInvariant()} record.\n{target.Url}",
+                    true);
             }
             AddLinkPanel("Table", "", "Record name", "", "Click on record name to open in the browser", true);
             ClientSize = new Size(500, sptLinks.Panel1.Controls.Count * PANELHEIGHT + 40);

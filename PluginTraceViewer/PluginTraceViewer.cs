@@ -485,7 +485,7 @@ namespace Cinteros.XTB.PluginTraceViewer
             {
                 return;
             }
-            timerRefresh.Stop();
+            StopRefreshTimer();
             ClearControls();
             LogUse("RetrieveLogs");
             var asyncinfo = new WorkAsyncInfo()
@@ -518,7 +518,7 @@ namespace Cinteros.XTB.PluginTraceViewer
 
         private void RefreshNewTraces(bool forcerefresh)
         {
-            timerRefresh.Stop();
+            StopRefreshTimer();
             if (gridControl.crmGridView.DataSource == null || comboRefreshMode.SelectedIndex == 0)
             {
                 return;
@@ -585,7 +585,7 @@ namespace Cinteros.XTB.PluginTraceViewer
             }
         }
 
-        private void StartRefreshTimer(bool increaseinterval)
+        internal void StartRefreshTimer(bool increaseinterval)
         {
             if (comboLogSetting.IsDisposed != true && (comboRefreshMode.SelectedIndex == 1 || comboRefreshMode.SelectedIndex == 2))
             {
@@ -602,6 +602,11 @@ namespace Cinteros.XTB.PluginTraceViewer
                 }
                 timerRefresh.Start();
             }
+        }
+
+        internal void StopRefreshTimer()
+        {
+            timerRefresh.Stop();
         }
 
         private void ClearControls()
@@ -1114,8 +1119,8 @@ namespace Cinteros.XTB.PluginTraceViewer
 
         private void RefreshModeUpdated()
         {
-            timerRefresh.Stop();
-            buttonRefreshLogs.Text = "0 new logs";
+            StopRefreshTimer();
+            buttonRefreshLogs.Text = "0 new";
             buttonRefreshLogs.Visible = comboRefreshMode.SelectedIndex == 1;
             StartRefreshTimer(false);
         }

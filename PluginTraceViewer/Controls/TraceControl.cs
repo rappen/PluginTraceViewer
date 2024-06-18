@@ -64,7 +64,9 @@ namespace Cinteros.XTB.PluginTraceViewer.Controls
                 var currectentity = tracerecord;
                 var log = textMessage.Text;
                 links = new Links();
+                ptv.StopRefreshTimer();
                 await Task.Run(() => MatchGuids(links, log, currectentity, showlinks));
+                ptv.StartRefreshTimer(false);
                 if (currectentity != tracerecord || log != textMessage.Text)
                 {   // This will cancel if UI is now on another trace line since this is async
                     return;
@@ -75,8 +77,19 @@ namespace Cinteros.XTB.PluginTraceViewer.Controls
                     btnShowAllRecordLinks.Enabled = links.LinkRecords.Any();
                     btnShowAllRecordLinks.Text = links.LinkRecords.Any() ? $"Show {links.LinkRecords.Count()} records" : "No extra records";
                     textMessage.Text = Links.InsertRecordsInLog(log, links);
-                    links.ForEach(SetRecordLink);
-                    lblTrigger.Visible = !string.IsNullOrEmpty(linkRecord.Text);
+                    if (links.Target?.Record is Record target)
+                    {
+                        var msgtable = $"{tracerecord["messagename"]} {target.Metadata.ToDisplayName()} ";
+                        linkRecord.Text = $"{msgtable}{target.Name ?? target.Id.ToString()}";
+                        linkRecord.Tag = target.Url;
+                        linkRecord.LinkArea = new LinkArea(msgtable.Length, linkRecord.Text.Length - msgtable.Length);
+                        toolTip1.SetToolTip(linkRecord, $"Click to open this record.\n{target.Url}");
+                        lblTrigger.Visible = !string.IsNullOrEmpty(linkRecord.Text);
+                    }
+                    else
+                    {
+                        lblTrigger.Visible = false;
+                    }
                 }
                 HighlightRecords(links, showlinks);
             }
@@ -150,39 +163,6 @@ namespace Cinteros.XTB.PluginTraceViewer.Controls
             textMessage.DeselectAll();
         }
 
-        private void SetRecordLink(Link link)
-        {
-            if (link.Record == null)
-            {
-                return;
-            }
-            //LinkLabel linklabel = null;
-            switch (link.TypeIdentifier)
-            {
-                //case "UserId":
-                //    linklabel = linkUser;
-                //    break;
-
-                //case "InitUserId":
-                //    linklabel = linkIniUser;
-                //    break;
-
-                case "Target":
-                    var msgtable = $"{tracerecord["messagename"]} {link.Record.Metadata.ToDisplayName()} ";
-                    linkRecord.Text = $"{msgtable}{link.Record.Name ?? link.Id.ToString()}";
-                    linkRecord.Tag = link.Record.Url;
-                    linkRecord.LinkArea = new LinkArea(msgtable.Length, linkRecord.Text.Length - msgtable.Length);
-                    toolTip1.SetToolTip(linkRecord, $"Click to open this record.\n{link.Record.Url}");
-                    break;
-            }
-            //if (linklabel != null)
-            //{
-            //    linklabel.Text = $"{link.Record.Metadata.ToDisplayName()}: {link.Record.Name}";
-            //    linklabel.Tag = link.Record.Url;
-            //    linklabel.LinkArea = new LinkArea(0, linklabel.Text.Length);
-            //}
-        }
-
         internal void Clear()
         {
             textMessage.Clear();
@@ -212,7 +192,7 @@ namespace Cinteros.XTB.PluginTraceViewer.Controls
         private void btnShowAllRecordLinks_Click(object sender, EventArgs e)
         {
             var allrecords = new RecordLinks();
-            allrecords.SetRecords(links.LinkRecords, ptv.ConnectionDetail);
+            allrecords.SetRecords(links.LinkRecords, links.Target?.Record, ptv.ConnectionDetail);
             allrecords.ShowDialog();
         }
     }
