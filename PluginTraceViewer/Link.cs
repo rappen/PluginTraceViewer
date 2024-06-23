@@ -1,96 +1,106 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 
 namespace Cinteros.XTB.PluginTraceViewer
 {
     public class Link
     {
-        public Record Record;
         public Guid Id;
+        public string Entity;
+        public Record Record;
         public string LogIdentifier;
         public string TypeIdentifier;
-        public int GuidPosition;
-        public int GuidLength;
-        public int LinkPosition;
+        public int GuidPosition = -1;
+        public int GuidLength = 0;
+        public int EntityRelativePosition = -1;
+        public int InsertPosition = -1;
         public string LinkName;
-        public bool IsAdded;
+        public bool IsInserted;
 
-        internal static Link GetRecordLink(bool lookuprecord, RecordList recordlist, string entity, string guidname, string id)
+        private Link()
+        { }
+
+        public static bool TryParse(Match m, out Link link)
         {
-            if (!Guid.TryParse(id, out var guid))
+            if (Guid.TryParse(m.Value, out var guid))
             {
-                return null;
+                link = new Link();
+                link.GuidLength = m.Length;
+                link.GuidPosition = m.Index;
+                //        link.LinkPosition = link.GuidPosition + link.GuidLength;
+                link.Id = guid;
+                //        link.EntityFoundAfterGuid = true;
+                return true;
             }
-            var link = new Link
+            link = null;
+            return false;
+        }
+
+        internal void IdentifyRecord(RecordList recordlist, string guidrelated, string triggerentity)
+        {
+            LogIdentifier = guidrelated;
+            switch (guidrelated.ToLowerInvariant())
             {
-                LogIdentifier = guidname,
-                Id = guid
-            };
-            string table;
-            switch (guidname.ToLowerInvariant())
-            {
+                case "target":
+                case "record":
+                case "id":
+                case "primaryentityid":
+                    TypeIdentifier = "Target";
+                    Entity = triggerentity;
+                    break;
+
                 case "user":
                 case "userid":
-                    link.TypeIdentifier = "UserId";
-                    table = "systemuser";
+                case "principal":
+                    TypeIdentifier = "UserId";
+                    Entity = "systemuser";
                     break;
 
                 case "inituserid":
                 case "inituserappid":
                 case "initiating user":
                 case "initiatinguserid":
-                    link.TypeIdentifier = "InitUserId";
-                    table = "systemuser";
+                    TypeIdentifier = "InitUserId";
+                    Entity = "systemuser";
                     break;
 
                 case "userazureadid":
-                    table = "systemuser";
+                    Entity = "systemuser";
                     break;
 
                 case "businessunitid":
-                    table = "businessunit";
-                    break;
-
-                case "target":
-                case "record":
-                case "id":
-                case "primaryentityid":
-                    link.TypeIdentifier = "Target";
-                    table = entity;
+                case "objectbusinessunitid":
+                    Entity = "businessunit";
                     break;
 
                 case "environment":
                 case "environmentid":
                 case "organization":
-                    table = null;
-                    link.TypeIdentifier = "EnvironmentId";
-                    link.Record = new Record
+                    Entity = null;
+                    TypeIdentifier = "EnvironmentId";
+                    Record = new Record
                     {
-                        Id = guid,
+                        Id = Id,
                         Name = "Environment",
-                        Url = $"https://admin.powerplatform.microsoft.com/environments/environment/{guid}/hub"
+                        Url = $"https://admin.powerplatform.microsoft.com/environments/environment/{Id}/hub"
                     };
-                    return link;
+                    return;
 
                 default:
-                    table = guidname;
+                    Entity = guidrelated;
+                    if (Entity.ToLowerInvariant().StartsWith("object") && Entity.ToLowerInvariant().EndsWith("id"))
+                    {
+                        Entity = Entity.Substring(6, Entity.Length - 8);
+                    }
+                    if (Entity.ToLowerInvariant().EndsWith("id"))
+                    {
+                        Entity = Entity.Substring(0, Entity.Length - 2);
+                    }
                     break;
             }
-            if (lookuprecord && recordlist.Get(table, guid) is Record record)
-            {
-                link.Record = record;
-            }
-            //else
-            //{
-            //    link.Record = new Record
-            //    {
-            //        EntityName = table,
-            //        Id = guid,
-            //        Name = $"Unfound table {table}"
-            //    };
-            //}
-            return link;
+            Record = recordlist.Get(Entity, Id);
         }
 
         public override string ToString() => $"{LogIdentifier} {Id} {LinkName}";
@@ -100,6 +110,13 @@ namespace Cinteros.XTB.PluginTraceViewer
     {
         private static char[] separators = { ';', ':', '(', ')', '[', ']', '{', '}', '<', '>', '/', '|', '^', '"', '\'', '\\', '/', '`' };
 
+        private string triggerentity;
+
+        public Links(string triggerentity)
+        {
+            this.triggerentity = triggerentity;
+        }
+
         internal static string InsertRecordsInLog(string log, List<Link> links)
         {
             var extratextlength = 0;
@@ -107,26 +124,26 @@ namespace Cinteros.XTB.PluginTraceViewer
             {
                 link.LinkName = $" {link.Record?.Name}";
                 link.GuidPosition += extratextlength;
-                link.LinkPosition += extratextlength;
-                var length = Math.Max(log.Length - link.LinkPosition - 1, 0);
+                var insertpos = link.GuidPosition + link.GuidLength;
+                var length = Math.Max(log.Length - insertpos - 1, 0);
                 if (length >= 0 && !string.IsNullOrWhiteSpace(link.Record?.Name))
                 {
-                    if (!log.Substring(link.LinkPosition, length).Trim().StartsWith(link.Record?.Name))
+                    if (!log.Substring(insertpos, length).Trim().StartsWith(link.Record?.Name))
                     {
-                        while (link.LinkPosition < log.Length && separators.Contains(log[link.LinkPosition]))
+                        while (insertpos < log.Length && separators.Contains(log[insertpos]))
                         {
-                            link.LinkPosition++;
+                            insertpos++;
                         }
-                        log = log.Insert(link.LinkPosition, link.LinkName);
+                        log = log.Insert(insertpos, link.LinkName);
                         extratextlength += link.LinkName.Length;
                     }
-                    link.IsAdded = true;
+                    link.IsInserted = true;
                 }
             }
             return log;
         }
 
-        internal Link Target => this.FirstOrDefault(l => l.TypeIdentifier == "Target");
+        internal Link Target => this.FirstOrDefault(l => l.TypeIdentifier == "Target") ?? this.FirstOrDefault(l => l.Record?.EntityName == triggerentity);
 
         internal List<Record> LinkRecords => this
             .Where(l => l.Record != null)

@@ -7,6 +7,7 @@ using Rappen.XTB.Helpers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.ServiceModel;
 
 namespace Cinteros.XTB.PluginTraceViewer
 {
@@ -66,6 +67,7 @@ namespace Cinteros.XTB.PluginTraceViewer
         {
             if (string.IsNullOrWhiteSpace(entityName) ||
                 id.Equals(Guid.Empty) ||
+                thrashlist.Contains($"EntityName:{entityName}") ||
                 thrashlist.Contains($"{entityName}:{id}"))
             {
                 return null;
@@ -84,25 +86,29 @@ namespace Cinteros.XTB.PluginTraceViewer
                     Records.Add(record);
                     return record;
                 }
-                catch { }
+                catch (FaultException<OrganizationServiceFault> ex)
+                {
+                    if (ex.Detail.ErrorCode == -2147220969)
+                    {
+                        if (!thrashlist.Contains($"{entityName}:{id}"))
+                        {
+                            thrashlist.Add($"{entityName}:{id}");
+                        }
+                    }
+                    else
+                    {
+                        throw;
+                    }
+                }
             }
-            if (!thrashlist.Contains($"{entityName}:{id}"))
+            else
             {
-                thrashlist.Add($"{entityName}:{id}");
+                if (!thrashlist.Contains($"EntityName:{entityName}"))
+                {
+                    thrashlist.Add($"EntityName:{entityName}");
+                }
             }
             return null;
-        }
-
-        private Entity TryGetRecord(string entityName, Guid id, EntityMetadata meta)
-        {
-            try
-            {
-                return service.Retrieve(entityName, id, new ColumnSet(meta.PrimaryNameAttribute));
-            }
-            catch
-            {
-                return null;
-            }
         }
     }
 }
