@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
+using System.Windows.Forms;
 
 namespace Cinteros.XTB.PluginTraceViewer
 {
@@ -14,15 +15,14 @@ namespace Cinteros.XTB.PluginTraceViewer
         public string TypeIdentifier;
         public int GuidPosition = -1;
         public int GuidLength = 0;
-        public int EntityRelativePosition = -1;
+        public int EntityRelativePosition = 0;
         public int InsertPosition = -1;
-        public string LinkName;
         public bool IsInserted;
 
         private Link()
         { }
 
-        public static bool TryParse(Match m, out Link link)
+        internal static bool TryParse(Match m, out Link link)
         {
             if (Guid.TryParse(m.Value, out var guid))
             {
@@ -103,39 +103,47 @@ namespace Cinteros.XTB.PluginTraceViewer
             Record = recordlist.Get(Entity, Id);
         }
 
+        public string LinkName => Record?.Name;
+
         public override string ToString() => $"{LogIdentifier} {Id} {LinkName}";
     }
 
     public class Links : List<Link>
     {
+        private const string guidregex = @"([a-z0-9]{8}[-][a-z0-9]{4}[-][a-z0-9]{4}[-][a-z0-9]{4}[-][a-z0-9]{12})";
+        private static char[] spacechars = { ' ', '\t', '\n', '\r', ':', '.', ',', '=', '"', '\'', '(', ')' };
         private static char[] separators = { ';', ':', '(', ')', '[', ']', '{', '}', '<', '>', '/', '|', '^', '"', '\'', '\\', '/', '`' };
-
+        private static string[] wordsbetweenstableandguid = { "new Guid", ", Id", "with id", "of entity" };
+        private string log;
+        private RecordList records;
         private string triggerentity;
 
-        public Links(string triggerentity)
+        public Links(string log, RecordList records, string triggerentity)
         {
+            this.log = log;
+            this.records = records;
             this.triggerentity = triggerentity;
         }
 
-        internal static string InsertRecordsInLog(string log, List<Link> links)
+        internal string InsertRecordsInLog()
         {
             var extratextlength = 0;
-            foreach (var link in links)
+            foreach (var link in this)
             {
-                link.LinkName = $" {link.Record?.Name}";
                 link.GuidPosition += extratextlength;
-                var insertpos = link.GuidPosition + link.GuidLength;
-                var length = Math.Max(log.Length - insertpos - 1, 0);
-                if (length >= 0 && !string.IsNullOrWhiteSpace(link.Record?.Name))
+                if (!string.IsNullOrEmpty(link.LinkName))
                 {
-                    if (!log.Substring(insertpos, length).Trim().StartsWith(link.Record?.Name))
+                    var insertpos = link.GuidPosition + link.GuidLength;
+                    while (insertpos < log.Length && separators.Contains(log[insertpos]))
                     {
-                        while (insertpos < log.Length && separators.Contains(log[insertpos]))
-                        {
-                            insertpos++;
-                        }
-                        log = log.Insert(insertpos, link.LinkName);
-                        extratextlength += link.LinkName.Length;
+                        insertpos++;
+                    }
+                    var length = Math.Max(log.Length - insertpos - 1, 0);
+                    if (!log.Substring(insertpos, length).Trim().StartsWith(link.LinkName))
+                    {
+                        log = log.Insert(insertpos, $" {link.LinkName}");
+                        link.InsertPosition = insertpos + 1;
+                        extratextlength += link.LinkName.Length + 1;
                     }
                     link.IsInserted = true;
                 }
@@ -151,5 +159,146 @@ namespace Cinteros.XTB.PluginTraceViewer
             .Select(l => l.Record)
             .Distinct()
             .ToList();
+
+        internal void MatchGuids(bool lookuprecords)
+        {
+            foreach (Match m in Regex.Matches(log, guidregex))
+            {
+                //if (currectentity != tracerecord)
+                //{   // This will cancel if UI is now on another trace line since this is async
+                //    return;
+                //}
+                if (!Link.TryParse(m, out var link))
+                {
+                    continue;
+                }
+                Add(link);
+                var beforeguidorg = log.Substring(0, m.Index);
+                var afterguidorg = log.Substring(m.Index + m.Length);
+                if (lookuprecords && !link.Id.Equals(Guid.Empty))
+                {
+                    var beforeguid = beforeguidorg.TrimEnd(spacechars);
+                    if (!string.IsNullOrWhiteSpace(beforeguid))
+                    {
+                        foreach (var word in wordsbetweenstableandguid)
+                        {
+                            if (beforeguid.EndsWith(word))
+                            {
+                                beforeguid = beforeguid.Substring(0, beforeguid.Length - word.Length).TrimEnd(spacechars);
+                            }
+                        }
+                        if (beforeguid.ToLowerInvariant().EndsWith("id"))
+                        {
+                            if (beforeguid.Length > 2 && !char.IsLetterOrDigit(beforeguid[beforeguid.Length - 3]))
+                            {
+                                beforeguid = beforeguid.Substring(0, beforeguid.Length - 2).TrimEnd(spacechars);
+                            }
+                        }
+                        if (FindGuidTable(beforeguid, false) is string guidname1)
+                        {
+                            link.EntityRelativePosition = beforeguidorg.LastIndexOf(guidname1) - m.Index;
+                            link.IdentifyRecord(records, guidname1, triggerentity);
+                        }
+                    }
+                    if (link.Record == null)
+                    {
+                        var afterguid = afterguidorg.TrimStart(spacechars);
+                        if (!string.IsNullOrWhiteSpace(afterguid))
+                        {
+                            foreach (var word in wordsbetweenstableandguid)
+                            {
+                                if (afterguid.StartsWith(word))
+                                {
+                                    afterguid = afterguid.Substring(word.Length).Trim(spacechars);
+                                }
+                            }
+                            if (afterguid.Split(spacechars).First().ToLowerInvariant().EndsWith("id"))
+                            {
+                                if (afterguid.Length > 2 && !char.IsLetterOrDigit(afterguid[afterguid.Length - 3]))
+                                {
+                                    afterguid = afterguid.Substring(0, afterguid.Length - 2).Trim(spacechars);
+                                }
+                            }
+                            if (FindGuidTable(afterguid, true) is string guidname2)
+                            {
+                                link.EntityRelativePosition = m.Index + afterguidorg.IndexOf(guidname2);
+                                link.IdentifyRecord(records, guidname2, triggerentity);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        internal void HighlightRecords(RichTextBox richText)
+        {
+            foreach (var link in this)
+            {
+                // Yellow on the guid
+                richText.Select(link.GuidPosition, link.GuidLength);
+                richText.SelectionBackColor = System.Drawing.Color.Yellow;
+                if (link.EntityRelativePosition != 0)
+                {
+                    // Gray on the table identifier
+                    richText.Select(link.GuidPosition + link.EntityRelativePosition, link.LogIdentifier.Length);
+                    richText.SelectionBackColor = System.Drawing.Color.LightGray;
+                }
+                if (link.IsInserted)
+                {
+                    // Green on the name of the record
+                    richText.Select(link.InsertPosition, link.LinkName.Length);
+                    richText.SelectionBackColor = System.Drawing.Color.LightGreen;
+                }
+            }
+            richText.DeselectAll();
+        }
+
+        private static string FindGuidTable(string closestlog, bool afterguid)
+        {
+            var tablename = "";
+            if (!afterguid)
+            {
+                if (closestlog.ToLowerInvariant().EndsWith("initiating user"))
+                {   // MS traces...
+                    tablename = "Initiating User";
+                }
+                else if (closestlog.ToLowerInvariant().EndsWith("corrolation id"))
+                {   // MS traces...
+                    tablename = "Corrolation Id";
+                }
+                else if (closestlog.ToLowerInvariant().EndsWith("principal with id"))
+                {
+                    tablename = "Principal";
+                }
+                else if (closestlog.LastIndexOfAny(spacechars) is int pos && pos >= 0)
+                {
+                    tablename = closestlog.Substring(pos + 1).Split('.').Last().Trim();
+                }
+            }
+            else
+            {
+                if (closestlog.ToLowerInvariant().StartsWith("initiating user"))
+                {   // MS traces...
+                    tablename = "Initiating User";
+                }
+                else if (closestlog.ToLowerInvariant().StartsWith("corrolation id"))
+                {   // MS traces...
+                    tablename = "Corrolation Id";
+                }
+                else if (closestlog.ToLowerInvariant().StartsWith("principal with id"))
+                {
+                    tablename = "Principal";
+                }
+                else if (closestlog.IndexOfAny(spacechars) is int pos && pos >= 0)
+                {
+                    tablename = closestlog.Split(spacechars)[0].Trim(spacechars);
+                }
+            }
+            if (closestlog.Substring(0, closestlog.Length - tablename.Length).TrimEnd(spacechars).ToLowerInvariant().Equals("in execute"))
+            {   // Low-code Plugin indication
+                tablename = "Target";
+            }
+            return !string.IsNullOrEmpty(tablename) ? tablename : null;
+        }
     }
 }

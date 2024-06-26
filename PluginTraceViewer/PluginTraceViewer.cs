@@ -56,7 +56,7 @@ namespace Cinteros.XTB.PluginTraceViewer
             filterControl = new FilterControl(this);
             statsControl = new StatsControl(this);
             traceControl = new TraceControl(this);
-            exceptionControl = new ExceptionControl();
+            exceptionControl = new ExceptionControl(this);
         }
 
         private void SetupDockControls()
@@ -1387,6 +1387,7 @@ namespace Cinteros.XTB.PluginTraceViewer
         private void tsmiIdentifyRecords_Click(object sender, EventArgs e)
         {
             traceControl?.ShowMessageTextAsync(tsmiHighlightGuids.Checked, tsmiIdentifyRecords.Checked);
+            exceptionControl?.ShowMessageTextAsync(tsmiHighlightGuids.Checked, tsmiIdentifyRecords.Checked);
         }
 
         private void tsmiResetColumns_Click(object sender, EventArgs e)

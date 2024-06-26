@@ -81,8 +81,13 @@ namespace Cinteros.XTB.PluginTraceViewer
                     record.EntityName = entityName;
                     record.Id = id;
                     record.Entity = service.Retrieve(entityName, id, new ColumnSet(meta.PrimaryNameAttribute));
-                    record.Name = record.Entity?.GetAttributeValue<string>(meta.PrimaryNameAttribute) ?? "<record does not exist>";
+                    record.Name = record.Entity?.GetAttributeValue<string>(meta.PrimaryNameAttribute);
                     record.Url = new EntityReference(entityName, id).GetEntityUrl(conndet);
+                    if (record.Entity == null || string.IsNullOrWhiteSpace(record.Name))
+                    {
+                        thrashlist.Add($"{entityName}:{id}");
+                        return null;
+                    }
                     Records.Add(record);
                     return record;
                 }
