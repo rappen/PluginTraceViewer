@@ -65,7 +65,6 @@ namespace Cinteros.XTB.PluginTraceViewer.Controls
             if (highlightguids || showlinks)
             {
                 lblLoading.Visible = showlinks;
-                btnShowAllRecordLinks.Enabled = false;
                 var currectentity = tracerecord;
                 links = new Links(originallog, ptv.recordlist, triggerentity);
                 ptv.StopRefreshTimer();
