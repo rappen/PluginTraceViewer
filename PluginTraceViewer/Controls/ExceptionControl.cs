@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Linq;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 using WeifenLuo.WinFormsUI.Docking;
 
@@ -45,6 +46,9 @@ namespace Cinteros.XTB.PluginTraceViewer.Controls
 
         internal async Task ShowMessageTextAsync(bool highlightguids, bool showlinks)
         {
+            btnShowAllRecordLinks.Visible = showlinks;
+            btnShowAllRecordLinks.Enabled = false;
+            btnShowAllRecordLinks.Text = $"- records";
             textException.Text = originallog;
             if (string.IsNullOrWhiteSpace(originallog))
             {
@@ -58,6 +62,11 @@ namespace Cinteros.XTB.PluginTraceViewer.Controls
                 ptv.StartRefreshTimer(false);
                 if (showlinks)
                 {
+                    btnShowAllRecordLinks.Enabled = links.LinkRecords.Any();
+                    btnShowAllRecordLinks.Text =
+                        links.Count == 1 ? $"1 record" :
+                        links.LinkRecords.Any() ? $"{links.LinkRecords.Count()} records" :
+                        "No records";
                     textException.Text = links.InsertRecordsInLog();
                 }
                 links.HighlightRecords(textException);
@@ -75,6 +84,13 @@ namespace Cinteros.XTB.PluginTraceViewer.Controls
         {
             var textBox = textException;
             findtext = FindTextHandler.HandleFindKeyPress(e, textBox, findtext);
+        }
+
+        private void btnShowAllRecordLinks_Click(object sender, System.EventArgs e)
+        {
+            var allrecords = new RecordLinks();
+            allrecords.SetRecords(links.LinkRecords, links.Target?.Record, ptv.ConnectionDetail);
+            allrecords.ShowDialog();
         }
     }
 }
