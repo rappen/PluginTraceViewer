@@ -63,6 +63,9 @@ namespace Cinteros.XTB.PluginTraceViewer
             return Add(entity, guid);
         }
 
+        public EntityMetadata GetEntityMetadata(string entity) => service.GetEntity(entity);
+
+
         private Record Add(string entityName, Guid id)
         {
             if (string.IsNullOrWhiteSpace(entityName) ||
@@ -72,7 +75,7 @@ namespace Cinteros.XTB.PluginTraceViewer
             {
                 return null;
             }
-            if (service.GetEntity(entityName) is EntityMetadata meta)
+            if (GetEntityMetadata(entityName) is EntityMetadata meta)
             {
                 try
                 {

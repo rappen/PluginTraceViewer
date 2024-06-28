@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
@@ -17,7 +18,6 @@ namespace Cinteros.XTB.PluginTraceViewer
         public int GuidLength = 0;
         public int EntityRelativePosition = 0;
         public int InsertPosition = -1;
-        public bool IsInserted;
 
         private Link()
         { }
@@ -29,9 +29,7 @@ namespace Cinteros.XTB.PluginTraceViewer
                 link = new Link();
                 link.GuidLength = m.Length;
                 link.GuidPosition = m.Index;
-                //        link.LinkPosition = link.GuidPosition + link.GuidLength;
                 link.Id = guid;
-                //        link.EntityFoundAfterGuid = true;
                 return true;
             }
             link = null;
@@ -88,6 +86,11 @@ namespace Cinteros.XTB.PluginTraceViewer
                     };
                     return;
 
+                case "correlation id":
+                    Entity = string.Empty;
+                    EntityRelativePosition = 0;
+                    break;
+
                 default:
                     Entity = guidrelated;
                     if (Entity.ToLowerInvariant().StartsWith("object") && Entity.ToLowerInvariant().EndsWith("id"))
@@ -100,6 +103,7 @@ namespace Cinteros.XTB.PluginTraceViewer
                     }
                     break;
             }
+            Entity = recordlist.GetEntityMetadata(Entity)?.LogicalName;
             Record = recordlist.Get(Entity, Id);
         }
 
@@ -145,7 +149,6 @@ namespace Cinteros.XTB.PluginTraceViewer
                         link.InsertPosition = insertpos + 1;
                         extratextlength += link.LinkName.Length + 1;
                     }
-                    link.IsInserted = true;
                 }
             }
             return log;
@@ -162,12 +165,9 @@ namespace Cinteros.XTB.PluginTraceViewer
 
         internal void MatchGuids(bool lookuprecords)
         {
-            foreach (Match m in Regex.Matches(log, guidregex))
+            var matches = Regex.Matches(log, guidregex);
+            foreach (Match m in matches)
             {
-                //if (currectentity != tracerecord)
-                //{   // This will cancel if UI is now on another trace line since this is async
-                //    return;
-                //}
                 if (!Link.TryParse(m, out var link))
                 {
                     continue;
@@ -235,19 +235,13 @@ namespace Cinteros.XTB.PluginTraceViewer
             foreach (var link in this)
             {
                 // Yellow on the guid
-                richText.Select(link.GuidPosition, link.GuidLength);
-                richText.SelectionBackColor = System.Drawing.Color.Yellow;
-                if (link.EntityRelativePosition != 0)
+                richText.SetBackground(link.GuidPosition, link.GuidLength, Color.Yellow);
+                if (link.InsertPosition >= 0)
                 {
                     // Gray on the table identifier
-                    richText.Select(link.GuidPosition + link.EntityRelativePosition, link.LogIdentifier.Length);
-                    richText.SelectionBackColor = System.Drawing.Color.LightGray;
-                }
-                if (link.IsInserted)
-                {
+                    richText.SetBackground(link.GuidPosition + link.EntityRelativePosition, link.LogIdentifier.Length, Color.LightGray);
                     // Green on the name of the record
-                    richText.Select(link.InsertPosition, link.LinkName.Length);
-                    richText.SelectionBackColor = System.Drawing.Color.LightGreen;
+                    richText.SetBackground(link.InsertPosition, link.LinkName.Length, Color.LightGreen);
                 }
             }
             richText.DeselectAll();
@@ -262,9 +256,9 @@ namespace Cinteros.XTB.PluginTraceViewer
                 {   // MS traces...
                     tablename = "Initiating User";
                 }
-                else if (closestlog.ToLowerInvariant().EndsWith("corrolation id"))
+                else if (closestlog.ToLowerInvariant().EndsWith("correlation id"))
                 {   // MS traces...
-                    tablename = "Corrolation Id";
+                    tablename = "Correlation Id";
                 }
                 else if (closestlog.ToLowerInvariant().EndsWith("principal with id"))
                 {
@@ -281,9 +275,9 @@ namespace Cinteros.XTB.PluginTraceViewer
                 {   // MS traces...
                     tablename = "Initiating User";
                 }
-                else if (closestlog.ToLowerInvariant().StartsWith("corrolation id"))
+                else if (closestlog.ToLowerInvariant().StartsWith("correlation id"))
                 {   // MS traces...
-                    tablename = "Corrolation Id";
+                    tablename = "Correlation Id";
                 }
                 else if (closestlog.ToLowerInvariant().StartsWith("principal with id"))
                 {
@@ -299,6 +293,20 @@ namespace Cinteros.XTB.PluginTraceViewer
                 tablename = "Target";
             }
             return !string.IsNullOrEmpty(tablename) ? tablename : null;
+        }
+    }
+
+    public static class RichTextExtension
+    {
+        public static void SetBackground(this RichTextBox textBox, int pos, int length, Color color)
+        {
+            if (textBox == null || pos < 0 || length < 1 || textBox.TextLength <= pos + length)
+            {
+                return;
+            }
+            textBox.Select(pos, length);
+            textBox.SelectionBackColor = color;
+            textBox.DeselectAll();
         }
     }
 }
