@@ -236,13 +236,10 @@ namespace Cinteros.XTB.PluginTraceViewer
             {
                 // Yellow on the guid
                 richText.SetBackground(link.GuidPosition, link.GuidLength, Color.Yellow);
-                if (link.InsertPosition >= 0)
-                {
-                    // Gray on the table identifier
-                    richText.SetBackground(link.GuidPosition + link.EntityRelativePosition, link.LogIdentifier.Length, Color.LightGray);
-                    // Green on the name of the record
-                    richText.SetBackground(link.InsertPosition, link.LinkName.Length, Color.LightGreen);
-                }
+                // Gray on the table identifier
+                richText.SetBackground(link.GuidPosition + link.EntityRelativePosition, link.LogIdentifier.Length, Color.LightGray);
+                // Green on the name of the record
+                richText.SetBackground(link.InsertPosition, link.LinkName?.Length ?? 0, Color.LightGreen);
             }
             richText.DeselectAll();
         }
