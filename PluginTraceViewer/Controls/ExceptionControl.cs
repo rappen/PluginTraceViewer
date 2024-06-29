@@ -64,7 +64,7 @@ namespace Cinteros.XTB.PluginTraceViewer.Controls
                 {
                     btnShowAllRecordLinks.Enabled = links.LinkRecords.Any();
                     btnShowAllRecordLinks.Text =
-                        links.Count == 1 ? $"1 record" :
+                        links.LinkRecords.Count == 1 ? $"1 record" :
                         links.LinkRecords.Any() ? $"{links.LinkRecords.Count()} records" :
                         "No records";
                     textException.Text = links.InsertRecordsInLog();

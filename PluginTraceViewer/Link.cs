@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Xrm.Sdk.Metadata;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
@@ -10,8 +11,11 @@ namespace Cinteros.XTB.PluginTraceViewer
     public class Link
     {
         public Guid Id;
-        public string Entity;
+        public string EntityName;
+
+        public EntityMetadata EntityMeta;
         public Record Record;
+
         public string LogIdentifier;
         public string TypeIdentifier;
         public int GuidPosition = -1;
@@ -36,7 +40,7 @@ namespace Cinteros.XTB.PluginTraceViewer
             return false;
         }
 
-        internal void IdentifyRecord(RecordList recordlist, string guidrelated, string triggerentity)
+        internal bool SetEntityMeta(RecordList recordlist, string guidrelated, string triggerentity)
         {
             LogIdentifier = guidrelated;
             switch (guidrelated.ToLowerInvariant())
@@ -46,14 +50,14 @@ namespace Cinteros.XTB.PluginTraceViewer
                 case "id":
                 case "primaryentityid":
                     TypeIdentifier = "Target";
-                    Entity = triggerentity;
+                    EntityName = triggerentity;
                     break;
 
                 case "user":
                 case "userid":
                 case "principal":
                     TypeIdentifier = "UserId";
-                    Entity = "systemuser";
+                    EntityName = "systemuser";
                     break;
 
                 case "inituserid":
@@ -61,22 +65,22 @@ namespace Cinteros.XTB.PluginTraceViewer
                 case "initiating user":
                 case "initiatinguserid":
                     TypeIdentifier = "InitUserId";
-                    Entity = "systemuser";
+                    EntityName = "systemuser";
                     break;
 
                 case "userazureadid":
-                    Entity = "systemuser";
+                    EntityName = "systemuser";
                     break;
 
                 case "businessunitid":
                 case "objectbusinessunitid":
-                    Entity = "businessunit";
+                    EntityName = "businessunit";
                     break;
 
                 case "environment":
                 case "environmentid":
                 case "organization":
-                    Entity = null;
+                    EntityName = null;
                     TypeIdentifier = "EnvironmentId";
                     Record = new Record
                     {
@@ -84,27 +88,35 @@ namespace Cinteros.XTB.PluginTraceViewer
                         Name = "Environment",
                         Url = $"https://admin.powerplatform.microsoft.com/environments/environment/{Id}/hub"
                     };
-                    return;
+                    return true;
+
+                case "step":
+                    EntityName = "sdkmessageprocessingstep";
+                    break;
 
                 case "correlation id":
-                    Entity = string.Empty;
+                    EntityName = string.Empty;
                     EntityRelativePosition = 0;
                     break;
 
                 default:
-                    Entity = guidrelated;
-                    if (Entity.ToLowerInvariant().StartsWith("object") && Entity.ToLowerInvariant().EndsWith("id"))
+                    EntityName = guidrelated;
+                    if (EntityName.ToLowerInvariant().StartsWith("object") && EntityName.ToLowerInvariant().EndsWith("id"))
                     {
-                        Entity = Entity.Substring(6, Entity.Length - 8);
+                        EntityName = EntityName.Substring(6, EntityName.Length - 8);
                     }
-                    if (Entity.ToLowerInvariant().EndsWith("id"))
+                    if (EntityName.ToLowerInvariant().EndsWith("id"))
                     {
-                        Entity = Entity.Substring(0, Entity.Length - 2);
+                        EntityName = EntityName.Substring(0, EntityName.Length - 2);
                     }
                     break;
             }
-            Entity = recordlist.GetEntityMetadata(Entity)?.LogicalName;
-            Record = recordlist.Get(Entity, Id);
+            EntityMeta = recordlist.GetEntityMetadata(EntityName);
+            if (EntityMeta == null)
+            {
+                LogIdentifier = string.Empty;
+            }
+            return EntityMeta != null;
         }
 
         public string LinkName => Record?.Name;
@@ -117,7 +129,7 @@ namespace Cinteros.XTB.PluginTraceViewer
         private const string guidregex = @"([a-z0-9]{8}[-][a-z0-9]{4}[-][a-z0-9]{4}[-][a-z0-9]{4}[-][a-z0-9]{12})";
         private static char[] spacechars = { ' ', '\t', '\n', '\r', ':', '.', ',', '=', '"', '\'', '(', ')' };
         private static char[] separators = { ';', ':', '(', ')', '[', ']', '{', '}', '<', '>', '/', '|', '^', '"', '\'', '\\', '/', '`' };
-        private static string[] wordsbetweenstableandguid = { "new Guid", ", Id", "with id", "of entity" };
+        private static string[] wordsbetweenstableandguid = { "new guid", ", id", "with id", "of entity", "context.primaryentityid" };
         private string log;
         private RecordList records;
         private string triggerentity;
@@ -158,7 +170,6 @@ namespace Cinteros.XTB.PluginTraceViewer
 
         internal List<Record> LinkRecords => this
             .Where(l => l.Record != null)
-            .Where(l => l.Id != Target?.Id)
             .Select(l => l.Record)
             .Distinct()
             .ToList();
@@ -182,50 +193,53 @@ namespace Cinteros.XTB.PluginTraceViewer
                     {
                         foreach (var word in wordsbetweenstableandguid)
                         {
-                            if (beforeguid.EndsWith(word))
+                            if (beforeguid.ToLowerInvariant().EndsWith(word))
                             {
                                 beforeguid = beforeguid.Substring(0, beforeguid.Length - word.Length).TrimEnd(spacechars);
+                                if (word.Equals("context.primaryentityid"))
+                                {
+                                    link.TypeIdentifier = "Target";
+                                }
                             }
                         }
-                        if (beforeguid.ToLowerInvariant().EndsWith("id"))
+                        if (beforeguid.ToLowerInvariant().EndsWith("id") &&
+                            beforeguid.Length > 2 &&
+                            !char.IsLetterOrDigit(beforeguid[beforeguid.Length - 3]))
                         {
-                            if (beforeguid.Length > 2 && !char.IsLetterOrDigit(beforeguid[beforeguid.Length - 3]))
-                            {
-                                beforeguid = beforeguid.Substring(0, beforeguid.Length - 2).TrimEnd(spacechars);
-                            }
+                            beforeguid = beforeguid.Substring(0, beforeguid.Length - 2).TrimEnd(spacechars);
                         }
-                        if (FindGuidTable(beforeguid, false) is string guidname1)
+                        if (FindGuidTable(beforeguid, false) is string guidname1 &&
+                            link.SetEntityMeta(records, guidname1, triggerentity))
                         {
                             link.EntityRelativePosition = beforeguidorg.LastIndexOf(guidname1) - m.Index;
-                            link.IdentifyRecord(records, guidname1, triggerentity);
                         }
                     }
-                    if (link.Record == null)
+                    if (link.EntityMeta == null)
                     {
                         var afterguid = afterguidorg.TrimStart(spacechars);
                         if (!string.IsNullOrWhiteSpace(afterguid))
                         {
                             foreach (var word in wordsbetweenstableandguid)
                             {
-                                if (afterguid.StartsWith(word))
+                                if (afterguid.ToLowerInvariant().StartsWith(word))
                                 {
                                     afterguid = afterguid.Substring(word.Length).Trim(spacechars);
                                 }
                             }
-                            if (afterguid.Split(spacechars).First().ToLowerInvariant().EndsWith("id"))
+                            if (afterguid.Split(spacechars).First().ToLowerInvariant().EndsWith("id") &&
+                                afterguid.Length > 2 &&
+                                !char.IsLetterOrDigit(afterguid[afterguid.Length - 3]))
                             {
-                                if (afterguid.Length > 2 && !char.IsLetterOrDigit(afterguid[afterguid.Length - 3]))
-                                {
-                                    afterguid = afterguid.Substring(0, afterguid.Length - 2).Trim(spacechars);
-                                }
+                                afterguid = afterguid.Substring(0, afterguid.Length - 2).Trim(spacechars);
                             }
-                            if (FindGuidTable(afterguid, true) is string guidname2)
+                            if (FindGuidTable(afterguid, true) is string guidname2 &&
+                                link.SetEntityMeta(records, guidname2, triggerentity))
                             {
                                 link.EntityRelativePosition = m.Index + afterguidorg.IndexOf(guidname2);
-                                link.IdentifyRecord(records, guidname2, triggerentity);
                             }
                         }
                     }
+                    link.Record = records.Get(link.EntityMeta, link.Id);
                 }
             }
         }
@@ -268,19 +282,7 @@ namespace Cinteros.XTB.PluginTraceViewer
             }
             else
             {
-                if (closestlog.ToLowerInvariant().StartsWith("initiating user"))
-                {   // MS traces...
-                    tablename = "Initiating User";
-                }
-                else if (closestlog.ToLowerInvariant().StartsWith("correlation id"))
-                {   // MS traces...
-                    tablename = "Correlation Id";
-                }
-                else if (closestlog.ToLowerInvariant().StartsWith("principal with id"))
-                {
-                    tablename = "Principal";
-                }
-                else if (closestlog.IndexOfAny(spacechars) is int pos && pos >= 0)
+                if (closestlog.IndexOfAny(spacechars) is int pos && pos >= 0)
                 {
                     tablename = closestlog.Split(spacechars)[0].Trim(spacechars);
                 }

@@ -50,70 +50,67 @@ namespace Cinteros.XTB.PluginTraceViewer
             this.service = service;
         }
 
-        public Record Get(string entity, Guid guid)
+        public Record Get(EntityMetadata entity, Guid guid)
         {
-            if (string.IsNullOrWhiteSpace(entity) || guid.Equals(Guid.Empty))
+            if (entity == null || guid.Equals(Guid.Empty))
             {
                 return null;
             }
-            if (Records.FirstOrDefault(r => r.EntityName == entity && r.Id.Equals(guid)) is Record record)
+            if (Records.FirstOrDefault(r => r.EntityName == entity.LogicalName && r.Id.Equals(guid)) is Record record)
             {
                 return record;
             }
             return Add(entity, guid);
         }
 
-        public EntityMetadata GetEntityMetadata(string entity) => service.GetEntity(entity);
-
-
-        private Record Add(string entityName, Guid id)
+        public EntityMetadata GetEntityMetadata(string entity)
         {
-            if (string.IsNullOrWhiteSpace(entityName) ||
-                id.Equals(Guid.Empty) ||
-                thrashlist.Contains($"EntityName:{entityName}") ||
-                thrashlist.Contains($"{entityName}:{id}"))
+            if (string.IsNullOrWhiteSpace(entity) ||
+                thrashlist.Contains($"EntityName:{entity}"))
             {
                 return null;
             }
-            if (GetEntityMetadata(entityName) is EntityMetadata meta)
+            return service.GetEntity(entity);
+        }
+
+        private Record Add(EntityMetadata entity, Guid id)
+        {
+            if (entity == null ||
+                id.Equals(Guid.Empty) ||
+                thrashlist.Contains($"EntityName:{entity.LogicalName}") ||
+                thrashlist.Contains($"{entity.LogicalName}:{id}"))
             {
-                try
-                {
-                    var record = new Record();
-                    record.Metadata = meta;
-                    record.EntityName = entityName;
-                    record.Id = id;
-                    record.Entity = service.Retrieve(entityName, id, new ColumnSet(meta.PrimaryNameAttribute));
-                    record.Name = record.Entity?.GetAttributeValue<string>(meta.PrimaryNameAttribute);
-                    record.Url = new EntityReference(entityName, id).GetEntityUrl(conndet);
-                    if (record.Entity == null || string.IsNullOrWhiteSpace(record.Name))
-                    {
-                        thrashlist.Add($"{entityName}:{id}");
-                        return null;
-                    }
-                    Records.Add(record);
-                    return record;
-                }
-                catch (FaultException<OrganizationServiceFault> ex)
-                {
-                    if (ex.Detail.ErrorCode == -2147220969)
-                    {
-                        if (!thrashlist.Contains($"{entityName}:{id}"))
-                        {
-                            thrashlist.Add($"{entityName}:{id}");
-                        }
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
+                return null;
             }
-            else
+            try
             {
-                if (!thrashlist.Contains($"EntityName:{entityName}"))
+                var record = new Record();
+                record.Metadata = entity;
+                record.EntityName = entity.LogicalName;
+                record.Id = id;
+                record.Entity = service.Retrieve(entity.LogicalName, id, new ColumnSet(entity.PrimaryNameAttribute));
+                record.Name = record.Entity?.GetAttributeValue<string>(entity.PrimaryNameAttribute);
+                record.Url = new EntityReference(entity.LogicalName, id).GetEntityUrl(conndet);
+                if (record.Entity == null || string.IsNullOrWhiteSpace(record.Name))
                 {
-                    thrashlist.Add($"EntityName:{entityName}");
+                    thrashlist.Add($"{entity.LogicalName}:{id}");
+                    return null;
+                }
+                Records.Add(record);
+                return record;
+            }
+            catch (FaultException<OrganizationServiceFault> ex)
+            {
+                if (ex.Detail.ErrorCode == -2147220969)
+                {
+                    if (!thrashlist.Contains($"{entity.LogicalName}:{id}"))
+                    {
+                        thrashlist.Add($"{entity.LogicalName}:{id}");
+                    }
+                }
+                else
+                {
+                    throw;
                 }
             }
             return null;

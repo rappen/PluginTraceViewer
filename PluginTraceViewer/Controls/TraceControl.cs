@@ -36,12 +36,9 @@ namespace Cinteros.XTB.PluginTraceViewer.Controls
             }
             tracerecord = tracer;
             triggerentity = tracer[PluginTraceLog.PrimaryEntity].ToString();
-            originallog = log.Replace("\r\n", "\n");
 
-            //            originallog = @"Log
-            //UserId       : 07d89207-aea0-ee11-be37-002248a38760
-            //InitUserId   : fd983c55-cea0-ee11-be37-002248a38760
-            //UserAzureADId: 383edaf5-dc89-4fa4-a141-d6fc3686aa5a".Replace("\r\n", "\n");
+            originallog = log;
+            originallog = originallog.Replace("\r\n", "\n");
 
             _ = ShowMessageTextAsync(ptv.tsmiHighlightGuids.Checked, ptv.tsmiIdentifyRecords.Checked, triggerentity);
         }
@@ -79,7 +76,7 @@ namespace Cinteros.XTB.PluginTraceViewer.Controls
                     lblLoading.Visible = false;
                     btnShowAllRecordLinks.Enabled = links.LinkRecords.Any();
                     btnShowAllRecordLinks.Text =
-                        links.Count == 1 ? $"1 record" :
+                        links.LinkRecords.Count == 1 ? $"1 record" :
                         links.LinkRecords.Any() ? $"{links.LinkRecords.Count()} records" :
                         "No records";
                     textMessage.Text = links.InsertRecordsInLog();

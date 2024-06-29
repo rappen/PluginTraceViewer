@@ -29,7 +29,7 @@ namespace Cinteros.XTB.PluginTraceViewer.Controls
                 .OrderBy(r => r.Name)
                 .OrderBy(r => r.Metadata?.LogicalName)
                 .OrderBy(r => r.Metadata?.ToDisplayName());
-            foreach (var record in recs.Reverse())
+            foreach (var record in recs.Reverse().Where(r => r != target))
             {
                 AddLinkPanel(
                     record.Metadata?.ToDisplayName() ?? record.Name,
@@ -45,7 +45,7 @@ namespace Cinteros.XTB.PluginTraceViewer.Controls
                     target.Metadata != null ? $"Triggered plugin by table: {target.Metadata.LogicalName}" : target.Name,
                     target.Name,
                     target.Url,
-                    $"Open this {target.Metadata?.ToDisplayName()?.ToLowerInvariant()} record.\n{target.Url}",
+                    $"Open the triggered {target.Metadata?.ToDisplayName()?.ToLowerInvariant()} record.\n{target.Url}",
                     true);
             }
             AddLinkPanel("Table", "", "Record name", "", "Click on record name to open in the browser", true);
