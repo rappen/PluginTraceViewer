@@ -12,11 +12,7 @@
     <description>Investigate the Plugin Trace Log with easy filtering and display possibilities</description>
     <summary>Investigate the Plugin Trace Log with easy filtering and display possibilities</summary>
     <releaseNotes>
-I try to identify records by reading the log.
-Why?
-So we all can read the logs more easily than ever.
-How does it find records? Is it magic? Is it ms Copilot? Is it mr ChatGPT?
-Nope, it's just me, Jonas.
+Identifying more records, some improvments, some bug fix.
 
 Read latest release notes!
 https://jonasr.app/ptv/releases/#$versionnumber$
