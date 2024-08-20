@@ -101,16 +101,13 @@ namespace Cinteros.XTB.PluginTraceViewer
             }
             catch (FaultException<OrganizationServiceFault> ex)
             {
-                if (ex.Detail.ErrorCode == -2147220969)
+                if (ex.Detail.ErrorCode == -2147220969 ||
+                    ex.Detail.ErrorCode == -2147219456)
                 {
                     if (!thrashlist.Contains($"{entity.LogicalName}:{id}"))
                     {
                         thrashlist.Add($"{entity.LogicalName}:{id}");
                     }
-                }
-                else
-                {
-                    throw;
                 }
             }
             return null;
