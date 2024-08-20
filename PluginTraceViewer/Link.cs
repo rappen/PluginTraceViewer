@@ -127,7 +127,7 @@ namespace Cinteros.XTB.PluginTraceViewer
     public class Links : List<Link>
     {
         private const string guidregex = @"([a-z0-9]{8}[-][a-z0-9]{4}[-][a-z0-9]{4}[-][a-z0-9]{4}[-][a-z0-9]{12})";
-        private static char[] spacechars = { ' ', '\t', '\n', '\r', ':', '.', ',', '=', '"', '\'', '(', ')' };
+        private static char[] spacechars = { ' ', '\t', '\n', '\r', ':', '.', ',', '=', '"', '\'', '(', ')', '[', ']' };
         private static char[] separators = { ';', ':', '(', ')', '[', ']', '{', '}', '<', '>', '/', '|', '^', '"', '\'', '\\', '/', '`' };
         private static string[] wordsbetweenstableandguid = { "new guid", ", id", "with id", "of entity", "context.primaryentityid" };
         private string log;
@@ -299,7 +299,7 @@ namespace Cinteros.XTB.PluginTraceViewer
     {
         public static void SetBackground(this RichTextBox textBox, int pos, int length, Color color)
         {
-            if (textBox == null || pos < 0 || length < 1 || textBox.TextLength <= pos + length)
+            if (textBox == null || pos < 0 || length < 1 || textBox.TextLength < pos + length)
             {
                 return;
             }
