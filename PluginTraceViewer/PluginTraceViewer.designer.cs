@@ -80,7 +80,7 @@
             this.toolStripMenuItem5 = new System.Windows.Forms.ToolStripSeparator();
             this.tsmiSuppressLogSettingWarning = new System.Windows.Forms.ToolStripMenuItem();
             this.tslAbout = new System.Windows.Forms.ToolStripLabel();
-            this.tsbBuymeacoffee = new System.Windows.Forms.ToolStripButton();
+            this.tsbSupporting = new System.Windows.Forms.ToolStripButton();
             this.vS2005Theme1 = new WeifenLuo.WinFormsUI.Docking.VS2005Theme();
             this.dockContainer = new WeifenLuo.WinFormsUI.Docking.DockPanel();
             this.timerRefresh = new System.Windows.Forms.Timer(this.components);
@@ -106,7 +106,7 @@
             this.tsddLayout,
             this.tsddWindows,
             this.tslAbout,
-            this.tsbBuymeacoffee});
+            this.tsbSupporting});
             this.toolStripMain.Location = new System.Drawing.Point(0, 0);
             this.toolStripMain.Name = "toolStripMain";
             this.toolStripMain.Padding = new System.Windows.Forms.Padding(0, 0, 2, 0);
@@ -537,17 +537,18 @@
             this.tslAbout.Text = "by Jonas Rapp";
             this.tslAbout.Click += new System.EventHandler(this.tslAbout_Click);
             // 
-            // tsbBuymeacoffee
+            // tsbSupporting
             // 
-            this.tsbBuymeacoffee.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
-            this.tsbBuymeacoffee.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.tsbBuymeacoffee.Image = ((System.Drawing.Image)(resources.GetObject("tsbBuymeacoffee.Image")));
-            this.tsbBuymeacoffee.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.tsbBuymeacoffee.Name = "tsbBuymeacoffee";
-            this.tsbBuymeacoffee.Size = new System.Drawing.Size(36, 36);
-            this.tsbBuymeacoffee.Text = "By Me a Coffee!";
-            this.tsbBuymeacoffee.ToolTipText = "Support my tool by Buy Me a Coffee!";
-            this.tsbBuymeacoffee.Click += new System.EventHandler(this.tsbBymeacoffee_Click);
+            this.tsbSupporting.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.tsbSupporting.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.tsbSupporting.Image = global::Cinteros.XTB.PluginTraceViewer.Properties.Resources.Supporting_icon;
+            this.tsbSupporting.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.tsbSupporting.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tsbSupporting.Name = "tsbSupporting";
+            this.tsbSupporting.Size = new System.Drawing.Size(56, 36);
+            this.tsbSupporting.ToolTipText = "We all support these free, open-source tools - either\r\nas a company, personally, " +
+    "or by contribution.";
+            this.tsbSupporting.Click += new System.EventHandler(this.tsbSupporting_Click);
             // 
             // dockContainer
             // 
@@ -631,7 +632,6 @@
         internal System.Windows.Forms.ToolStripMenuItem tsmiFullyQualifiedPluginNames;
         internal System.Windows.Forms.ToolStripMenuItem tsmiHidePluginFromStep;
         internal System.Windows.Forms.ToolStripMenuItem tsmiHideEntityFromStep;
-        private System.Windows.Forms.ToolStripButton tsbBuymeacoffee;
         internal System.Windows.Forms.ToolStripMenuItem tsmiIdentifyRecords;
         private System.Windows.Forms.ToolStripDropDownButton tsddWindows;
         private System.Windows.Forms.ToolStripDropDownButton tsddTraces;
@@ -641,5 +641,6 @@
         private System.Windows.Forms.ToolStripMenuItem tsmiResetColumns;
         private System.Windows.Forms.ToolStripSeparator toolStripMenuItem7;
         internal System.Windows.Forms.ToolStripMenuItem tsmiHighlightGuids;
+        private System.Windows.Forms.ToolStripButton tsbSupporting;
     }
 }

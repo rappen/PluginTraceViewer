@@ -1,10 +1,12 @@
 ﻿using Cinteros.XTB.PluginTraceViewer.Const;
 using Cinteros.XTB.PluginTraceViewer.Controls;
+using Cinteros.XTB.PluginTraceViewer.Properties;
 using McTools.Xrm.Connection;
 using Microsoft.Crm.Sdk.Messages;
 using Microsoft.Xrm.Sdk;
 using Microsoft.Xrm.Sdk.Query;
 using Rappen.XRM.Helpers.Serialization;
+using Rappen.XTB;
 using Rappen.XTB.Helpers;
 using System;
 using System.Collections.Generic;
@@ -310,6 +312,30 @@ namespace Cinteros.XTB.PluginTraceViewer
             defaultcolumns = gridControl.Columns;
             LoadSettings();
             LogUse("Load", ai2: true);
+            Supporting.ShowIf(this, false, true, ai2);
+            if (Supporting.IsEnabled(this))
+            {
+                tsbSupporting.Visible = true;
+                var supptype = Supporting.IsSupporting(this);
+                switch (supptype)
+                {
+                    case SupportType.Company:
+                        tsbSupporting.Image = Resources.We_Support_icon;
+                        break;
+
+                    case SupportType.Personal:
+                        tsbSupporting.Image = Resources.I_Support_icon;
+                        break;
+
+                    case SupportType.Contribute:
+                        tsbSupporting.Image = Resources.I_Contribute_icon;
+                        break;
+                }
+            }
+            else
+            {
+                tsbSupporting.Visible = false;
+            }
         }
 
         private void PluginTraceViewer_ConnectionUpdated(object sender, ConnectionUpdatedEventArgs e)
@@ -905,13 +931,6 @@ namespace Cinteros.XTB.PluginTraceViewer
             lasttracerecord = record;
         }
 
-        private string FixLineBreaks(string text)
-        {
-            text = text.Replace("\r\n", "\n");
-            text = text.Replace("\n", Environment.NewLine);
-            return text;
-        }
-
         internal void OpenLogRecord(Entity record)
         {
             if (record != null)
@@ -1379,11 +1398,6 @@ namespace Cinteros.XTB.PluginTraceViewer
             Process.Start(filename);
         }
 
-        private void tsbBymeacoffee_Click(object sender, EventArgs e)
-        {
-            UrlUtils.OpenUrl("https://www.buymeacoffee.com/rappen");
-        }
-
         private void tsmiIdentifyRecords_Click(object sender, EventArgs e)
         {
             traceControl?.ShowMessageTextAsync(tsmiHighlightGuids.Checked, tsmiIdentifyRecords.Checked);
@@ -1395,6 +1409,11 @@ namespace Cinteros.XTB.PluginTraceViewer
             gridControl.Columns = defaultcolumns;
             gridControl.UpdateColumnsLayout();
             gridControl.UpdateMenuChecks();
+        }
+
+        private void tsbSupporting_Click(object sender, EventArgs e)
+        {
+            Supporting.ShowIf(this, true, false, ai2);
         }
     }
 }
