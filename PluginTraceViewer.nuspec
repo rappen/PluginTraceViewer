@@ -9,8 +9,8 @@
     <projectUrl>https://jonasr.app/PTV</projectUrl>
     <iconUrl>https://jonasr.app/wp-content/uploads/PTV-150-tsp.png</iconUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
-    <description>Investigate the Plugin Trace Log with easy filtering and display possibilities</description>
-    <summary>Investigate the Plugin Trace Log with easy filtering and display possibilities</summary>
+    <description>Investigate the Plugin Trace Log and finding records with easy filtering and display possibilities</description>
+    <summary>Investigate the Plugin Trace Log and finding records with easy filtering and display possibilities</summary>
     <releaseNotes>
 Identifying more records, some improvments, some bug fix.
 
