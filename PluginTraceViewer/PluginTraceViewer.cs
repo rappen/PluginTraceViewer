@@ -446,14 +446,35 @@ namespace Cinteros.XTB.PluginTraceViewer
         private void UpdateLogSetting(int setting)
         {
             LogUse("UpdateSetting-" + setting);
-            var orgsetting = new Entity(Const.Organization.EntityName);
+            var orgsetting = new Entity(Organization.EntityName);
             orgsetting.Id = (Guid)comboLogSetting.Tag;
-            orgsetting[Const.Organization.PluginTraceLogsetting] = new OptionSetValue(setting);
-            SendStatusMessage($"Updating setting for org {orgsetting.Id} to {setting}");
-            LogInfo("Updating setting for org {0} to {1}", orgsetting.Id, setting);
-            Service.Update(orgsetting);
-            gridControl.Focus();
-            MessageBox.Show("Updated trace setting!");
+            orgsetting[Organization.PluginTraceLogsetting] = new OptionSetValue(setting);
+            SendStatusMessage($"Updating setting to {setting}");
+            LogInfo($"Updating setting for org {orgsetting.Id} to {setting}");
+            Enabled = false;
+            WorkAsync(new WorkAsyncInfo
+            {
+                Message = "Updating trace setting",
+                Work = (a, e) =>
+                {
+                    Service.Update(orgsetting);
+                },
+                PostWorkCallBack = (e) =>
+                {
+                    Enabled = true;
+                    if (e.Error != null)
+                    {
+                        ShowErrorDialog(e.Error, "Update Setting");
+                    }
+                    else if (IsDisposed == false)
+                    {
+                        comboLogSetting.SelectedIndex = setting;
+                        SendStatusMessage("");
+                        MessageBox.Show("Updated trace setting!");
+                    }
+                    gridControl.Focus();
+                }
+            });
         }
 
         private void GetLogSetting(Action<Guid, int> callback)
