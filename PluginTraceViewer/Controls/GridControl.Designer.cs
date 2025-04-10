@@ -541,7 +541,7 @@
             this.crmGridView.ContextMenuStrip = this.contextMenuGridView;
             this.crmGridView.Dock = System.Windows.Forms.DockStyle.Fill;
             this.crmGridView.EnableHeadersVisualStyles = false;
-            this.crmGridView.FilterColumns = "messageblock, exceptiondetails";
+            this.crmGridView.FilterColumns = "messageblock, exceptiondetails, typename, stepname";
             this.crmGridView.LayoutXML = "";
             this.crmGridView.Location = new System.Drawing.Point(0, 32);
             this.crmGridView.Name = "crmGridView";
