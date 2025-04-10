@@ -297,6 +297,12 @@ namespace Cinteros.XTB.PluginTraceViewer
             tslAbout_Click(null, null);
         }
 
+        internal void UpdateHighlighting()
+        {
+            traceControl?.ShowMessageTextAsync(tsmiHighlightGuids.Checked, tsmiIdentifyRecords.Checked, null, gridControl.crmGridView.FilterText);
+            exceptionControl?.ShowMessageTextAsync(tsmiHighlightGuids.Checked, tsmiIdentifyRecords.Checked, gridControl.crmGridView.FilterText);
+        }
+
         private void tslAbout_Click(object sender, EventArgs e)
         {
             LogUse("OpenAbout");
@@ -945,9 +951,9 @@ namespace Cinteros.XTB.PluginTraceViewer
             buttonOpenLogRecord.Enabled = record != null;
             buttonOpenLogTrace.Enabled = record != null && !string.IsNullOrWhiteSpace(record.GetAttributeValue<string>(PluginTraceLog.MessageBlock));
             buttonOpenLogException.Enabled = record != null && !string.IsNullOrWhiteSpace(record.GetAttributeValue<string>(PluginTraceLog.ExceptionDetails));
-            traceControl.SetLogText(record != null && record.Contains(PluginTraceLog.MessageBlock) ? record[PluginTraceLog.MessageBlock].ToString() : "", record);
+            traceControl.SetLogText(record != null && record.Contains(PluginTraceLog.MessageBlock) ? record[PluginTraceLog.MessageBlock].ToString() : "", record, gridControl.crmGridView.FilterText);
             exceptionControl.SetException(record != null && record.Contains(PluginTraceLog.ExceptionDetails) ? record[PluginTraceLog.ExceptionDetails].ToString() : "",
-                "Exception" + (record.Contains("exceptionsummary") ? ": " + record["exceptionsummary"].ToString().Replace("\r\n", " ") : ""));
+                "Exception" + (record.Contains("exceptionsummary") ? ": " + record["exceptionsummary"].ToString().Replace("\r\n", " ") : ""), gridControl.crmGridView.FilterText);
             statsControl.ShowStatistics(record);
             lasttracerecord = record;
         }
@@ -1421,8 +1427,7 @@ namespace Cinteros.XTB.PluginTraceViewer
 
         private void tsmiIdentifyRecords_Click(object sender, EventArgs e)
         {
-            traceControl?.ShowMessageTextAsync(tsmiHighlightGuids.Checked, tsmiIdentifyRecords.Checked);
-            exceptionControl?.ShowMessageTextAsync(tsmiHighlightGuids.Checked, tsmiIdentifyRecords.Checked);
+            UpdateHighlighting();
         }
 
         private void tsmiResetColumns_Click(object sender, EventArgs e)

@@ -3,6 +3,7 @@ using Microsoft.Xrm.Sdk;
 using Rappen.XRM.Helpers.Extensions;
 using Rappen.XTB.Helpers;
 using System;
+using System.Drawing;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -27,7 +28,7 @@ namespace Cinteros.XTB.PluginTraceViewer.Controls
             panLinks.Visible = false;
         }
 
-        internal void SetLogText(string log, Entity tracer)
+        internal void SetLogText(string log, Entity tracer, string quickfilter)
         {
             textMessage.Clear();
             if (tracerecord == tracer)
@@ -40,10 +41,10 @@ namespace Cinteros.XTB.PluginTraceViewer.Controls
             originallog = log;
             originallog = originallog.Replace("\r\n", "\n");
 
-            _ = ShowMessageTextAsync(ptv.tsmiHighlightGuids.Checked, ptv.tsmiIdentifyRecords.Checked, triggerentity);
+            _ = ShowMessageTextAsync(ptv.tsmiHighlightGuids.Checked, ptv.tsmiIdentifyRecords.Checked, triggerentity, quickfilter);
         }
 
-        internal async Task ShowMessageTextAsync(bool highlightguids, bool showlinks, string triggerentity = null)
+        internal async Task ShowMessageTextAsync(bool highlightguids, bool showlinks, string triggerentity, string quickfilter)
         {
             panLinks.Visible = showlinks;
             picIcon.Left = ClientSize.Width - picIcon.Width - (showlinks ? 0 : 16);
@@ -96,6 +97,17 @@ namespace Cinteros.XTB.PluginTraceViewer.Controls
                 }
                 links.HighlightRecords(textMessage);
             }
+            if (!string.IsNullOrWhiteSpace(quickfilter))
+            {
+                var length = quickfilter.Length;
+                var pos = textMessage.Find(quickfilter, 0, RichTextBoxFinds.None);
+                while (pos != -1)
+                {
+                    textMessage.SelectionBackColor = Color.Red;
+                    textMessage.SelectionColor = Color.White;
+                    pos = textMessage.Find(quickfilter, pos + length, RichTextBoxFinds.None);
+                }
+            }
             textMessage.Select(0, 0);
         }
 
@@ -139,7 +151,7 @@ namespace Cinteros.XTB.PluginTraceViewer.Controls
             panLegend.Visible = true;
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void btnLedgendClose_Click(object sender, EventArgs e)
         {
             panLegend.Visible = false;
         }

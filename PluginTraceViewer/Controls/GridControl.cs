@@ -618,6 +618,7 @@ namespace Cinteros.XTB.PluginTraceViewer.Controls
         private void txtQuickFilter_TextChanged(object sender, EventArgs e)
         {
             crmGridView.FilterText = txtQuickFilter.Text;
+            ptv.UpdateHighlighting();
         }
     }
 }

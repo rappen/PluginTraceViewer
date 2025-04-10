@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Drawing;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using WeifenLuo.WinFormsUI.Docking;
@@ -18,7 +19,7 @@ namespace Cinteros.XTB.PluginTraceViewer.Controls
             InitializeComponent();
         }
 
-        internal void SetException(string log, string caption)
+        internal void SetException(string log, string caption, string quickfilter)
         {
             textException.Clear();
             TabText = caption;
@@ -41,10 +42,10 @@ namespace Cinteros.XTB.PluginTraceViewer.Controls
                     DockState;
             }
             originallog = log.Replace("\r\n", "\n");
-            _ = ShowMessageTextAsync(ptv.tsmiHighlightGuids.Checked, ptv.tsmiIdentifyRecords.Checked);
+            _ = ShowMessageTextAsync(ptv.tsmiHighlightGuids.Checked, ptv.tsmiIdentifyRecords.Checked, quickfilter);
         }
 
-        internal async Task ShowMessageTextAsync(bool highlightguids, bool showlinks)
+        internal async Task ShowMessageTextAsync(bool highlightguids, bool showlinks, string quickfilter)
         {
             btnShowAllRecordLinks.Visible = showlinks;
             btnShowAllRecordLinks.Enabled = false;
@@ -70,6 +71,17 @@ namespace Cinteros.XTB.PluginTraceViewer.Controls
                     textException.Text = links.InsertRecordsInLog();
                 }
                 links.HighlightRecords(textException);
+            }
+            if (!string.IsNullOrWhiteSpace(quickfilter))
+            {
+                var length = quickfilter.Length;
+                var pos = textException.Find(quickfilter, 0, RichTextBoxFinds.None);
+                while (pos != -1)
+                {
+                    textException.SelectionBackColor = Color.Red;
+                    textException.SelectionColor = Color.White;
+                    pos = textException.Find(quickfilter, pos + length, RichTextBoxFinds.None);
+                }
             }
             textException.Select(0, 0);
         }
