@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xrm.Sdk;
 using Microsoft.Xrm.Sdk.Query;
+using Rappen.XTB.Helpers;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -245,6 +246,7 @@ namespace Cinteros.XTB.PluginTraceViewer.Controls
                 ModeAsync = chkModeAsync.Checked,
                 StagePreVal = chkStage10.Checked,
                 StagePreOp = chkStage20.Checked,
+                StageMain = chkStage30.Checked,
                 StagePostOp = chkStage40.Checked,
                 MinDuration = chkDuration.Checked ? (int)numDurationMin.Value : -1,
                 MaxDuration = chkDuration.Checked ? (int)numDurationMax.Value : -1,
@@ -366,7 +368,7 @@ namespace Cinteros.XTB.PluginTraceViewer.Controls
             {
                 QEplugintracelog.Criteria.AddCondition("mode", ConditionOperator.Equal, 1);
             }
-            if (!chkStage10.Checked || !chkStage20.Checked || !chkStage40.Checked)
+            if (!chkStage10.Checked || !chkStage20.Checked || !chkStage30.Checked || !chkStage40.Checked)
             {
                 var condStage = new ConditionExpression("step", "stage", ConditionOperator.In);
                 if (chkStage10.Checked)
@@ -376,6 +378,10 @@ namespace Cinteros.XTB.PluginTraceViewer.Controls
                 if (chkStage20.Checked)
                 {
                     condStage.Values.Add(20);
+                }
+                if (chkStage30.Checked)
+                {
+                    condStage.Values.Add(30);
                 }
                 if (chkStage40.Checked)
                 {
@@ -657,6 +663,11 @@ namespace Cinteros.XTB.PluginTraceViewer.Controls
                 dateControl.MaxDate = date;
             }
             dateControl.Value = date;
+        }
+
+        private void linkLabel_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            UrlUtils.OpenUrl(sender);
         }
     }
 }

@@ -48,6 +48,14 @@
             this.checkDateTo = new System.Windows.Forms.CheckBox();
             this.checkDateFrom = new System.Windows.Forms.CheckBox();
             this.panelOptions = new System.Windows.Forms.Panel();
+            this.label4 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.linkLabel4 = new System.Windows.Forms.LinkLabel();
+            this.linkLabel3 = new System.Windows.Forms.LinkLabel();
+            this.linkLabel2 = new System.Windows.Forms.LinkLabel();
+            this.linkLabel1 = new System.Windows.Forms.LinkLabel();
+            this.chkStage30 = new System.Windows.Forms.CheckBox();
             this.chkOperWF = new System.Windows.Forms.CheckBox();
             this.chkOperPlugins = new System.Windows.Forms.CheckBox();
             this.chkModeAsync = new System.Windows.Forms.CheckBox();
@@ -97,7 +105,7 @@
             this.panelFilter.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelFilter.Location = new System.Drawing.Point(0, 0);
             this.panelFilter.Name = "panelFilter";
-            this.panelFilter.Size = new System.Drawing.Size(773, 147);
+            this.panelFilter.Size = new System.Drawing.Size(684, 149);
             this.panelFilter.TabIndex = 1;
             // 
             // dateTo
@@ -157,7 +165,7 @@
             this.textCorrelationId.Enabled = false;
             this.textCorrelationId.Location = new System.Drawing.Point(97, 100);
             this.textCorrelationId.Name = "textCorrelationId";
-            this.textCorrelationId.Size = new System.Drawing.Size(669, 20);
+            this.textCorrelationId.Size = new System.Drawing.Size(580, 20);
             this.textCorrelationId.TabIndex = 14;
             // 
             // chkCorrelation
@@ -178,7 +186,7 @@
             this.textRequestId.Enabled = false;
             this.textRequestId.Location = new System.Drawing.Point(97, 124);
             this.textRequestId.Name = "textRequestId";
-            this.textRequestId.Size = new System.Drawing.Size(669, 20);
+            this.textRequestId.Size = new System.Drawing.Size(580, 20);
             this.textRequestId.TabIndex = 16;
             // 
             // chkRequestId
@@ -209,7 +217,7 @@
             this.comboEntity.FormattingEnabled = true;
             this.comboEntity.Location = new System.Drawing.Point(97, 76);
             this.comboEntity.Name = "comboEntity";
-            this.comboEntity.Size = new System.Drawing.Size(669, 21);
+            this.comboEntity.Size = new System.Drawing.Size(580, 21);
             this.comboEntity.Sorted = true;
             this.comboEntity.TabIndex = 12;
             // 
@@ -232,7 +240,7 @@
             this.comboMessage.FormattingEnabled = true;
             this.comboMessage.Location = new System.Drawing.Point(97, 52);
             this.comboMessage.Name = "comboMessage";
-            this.comboMessage.Size = new System.Drawing.Size(669, 21);
+            this.comboMessage.Size = new System.Drawing.Size(580, 21);
             this.comboMessage.TabIndex = 10;
             // 
             // chkMessage
@@ -254,7 +262,7 @@
             this.comboPlugin.FormattingEnabled = true;
             this.comboPlugin.Location = new System.Drawing.Point(97, 28);
             this.comboPlugin.Name = "comboPlugin";
-            this.comboPlugin.Size = new System.Drawing.Size(669, 21);
+            this.comboPlugin.Size = new System.Drawing.Size(580, 21);
             this.comboPlugin.TabIndex = 8;
             // 
             // chkPlugin
@@ -292,6 +300,14 @@
             // 
             // panelOptions
             // 
+            this.panelOptions.Controls.Add(this.label4);
+            this.panelOptions.Controls.Add(this.label3);
+            this.panelOptions.Controls.Add(this.label2);
+            this.panelOptions.Controls.Add(this.linkLabel4);
+            this.panelOptions.Controls.Add(this.linkLabel3);
+            this.panelOptions.Controls.Add(this.linkLabel2);
+            this.panelOptions.Controls.Add(this.linkLabel1);
+            this.panelOptions.Controls.Add(this.chkStage30);
             this.panelOptions.Controls.Add(this.chkOperWF);
             this.panelOptions.Controls.Add(this.chkOperPlugins);
             this.panelOptions.Controls.Add(this.chkModeAsync);
@@ -307,20 +323,111 @@
             this.panelOptions.Controls.Add(this.numRecords);
             this.panelOptions.Controls.Add(this.chkExceptions);
             this.panelOptions.Dock = System.Windows.Forms.DockStyle.Right;
-            this.panelOptions.Location = new System.Drawing.Point(773, 0);
+            this.panelOptions.Location = new System.Drawing.Point(684, 0);
             this.panelOptions.Name = "panelOptions";
-            this.panelOptions.Size = new System.Drawing.Size(255, 147);
+            this.panelOptions.Size = new System.Drawing.Size(344, 149);
             this.panelOptions.TabIndex = 2;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(297, 103);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(20, 13);
+            this.label4.TabIndex = 69;
+            this.label4.Text = "ms";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(84, 127);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(27, 13);
+            this.label3.TabIndex = 68;
+            this.label3.Text = "Max";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(84, 103);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(24, 13);
+            this.label2.TabIndex = 67;
+            this.label2.Text = "Min";
+            // 
+            // linkLabel4
+            // 
+            this.linkLabel4.AutoSize = true;
+            this.linkLabel4.Location = new System.Drawing.Point(6, 79);
+            this.linkLabel4.Name = "linkLabel4";
+            this.linkLabel4.Size = new System.Drawing.Size(35, 13);
+            this.linkLabel4.TabIndex = 40;
+            this.linkLabel4.TabStop = true;
+            this.linkLabel4.Tag = "https://learn.microsoft.com/en-us/power-apps/developer/data-platform/event-framew" +
+    "ork#event-execution-pipeline";
+            this.linkLabel4.Text = "Stage";
+            this.linkLabel4.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel_LinkClicked);
+            // 
+            // linkLabel3
+            // 
+            this.linkLabel3.AutoSize = true;
+            this.linkLabel3.Location = new System.Drawing.Point(6, 55);
+            this.linkLabel3.Name = "linkLabel3";
+            this.linkLabel3.Size = new System.Drawing.Size(34, 13);
+            this.linkLabel3.TabIndex = 30;
+            this.linkLabel3.TabStop = true;
+            this.linkLabel3.Tag = "https://learn.microsoft.com/en-us/power-apps/developer/data-platform/event-framew" +
+    "ork#asynchronous-plug-in-steps";
+            this.linkLabel3.Text = "Mode";
+            this.linkLabel3.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel_LinkClicked);
+            // 
+            // linkLabel2
+            // 
+            this.linkLabel2.AutoSize = true;
+            this.linkLabel2.Location = new System.Drawing.Point(6, 31);
+            this.linkLabel2.Name = "linkLabel2";
+            this.linkLabel2.Size = new System.Drawing.Size(53, 13);
+            this.linkLabel2.TabIndex = 20;
+            this.linkLabel2.TabStop = true;
+            this.linkLabel2.Tag = "https://learn.microsoft.com/en-us/power-apps/developer/data-platform/reference/en" +
+    "tities/plugintracelog#BKMK_OperationType";
+            this.linkLabel2.Text = "Operation";
+            this.linkLabel2.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel_LinkClicked);
+            // 
+            // linkLabel1
+            // 
+            this.linkLabel1.AutoSize = true;
+            this.linkLabel1.Location = new System.Drawing.Point(6, 7);
+            this.linkLabel1.Name = "linkLabel1";
+            this.linkLabel1.Size = new System.Drawing.Size(34, 13);
+            this.linkLabel1.TabIndex = 10;
+            this.linkLabel1.TabStop = true;
+            this.linkLabel1.Tag = "https://learn.microsoft.com/en-us/power-apps/developer/data-platform/reference/en" +
+    "tities/plugintracelog#BKMK_ExceptionDetails";
+            this.linkLabel1.Text = "Errors";
+            this.linkLabel1.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel_LinkClicked);
+            // 
+            // chkStage30
+            // 
+            this.chkStage30.AutoSize = true;
+            this.chkStage30.Checked = true;
+            this.chkStage30.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkStage30.Location = new System.Drawing.Point(212, 78);
+            this.chkStage30.Name = "chkStage30";
+            this.chkStage30.Size = new System.Drawing.Size(63, 17);
+            this.chkStage30.TabIndex = 43;
+            this.chkStage30.Text = "MainOp";
+            this.chkStage30.UseVisualStyleBackColor = true;
             // 
             // chkOperWF
             // 
             this.chkOperWF.AutoSize = true;
             this.chkOperWF.Checked = true;
             this.chkOperWF.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkOperWF.Location = new System.Drawing.Point(93, 30);
+            this.chkOperWF.Location = new System.Drawing.Point(212, 30);
             this.chkOperWF.Name = "chkOperWF";
             this.chkOperWF.Size = new System.Drawing.Size(88, 17);
-            this.chkOperWF.TabIndex = 3;
+            this.chkOperWF.TabIndex = 22;
             this.chkOperWF.Text = "WF Activities";
             this.chkOperWF.UseVisualStyleBackColor = true;
             // 
@@ -329,10 +436,10 @@
             this.chkOperPlugins.AutoSize = true;
             this.chkOperPlugins.Checked = true;
             this.chkOperPlugins.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkOperPlugins.Location = new System.Drawing.Point(3, 30);
+            this.chkOperPlugins.Location = new System.Drawing.Point(87, 30);
             this.chkOperPlugins.Name = "chkOperPlugins";
             this.chkOperPlugins.Size = new System.Drawing.Size(60, 17);
-            this.chkOperPlugins.TabIndex = 2;
+            this.chkOperPlugins.TabIndex = 21;
             this.chkOperPlugins.Text = "Plugins";
             this.chkOperPlugins.UseVisualStyleBackColor = true;
             // 
@@ -341,11 +448,11 @@
             this.chkModeAsync.AutoSize = true;
             this.chkModeAsync.Checked = true;
             this.chkModeAsync.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkModeAsync.Location = new System.Drawing.Point(93, 53);
+            this.chkModeAsync.Location = new System.Drawing.Point(212, 54);
             this.chkModeAsync.Name = "chkModeAsync";
-            this.chkModeAsync.Size = new System.Drawing.Size(55, 17);
-            this.chkModeAsync.TabIndex = 5;
-            this.chkModeAsync.Text = "Async";
+            this.chkModeAsync.Size = new System.Drawing.Size(93, 17);
+            this.chkModeAsync.TabIndex = 32;
+            this.chkModeAsync.Text = "Asynchronous";
             this.chkModeAsync.UseVisualStyleBackColor = true;
             // 
             // chkModeSync
@@ -353,11 +460,11 @@
             this.chkModeSync.AutoSize = true;
             this.chkModeSync.Checked = true;
             this.chkModeSync.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkModeSync.Location = new System.Drawing.Point(3, 53);
+            this.chkModeSync.Location = new System.Drawing.Point(87, 54);
             this.chkModeSync.Name = "chkModeSync";
-            this.chkModeSync.Size = new System.Drawing.Size(50, 17);
-            this.chkModeSync.TabIndex = 4;
-            this.chkModeSync.Text = "Sync";
+            this.chkModeSync.Size = new System.Drawing.Size(88, 17);
+            this.chkModeSync.TabIndex = 31;
+            this.chkModeSync.Text = "Synchronous";
             this.chkModeSync.UseVisualStyleBackColor = true;
             // 
             // chkStage40
@@ -365,10 +472,10 @@
             this.chkStage40.AutoSize = true;
             this.chkStage40.Checked = true;
             this.chkStage40.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkStage40.Location = new System.Drawing.Point(183, 77);
+            this.chkStage40.Location = new System.Drawing.Point(281, 78);
             this.chkStage40.Name = "chkStage40";
             this.chkStage40.Size = new System.Drawing.Size(61, 17);
-            this.chkStage40.TabIndex = 8;
+            this.chkStage40.TabIndex = 44;
             this.chkStage40.Text = "PostOp";
             this.chkStage40.UseVisualStyleBackColor = true;
             // 
@@ -377,10 +484,10 @@
             this.chkStage20.AutoSize = true;
             this.chkStage20.Checked = true;
             this.chkStage20.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkStage20.Location = new System.Drawing.Point(93, 77);
+            this.chkStage20.Location = new System.Drawing.Point(150, 78);
             this.chkStage20.Name = "chkStage20";
             this.chkStage20.Size = new System.Drawing.Size(56, 17);
-            this.chkStage20.TabIndex = 7;
+            this.chkStage20.TabIndex = 42;
             this.chkStage20.Text = "PreOp";
             this.chkStage20.UseVisualStyleBackColor = true;
             // 
@@ -389,31 +496,31 @@
             this.chkStage10.AutoSize = true;
             this.chkStage10.Checked = true;
             this.chkStage10.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkStage10.Location = new System.Drawing.Point(3, 77);
+            this.chkStage10.Location = new System.Drawing.Point(87, 78);
             this.chkStage10.Name = "chkStage10";
             this.chkStage10.Size = new System.Drawing.Size(57, 17);
-            this.chkStage10.TabIndex = 6;
+            this.chkStage10.TabIndex = 41;
             this.chkStage10.Text = "PreVal";
             this.chkStage10.UseVisualStyleBackColor = true;
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(165, 102);
+            this.label1.Location = new System.Drawing.Point(189, 103);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(10, 13);
+            this.label1.Size = new System.Drawing.Size(27, 13);
             this.label1.TabIndex = 14;
-            this.label1.Text = "-";
+            this.label1.Text = "Max";
             // 
             // chkRecords
             // 
             this.chkRecords.AutoSize = true;
             this.chkRecords.Checked = true;
             this.chkRecords.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkRecords.Location = new System.Drawing.Point(3, 125);
+            this.chkRecords.Location = new System.Drawing.Point(9, 126);
             this.chkRecords.Name = "chkRecords";
             this.chkRecords.Size = new System.Drawing.Size(66, 17);
-            this.chkRecords.TabIndex = 12;
+            this.chkRecords.TabIndex = 61;
             this.chkRecords.Text = "Records";
             this.chkRecords.UseVisualStyleBackColor = true;
             this.chkRecords.CheckedChanged += new System.EventHandler(this.chkRecords_CheckedChanged);
@@ -421,10 +528,10 @@
             // chkDuration
             // 
             this.chkDuration.AutoSize = true;
-            this.chkDuration.Location = new System.Drawing.Point(3, 101);
+            this.chkDuration.Location = new System.Drawing.Point(9, 102);
             this.chkDuration.Name = "chkDuration";
             this.chkDuration.Size = new System.Drawing.Size(66, 17);
-            this.chkDuration.TabIndex = 9;
+            this.chkDuration.TabIndex = 51;
             this.chkDuration.Text = "Duration";
             this.chkDuration.UseVisualStyleBackColor = true;
             this.chkDuration.CheckedChanged += new System.EventHandler(this.chkDurationMin_CheckedChanged);
@@ -437,15 +544,15 @@
             0,
             0,
             0});
-            this.numDurationMax.Location = new System.Drawing.Point(183, 100);
+            this.numDurationMax.Location = new System.Drawing.Point(222, 101);
             this.numDurationMax.Maximum = new decimal(new int[] {
             1000000,
             0,
             0,
             0});
             this.numDurationMax.Name = "numDurationMax";
-            this.numDurationMax.Size = new System.Drawing.Size(61, 20);
-            this.numDurationMax.TabIndex = 11;
+            this.numDurationMax.Size = new System.Drawing.Size(69, 20);
+            this.numDurationMax.TabIndex = 53;
             // 
             // numDurationMin
             // 
@@ -455,15 +562,15 @@
             0,
             0,
             0});
-            this.numDurationMin.Location = new System.Drawing.Point(93, 100);
+            this.numDurationMin.Location = new System.Drawing.Point(114, 101);
             this.numDurationMin.Maximum = new decimal(new int[] {
             1000000,
             0,
             0,
             0});
             this.numDurationMin.Name = "numDurationMin";
-            this.numDurationMin.Size = new System.Drawing.Size(61, 20);
-            this.numDurationMin.TabIndex = 10;
+            this.numDurationMin.Size = new System.Drawing.Size(69, 20);
+            this.numDurationMin.TabIndex = 52;
             // 
             // numRecords
             // 
@@ -472,7 +579,7 @@
             0,
             0,
             0});
-            this.numRecords.Location = new System.Drawing.Point(93, 124);
+            this.numRecords.Location = new System.Drawing.Point(114, 125);
             this.numRecords.Maximum = new decimal(new int[] {
             5000,
             0,
@@ -484,8 +591,8 @@
             0,
             0});
             this.numRecords.Name = "numRecords";
-            this.numRecords.Size = new System.Drawing.Size(61, 20);
-            this.numRecords.TabIndex = 13;
+            this.numRecords.Size = new System.Drawing.Size(69, 20);
+            this.numRecords.TabIndex = 62;
             this.numRecords.Value = new decimal(new int[] {
             100,
             0,
@@ -495,10 +602,10 @@
             // chkExceptions
             // 
             this.chkExceptions.AutoSize = true;
-            this.chkExceptions.Location = new System.Drawing.Point(3, 6);
+            this.chkExceptions.Location = new System.Drawing.Point(87, 6);
             this.chkExceptions.Name = "chkExceptions";
             this.chkExceptions.Size = new System.Drawing.Size(100, 17);
-            this.chkExceptions.TabIndex = 1;
+            this.chkExceptions.TabIndex = 11;
             this.chkExceptions.Text = "Exceptions only";
             this.chkExceptions.UseVisualStyleBackColor = true;
             // 
@@ -549,7 +656,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Window;
-            this.ClientSize = new System.Drawing.Size(1028, 147);
+            this.ClientSize = new System.Drawing.Size(1028, 149);
             this.Controls.Add(this.panelFilter);
             this.Controls.Add(this.panelOptions);
             this.DockAreas = ((WeifenLuo.WinFormsUI.Docking.DockAreas)((((WeifenLuo.WinFormsUI.Docking.DockAreas.DockLeft | WeifenLuo.WinFormsUI.Docking.DockAreas.DockRight) 
@@ -614,5 +721,13 @@
         private System.Windows.Forms.ToolStripMenuItem dateMenuLast;
         private System.Windows.Forms.TextBox textRequestId;
         private System.Windows.Forms.CheckBox chkRequestId;
+        private System.Windows.Forms.CheckBox chkStage30;
+        private System.Windows.Forms.LinkLabel linkLabel4;
+        private System.Windows.Forms.LinkLabel linkLabel3;
+        private System.Windows.Forms.LinkLabel linkLabel2;
+        private System.Windows.Forms.LinkLabel linkLabel1;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label label2;
     }
 }

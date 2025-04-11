@@ -23,6 +23,7 @@ namespace Cinteros.XTB.PluginTraceViewer
         public bool ModeAsync { get; set; } = true;
         public bool StagePreVal { get; set; } = true;
         public bool StagePreOp { get; set; } = true;
+        public bool StageMain { get; set; } = true;
         public bool StagePostOp { get; set; } = true;
         public int MinDuration { get; set; } = -1;
         public int MaxDuration { get; set; } = -1;
