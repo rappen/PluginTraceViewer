@@ -16,6 +16,9 @@ namespace Cinteros.XTB.PluginTraceViewer
         public string CorrelationId { get; set; }
         public bool FilterReq { get; set; }
         public string RequestId { get; set; }
+        public bool FilterFreeMsg { get; set; }
+        public bool FilterFreeExc { get; set; }
+        public string FreeText { get; set; }
         public bool Exceptions { get; set; }
         public bool OperationPlugin { get; set; } = true;
         public bool OperationWF { get; set; } = true;

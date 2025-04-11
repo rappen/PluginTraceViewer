@@ -66,6 +66,11 @@ namespace Cinteros.XTB.PluginTraceViewer.Controls
             textRequestId.Enabled = chkRequestId.Checked;
         }
 
+        private void chkFreeMsgExc_CheckedChanged(object sender, EventArgs e)
+        {
+            textFreeTextFilter.Enabled = chkFreeMessage.Checked || chkFreeExceptions.Checked;
+        }
+
         private void chkDurationMin_CheckedChanged(object sender, EventArgs e)
         {
             numDurationMin.Enabled = chkDuration.Checked;
@@ -202,6 +207,9 @@ namespace Cinteros.XTB.PluginTraceViewer.Controls
             textCorrelationId.Text = filter.CorrelationId;
             chkRequestId.Checked = filter.FilterReq;
             textRequestId.Text = filter.RequestId;
+            chkFreeMessage.Checked = filter.FilterFreeMsg;
+            chkFreeExceptions.Checked = filter.FilterFreeExc;
+            textFreeTextFilter.Text = filter.FreeText;
             chkExceptions.Checked = filter.Exceptions;
             chkOperPlugins.Checked = filter.OperationPlugin;
             chkOperWF.Checked = filter.OperationWF;
@@ -239,6 +247,9 @@ namespace Cinteros.XTB.PluginTraceViewer.Controls
                 CorrelationId = textCorrelationId.Text,
                 FilterReq = chkRequestId.Checked,
                 RequestId = textRequestId.Text,
+                FilterFreeMsg = chkFreeMessage.Checked,
+                FilterFreeExc = chkFreeExceptions.Checked,
+                FreeText = textFreeTextFilter.Text,
                 Exceptions = chkExceptions.Checked,
                 OperationPlugin = chkOperPlugins.Checked,
                 OperationWF = chkOperWF.Checked,
@@ -346,6 +357,14 @@ namespace Cinteros.XTB.PluginTraceViewer.Controls
             {
                 var ids = GetCurrentRequestIdFilter(false);
                 QEplugintracelog.Criteria.AddCondition(Const.PluginTraceLog.RequestId, ConditionOperator.In, ids.Select(i => i.ToString()).ToArray());
+            }
+            if (chkFreeMessage.Checked && !string.IsNullOrEmpty(textFreeTextFilter.Text))
+            {
+                QEplugintracelog.Criteria.AddCondition("messageblock", ConditionOperator.Like, $"%{textFreeTextFilter.Text}%");
+            }
+            if (chkFreeExceptions.Checked && !string.IsNullOrEmpty(textFreeTextFilter.Text))
+            {
+                QEplugintracelog.Criteria.AddCondition("exceptiondetails", ConditionOperator.Like, $"%{textFreeTextFilter.Text}%");
             }
             if (chkExceptions.Checked)
             {

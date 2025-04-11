@@ -30,7 +30,10 @@
         {
             this.components = new System.ComponentModel.Container();
             this.panelFilter = new System.Windows.Forms.Panel();
+            this.chkFreeExceptions = new System.Windows.Forms.CheckBox();
+            this.textFreeTextFilter = new System.Windows.Forms.TextBox();
             this.dateTo = new System.Windows.Forms.DateTimePicker();
+            this.chkFreeMessage = new System.Windows.Forms.CheckBox();
             this.dateFrom = new System.Windows.Forms.DateTimePicker();
             this.llToDate = new System.Windows.Forms.LinkLabel();
             this.llFromDate = new System.Windows.Forms.LinkLabel();
@@ -85,7 +88,10 @@
             // 
             // panelFilter
             // 
+            this.panelFilter.Controls.Add(this.chkFreeExceptions);
+            this.panelFilter.Controls.Add(this.textFreeTextFilter);
             this.panelFilter.Controls.Add(this.dateTo);
+            this.panelFilter.Controls.Add(this.chkFreeMessage);
             this.panelFilter.Controls.Add(this.dateFrom);
             this.panelFilter.Controls.Add(this.llToDate);
             this.panelFilter.Controls.Add(this.llFromDate);
@@ -105,8 +111,30 @@
             this.panelFilter.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelFilter.Location = new System.Drawing.Point(0, 0);
             this.panelFilter.Name = "panelFilter";
-            this.panelFilter.Size = new System.Drawing.Size(684, 149);
+            this.panelFilter.Size = new System.Drawing.Size(698, 174);
             this.panelFilter.TabIndex = 1;
+            // 
+            // chkFreeExceptions
+            // 
+            this.chkFreeExceptions.AutoSize = true;
+            this.chkFreeExceptions.Location = new System.Drawing.Point(49, 150);
+            this.chkFreeExceptions.Name = "chkFreeExceptions";
+            this.chkFreeExceptions.Size = new System.Drawing.Size(47, 17);
+            this.chkFreeExceptions.TabIndex = 18;
+            this.chkFreeExceptions.Text = "Exc.";
+            this.chkFreeExceptions.UseVisualStyleBackColor = true;
+            this.chkFreeExceptions.CheckedChanged += new System.EventHandler(this.chkFreeMsgExc_CheckedChanged);
+            // 
+            // textFreeTextFilter
+            // 
+            this.textFreeTextFilter.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.textFreeTextFilter.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.textFreeTextFilter.Enabled = false;
+            this.textFreeTextFilter.Location = new System.Drawing.Point(97, 148);
+            this.textFreeTextFilter.Name = "textFreeTextFilter";
+            this.textFreeTextFilter.Size = new System.Drawing.Size(594, 20);
+            this.textFreeTextFilter.TabIndex = 19;
             // 
             // dateTo
             // 
@@ -119,6 +147,17 @@
             this.dateTo.Name = "dateTo";
             this.dateTo.Size = new System.Drawing.Size(130, 20);
             this.dateTo.TabIndex = 6;
+            // 
+            // chkFreeMessage
+            // 
+            this.chkFreeMessage.AutoSize = true;
+            this.chkFreeMessage.Location = new System.Drawing.Point(3, 150);
+            this.chkFreeMessage.Name = "chkFreeMessage";
+            this.chkFreeMessage.Size = new System.Drawing.Size(46, 17);
+            this.chkFreeMessage.TabIndex = 17;
+            this.chkFreeMessage.Text = "Msg";
+            this.chkFreeMessage.UseVisualStyleBackColor = true;
+            this.chkFreeMessage.CheckedChanged += new System.EventHandler(this.chkFreeMsgExc_CheckedChanged);
             // 
             // dateFrom
             // 
@@ -162,10 +201,11 @@
             // 
             this.textCorrelationId.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.textCorrelationId.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.textCorrelationId.Enabled = false;
             this.textCorrelationId.Location = new System.Drawing.Point(97, 100);
             this.textCorrelationId.Name = "textCorrelationId";
-            this.textCorrelationId.Size = new System.Drawing.Size(580, 20);
+            this.textCorrelationId.Size = new System.Drawing.Size(594, 20);
             this.textCorrelationId.TabIndex = 14;
             // 
             // chkCorrelation
@@ -183,10 +223,11 @@
             // 
             this.textRequestId.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.textRequestId.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.textRequestId.Enabled = false;
             this.textRequestId.Location = new System.Drawing.Point(97, 124);
             this.textRequestId.Name = "textRequestId";
-            this.textRequestId.Size = new System.Drawing.Size(580, 20);
+            this.textRequestId.Size = new System.Drawing.Size(594, 20);
             this.textRequestId.TabIndex = 16;
             // 
             // chkRequestId
@@ -217,7 +258,7 @@
             this.comboEntity.FormattingEnabled = true;
             this.comboEntity.Location = new System.Drawing.Point(97, 76);
             this.comboEntity.Name = "comboEntity";
-            this.comboEntity.Size = new System.Drawing.Size(580, 21);
+            this.comboEntity.Size = new System.Drawing.Size(594, 21);
             this.comboEntity.Sorted = true;
             this.comboEntity.TabIndex = 12;
             // 
@@ -240,7 +281,7 @@
             this.comboMessage.FormattingEnabled = true;
             this.comboMessage.Location = new System.Drawing.Point(97, 52);
             this.comboMessage.Name = "comboMessage";
-            this.comboMessage.Size = new System.Drawing.Size(580, 21);
+            this.comboMessage.Size = new System.Drawing.Size(594, 21);
             this.comboMessage.TabIndex = 10;
             // 
             // chkMessage
@@ -262,7 +303,7 @@
             this.comboPlugin.FormattingEnabled = true;
             this.comboPlugin.Location = new System.Drawing.Point(97, 28);
             this.comboPlugin.Name = "comboPlugin";
-            this.comboPlugin.Size = new System.Drawing.Size(580, 21);
+            this.comboPlugin.Size = new System.Drawing.Size(594, 21);
             this.comboPlugin.TabIndex = 8;
             // 
             // chkPlugin
@@ -323,15 +364,15 @@
             this.panelOptions.Controls.Add(this.numRecords);
             this.panelOptions.Controls.Add(this.chkExceptions);
             this.panelOptions.Dock = System.Windows.Forms.DockStyle.Right;
-            this.panelOptions.Location = new System.Drawing.Point(684, 0);
+            this.panelOptions.Location = new System.Drawing.Point(698, 0);
             this.panelOptions.Name = "panelOptions";
-            this.panelOptions.Size = new System.Drawing.Size(344, 149);
+            this.panelOptions.Size = new System.Drawing.Size(330, 174);
             this.panelOptions.TabIndex = 2;
             // 
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(297, 103);
+            this.label4.Location = new System.Drawing.Point(291, 125);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(20, 13);
             this.label4.TabIndex = 69;
@@ -340,7 +381,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(84, 127);
+            this.label3.Location = new System.Drawing.Point(78, 149);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(27, 13);
             this.label3.TabIndex = 68;
@@ -349,7 +390,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(84, 103);
+            this.label2.Location = new System.Drawing.Point(78, 125);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(24, 13);
             this.label2.TabIndex = 67;
@@ -412,7 +453,7 @@
             this.chkStage30.AutoSize = true;
             this.chkStage30.Checked = true;
             this.chkStage30.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkStage30.Location = new System.Drawing.Point(212, 78);
+            this.chkStage30.Location = new System.Drawing.Point(198, 78);
             this.chkStage30.Name = "chkStage30";
             this.chkStage30.Size = new System.Drawing.Size(63, 17);
             this.chkStage30.TabIndex = 43;
@@ -424,7 +465,7 @@
             this.chkOperWF.AutoSize = true;
             this.chkOperWF.Checked = true;
             this.chkOperWF.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkOperWF.Location = new System.Drawing.Point(212, 30);
+            this.chkOperWF.Location = new System.Drawing.Point(206, 30);
             this.chkOperWF.Name = "chkOperWF";
             this.chkOperWF.Size = new System.Drawing.Size(88, 17);
             this.chkOperWF.TabIndex = 22;
@@ -436,7 +477,7 @@
             this.chkOperPlugins.AutoSize = true;
             this.chkOperPlugins.Checked = true;
             this.chkOperPlugins.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkOperPlugins.Location = new System.Drawing.Point(87, 30);
+            this.chkOperPlugins.Location = new System.Drawing.Point(81, 30);
             this.chkOperPlugins.Name = "chkOperPlugins";
             this.chkOperPlugins.Size = new System.Drawing.Size(60, 17);
             this.chkOperPlugins.TabIndex = 21;
@@ -448,7 +489,7 @@
             this.chkModeAsync.AutoSize = true;
             this.chkModeAsync.Checked = true;
             this.chkModeAsync.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkModeAsync.Location = new System.Drawing.Point(212, 54);
+            this.chkModeAsync.Location = new System.Drawing.Point(206, 54);
             this.chkModeAsync.Name = "chkModeAsync";
             this.chkModeAsync.Size = new System.Drawing.Size(93, 17);
             this.chkModeAsync.TabIndex = 32;
@@ -460,7 +501,7 @@
             this.chkModeSync.AutoSize = true;
             this.chkModeSync.Checked = true;
             this.chkModeSync.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkModeSync.Location = new System.Drawing.Point(87, 54);
+            this.chkModeSync.Location = new System.Drawing.Point(81, 54);
             this.chkModeSync.Name = "chkModeSync";
             this.chkModeSync.Size = new System.Drawing.Size(88, 17);
             this.chkModeSync.TabIndex = 31;
@@ -472,7 +513,7 @@
             this.chkStage40.AutoSize = true;
             this.chkStage40.Checked = true;
             this.chkStage40.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkStage40.Location = new System.Drawing.Point(281, 78);
+            this.chkStage40.Location = new System.Drawing.Point(263, 78);
             this.chkStage40.Name = "chkStage40";
             this.chkStage40.Size = new System.Drawing.Size(61, 17);
             this.chkStage40.TabIndex = 44;
@@ -484,7 +525,7 @@
             this.chkStage20.AutoSize = true;
             this.chkStage20.Checked = true;
             this.chkStage20.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkStage20.Location = new System.Drawing.Point(150, 78);
+            this.chkStage20.Location = new System.Drawing.Point(140, 78);
             this.chkStage20.Name = "chkStage20";
             this.chkStage20.Size = new System.Drawing.Size(56, 17);
             this.chkStage20.TabIndex = 42;
@@ -496,7 +537,7 @@
             this.chkStage10.AutoSize = true;
             this.chkStage10.Checked = true;
             this.chkStage10.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkStage10.Location = new System.Drawing.Point(87, 78);
+            this.chkStage10.Location = new System.Drawing.Point(81, 78);
             this.chkStage10.Name = "chkStage10";
             this.chkStage10.Size = new System.Drawing.Size(57, 17);
             this.chkStage10.TabIndex = 41;
@@ -506,7 +547,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(189, 103);
+            this.label1.Location = new System.Drawing.Point(183, 125);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(27, 13);
             this.label1.TabIndex = 14;
@@ -515,9 +556,10 @@
             // chkRecords
             // 
             this.chkRecords.AutoSize = true;
+            this.chkRecords.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.chkRecords.Checked = true;
             this.chkRecords.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkRecords.Location = new System.Drawing.Point(9, 126);
+            this.chkRecords.Location = new System.Drawing.Point(9, 148);
             this.chkRecords.Name = "chkRecords";
             this.chkRecords.Size = new System.Drawing.Size(66, 17);
             this.chkRecords.TabIndex = 61;
@@ -528,7 +570,8 @@
             // chkDuration
             // 
             this.chkDuration.AutoSize = true;
-            this.chkDuration.Location = new System.Drawing.Point(9, 102);
+            this.chkDuration.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.chkDuration.Location = new System.Drawing.Point(9, 124);
             this.chkDuration.Name = "chkDuration";
             this.chkDuration.Size = new System.Drawing.Size(66, 17);
             this.chkDuration.TabIndex = 51;
@@ -544,7 +587,7 @@
             0,
             0,
             0});
-            this.numDurationMax.Location = new System.Drawing.Point(222, 101);
+            this.numDurationMax.Location = new System.Drawing.Point(216, 123);
             this.numDurationMax.Maximum = new decimal(new int[] {
             1000000,
             0,
@@ -562,7 +605,7 @@
             0,
             0,
             0});
-            this.numDurationMin.Location = new System.Drawing.Point(114, 101);
+            this.numDurationMin.Location = new System.Drawing.Point(108, 123);
             this.numDurationMin.Maximum = new decimal(new int[] {
             1000000,
             0,
@@ -579,7 +622,7 @@
             0,
             0,
             0});
-            this.numRecords.Location = new System.Drawing.Point(114, 125);
+            this.numRecords.Location = new System.Drawing.Point(108, 147);
             this.numRecords.Maximum = new decimal(new int[] {
             5000,
             0,
@@ -602,7 +645,7 @@
             // chkExceptions
             // 
             this.chkExceptions.AutoSize = true;
-            this.chkExceptions.Location = new System.Drawing.Point(87, 6);
+            this.chkExceptions.Location = new System.Drawing.Point(81, 6);
             this.chkExceptions.Name = "chkExceptions";
             this.chkExceptions.Size = new System.Drawing.Size(100, 17);
             this.chkExceptions.TabIndex = 11;
@@ -656,16 +699,15 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Window;
-            this.ClientSize = new System.Drawing.Size(1028, 149);
+            this.ClientSize = new System.Drawing.Size(1028, 174);
             this.Controls.Add(this.panelFilter);
             this.Controls.Add(this.panelOptions);
-            this.DockAreas = ((WeifenLuo.WinFormsUI.Docking.DockAreas)((((WeifenLuo.WinFormsUI.Docking.DockAreas.DockLeft | WeifenLuo.WinFormsUI.Docking.DockAreas.DockRight) 
-            | WeifenLuo.WinFormsUI.Docking.DockAreas.DockTop) 
-            | WeifenLuo.WinFormsUI.Docking.DockAreas.DockBottom)));
+            this.DockAreas = ((WeifenLuo.WinFormsUI.Docking.DockAreas)((WeifenLuo.WinFormsUI.Docking.DockAreas.DockTop | WeifenLuo.WinFormsUI.Docking.DockAreas.DockBottom)));
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.HideOnClose = true;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
+            this.MinimumSize = new System.Drawing.Size(16, 213);
             this.Name = "FilterControl";
             this.TabText = "Filter";
             this.Text = "Filter";
@@ -729,5 +771,8 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.CheckBox chkFreeMessage;
+        private System.Windows.Forms.TextBox textFreeTextFilter;
+        private System.Windows.Forms.CheckBox chkFreeExceptions;
     }
 }
