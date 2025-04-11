@@ -40,6 +40,8 @@
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.picIcon = new System.Windows.Forms.PictureBox();
             this.panLegend = new System.Windows.Forms.Panel();
+            this.label10 = new System.Windows.Forms.Label();
+            this.label11 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
             this.linkLabel1 = new System.Windows.Forms.LinkLabel();
             this.btnLedgendClose = new System.Windows.Forms.Button();
@@ -155,6 +157,8 @@
             // 
             this.panLegend.BackColor = System.Drawing.SystemColors.Control;
             this.panLegend.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.panLegend.Controls.Add(this.label10);
+            this.panLegend.Controls.Add(this.label11);
             this.panLegend.Controls.Add(this.label9);
             this.panLegend.Controls.Add(this.linkLabel1);
             this.panLegend.Controls.Add(this.btnLedgendClose);
@@ -168,14 +172,34 @@
             this.panLegend.Controls.Add(this.label1);
             this.panLegend.Location = new System.Drawing.Point(12, 39);
             this.panLegend.Name = "panLegend";
-            this.panLegend.Size = new System.Drawing.Size(288, 233);
+            this.panLegend.Size = new System.Drawing.Size(319, 284);
             this.panLegend.TabIndex = 13;
             this.panLegend.Visible = false;
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.BackColor = System.Drawing.Color.Red;
+            this.label10.ForeColor = System.Drawing.Color.White;
+            this.label10.Location = new System.Drawing.Point(20, 146);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(52, 13);
+            this.label10.TabIndex = 12;
+            this.label10.Text = "a25fcc81";
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Location = new System.Drawing.Point(12, 132);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(133, 13);
+            this.label11.TabIndex = 11;
+            this.label11.Text = "Red: Found by Quick Filter";
             // 
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(12, 189);
+            this.label9.Location = new System.Drawing.Point(12, 227);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(97, 13);
             this.label9.TabIndex = 9;
@@ -184,7 +208,7 @@
             // linkLabel1
             // 
             this.linkLabel1.AutoSize = true;
-            this.linkLabel1.Location = new System.Drawing.Point(12, 202);
+            this.linkLabel1.Location = new System.Drawing.Point(12, 240);
             this.linkLabel1.Name = "linkLabel1";
             this.linkLabel1.Size = new System.Drawing.Size(122, 13);
             this.linkLabel1.TabIndex = 10;
@@ -197,7 +221,7 @@
             // 
             this.btnLedgendClose.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnLedgendClose.Image = ((System.Drawing.Image)(resources.GetObject("btnLedgendClose.Image")));
-            this.btnLedgendClose.Location = new System.Drawing.Point(250, 3);
+            this.btnLedgendClose.Location = new System.Drawing.Point(281, 3);
             this.btnLedgendClose.Name = "btnLedgendClose";
             this.btnLedgendClose.Size = new System.Drawing.Size(31, 29);
             this.btnLedgendClose.TabIndex = 8;
@@ -207,7 +231,7 @@
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(12, 141);
+            this.label8.Location = new System.Drawing.Point(12, 179);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(253, 39);
             this.label8.TabIndex = 7;
@@ -218,7 +242,7 @@
             // 
             this.label7.AutoSize = true;
             this.label7.BackColor = System.Drawing.Color.LightGreen;
-            this.label7.Location = new System.Drawing.Point(20, 114);
+            this.label7.Location = new System.Drawing.Point(20, 112);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(53, 13);
             this.label7.TabIndex = 6;
@@ -333,5 +357,7 @@
         private System.Windows.Forms.PictureBox picLegend;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.LinkLabel linkLabel1;
+        private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.Label label11;
     }
 }

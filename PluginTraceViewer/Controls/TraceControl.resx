@@ -121,7 +121,7 @@
   <data name="picLegend.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAL
-        DwAACw8BkvkDpQAAAp5JREFUSEu9VUtrU0EU/hQUF3blD1A3Fd26UsE6c62oFE0K0VbExmTlaynZqLE7
+        DQAACw0B7QfALAAAAp5JREFUSEu9VUtrU0EU/hQUF3blD1A3Fd26UsE6c62oFE0K0VbExmTlaynZqLE7
         N6XrrnyAqOHO9IGIKArVglAU66NZ+FhVqispplRbknvkzM1tkpkkpll44NvcOXPOnHO+812gkXXd3ASp
         4hDqFqTKQ6qfkGoFQn+D1JOQKgNPd9rX/m3Z7HoIdRZSz0MqgjdRRM8rQmyGEP9AOPaacPhZyZwJFUCq
         u+ga3WaHqW97xzog/Yfm8pHnJfT/IKQDQppcJH8TemcJcqwEoRbh6R47XK2Z4Oo9pAqQ+OoGbITkUlgR
@@ -141,7 +141,7 @@
   <data name="picIcon.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAL
-        DQAACw0B7QfALAAAAXdJREFUWEdjYBgFUKCX2ruE2Xn1Hwantf9piUF2GKR2L0G3nwEk8fYTz////xlo
+        DAAACwwBP0AiyAAAAXdJREFUWEdjYBgFUKCX2ruE2Xn1Hwantf9piUF2GKR2L0G3nwEk8fYTz////xlo
         it985P3P4rLqD7r9DCDXgRSoxk4B05PWeYExLcTAoYEBBosD6IFxOoCuGAOABJP/0wePOoBYB/hM3Pzf
         e+IWDHGKMbEO+PiN7/+Hb/xw/q0XquBUDKKR+fhw1KylGOYS7QCvCVv/e07YhiFOMSbWATTDxDpg0KYB
         UvBoGsCKiXXAkEsDWOMbGybWAaNpgGYYlwPWng36//M3G0bcUhPfeaWM3QFMzmv+glqs6BqojUF2MLus
@@ -153,7 +153,7 @@
   <data name="btnLedgendClose.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAL
-        EAAACxABrSO9dQAAAOlJREFUOE9jYKAasJ/PweCxbyGDyyp+dCkU4L1Th8Fz/0RUQY9t7Ay+J7YxJP78
+        DgAACw4BQL7hQQAAAOlJREFUOE9jYKAasJ/PweCxbyGDyyp+dCkU4L1Th8Fz/0RUQY9t7Ay+J7YxJP78
         z+B36hiD2yohVAVQ4LtdmyHo8lWG+C+/GLyPzkZIOG5TZgi6coMh+f9/huS//xl8Tx/FcInnbl2G4GvX
         EGpOHmXw2cSFUAAzHabA7/QxBpstgtjlTiHkUACGwtPHGFw22RCnGQZATg28dh2uIezeG7xewwrALrl6
         GaIR7hoiNYMARQZQ5AWsgbjNhiEQLRCd1wmja8WuGTka8RpCcUIKXcWGkpRxxTPEJVcY4r78YvA6OgtV
