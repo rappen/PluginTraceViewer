@@ -29,6 +29,9 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            Rappen.XTB.Helpers.Controls.CheckCombo.CheckBoxProperties checkBoxProperties1 = new Rappen.XTB.Helpers.Controls.CheckCombo.CheckBoxProperties();
+            Rappen.XTB.Helpers.Controls.CheckCombo.CheckBoxProperties checkBoxProperties2 = new Rappen.XTB.Helpers.Controls.CheckCombo.CheckBoxProperties();
+            Rappen.XTB.Helpers.Controls.CheckCombo.CheckBoxProperties checkBoxProperties3 = new Rappen.XTB.Helpers.Controls.CheckCombo.CheckBoxProperties();
             this.panelFilter = new System.Windows.Forms.Panel();
             this.chkFreeExceptions = new System.Windows.Forms.CheckBox();
             this.textFreeTextFilter = new System.Windows.Forms.TextBox();
@@ -42,11 +45,11 @@
             this.textRequestId = new System.Windows.Forms.TextBox();
             this.chkRequestId = new System.Windows.Forms.CheckBox();
             this.labelTimeZone = new System.Windows.Forms.Label();
-            this.comboEntity = new System.Windows.Forms.ComboBox();
+            this.comboEntity = new Rappen.XTB.Helpers.Controls.CheckCombo.CheckBoxComboBox();
             this.chkEntity = new System.Windows.Forms.CheckBox();
-            this.comboMessage = new System.Windows.Forms.ComboBox();
+            this.comboMessage = new Rappen.XTB.Helpers.Controls.CheckCombo.CheckBoxComboBox();
             this.chkMessage = new System.Windows.Forms.CheckBox();
-            this.comboPlugin = new System.Windows.Forms.ComboBox();
+            this.comboPlugin = new Rappen.XTB.Helpers.Controls.CheckCombo.CheckBoxComboBox();
             this.chkPlugin = new System.Windows.Forms.CheckBox();
             this.checkDateTo = new System.Windows.Forms.CheckBox();
             this.checkDateFrom = new System.Windows.Forms.CheckBox();
@@ -254,6 +257,10 @@
             // 
             this.comboEntity.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            checkBoxProperties1.AutoSize = true;
+            checkBoxProperties1.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.comboEntity.CheckBoxProperties = checkBoxProperties1;
+            this.comboEntity.DisplayMemberSingleItem = "";
             this.comboEntity.Enabled = false;
             this.comboEntity.FormattingEnabled = true;
             this.comboEntity.Location = new System.Drawing.Point(97, 76);
@@ -277,6 +284,10 @@
             // 
             this.comboMessage.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            checkBoxProperties2.AutoSize = true;
+            checkBoxProperties2.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.comboMessage.CheckBoxProperties = checkBoxProperties2;
+            this.comboMessage.DisplayMemberSingleItem = "";
             this.comboMessage.Enabled = false;
             this.comboMessage.FormattingEnabled = true;
             this.comboMessage.Location = new System.Drawing.Point(97, 52);
@@ -299,6 +310,10 @@
             // 
             this.comboPlugin.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            checkBoxProperties3.AutoSize = true;
+            checkBoxProperties3.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.comboPlugin.CheckBoxProperties = checkBoxProperties3;
+            this.comboPlugin.DisplayMemberSingleItem = "";
             this.comboPlugin.Enabled = false;
             this.comboPlugin.FormattingEnabled = true;
             this.comboPlugin.Location = new System.Drawing.Point(97, 28);
@@ -729,11 +744,11 @@
         private System.Windows.Forms.TextBox textCorrelationId;
         private System.Windows.Forms.CheckBox chkCorrelation;
         private System.Windows.Forms.Label labelTimeZone;
-        private System.Windows.Forms.ComboBox comboEntity;
+        private Rappen.XTB.Helpers.Controls.CheckCombo.CheckBoxComboBox comboEntity;
         private System.Windows.Forms.CheckBox chkEntity;
-        private System.Windows.Forms.ComboBox comboMessage;
+        private Rappen.XTB.Helpers.Controls.CheckCombo.CheckBoxComboBox comboMessage;
         private System.Windows.Forms.CheckBox chkMessage;
-        private System.Windows.Forms.ComboBox comboPlugin;
+        private Rappen.XTB.Helpers.Controls.CheckCombo.CheckBoxComboBox comboPlugin;
         private System.Windows.Forms.CheckBox chkPlugin;
         private System.Windows.Forms.CheckBox checkDateTo;
         private System.Windows.Forms.CheckBox checkDateFrom;

@@ -29,10 +29,13 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(GridControl));
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(GridControl));
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             this.contextMenuGridView = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.tsmiFilterBy = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiFilterByEntity = new System.Windows.Forms.ToolStripMenuItem();
@@ -72,9 +75,25 @@
             this.toolStripCorrelations = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripMatch = new System.Windows.Forms.ToolStripStatusLabel();
             this.panQuickFilter = new System.Windows.Forms.Panel();
-            this.label1 = new System.Windows.Forms.Label();
             this.txtQuickFilter = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
+            this.mnuQuickFilter = new System.Windows.Forms.MenuStrip();
+            this.mnuQFOptions = new System.Windows.Forms.ToolStripMenuItem();
+            this.mnuQFColHeader = new System.Windows.Forms.ToolStripMenuItem();
+            this.mnuQFColTrace = new System.Windows.Forms.ToolStripMenuItem();
+            this.mnuQFColException = new System.Windows.Forms.ToolStripMenuItem();
+            this.mnuQFColPlugin = new System.Windows.Forms.ToolStripMenuItem();
+            this.mnuQFColStep = new System.Windows.Forms.ToolStripMenuItem();
+            this.mnuQFSep1 = new System.Windows.Forms.ToolStripSeparator();
+            this.mnuQFCombHeader = new System.Windows.Forms.ToolStripMenuItem();
+            this.mnuQFCombOr = new System.Windows.Forms.ToolStripMenuItem();
+            this.mnuQFCombAnd = new System.Windows.Forms.ToolStripMenuItem();
+            this.mnuQFSep2 = new System.Windows.Forms.ToolStripSeparator();
+            this.mnuQFAdvHeader = new System.Windows.Forms.ToolStripMenuItem();
+            this.mnuQFAdvNot = new System.Windows.Forms.ToolStripMenuItem();
+            this.mnuQFAdvRegEx = new System.Windows.Forms.ToolStripMenuItem();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.crmGridView = new Rappen.XTB.Helpers.Controls.XRMDataGridView();
             this.correlation = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.createdon = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -96,12 +115,12 @@
             this.exceptionsummary = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.messageblock = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.exceptiondetails = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.contextMenuGridView.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.panQuickFilter.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.crmGridView)).BeginInit();
+            this.mnuQuickFilter.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.crmGridView)).BeginInit();
             this.SuspendLayout();
             // 
             // contextMenuGridView
@@ -468,9 +487,9 @@
             // 
             // panQuickFilter
             // 
-            this.panQuickFilter.Controls.Add(this.label1);
             this.panQuickFilter.Controls.Add(this.txtQuickFilter);
             this.panQuickFilter.Controls.Add(this.label2);
+            this.panQuickFilter.Controls.Add(this.mnuQuickFilter);
             this.panQuickFilter.Dock = System.Windows.Forms.DockStyle.Top;
             this.panQuickFilter.Location = new System.Drawing.Point(0, 0);
             this.panQuickFilter.Name = "panQuickFilter";
@@ -478,23 +497,13 @@
             this.panQuickFilter.TabIndex = 28;
             this.panQuickFilter.Visible = false;
             // 
-            // label1
-            // 
-            this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(913, 9);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(191, 13);
-            this.label1.TabIndex = 20;
-            this.label1.Text = "Filtering Trace Message and Exception";
-            // 
             // txtQuickFilter
             // 
             this.txtQuickFilter.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtQuickFilter.Location = new System.Drawing.Point(104, 6);
             this.txtQuickFilter.Name = "txtQuickFilter";
-            this.txtQuickFilter.Size = new System.Drawing.Size(750, 20);
+            this.txtQuickFilter.Size = new System.Drawing.Size(945, 20);
             this.txtQuickFilter.TabIndex = 19;
             this.txtQuickFilter.TextChanged += new System.EventHandler(this.txtQuickFilter_TextChanged);
             // 
@@ -507,6 +516,169 @@
             this.label2.TabIndex = 18;
             this.label2.Text = "Quick Filter";
             // 
+            // mnuQuickFilter
+            // 
+            this.mnuQuickFilter.AutoSize = false;
+            this.mnuQuickFilter.BackColor = System.Drawing.SystemColors.Window;
+            this.mnuQuickFilter.Dock = System.Windows.Forms.DockStyle.Right;
+            this.mnuQuickFilter.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.mnuQFOptions});
+            this.mnuQuickFilter.Location = new System.Drawing.Point(1052, 0);
+            this.mnuQuickFilter.Name = "mnuQuickFilter";
+            this.mnuQuickFilter.Padding = new System.Windows.Forms.Padding(6, 5, 0, 2);
+            this.mnuQuickFilter.Size = new System.Drawing.Size(64, 32);
+            this.mnuQuickFilter.TabIndex = 22;
+            this.mnuQuickFilter.Text = "menuStrip1";
+            this.toolTip1.SetToolTip(this.mnuQuickFilter, "Click here to change behaviors for Quck Filter");
+            // 
+            // mnuQFOptions
+            // 
+            this.mnuQFOptions.BackColor = System.Drawing.SystemColors.Window;
+            this.mnuQFOptions.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.mnuQFColHeader,
+            this.mnuQFColTrace,
+            this.mnuQFColException,
+            this.mnuQFColPlugin,
+            this.mnuQFColStep,
+            this.mnuQFSep1,
+            this.mnuQFCombHeader,
+            this.mnuQFCombOr,
+            this.mnuQFCombAnd,
+            this.mnuQFSep2,
+            this.mnuQFAdvHeader,
+            this.mnuQFAdvNot,
+            this.mnuQFAdvRegEx});
+            this.mnuQFOptions.Name = "mnuQFOptions";
+            this.mnuQFOptions.Size = new System.Drawing.Size(57, 19);
+            this.mnuQFOptions.Text = "Options...";
+            this.mnuQFOptions.ToolTipText = "Click here to change behaviors for Quck Filter";
+            // 
+            // mnuQFColHeader
+            // 
+            this.mnuQFColHeader.Enabled = false;
+            this.mnuQFColHeader.Name = "mnuQFColHeader";
+            this.mnuQFColHeader.Size = new System.Drawing.Size(172, 22);
+            this.mnuQFColHeader.Text = "Filter by columns:";
+            this.mnuQFColHeader.ToolTipText = "Select which columns will be searching in";
+            // 
+            // mnuQFColTrace
+            // 
+            this.mnuQFColTrace.Checked = true;
+            this.mnuQFColTrace.CheckOnClick = true;
+            this.mnuQFColTrace.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.mnuQFColTrace.Name = "mnuQFColTrace";
+            this.mnuQFColTrace.Size = new System.Drawing.Size(172, 22);
+            this.mnuQFColTrace.Text = "  Trace";
+            this.mnuQFColTrace.ToolTipText = "Searching in Plugin Trace Message Block";
+            this.mnuQFColTrace.CheckedChanged += new System.EventHandler(this.mnuQFChanged_CheckedChanged);
+            // 
+            // mnuQFColException
+            // 
+            this.mnuQFColException.Checked = true;
+            this.mnuQFColException.CheckOnClick = true;
+            this.mnuQFColException.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.mnuQFColException.Name = "mnuQFColException";
+            this.mnuQFColException.Size = new System.Drawing.Size(172, 22);
+            this.mnuQFColException.Text = "  Exception";
+            this.mnuQFColException.ToolTipText = "Searching in Exception Details";
+            this.mnuQFColException.CheckedChanged += new System.EventHandler(this.mnuQFChanged_CheckedChanged);
+            // 
+            // mnuQFColPlugin
+            // 
+            this.mnuQFColPlugin.Checked = true;
+            this.mnuQFColPlugin.CheckOnClick = true;
+            this.mnuQFColPlugin.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.mnuQFColPlugin.Name = "mnuQFColPlugin";
+            this.mnuQFColPlugin.Size = new System.Drawing.Size(172, 22);
+            this.mnuQFColPlugin.Text = "  Plugin";
+            this.mnuQFColPlugin.ToolTipText = "Searching in Plugin Type Name";
+            this.mnuQFColPlugin.CheckedChanged += new System.EventHandler(this.mnuQFChanged_CheckedChanged);
+            // 
+            // mnuQFColStep
+            // 
+            this.mnuQFColStep.Checked = true;
+            this.mnuQFColStep.CheckOnClick = true;
+            this.mnuQFColStep.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.mnuQFColStep.Name = "mnuQFColStep";
+            this.mnuQFColStep.Size = new System.Drawing.Size(172, 22);
+            this.mnuQFColStep.Text = "  Step";
+            this.mnuQFColStep.ToolTipText = "Searching in Plugin Step Name";
+            this.mnuQFColStep.CheckedChanged += new System.EventHandler(this.mnuQFChanged_CheckedChanged);
+            // 
+            // mnuQFSep1
+            // 
+            this.mnuQFSep1.Name = "mnuQFSep1";
+            this.mnuQFSep1.Size = new System.Drawing.Size(169, 6);
+            // 
+            // mnuQFCombHeader
+            // 
+            this.mnuQFCombHeader.Enabled = false;
+            this.mnuQFCombHeader.Name = "mnuQFCombHeader";
+            this.mnuQFCombHeader.Size = new System.Drawing.Size(172, 22);
+            this.mnuQFCombHeader.Text = "Combine columns";
+            this.mnuQFCombHeader.ToolTipText = "Select here if all columns selected will find the text, or one hit is enough";
+            // 
+            // mnuQFCombOr
+            // 
+            this.mnuQFCombOr.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.mnuQFCombOr.Checked = true;
+            this.mnuQFCombOr.CheckOnClick = true;
+            this.mnuQFCombOr.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.mnuQFCombOr.Name = "mnuQFCombOr";
+            this.mnuQFCombOr.Size = new System.Drawing.Size(172, 22);
+            this.mnuQFCombOr.Text = "  Or";
+            this.mnuQFCombOr.ToolTipText = "Select Or to show the record if at least one column gets a hit";
+            this.mnuQFCombOr.CheckedChanged += new System.EventHandler(this.mnuQFChanged_CheckedChanged);
+            // 
+            // mnuQFCombAnd
+            // 
+            this.mnuQFCombAnd.CheckOnClick = true;
+            this.mnuQFCombAnd.Name = "mnuQFCombAnd";
+            this.mnuQFCombAnd.Size = new System.Drawing.Size(172, 22);
+            this.mnuQFCombAnd.Text = "  And";
+            this.mnuQFCombAnd.ToolTipText = "Select And to only show records that find it on all selected columns";
+            this.mnuQFCombAnd.CheckedChanged += new System.EventHandler(this.mnuQFChanged_CheckedChanged);
+            // 
+            // mnuQFSep2
+            // 
+            this.mnuQFSep2.Name = "mnuQFSep2";
+            this.mnuQFSep2.Size = new System.Drawing.Size(169, 6);
+            // 
+            // mnuQFAdvHeader
+            // 
+            this.mnuQFAdvHeader.Enabled = false;
+            this.mnuQFAdvHeader.Name = "mnuQFAdvHeader";
+            this.mnuQFAdvHeader.Size = new System.Drawing.Size(172, 22);
+            this.mnuQFAdvHeader.Text = "Advanced";
+            // 
+            // mnuQFAdvNot
+            // 
+            this.mnuQFAdvNot.CheckOnClick = true;
+            this.mnuQFAdvNot.Name = "mnuQFAdvNot";
+            this.mnuQFAdvNot.Size = new System.Drawing.Size(172, 22);
+            this.mnuQFAdvNot.Text = "  Not";
+            this.mnuQFAdvNot.ToolTipText = "Check this to revert the result of all records";
+            this.mnuQFAdvNot.CheckedChanged += new System.EventHandler(this.mnuQFChanged_CheckedChanged);
+            // 
+            // mnuQFAdvRegEx
+            // 
+            this.mnuQFAdvRegEx.CheckOnClick = true;
+            this.mnuQFAdvRegEx.Name = "mnuQFAdvRegEx";
+            this.mnuQFAdvRegEx.Size = new System.Drawing.Size(172, 22);
+            this.mnuQFAdvRegEx.Text = "  RegEx";
+            this.mnuQFAdvRegEx.ToolTipText = "To you know RegEx?\r\nTry to use it for more advanced finding of records.";
+            this.mnuQFAdvRegEx.CheckedChanged += new System.EventHandler(this.mnuQFChanged_CheckedChanged);
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.BackColor = System.Drawing.Color.Transparent;
+            this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
+            this.pictureBox1.Location = new System.Drawing.Point(0, 0);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(32, 30);
+            this.pictureBox1.TabIndex = 29;
+            this.pictureBox1.TabStop = false;
+            // 
             // crmGridView
             // 
             this.crmGridView.AllowUserToAddRows = false;
@@ -515,6 +687,14 @@
             this.crmGridView.AllowUserToResizeRows = false;
             this.crmGridView.BackgroundColor = System.Drawing.SystemColors.Window;
             this.crmGridView.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.crmGridView.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.crmGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.crmGridView.ColumnOrder = "";
             this.crmGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
@@ -539,13 +719,33 @@
             this.messageblock,
             this.exceptiondetails});
             this.crmGridView.ContextMenuStrip = this.contextMenuGridView;
+            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle5.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.crmGridView.DefaultCellStyle = dataGridViewCellStyle5;
             this.crmGridView.Dock = System.Windows.Forms.DockStyle.Fill;
             this.crmGridView.EnableHeadersVisualStyles = false;
-            this.crmGridView.FilterColumns = "messageblock, exceptiondetails, typename, stepname";
+            this.crmGridView.Filtering.And = false;
+            this.crmGridView.Filtering.Columns = "messageblock, exceptiondetails, typename, step.name";
+            this.crmGridView.Filtering.Not = false;
+            this.crmGridView.Filtering.RegEx = false;
+            this.crmGridView.Filtering.Text = "";
             this.crmGridView.LayoutXML = "";
             this.crmGridView.Location = new System.Drawing.Point(0, 32);
             this.crmGridView.Name = "crmGridView";
             this.crmGridView.ReadOnly = true;
+            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle6.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle6.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.crmGridView.RowHeadersDefaultCellStyle = dataGridViewCellStyle6;
             this.crmGridView.RowHeadersVisible = false;
             this.crmGridView.RowHeadersWidth = 20;
             this.crmGridView.Service = null;
@@ -565,8 +765,8 @@
             // 
             // correlation
             // 
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.correlation.DefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.correlation.DefaultCellStyle = dataGridViewCellStyle2;
             this.correlation.HeaderText = "Corr";
             this.correlation.Name = "correlation";
             this.correlation.ReadOnly = true;
@@ -583,8 +783,8 @@
             // performanceexecutionstartdate
             // 
             this.performanceexecutionstartdate.DataPropertyName = "startdate";
-            dataGridViewCellStyle2.Format = "yyyy-MM-dd";
-            this.performanceexecutionstartdate.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle3.Format = "yyyy-MM-dd";
+            this.performanceexecutionstartdate.DefaultCellStyle = dataGridViewCellStyle3;
             this.performanceexecutionstartdate.HeaderText = "Start Date";
             this.performanceexecutionstartdate.Name = "performanceexecutionstartdate";
             this.performanceexecutionstartdate.ReadOnly = true;
@@ -592,8 +792,8 @@
             // 
             // performanceexecutionstarttime
             // 
-            dataGridViewCellStyle3.Format = "HH:mm:ss.fff";
-            this.performanceexecutionstarttime.DefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle4.Format = "HH:mm:ss.fff";
+            this.performanceexecutionstarttime.DefaultCellStyle = dataGridViewCellStyle4;
             this.performanceexecutionstarttime.HeaderText = "Start Time";
             this.performanceexecutionstarttime.Name = "performanceexecutionstarttime";
             this.performanceexecutionstarttime.ReadOnly = true;
@@ -718,16 +918,6 @@
             this.exceptiondetails.Visible = false;
             this.exceptiondetails.Width = 150;
             // 
-            // pictureBox1
-            // 
-            this.pictureBox1.BackColor = System.Drawing.Color.Transparent;
-            this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
-            this.pictureBox1.Location = new System.Drawing.Point(0, 0);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(32, 30);
-            this.pictureBox1.TabIndex = 29;
-            this.pictureBox1.TabStop = false;
-            // 
             // GridControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -743,6 +933,7 @@
             this.DockAreas = WeifenLuo.WinFormsUI.Docking.DockAreas.Document;
             this.HideOnClose = true;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.MainMenuStrip = this.mnuQuickFilter;
             this.Name = "GridControl";
             this.TabText = "Plugin Trace Logs";
             this.contextMenuGridView.ResumeLayout(false);
@@ -750,8 +941,10 @@
             this.statusStrip1.PerformLayout();
             this.panQuickFilter.ResumeLayout(false);
             this.panQuickFilter.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.crmGridView)).EndInit();
+            this.mnuQuickFilter.ResumeLayout(false);
+            this.mnuQuickFilter.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.crmGridView)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -799,7 +992,6 @@
         private System.Windows.Forms.TextBox txtQuickFilter;
         private System.Windows.Forms.Label label2;
         internal System.Windows.Forms.Panel panQuickFilter;
-        private System.Windows.Forms.Label label1;
         private System.Windows.Forms.ToolStripMenuItem tsmiShowColStartDate;
         private System.Windows.Forms.DataGridViewTextBoxColumn correlation;
         private System.Windows.Forms.DataGridViewTextBoxColumn createdon;
@@ -822,5 +1014,21 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn messageblock;
         private System.Windows.Forms.DataGridViewTextBoxColumn exceptiondetails;
         private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.MenuStrip mnuQuickFilter;
+        private System.Windows.Forms.ToolStripMenuItem mnuQFOptions;
+        private System.Windows.Forms.ToolStripSeparator mnuQFSep2;
+        private System.Windows.Forms.ToolStripMenuItem mnuQFAdvRegEx;
+        private System.Windows.Forms.ToolStripSeparator mnuQFSep1;
+        private System.Windows.Forms.ToolStripMenuItem mnuQFColTrace;
+        private System.Windows.Forms.ToolStripMenuItem mnuQFColException;
+        private System.Windows.Forms.ToolStripMenuItem mnuQFColPlugin;
+        private System.Windows.Forms.ToolStripMenuItem mnuQFColHeader;
+        private System.Windows.Forms.ToolStripMenuItem mnuQFCombHeader;
+        private System.Windows.Forms.ToolStripMenuItem mnuQFCombOr;
+        private System.Windows.Forms.ToolStripMenuItem mnuQFCombAnd;
+        private System.Windows.Forms.ToolStripMenuItem mnuQFAdvHeader;
+        private System.Windows.Forms.ToolStripMenuItem mnuQFAdvNot;
+        private System.Windows.Forms.ToolStripMenuItem mnuQFColStep;
+        private System.Windows.Forms.ToolTip toolTip1;
     }
 }

@@ -299,8 +299,8 @@ namespace Cinteros.XTB.PluginTraceViewer
 
         internal void UpdateHighlighting()
         {
-            traceControl?.ShowMessageTextAsync(tsmiHighlightGuids.Checked, tsmiIdentifyRecords.Checked, null, gridControl.crmGridView.FilterText);
-            exceptionControl?.ShowMessageTextAsync(tsmiHighlightGuids.Checked, tsmiIdentifyRecords.Checked, gridControl.crmGridView.FilterText);
+            traceControl?.ShowMessageTextAsync(tsmiHighlightGuids.Checked, tsmiIdentifyRecords.Checked, null, gridControl.crmGridView.Filtering.Text);
+            exceptionControl?.ShowMessageTextAsync(tsmiHighlightGuids.Checked, tsmiIdentifyRecords.Checked, gridControl.crmGridView.Filtering.Text);
         }
 
         private void tslAbout_Click(object sender, EventArgs e)
@@ -951,9 +951,9 @@ namespace Cinteros.XTB.PluginTraceViewer
             buttonOpenLogRecord.Enabled = record != null;
             buttonOpenLogTrace.Enabled = record != null && !string.IsNullOrWhiteSpace(record.GetAttributeValue<string>(PluginTraceLog.MessageBlock));
             buttonOpenLogException.Enabled = record != null && !string.IsNullOrWhiteSpace(record.GetAttributeValue<string>(PluginTraceLog.ExceptionDetails));
-            traceControl.SetLogText(record != null && record.Contains(PluginTraceLog.MessageBlock) ? record[PluginTraceLog.MessageBlock].ToString() : "", record, gridControl.crmGridView.FilterText);
+            traceControl.SetLogText(record != null && record.Contains(PluginTraceLog.MessageBlock) ? record[PluginTraceLog.MessageBlock].ToString() : "", record, gridControl.crmGridView.Filtering.Text);
             exceptionControl.SetException(record != null && record.Contains(PluginTraceLog.ExceptionDetails) ? record[PluginTraceLog.ExceptionDetails].ToString() : "",
-                "Exception" + (record.Contains("exceptionsummary") ? ": " + record["exceptionsummary"].ToString().Replace("\r\n", " ") : ""), gridControl.crmGridView.FilterText);
+                "Exception" + (record.Contains("exceptionsummary") ? ": " + record["exceptionsummary"].ToString().Replace("\r\n", " ") : ""), gridControl.crmGridView.Filtering.Text);
             statsControl.ShowStatistics(record);
             lasttracerecord = record;
         }

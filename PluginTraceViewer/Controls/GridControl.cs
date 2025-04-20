@@ -617,7 +617,54 @@ namespace Cinteros.XTB.PluginTraceViewer.Controls
 
         private void txtQuickFilter_TextChanged(object sender, EventArgs e)
         {
-            crmGridView.FilterText = txtQuickFilter.Text;
+            crmGridView.Filtering.Text = txtQuickFilter.Text;
+            crmGridView.Filter();
+            ptv.UpdateHighlighting();
+        }
+
+        private void mnuQFChanged_CheckedChanged(object sender, EventArgs e)
+        {
+            if (!mnuQFColTrace.Checked && !mnuQFColException.Checked && !mnuQFColPlugin.Checked && !mnuQFColStep.Checked)
+            {
+                mnuQFColTrace.Checked = true;
+                return;
+            }
+            if (sender == mnuQFCombAnd && mnuQFCombOr.Checked == mnuQFCombAnd.Checked)
+            {
+                mnuQFCombOr.Checked = !mnuQFCombAnd.Checked;
+                return;
+            }
+            if (sender == mnuQFCombOr && mnuQFCombAnd.Checked == mnuQFCombOr.Checked)
+            {
+                mnuQFCombAnd.Checked = !mnuQFCombOr.Checked;
+                return;
+            }
+            var cols = new List<string>();
+            if (mnuQFColTrace.Checked)
+            {
+                cols.Add(PluginTraceLog.MessageBlock);
+            }
+            if (mnuQFColException.Checked)
+            {
+                cols.Add(PluginTraceLog.ExceptionDetails);
+            }
+            if (mnuQFColPlugin.Checked)
+            {
+                cols.Add(PluginTraceLog.PrimaryName);
+            }
+            if (mnuQFColStep.Checked)
+            {
+                cols.Add("step.name");
+            }
+
+            crmGridView.Filtering = new Rappen.XTB.Helpers.Controls.Filtering
+            {
+                Text = txtQuickFilter.Text,
+                Columns = string.Join(",", cols),
+                And = mnuQFCombAnd.Checked,
+                Not = mnuQFAdvNot.Checked,
+                RegEx = mnuQFAdvRegEx.Checked
+            };
             ptv.UpdateHighlighting();
         }
     }
