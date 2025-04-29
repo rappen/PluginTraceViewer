@@ -12,6 +12,7 @@ namespace Cinteros.XTB.PluginTraceViewer.Controls
     {
         private const int PANELHEIGHT = 20;
         private ConnectionDetail connectionDetail;
+        private LinkLabel currentlink;
 
         public RecordLinks()
         {
@@ -88,6 +89,7 @@ namespace Cinteros.XTB.PluginTraceViewer.Controls
                     Text = lnktext,
                     Tag = lnktag,
                     LinkArea = new LinkArea(0, lnktext.Length),
+                    ContextMenuStrip = ctxMenu
                 };
                 link.LinkClicked += link_LinkClicked;
                 toolTip1.SetToolTip(link, lnktip);
@@ -109,7 +111,35 @@ namespace Cinteros.XTB.PluginTraceViewer.Controls
 
         private void link_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            UrlUtils.OpenUrl(sender, connectionDetail);
+            if (e.Button == MouseButtons.Left)
+            {
+                UrlUtils.OpenUrl(sender, connectionDetail);
+            }
+            else if (sender is LinkLabel link)
+            {
+                currentlink = link;
+            }
+        }
+
+        private void copyURLToolStripMenuItem_Click(object sender, System.EventArgs e)
+        {
+            if (currentlink == null)
+            {
+                return;
+            }
+            var url = currentlink.Tag.ToString();
+            if (!string.IsNullOrWhiteSpace(url))
+            {
+                Clipboard.SetText(url);
+                lblCopied.Visible = true;
+                timer1.Start();
+            }
+        }
+
+        private void timer1_Tick(object sender, System.EventArgs e)
+        {
+            timer1.Stop();
+            lblCopied.Visible = false;
         }
     }
 }

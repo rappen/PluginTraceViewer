@@ -34,9 +34,14 @@
             this.sptLinks = new System.Windows.Forms.SplitContainer();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.panel1 = new System.Windows.Forms.Panel();
+            this.ctxMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.copyURLToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.lblCopied = new System.Windows.Forms.Label();
+            this.timer1 = new System.Windows.Forms.Timer(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.sptLinks)).BeginInit();
             this.sptLinks.SuspendLayout();
             this.panel1.SuspendLayout();
+            this.ctxMenu.SuspendLayout();
             this.SuspendLayout();
             // 
             // btnClose
@@ -44,7 +49,7 @@
             this.btnClose.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnClose.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.btnClose.Location = new System.Drawing.Point(415, 6);
-            this.btnClose.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btnClose.Margin = new System.Windows.Forms.Padding(2);
             this.btnClose.Name = "btnClose";
             this.btnClose.Size = new System.Drawing.Size(58, 23);
             this.btnClose.TabIndex = 0;
@@ -76,12 +81,43 @@
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.SystemColors.Window;
+            this.panel1.Controls.Add(this.lblCopied);
             this.panel1.Controls.Add(this.btnClose);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.panel1.Location = new System.Drawing.Point(0, 175);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(484, 36);
             this.panel1.TabIndex = 2;
+            // 
+            // ctxMenu
+            // 
+            this.ctxMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.copyURLToolStripMenuItem});
+            this.ctxMenu.Name = "ctxMenu";
+            this.ctxMenu.Size = new System.Drawing.Size(127, 26);
+            // 
+            // copyURLToolStripMenuItem
+            // 
+            this.copyURLToolStripMenuItem.Name = "copyURLToolStripMenuItem";
+            this.copyURLToolStripMenuItem.Size = new System.Drawing.Size(126, 22);
+            this.copyURLToolStripMenuItem.Text = "Copy URL";
+            this.copyURLToolStripMenuItem.Click += new System.EventHandler(this.copyURLToolStripMenuItem_Click);
+            // 
+            // lblCopied
+            // 
+            this.lblCopied.AutoSize = true;
+            this.lblCopied.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblCopied.Location = new System.Drawing.Point(12, 11);
+            this.lblCopied.Name = "lblCopied";
+            this.lblCopied.Size = new System.Drawing.Size(77, 13);
+            this.lblCopied.TabIndex = 1;
+            this.lblCopied.Text = "Link copied!";
+            this.lblCopied.Visible = false;
+            // 
+            // timer1
+            // 
+            this.timer1.Interval = 1000;
+            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
             // RecordLinks
             // 
@@ -101,6 +137,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.sptLinks)).EndInit();
             this.sptLinks.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
+            this.ctxMenu.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -111,5 +149,9 @@
         private System.Windows.Forms.SplitContainer sptLinks;
         private System.Windows.Forms.ToolTip toolTip1;
         private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.ContextMenuStrip ctxMenu;
+        private System.Windows.Forms.ToolStripMenuItem copyURLToolStripMenuItem;
+        private System.Windows.Forms.Label lblCopied;
+        private System.Windows.Forms.Timer timer1;
     }
 }
