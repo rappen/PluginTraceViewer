@@ -71,10 +71,10 @@ namespace Cinteros.XTB.PluginTraceViewer.Controls
             textFreeTextFilter.Enabled = chkFreeMessage.Checked || chkFreeExceptions.Checked;
         }
 
-        private void chkDurationMin_CheckedChanged(object sender, EventArgs e)
+        private void chkDuration_CheckedChanged(object sender, EventArgs e)
         {
-            numDurationMin.Enabled = chkDuration.Checked;
-            numDurationMax.Enabled = chkDuration.Checked;
+            numDurationMin.Enabled = chkDurationMin.Checked;
+            numDurationMax.Enabled = chkDurationMax.Checked;
         }
 
         private void chkRecords_CheckedChanged(object sender, EventArgs e)
@@ -215,10 +215,14 @@ namespace Cinteros.XTB.PluginTraceViewer.Controls
             chkOperWF.Checked = filter.OperationWF;
             chkModeSync.Checked = filter.ModeSync;
             chkModeAsync.Checked = filter.ModeAsync;
-            chkDuration.Checked = filter.MinDuration > -1 && filter.MaxDuration > -1;
-            if (chkDuration.Checked)
+            chkDurationMin.Checked = filter.MinDuration > -1;
+            chkDurationMax.Checked = filter.MaxDuration > -1;
+            if (chkDurationMin.Checked)
             {
                 numDurationMin.Value = filter.MinDuration;
+            }
+            if (chkDurationMax.Checked)
+            {
                 numDurationMax.Value = filter.MaxDuration;
             }
             chkRecords.Checked = filter.Records > -1;
@@ -259,8 +263,8 @@ namespace Cinteros.XTB.PluginTraceViewer.Controls
                 StagePreOp = chkStage20.Checked,
                 StageMain = chkStage30.Checked,
                 StagePostOp = chkStage40.Checked,
-                MinDuration = chkDuration.Checked ? (int)numDurationMin.Value : -1,
-                MaxDuration = chkDuration.Checked ? (int)numDurationMax.Value : -1,
+                MinDuration = chkDurationMin.Checked ? (int)numDurationMin.Value : -1,
+                MaxDuration = chkDurationMax.Checked ? (int)numDurationMax.Value : -1,
                 Records = chkRecords.Checked ? (int)numRecords.Value : -1,
                 SuppressSettingWarning = ptv.tsmiSuppressLogSettingWarning.Checked
             };
@@ -411,9 +415,12 @@ namespace Cinteros.XTB.PluginTraceViewer.Controls
                     QEplugintracelog.Criteria.AddCondition(condStage);
                 }
             }
-            if (chkDuration.Checked)
+            if (chkDurationMin.Checked)
             {
                 QEplugintracelog.Criteria.AddCondition("performanceexecutionduration", ConditionOperator.GreaterEqual, (int)numDurationMin.Value);
+            }
+            if (chkDurationMax.Checked)
+            {
                 QEplugintracelog.Criteria.AddCondition("performanceexecutionduration", ConditionOperator.LessEqual, (int)numDurationMax.Value);
             }
         }

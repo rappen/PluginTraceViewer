@@ -29,9 +29,9 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            Rappen.XTB.Helpers.Controls.CheckCombo.CheckBoxProperties checkBoxProperties4 = new Rappen.XTB.Helpers.Controls.CheckCombo.CheckBoxProperties();
             Rappen.XTB.Helpers.Controls.CheckCombo.CheckBoxProperties checkBoxProperties1 = new Rappen.XTB.Helpers.Controls.CheckCombo.CheckBoxProperties();
             Rappen.XTB.Helpers.Controls.CheckCombo.CheckBoxProperties checkBoxProperties2 = new Rappen.XTB.Helpers.Controls.CheckCombo.CheckBoxProperties();
-            Rappen.XTB.Helpers.Controls.CheckCombo.CheckBoxProperties checkBoxProperties3 = new Rappen.XTB.Helpers.Controls.CheckCombo.CheckBoxProperties();
             this.panelFilter = new System.Windows.Forms.Panel();
             this.chkFreeExceptions = new System.Windows.Forms.CheckBox();
             this.textFreeTextFilter = new System.Windows.Forms.TextBox();
@@ -54,9 +54,14 @@
             this.checkDateTo = new System.Windows.Forms.CheckBox();
             this.checkDateFrom = new System.Windows.Forms.CheckBox();
             this.panelOptions = new System.Windows.Forms.Panel();
-            this.label4 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
+            this.numDurationMin = new System.Windows.Forms.NumericUpDown();
+            this.numRecords = new System.Windows.Forms.NumericUpDown();
+            this.chkRecords = new System.Windows.Forms.CheckBox();
+            this.numDurationMax = new System.Windows.Forms.NumericUpDown();
+            this.chkDurationMax = new System.Windows.Forms.CheckBox();
+            this.chkDurationMin = new System.Windows.Forms.CheckBox();
+            this.linkLabel6 = new System.Windows.Forms.LinkLabel();
+            this.linkLabel5 = new System.Windows.Forms.LinkLabel();
             this.linkLabel4 = new System.Windows.Forms.LinkLabel();
             this.linkLabel3 = new System.Windows.Forms.LinkLabel();
             this.linkLabel2 = new System.Windows.Forms.LinkLabel();
@@ -69,12 +74,6 @@
             this.chkStage40 = new System.Windows.Forms.CheckBox();
             this.chkStage20 = new System.Windows.Forms.CheckBox();
             this.chkStage10 = new System.Windows.Forms.CheckBox();
-            this.label1 = new System.Windows.Forms.Label();
-            this.chkRecords = new System.Windows.Forms.CheckBox();
-            this.chkDuration = new System.Windows.Forms.CheckBox();
-            this.numDurationMax = new System.Windows.Forms.NumericUpDown();
-            this.numDurationMin = new System.Windows.Forms.NumericUpDown();
-            this.numRecords = new System.Windows.Forms.NumericUpDown();
             this.chkExceptions = new System.Windows.Forms.CheckBox();
             this.dateMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.dateMenuNow = new System.Windows.Forms.ToolStripMenuItem();
@@ -83,9 +82,9 @@
             this.dateMenuLast = new System.Windows.Forms.ToolStripMenuItem();
             this.panelFilter.SuspendLayout();
             this.panelOptions.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numDurationMax)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numDurationMin)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numRecords)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numDurationMax)).BeginInit();
             this.dateMenu.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -114,7 +113,7 @@
             this.panelFilter.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelFilter.Location = new System.Drawing.Point(0, 0);
             this.panelFilter.Name = "panelFilter";
-            this.panelFilter.Size = new System.Drawing.Size(698, 174);
+            this.panelFilter.Size = new System.Drawing.Size(652, 174);
             this.panelFilter.TabIndex = 1;
             // 
             // chkFreeExceptions
@@ -136,7 +135,7 @@
             this.textFreeTextFilter.Enabled = false;
             this.textFreeTextFilter.Location = new System.Drawing.Point(97, 148);
             this.textFreeTextFilter.Name = "textFreeTextFilter";
-            this.textFreeTextFilter.Size = new System.Drawing.Size(594, 20);
+            this.textFreeTextFilter.Size = new System.Drawing.Size(548, 20);
             this.textFreeTextFilter.TabIndex = 19;
             // 
             // dateTo
@@ -208,7 +207,7 @@
             this.textCorrelationId.Enabled = false;
             this.textCorrelationId.Location = new System.Drawing.Point(97, 100);
             this.textCorrelationId.Name = "textCorrelationId";
-            this.textCorrelationId.Size = new System.Drawing.Size(594, 20);
+            this.textCorrelationId.Size = new System.Drawing.Size(548, 20);
             this.textCorrelationId.TabIndex = 14;
             // 
             // chkCorrelation
@@ -230,7 +229,7 @@
             this.textRequestId.Enabled = false;
             this.textRequestId.Location = new System.Drawing.Point(97, 124);
             this.textRequestId.Name = "textRequestId";
-            this.textRequestId.Size = new System.Drawing.Size(594, 20);
+            this.textRequestId.Size = new System.Drawing.Size(548, 20);
             this.textRequestId.TabIndex = 16;
             // 
             // chkRequestId
@@ -257,15 +256,15 @@
             // 
             this.comboEntity.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            checkBoxProperties1.AutoSize = true;
-            checkBoxProperties1.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.comboEntity.CheckBoxProperties = checkBoxProperties1;
+            checkBoxProperties4.AutoSize = true;
+            checkBoxProperties4.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.comboEntity.CheckBoxProperties = checkBoxProperties4;
             this.comboEntity.DisplayMemberSingleItem = "";
             this.comboEntity.Enabled = false;
             this.comboEntity.FormattingEnabled = true;
             this.comboEntity.Location = new System.Drawing.Point(97, 76);
             this.comboEntity.Name = "comboEntity";
-            this.comboEntity.Size = new System.Drawing.Size(594, 21);
+            this.comboEntity.Size = new System.Drawing.Size(548, 21);
             this.comboEntity.Sorted = true;
             this.comboEntity.TabIndex = 12;
             // 
@@ -284,15 +283,15 @@
             // 
             this.comboMessage.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            checkBoxProperties2.AutoSize = true;
-            checkBoxProperties2.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.comboMessage.CheckBoxProperties = checkBoxProperties2;
+            checkBoxProperties1.AutoSize = true;
+            checkBoxProperties1.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.comboMessage.CheckBoxProperties = checkBoxProperties1;
             this.comboMessage.DisplayMemberSingleItem = "";
             this.comboMessage.Enabled = false;
             this.comboMessage.FormattingEnabled = true;
             this.comboMessage.Location = new System.Drawing.Point(97, 52);
             this.comboMessage.Name = "comboMessage";
-            this.comboMessage.Size = new System.Drawing.Size(594, 21);
+            this.comboMessage.Size = new System.Drawing.Size(548, 21);
             this.comboMessage.TabIndex = 10;
             // 
             // chkMessage
@@ -310,15 +309,15 @@
             // 
             this.comboPlugin.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            checkBoxProperties3.AutoSize = true;
-            checkBoxProperties3.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.comboPlugin.CheckBoxProperties = checkBoxProperties3;
+            checkBoxProperties2.AutoSize = true;
+            checkBoxProperties2.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.comboPlugin.CheckBoxProperties = checkBoxProperties2;
             this.comboPlugin.DisplayMemberSingleItem = "";
             this.comboPlugin.Enabled = false;
             this.comboPlugin.FormattingEnabled = true;
             this.comboPlugin.Location = new System.Drawing.Point(97, 28);
             this.comboPlugin.Name = "comboPlugin";
-            this.comboPlugin.Size = new System.Drawing.Size(594, 21);
+            this.comboPlugin.Size = new System.Drawing.Size(548, 21);
             this.comboPlugin.TabIndex = 8;
             // 
             // chkPlugin
@@ -356,9 +355,14 @@
             // 
             // panelOptions
             // 
-            this.panelOptions.Controls.Add(this.label4);
-            this.panelOptions.Controls.Add(this.label3);
-            this.panelOptions.Controls.Add(this.label2);
+            this.panelOptions.Controls.Add(this.numDurationMin);
+            this.panelOptions.Controls.Add(this.numRecords);
+            this.panelOptions.Controls.Add(this.chkRecords);
+            this.panelOptions.Controls.Add(this.numDurationMax);
+            this.panelOptions.Controls.Add(this.chkDurationMax);
+            this.panelOptions.Controls.Add(this.chkDurationMin);
+            this.panelOptions.Controls.Add(this.linkLabel6);
+            this.panelOptions.Controls.Add(this.linkLabel5);
             this.panelOptions.Controls.Add(this.linkLabel4);
             this.panelOptions.Controls.Add(this.linkLabel3);
             this.panelOptions.Controls.Add(this.linkLabel2);
@@ -371,45 +375,127 @@
             this.panelOptions.Controls.Add(this.chkStage40);
             this.panelOptions.Controls.Add(this.chkStage20);
             this.panelOptions.Controls.Add(this.chkStage10);
-            this.panelOptions.Controls.Add(this.label1);
-            this.panelOptions.Controls.Add(this.chkRecords);
-            this.panelOptions.Controls.Add(this.chkDuration);
-            this.panelOptions.Controls.Add(this.numDurationMax);
-            this.panelOptions.Controls.Add(this.numDurationMin);
-            this.panelOptions.Controls.Add(this.numRecords);
             this.panelOptions.Controls.Add(this.chkExceptions);
             this.panelOptions.Dock = System.Windows.Forms.DockStyle.Right;
-            this.panelOptions.Location = new System.Drawing.Point(698, 0);
+            this.panelOptions.Location = new System.Drawing.Point(652, 0);
             this.panelOptions.Name = "panelOptions";
             this.panelOptions.Size = new System.Drawing.Size(330, 174);
             this.panelOptions.TabIndex = 2;
             // 
-            // label4
+            // numDurationMin
             // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(291, 125);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(20, 13);
-            this.label4.TabIndex = 69;
-            this.label4.Text = "ms";
+            this.numDurationMin.Enabled = false;
+            this.numDurationMin.Increment = new decimal(new int[] {
+            25,
+            0,
+            0,
+            0});
+            this.numDurationMin.Location = new System.Drawing.Point(122, 124);
+            this.numDurationMin.Maximum = new decimal(new int[] {
+            1000000,
+            0,
+            0,
+            0});
+            this.numDurationMin.Name = "numDurationMin";
+            this.numDurationMin.Size = new System.Drawing.Size(69, 20);
+            this.numDurationMin.TabIndex = 55;
             // 
-            // label3
+            // numRecords
             // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(78, 149);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(27, 13);
-            this.label3.TabIndex = 68;
-            this.label3.Text = "Max";
+            this.numRecords.Increment = new decimal(new int[] {
+            25,
+            0,
+            0,
+            0});
+            this.numRecords.Location = new System.Drawing.Point(122, 148);
+            this.numRecords.Maximum = new decimal(new int[] {
+            5000,
+            0,
+            0,
+            0});
+            this.numRecords.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.numRecords.Name = "numRecords";
+            this.numRecords.Size = new System.Drawing.Size(69, 20);
+            this.numRecords.TabIndex = 65;
+            this.numRecords.Value = new decimal(new int[] {
+            100,
+            0,
+            0,
+            0});
             // 
-            // label2
+            // chkRecords
             // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(78, 125);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(24, 13);
-            this.label2.TabIndex = 67;
-            this.label2.Text = "Min";
+            this.chkRecords.AutoSize = true;
+            this.chkRecords.Location = new System.Drawing.Point(81, 150);
+            this.chkRecords.Name = "chkRecords";
+            this.chkRecords.Size = new System.Drawing.Size(46, 17);
+            this.chkRecords.TabIndex = 63;
+            this.chkRecords.Text = "Max";
+            this.chkRecords.UseVisualStyleBackColor = true;
+            // 
+            // numDurationMax
+            // 
+            this.numDurationMax.Enabled = false;
+            this.numDurationMax.Increment = new decimal(new int[] {
+            25,
+            0,
+            0,
+            0});
+            this.numDurationMax.Location = new System.Drawing.Point(239, 124);
+            this.numDurationMax.Maximum = new decimal(new int[] {
+            1000000,
+            0,
+            0,
+            0});
+            this.numDurationMax.Name = "numDurationMax";
+            this.numDurationMax.Size = new System.Drawing.Size(69, 20);
+            this.numDurationMax.TabIndex = 59;
+            // 
+            // chkDurationMax
+            // 
+            this.chkDurationMax.AutoSize = true;
+            this.chkDurationMax.Location = new System.Drawing.Point(198, 126);
+            this.chkDurationMax.Name = "chkDurationMax";
+            this.chkDurationMax.Size = new System.Drawing.Size(46, 17);
+            this.chkDurationMax.TabIndex = 57;
+            this.chkDurationMax.Text = "Max";
+            this.chkDurationMax.UseVisualStyleBackColor = true;
+            this.chkDurationMax.CheckedChanged += new System.EventHandler(this.chkDuration_CheckedChanged);
+            // 
+            // chkDurationMin
+            // 
+            this.chkDurationMin.AutoSize = true;
+            this.chkDurationMin.Location = new System.Drawing.Point(81, 126);
+            this.chkDurationMin.Name = "chkDurationMin";
+            this.chkDurationMin.Size = new System.Drawing.Size(43, 17);
+            this.chkDurationMin.TabIndex = 53;
+            this.chkDurationMin.Text = "Min";
+            this.chkDurationMin.UseVisualStyleBackColor = true;
+            this.chkDurationMin.CheckedChanged += new System.EventHandler(this.chkDuration_CheckedChanged);
+            // 
+            // linkLabel6
+            // 
+            this.linkLabel6.AutoSize = true;
+            this.linkLabel6.LinkArea = new System.Windows.Forms.LinkArea(0, 0);
+            this.linkLabel6.Location = new System.Drawing.Point(6, 151);
+            this.linkLabel6.Name = "linkLabel6";
+            this.linkLabel6.Size = new System.Drawing.Size(60, 13);
+            this.linkLabel6.TabIndex = 61;
+            this.linkLabel6.Text = "Log counts";
+            // 
+            // linkLabel5
+            // 
+            this.linkLabel5.AutoSize = true;
+            this.linkLabel5.LinkArea = new System.Windows.Forms.LinkArea(0, 0);
+            this.linkLabel5.Location = new System.Drawing.Point(6, 126);
+            this.linkLabel5.Name = "linkLabel5";
+            this.linkLabel5.Size = new System.Drawing.Size(69, 13);
+            this.linkLabel5.TabIndex = 51;
+            this.linkLabel5.Text = "Duration (ms)";
             // 
             // linkLabel4
             // 
@@ -480,7 +566,7 @@
             this.chkOperWF.AutoSize = true;
             this.chkOperWF.Checked = true;
             this.chkOperWF.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkOperWF.Location = new System.Drawing.Point(206, 30);
+            this.chkOperWF.Location = new System.Drawing.Point(198, 30);
             this.chkOperWF.Name = "chkOperWF";
             this.chkOperWF.Size = new System.Drawing.Size(88, 17);
             this.chkOperWF.TabIndex = 22;
@@ -504,7 +590,7 @@
             this.chkModeAsync.AutoSize = true;
             this.chkModeAsync.Checked = true;
             this.chkModeAsync.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkModeAsync.Location = new System.Drawing.Point(206, 54);
+            this.chkModeAsync.Location = new System.Drawing.Point(198, 54);
             this.chkModeAsync.Name = "chkModeAsync";
             this.chkModeAsync.Size = new System.Drawing.Size(93, 17);
             this.chkModeAsync.TabIndex = 32;
@@ -558,104 +644,6 @@
             this.chkStage10.TabIndex = 41;
             this.chkStage10.Text = "PreVal";
             this.chkStage10.UseVisualStyleBackColor = true;
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(183, 125);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(27, 13);
-            this.label1.TabIndex = 14;
-            this.label1.Text = "Max";
-            // 
-            // chkRecords
-            // 
-            this.chkRecords.AutoSize = true;
-            this.chkRecords.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.chkRecords.Checked = true;
-            this.chkRecords.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkRecords.Location = new System.Drawing.Point(9, 148);
-            this.chkRecords.Name = "chkRecords";
-            this.chkRecords.Size = new System.Drawing.Size(66, 17);
-            this.chkRecords.TabIndex = 61;
-            this.chkRecords.Text = "Records";
-            this.chkRecords.UseVisualStyleBackColor = true;
-            this.chkRecords.CheckedChanged += new System.EventHandler(this.chkRecords_CheckedChanged);
-            // 
-            // chkDuration
-            // 
-            this.chkDuration.AutoSize = true;
-            this.chkDuration.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.chkDuration.Location = new System.Drawing.Point(9, 124);
-            this.chkDuration.Name = "chkDuration";
-            this.chkDuration.Size = new System.Drawing.Size(66, 17);
-            this.chkDuration.TabIndex = 51;
-            this.chkDuration.Text = "Duration";
-            this.chkDuration.UseVisualStyleBackColor = true;
-            this.chkDuration.CheckedChanged += new System.EventHandler(this.chkDurationMin_CheckedChanged);
-            // 
-            // numDurationMax
-            // 
-            this.numDurationMax.Enabled = false;
-            this.numDurationMax.Increment = new decimal(new int[] {
-            25,
-            0,
-            0,
-            0});
-            this.numDurationMax.Location = new System.Drawing.Point(216, 123);
-            this.numDurationMax.Maximum = new decimal(new int[] {
-            1000000,
-            0,
-            0,
-            0});
-            this.numDurationMax.Name = "numDurationMax";
-            this.numDurationMax.Size = new System.Drawing.Size(69, 20);
-            this.numDurationMax.TabIndex = 53;
-            // 
-            // numDurationMin
-            // 
-            this.numDurationMin.Enabled = false;
-            this.numDurationMin.Increment = new decimal(new int[] {
-            25,
-            0,
-            0,
-            0});
-            this.numDurationMin.Location = new System.Drawing.Point(108, 123);
-            this.numDurationMin.Maximum = new decimal(new int[] {
-            1000000,
-            0,
-            0,
-            0});
-            this.numDurationMin.Name = "numDurationMin";
-            this.numDurationMin.Size = new System.Drawing.Size(69, 20);
-            this.numDurationMin.TabIndex = 52;
-            // 
-            // numRecords
-            // 
-            this.numRecords.Increment = new decimal(new int[] {
-            25,
-            0,
-            0,
-            0});
-            this.numRecords.Location = new System.Drawing.Point(108, 147);
-            this.numRecords.Maximum = new decimal(new int[] {
-            5000,
-            0,
-            0,
-            0});
-            this.numRecords.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            this.numRecords.Name = "numRecords";
-            this.numRecords.Size = new System.Drawing.Size(69, 20);
-            this.numRecords.TabIndex = 62;
-            this.numRecords.Value = new decimal(new int[] {
-            100,
-            0,
-            0,
-            0});
             // 
             // chkExceptions
             // 
@@ -714,7 +702,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Window;
-            this.ClientSize = new System.Drawing.Size(1028, 174);
+            this.ClientSize = new System.Drawing.Size(982, 174);
             this.Controls.Add(this.panelFilter);
             this.Controls.Add(this.panelOptions);
             this.DockAreas = ((WeifenLuo.WinFormsUI.Docking.DockAreas)((WeifenLuo.WinFormsUI.Docking.DockAreas.DockTop | WeifenLuo.WinFormsUI.Docking.DockAreas.DockBottom)));
@@ -731,9 +719,9 @@
             this.panelFilter.PerformLayout();
             this.panelOptions.ResumeLayout(false);
             this.panelOptions.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numDurationMax)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numDurationMin)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numRecords)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numDurationMax)).EndInit();
             this.dateMenu.ResumeLayout(false);
             this.ResumeLayout(false);
 
@@ -755,8 +743,6 @@
         private System.Windows.Forms.DateTimePicker dateTo;
         private System.Windows.Forms.DateTimePicker dateFrom;
         private System.Windows.Forms.Panel panelOptions;
-        private System.Windows.Forms.CheckBox chkRecords;
-        private System.Windows.Forms.CheckBox chkDuration;
         private System.Windows.Forms.NumericUpDown numDurationMax;
         private System.Windows.Forms.NumericUpDown numDurationMin;
         private System.Windows.Forms.NumericUpDown numRecords;
@@ -768,7 +754,6 @@
         private System.Windows.Forms.CheckBox chkStage40;
         private System.Windows.Forms.CheckBox chkStage20;
         private System.Windows.Forms.CheckBox chkStage10;
-        private System.Windows.Forms.Label label1;
         private System.Windows.Forms.LinkLabel llFromDate;
         private System.Windows.Forms.ContextMenuStrip dateMenu;
         private System.Windows.Forms.ToolStripMenuItem dateMenuNow;
@@ -783,11 +768,13 @@
         private System.Windows.Forms.LinkLabel linkLabel3;
         private System.Windows.Forms.LinkLabel linkLabel2;
         private System.Windows.Forms.LinkLabel linkLabel1;
-        private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Label label2;
         private System.Windows.Forms.CheckBox chkFreeMessage;
         private System.Windows.Forms.TextBox textFreeTextFilter;
         private System.Windows.Forms.CheckBox chkFreeExceptions;
+        private System.Windows.Forms.CheckBox chkDurationMin;
+        private System.Windows.Forms.LinkLabel linkLabel6;
+        private System.Windows.Forms.LinkLabel linkLabel5;
+        private System.Windows.Forms.CheckBox chkRecords;
+        private System.Windows.Forms.CheckBox chkDurationMax;
     }
 }
