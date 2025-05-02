@@ -557,7 +557,7 @@
             // 
             this.mnuQFColHeader.Enabled = false;
             this.mnuQFColHeader.Name = "mnuQFColHeader";
-            this.mnuQFColHeader.Size = new System.Drawing.Size(172, 22);
+            this.mnuQFColHeader.Size = new System.Drawing.Size(180, 22);
             this.mnuQFColHeader.Text = "Filter by columns:";
             this.mnuQFColHeader.ToolTipText = "Select which columns will be searching in";
             // 
@@ -567,7 +567,7 @@
             this.mnuQFColTrace.CheckOnClick = true;
             this.mnuQFColTrace.CheckState = System.Windows.Forms.CheckState.Checked;
             this.mnuQFColTrace.Name = "mnuQFColTrace";
-            this.mnuQFColTrace.Size = new System.Drawing.Size(172, 22);
+            this.mnuQFColTrace.Size = new System.Drawing.Size(180, 22);
             this.mnuQFColTrace.Text = "  Trace";
             this.mnuQFColTrace.ToolTipText = "Searching in Plugin Trace Message Block";
             this.mnuQFColTrace.CheckedChanged += new System.EventHandler(this.mnuQFChanged_CheckedChanged);
@@ -578,7 +578,7 @@
             this.mnuQFColException.CheckOnClick = true;
             this.mnuQFColException.CheckState = System.Windows.Forms.CheckState.Checked;
             this.mnuQFColException.Name = "mnuQFColException";
-            this.mnuQFColException.Size = new System.Drawing.Size(172, 22);
+            this.mnuQFColException.Size = new System.Drawing.Size(180, 22);
             this.mnuQFColException.Text = "  Exception";
             this.mnuQFColException.ToolTipText = "Searching in Exception Details";
             this.mnuQFColException.CheckedChanged += new System.EventHandler(this.mnuQFChanged_CheckedChanged);
@@ -589,7 +589,7 @@
             this.mnuQFColPlugin.CheckOnClick = true;
             this.mnuQFColPlugin.CheckState = System.Windows.Forms.CheckState.Checked;
             this.mnuQFColPlugin.Name = "mnuQFColPlugin";
-            this.mnuQFColPlugin.Size = new System.Drawing.Size(172, 22);
+            this.mnuQFColPlugin.Size = new System.Drawing.Size(180, 22);
             this.mnuQFColPlugin.Text = "  Plugin";
             this.mnuQFColPlugin.ToolTipText = "Searching in Plugin Type Name";
             this.mnuQFColPlugin.CheckedChanged += new System.EventHandler(this.mnuQFChanged_CheckedChanged);
@@ -600,7 +600,7 @@
             this.mnuQFColStep.CheckOnClick = true;
             this.mnuQFColStep.CheckState = System.Windows.Forms.CheckState.Checked;
             this.mnuQFColStep.Name = "mnuQFColStep";
-            this.mnuQFColStep.Size = new System.Drawing.Size(172, 22);
+            this.mnuQFColStep.Size = new System.Drawing.Size(180, 22);
             this.mnuQFColStep.Text = "  Step";
             this.mnuQFColStep.ToolTipText = "Searching in Plugin Step Name";
             this.mnuQFColStep.CheckedChanged += new System.EventHandler(this.mnuQFChanged_CheckedChanged);
@@ -608,13 +608,13 @@
             // mnuQFSep1
             // 
             this.mnuQFSep1.Name = "mnuQFSep1";
-            this.mnuQFSep1.Size = new System.Drawing.Size(169, 6);
+            this.mnuQFSep1.Size = new System.Drawing.Size(177, 6);
             // 
             // mnuQFCombHeader
             // 
             this.mnuQFCombHeader.Enabled = false;
             this.mnuQFCombHeader.Name = "mnuQFCombHeader";
-            this.mnuQFCombHeader.Size = new System.Drawing.Size(172, 22);
+            this.mnuQFCombHeader.Size = new System.Drawing.Size(180, 22);
             this.mnuQFCombHeader.Text = "Combine columns";
             this.mnuQFCombHeader.ToolTipText = "Select here if all columns selected will find the text, or one hit is enough";
             // 
@@ -625,7 +625,7 @@
             this.mnuQFCombOr.CheckOnClick = true;
             this.mnuQFCombOr.CheckState = System.Windows.Forms.CheckState.Checked;
             this.mnuQFCombOr.Name = "mnuQFCombOr";
-            this.mnuQFCombOr.Size = new System.Drawing.Size(172, 22);
+            this.mnuQFCombOr.Size = new System.Drawing.Size(180, 22);
             this.mnuQFCombOr.Text = "  Or";
             this.mnuQFCombOr.ToolTipText = "Select Or to show the record if at least one column gets a hit";
             this.mnuQFCombOr.CheckedChanged += new System.EventHandler(this.mnuQFChanged_CheckedChanged);
@@ -634,7 +634,7 @@
             // 
             this.mnuQFCombAnd.CheckOnClick = true;
             this.mnuQFCombAnd.Name = "mnuQFCombAnd";
-            this.mnuQFCombAnd.Size = new System.Drawing.Size(172, 22);
+            this.mnuQFCombAnd.Size = new System.Drawing.Size(180, 22);
             this.mnuQFCombAnd.Text = "  And";
             this.mnuQFCombAnd.ToolTipText = "Select And to only show records that find it on all selected columns";
             this.mnuQFCombAnd.CheckedChanged += new System.EventHandler(this.mnuQFChanged_CheckedChanged);
@@ -642,20 +642,20 @@
             // mnuQFSep2
             // 
             this.mnuQFSep2.Name = "mnuQFSep2";
-            this.mnuQFSep2.Size = new System.Drawing.Size(169, 6);
+            this.mnuQFSep2.Size = new System.Drawing.Size(177, 6);
             // 
             // mnuQFAdvHeader
             // 
             this.mnuQFAdvHeader.Enabled = false;
             this.mnuQFAdvHeader.Name = "mnuQFAdvHeader";
-            this.mnuQFAdvHeader.Size = new System.Drawing.Size(172, 22);
+            this.mnuQFAdvHeader.Size = new System.Drawing.Size(180, 22);
             this.mnuQFAdvHeader.Text = "Advanced";
             // 
             // mnuQFAdvNot
             // 
             this.mnuQFAdvNot.CheckOnClick = true;
             this.mnuQFAdvNot.Name = "mnuQFAdvNot";
-            this.mnuQFAdvNot.Size = new System.Drawing.Size(172, 22);
+            this.mnuQFAdvNot.Size = new System.Drawing.Size(180, 22);
             this.mnuQFAdvNot.Text = "  Not";
             this.mnuQFAdvNot.ToolTipText = "Check this to revert the result of all records";
             this.mnuQFAdvNot.CheckedChanged += new System.EventHandler(this.mnuQFChanged_CheckedChanged);
@@ -664,8 +664,8 @@
             // 
             this.mnuQFAdvRegEx.CheckOnClick = true;
             this.mnuQFAdvRegEx.Name = "mnuQFAdvRegEx";
-            this.mnuQFAdvRegEx.Size = new System.Drawing.Size(172, 22);
-            this.mnuQFAdvRegEx.Text = "  RegEx";
+            this.mnuQFAdvRegEx.Size = new System.Drawing.Size(180, 22);
+            this.mnuQFAdvRegEx.Text = "  RegEx (BETA)";
             this.mnuQFAdvRegEx.ToolTipText = "To you know RegEx?\r\nTry to use it for more advanced finding of records.";
             this.mnuQFAdvRegEx.CheckedChanged += new System.EventHandler(this.mnuQFChanged_CheckedChanged);
             // 
@@ -729,6 +729,7 @@
             this.crmGridView.DefaultCellStyle = dataGridViewCellStyle5;
             this.crmGridView.Dock = System.Windows.Forms.DockStyle.Fill;
             this.crmGridView.EnableHeadersVisualStyles = false;
+            this.crmGridView.FilterColumns = "";
             this.crmGridView.Filtering.And = false;
             this.crmGridView.Filtering.Columns = "messageblock, exceptiondetails, typename, step.name";
             this.crmGridView.Filtering.Not = false;
