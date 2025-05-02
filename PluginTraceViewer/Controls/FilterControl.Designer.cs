@@ -45,11 +45,8 @@
             this.textRequestId = new System.Windows.Forms.TextBox();
             this.chkRequestId = new System.Windows.Forms.CheckBox();
             this.labelTimeZone = new System.Windows.Forms.Label();
-            this.comboEntity = new Rappen.XTB.Helpers.Controls.CheckCombo.CheckBoxComboBox();
             this.chkEntity = new System.Windows.Forms.CheckBox();
-            this.comboMessage = new Rappen.XTB.Helpers.Controls.CheckCombo.CheckBoxComboBox();
             this.chkMessage = new System.Windows.Forms.CheckBox();
-            this.comboPlugin = new Rappen.XTB.Helpers.Controls.CheckCombo.CheckBoxComboBox();
             this.chkPlugin = new System.Windows.Forms.CheckBox();
             this.checkDateTo = new System.Windows.Forms.CheckBox();
             this.checkDateFrom = new System.Windows.Forms.CheckBox();
@@ -80,6 +77,9 @@
             this.dateMenuToday = new System.Windows.Forms.ToolStripMenuItem();
             this.dateMenuFirst = new System.Windows.Forms.ToolStripMenuItem();
             this.dateMenuLast = new System.Windows.Forms.ToolStripMenuItem();
+            this.comboEntity = new Rappen.XTB.Helpers.Controls.CheckCombo.CheckBoxComboBox();
+            this.comboMessage = new Rappen.XTB.Helpers.Controls.CheckCombo.CheckBoxComboBox();
+            this.comboPlugin = new Rappen.XTB.Helpers.Controls.CheckCombo.CheckBoxComboBox();
             this.panelFilter.SuspendLayout();
             this.panelOptions.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numDurationMin)).BeginInit();
@@ -252,22 +252,6 @@
             this.labelTimeZone.TabIndex = 11;
             this.labelTimeZone.Text = "Times in UTC";
             // 
-            // comboEntity
-            // 
-            this.comboEntity.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            checkBoxProperties1.AutoSize = true;
-            checkBoxProperties1.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.comboEntity.CheckBoxProperties = checkBoxProperties1;
-            this.comboEntity.DisplayMemberSingleItem = "";
-            this.comboEntity.Enabled = false;
-            this.comboEntity.FormattingEnabled = true;
-            this.comboEntity.Location = new System.Drawing.Point(97, 76);
-            this.comboEntity.Name = "comboEntity";
-            this.comboEntity.Size = new System.Drawing.Size(548, 21);
-            this.comboEntity.Sorted = true;
-            this.comboEntity.TabIndex = 12;
-            // 
             // chkEntity
             // 
             this.chkEntity.AutoSize = true;
@@ -279,21 +263,6 @@
             this.chkEntity.UseVisualStyleBackColor = true;
             this.chkEntity.CheckedChanged += new System.EventHandler(this.chkEntity_CheckedChanged);
             // 
-            // comboMessage
-            // 
-            this.comboMessage.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            checkBoxProperties2.AutoSize = true;
-            checkBoxProperties2.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.comboMessage.CheckBoxProperties = checkBoxProperties2;
-            this.comboMessage.DisplayMemberSingleItem = "";
-            this.comboMessage.Enabled = false;
-            this.comboMessage.FormattingEnabled = true;
-            this.comboMessage.Location = new System.Drawing.Point(97, 52);
-            this.comboMessage.Name = "comboMessage";
-            this.comboMessage.Size = new System.Drawing.Size(548, 21);
-            this.comboMessage.TabIndex = 10;
-            // 
             // chkMessage
             // 
             this.chkMessage.AutoSize = true;
@@ -304,21 +273,6 @@
             this.chkMessage.Text = "Message";
             this.chkMessage.UseVisualStyleBackColor = true;
             this.chkMessage.CheckedChanged += new System.EventHandler(this.chkMessage_CheckedChanged);
-            // 
-            // comboPlugin
-            // 
-            this.comboPlugin.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            checkBoxProperties3.AutoSize = true;
-            checkBoxProperties3.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.comboPlugin.CheckBoxProperties = checkBoxProperties3;
-            this.comboPlugin.DisplayMemberSingleItem = "";
-            this.comboPlugin.Enabled = false;
-            this.comboPlugin.FormattingEnabled = true;
-            this.comboPlugin.Location = new System.Drawing.Point(97, 28);
-            this.comboPlugin.Name = "comboPlugin";
-            this.comboPlugin.Size = new System.Drawing.Size(548, 21);
-            this.comboPlugin.TabIndex = 8;
             // 
             // chkPlugin
             // 
@@ -697,6 +651,52 @@
             this.dateMenuLast.Text = "Last log record";
             this.dateMenuLast.Click += new System.EventHandler(this.dateMenuItem_Click);
             // 
+            // comboEntity
+            // 
+            this.comboEntity.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            checkBoxProperties1.AutoSize = true;
+            checkBoxProperties1.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.comboEntity.CheckBoxProperties = checkBoxProperties1;
+            this.comboEntity.DisplayMemberSingleItem = "";
+            this.comboEntity.Enabled = false;
+            this.comboEntity.FormattingEnabled = true;
+            this.comboEntity.Location = new System.Drawing.Point(97, 76);
+            this.comboEntity.Name = "comboEntity";
+            this.comboEntity.Size = new System.Drawing.Size(548, 21);
+            this.comboEntity.Sorted = true;
+            this.comboEntity.TabIndex = 12;
+            // 
+            // comboMessage
+            // 
+            this.comboMessage.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            checkBoxProperties2.AutoSize = true;
+            checkBoxProperties2.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.comboMessage.CheckBoxProperties = checkBoxProperties2;
+            this.comboMessage.DisplayMemberSingleItem = "";
+            this.comboMessage.Enabled = false;
+            this.comboMessage.FormattingEnabled = true;
+            this.comboMessage.Location = new System.Drawing.Point(97, 52);
+            this.comboMessage.Name = "comboMessage";
+            this.comboMessage.Size = new System.Drawing.Size(548, 21);
+            this.comboMessage.TabIndex = 10;
+            // 
+            // comboPlugin
+            // 
+            this.comboPlugin.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            checkBoxProperties3.AutoSize = true;
+            checkBoxProperties3.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.comboPlugin.CheckBoxProperties = checkBoxProperties3;
+            this.comboPlugin.DisplayMemberSingleItem = "";
+            this.comboPlugin.Enabled = false;
+            this.comboPlugin.FormattingEnabled = true;
+            this.comboPlugin.Location = new System.Drawing.Point(97, 28);
+            this.comboPlugin.Name = "comboPlugin";
+            this.comboPlugin.Size = new System.Drawing.Size(548, 21);
+            this.comboPlugin.TabIndex = 8;
+            // 
             // FilterControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -775,6 +775,6 @@
         private System.Windows.Forms.LinkLabel linkLabel5;
         private System.Windows.Forms.CheckBox chkRecords;
         private System.Windows.Forms.CheckBox chkDurationMax;
-        internal System.Windows.Forms.TextBox textFreeTextFilter;
+        private System.Windows.Forms.TextBox textFreeTextFilter;
     }
 }

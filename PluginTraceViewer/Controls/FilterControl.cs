@@ -695,5 +695,7 @@ namespace Cinteros.XTB.PluginTraceViewer.Controls
         {
             UrlUtils.OpenUrl(sender);
         }
+
+        internal string FreeTextFilter() => chkFreeMessage.Checked || chkFreeExceptions.Checked ? textFreeTextFilter.Text : null;
     }
 }
