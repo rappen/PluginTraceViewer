@@ -28,7 +28,7 @@ namespace Cinteros.XTB.PluginTraceViewer.Controls
             panLinks.Visible = false;
         }
 
-        internal void SetLogText(string log, Entity tracer, string quickfilter)
+        internal void SetLogText(string log, Entity tracer, string freefilter, string quickfilter)
         {
             textMessage.Clear();
             if (tracerecord == tracer)
@@ -41,10 +41,10 @@ namespace Cinteros.XTB.PluginTraceViewer.Controls
             originallog = log;
             originallog = originallog.Replace("\r\n", "\n");
 
-            _ = ShowMessageTextAsync(ptv.tsmiHighlightGuids.Checked, ptv.tsmiIdentifyRecords.Checked, triggerentity, quickfilter);
+            _ = ShowMessageTextAsync(ptv.tsmiHighlightGuids.Checked, ptv.tsmiIdentifyRecords.Checked, triggerentity, freefilter, quickfilter);
         }
 
-        internal async Task ShowMessageTextAsync(bool highlightguids, bool showlinks, string triggerentity, string quickfilter)
+        internal async Task ShowMessageTextAsync(bool highlightguids, bool showlinks, string triggerentity, string freefilter, string quickfilter)
         {
             panLinks.Visible = showlinks;
             picIcon.Left = ClientSize.Width - picIcon.Width - (showlinks ? 0 : 16);
@@ -97,16 +97,13 @@ namespace Cinteros.XTB.PluginTraceViewer.Controls
                 }
                 links.HighlightRecords(textMessage);
             }
+            if (!string.IsNullOrWhiteSpace(freefilter))
+            {
+                textMessage.HighlightFilter(freefilter, Color.White, Color.Red);
+            }
             if (!string.IsNullOrWhiteSpace(quickfilter))
             {
-                var length = quickfilter.Length;
-                var pos = textMessage.Find(quickfilter, 0, RichTextBoxFinds.None);
-                while (pos != -1)
-                {
-                    textMessage.SelectionBackColor = Color.Red;
-                    textMessage.SelectionColor = Color.White;
-                    pos = textMessage.Find(quickfilter, pos + length, RichTextBoxFinds.None);
-                }
+                textMessage.HighlightFilter(quickfilter, Color.Red, Color.White);
             }
             textMessage.Select(0, 0);
         }

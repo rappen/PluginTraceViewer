@@ -29,9 +29,9 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            Rappen.XTB.Helpers.Controls.CheckCombo.CheckBoxProperties checkBoxProperties4 = new Rappen.XTB.Helpers.Controls.CheckCombo.CheckBoxProperties();
             Rappen.XTB.Helpers.Controls.CheckCombo.CheckBoxProperties checkBoxProperties1 = new Rappen.XTB.Helpers.Controls.CheckCombo.CheckBoxProperties();
             Rappen.XTB.Helpers.Controls.CheckCombo.CheckBoxProperties checkBoxProperties2 = new Rappen.XTB.Helpers.Controls.CheckCombo.CheckBoxProperties();
+            Rappen.XTB.Helpers.Controls.CheckCombo.CheckBoxProperties checkBoxProperties3 = new Rappen.XTB.Helpers.Controls.CheckCombo.CheckBoxProperties();
             this.panelFilter = new System.Windows.Forms.Panel();
             this.chkFreeExceptions = new System.Windows.Forms.CheckBox();
             this.textFreeTextFilter = new System.Windows.Forms.TextBox();
@@ -256,9 +256,9 @@
             // 
             this.comboEntity.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            checkBoxProperties4.AutoSize = true;
-            checkBoxProperties4.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.comboEntity.CheckBoxProperties = checkBoxProperties4;
+            checkBoxProperties1.AutoSize = true;
+            checkBoxProperties1.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.comboEntity.CheckBoxProperties = checkBoxProperties1;
             this.comboEntity.DisplayMemberSingleItem = "";
             this.comboEntity.Enabled = false;
             this.comboEntity.FormattingEnabled = true;
@@ -283,9 +283,9 @@
             // 
             this.comboMessage.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            checkBoxProperties1.AutoSize = true;
-            checkBoxProperties1.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.comboMessage.CheckBoxProperties = checkBoxProperties1;
+            checkBoxProperties2.AutoSize = true;
+            checkBoxProperties2.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.comboMessage.CheckBoxProperties = checkBoxProperties2;
             this.comboMessage.DisplayMemberSingleItem = "";
             this.comboMessage.Enabled = false;
             this.comboMessage.FormattingEnabled = true;
@@ -309,9 +309,9 @@
             // 
             this.comboPlugin.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            checkBoxProperties2.AutoSize = true;
-            checkBoxProperties2.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.comboPlugin.CheckBoxProperties = checkBoxProperties2;
+            checkBoxProperties3.AutoSize = true;
+            checkBoxProperties3.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.comboPlugin.CheckBoxProperties = checkBoxProperties3;
             this.comboPlugin.DisplayMemberSingleItem = "";
             this.comboPlugin.Enabled = false;
             this.comboPlugin.FormattingEnabled = true;
@@ -769,12 +769,12 @@
         private System.Windows.Forms.LinkLabel linkLabel2;
         private System.Windows.Forms.LinkLabel linkLabel1;
         private System.Windows.Forms.CheckBox chkFreeMessage;
-        private System.Windows.Forms.TextBox textFreeTextFilter;
         private System.Windows.Forms.CheckBox chkFreeExceptions;
         private System.Windows.Forms.CheckBox chkDurationMin;
         private System.Windows.Forms.LinkLabel linkLabel6;
         private System.Windows.Forms.LinkLabel linkLabel5;
         private System.Windows.Forms.CheckBox chkRecords;
         private System.Windows.Forms.CheckBox chkDurationMax;
+        internal System.Windows.Forms.TextBox textFreeTextFilter;
     }
 }

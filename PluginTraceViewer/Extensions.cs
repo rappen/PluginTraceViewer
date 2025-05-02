@@ -2,6 +2,7 @@
 using Microsoft.Xrm.Sdk;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 
@@ -54,6 +55,18 @@ namespace Cinteros.XTB.PluginTraceViewer
                 record.GetAttributeValue<string>(PluginTraceLog.PrimaryEntity) + " " +
                 record.GetAttributeValue<DateTime>(PluginTraceLog.PerformanceExecutionStarttime).ToString("yyyyMMddHHmmssfff");
             return name;
+        }
+
+        public static void HighlightFilter(this RichTextBox textbox, string text, Color bg, Color fr)
+        {
+            var length = text.Length;
+            var pos = textbox.Find(text, 0, RichTextBoxFinds.None);
+            while (pos != -1)
+            {
+                textbox.SelectionBackColor = bg;
+                textbox.SelectionColor = fr;
+                pos = textbox.Find(text, pos + length, RichTextBoxFinds.None);
+            }
         }
     }
 }

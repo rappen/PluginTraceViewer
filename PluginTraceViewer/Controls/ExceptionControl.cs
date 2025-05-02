@@ -19,7 +19,7 @@ namespace Cinteros.XTB.PluginTraceViewer.Controls
             InitializeComponent();
         }
 
-        internal void SetException(string log, string caption, string quickfilter)
+        internal void SetException(string log, string caption, string freefilter, string quickfilter)
         {
             textException.Clear();
             TabText = caption;
@@ -42,10 +42,10 @@ namespace Cinteros.XTB.PluginTraceViewer.Controls
                     DockState;
             }
             originallog = log.Replace("\r\n", "\n");
-            _ = ShowMessageTextAsync(ptv.tsmiHighlightGuids.Checked, ptv.tsmiIdentifyRecords.Checked, quickfilter);
+            _ = ShowMessageTextAsync(ptv.tsmiHighlightGuids.Checked, ptv.tsmiIdentifyRecords.Checked, freefilter, quickfilter);
         }
 
-        internal async Task ShowMessageTextAsync(bool highlightguids, bool showlinks, string quickfilter)
+        internal async Task ShowMessageTextAsync(bool highlightguids, bool showlinks, string freefilter, string quickfilter)
         {
             btnShowAllRecordLinks.Visible = showlinks;
             btnShowAllRecordLinks.Enabled = false;
@@ -72,16 +72,13 @@ namespace Cinteros.XTB.PluginTraceViewer.Controls
                 }
                 links.HighlightRecords(textException);
             }
+            if (!string.IsNullOrWhiteSpace(freefilter))
+            {
+                textException.HighlightFilter(freefilter, Color.White, Color.Red);
+            }
             if (!string.IsNullOrWhiteSpace(quickfilter))
             {
-                var length = quickfilter.Length;
-                var pos = textException.Find(quickfilter, 0, RichTextBoxFinds.None);
-                while (pos != -1)
-                {
-                    textException.SelectionBackColor = Color.Red;
-                    textException.SelectionColor = Color.White;
-                    pos = textException.Find(quickfilter, pos + length, RichTextBoxFinds.None);
-                }
+                textException.HighlightFilter(quickfilter, Color.Red, Color.White);
             }
             textException.Select(0, 0);
         }
