@@ -12,7 +12,12 @@
     <description>Investigate the Plugin Trace Log and finding records with easy filtering and display possibilities</description>
     <summary>Investigate the Plugin Trace Log and finding records with easy filtering and display possibilities</summary>
     <releaseNotes>
-Identifying more records, some improvments, some bug fix.
+* ComboBox with CheckBoxes (select multiple items)
+* Advanced Quick Filter (fields, or/and,not, regex...)
+* Quick Filter matches are highlighted (easier to see what you are looking for)
+* Free Filtering before retrieving (retrieve only relevant trace log records)
+* Filtering more granular (MainOperation, min/max duration, help links)
+* Improved identifying records from the trace log message
 
 Read latest release notes!
 https://jonasr.app/ptv/releases/#$versionnumber$
