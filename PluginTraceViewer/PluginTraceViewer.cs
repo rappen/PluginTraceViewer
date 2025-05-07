@@ -164,18 +164,22 @@ namespace Cinteros.XTB.PluginTraceViewer
                         {
                             case "plugin":
                                 result.Plugin = value;
+                                result.FilterPlugin = true;
                                 break;
 
                             case "message":
                                 result.Message = value;
+                                result.FilterMessage = true;
                                 break;
 
                             case "entity":
                                 result.Entity = value;
+                                result.FilterEntity = true;
                                 break;
 
                             case "correlationid":
                                 result.CorrelationId = value;
+                                result.FilterCorr = true;
                                 break;
 
                             case PluginTraceLog.RequestId:
