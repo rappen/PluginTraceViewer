@@ -16,3 +16,5 @@
 *_LOCAL_*
 *_REMOTE_*
 /.vs
+/MigrationBackup
+/PluginTraceViewer/.vs
