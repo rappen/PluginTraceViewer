@@ -322,7 +322,7 @@ namespace Cinteros.XTB.PluginTraceViewer
             defaultcolumns = gridControl.Columns;
             LoadSettings();
             LogUse("Load", ai2: true);
-            Supporting.ShowIf(this, false, true, ai2);
+            Supporting.ShowIf(this, ShowItFrom.Open, false, true, ai2);
             if (Supporting.IsEnabled(this))
             {
                 tsbSupporting.Visible = true;
@@ -1259,12 +1259,12 @@ namespace Cinteros.XTB.PluginTraceViewer
             }
         }
 
-        internal void LogInfo(string message, params object[] args)
+        internal new void LogInfo(string message, params object[] args)
         {
             base.LogInfo(message, args);
         }
 
-        internal void LogError(string message, params object[] args)
+        internal new void LogError(string message, params object[] args)
         {
             base.LogError(message, args);
         }
@@ -1443,7 +1443,12 @@ namespace Cinteros.XTB.PluginTraceViewer
 
         private void tsbSupporting_Click(object sender, EventArgs e)
         {
-            Supporting.ShowIf(this, true, false, ai2);
+            Supporting.ShowIf(this, ShowItFrom.Open, true, false, ai2);
+        }
+
+        private void tsmiExcel_Click(object sender, EventArgs e)
+        {
+            ExcelHelper.ExportToExcel(this, gridControl.crmGridView, false, GetQueryFetchXML(), string.Empty, null);
         }
     }
 }

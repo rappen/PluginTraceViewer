@@ -84,6 +84,8 @@
             this.vS2005Theme1 = new WeifenLuo.WinFormsUI.Docking.VS2005Theme();
             this.dockContainer = new WeifenLuo.WinFormsUI.Docking.DockPanel();
             this.timerRefresh = new System.Windows.Forms.Timer(this.components);
+            this.toolStripMenuItem8 = new System.Windows.Forms.ToolStripSeparator();
+            this.tsmiExcel = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMain.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -148,27 +150,27 @@
             // buttonOpenFilter
             // 
             this.buttonOpenFilter.Name = "buttonOpenFilter";
-            this.buttonOpenFilter.Size = new System.Drawing.Size(239, 22);
+            this.buttonOpenFilter.Size = new System.Drawing.Size(238, 22);
             this.buttonOpenFilter.Text = "Filters...";
             this.buttonOpenFilter.Click += new System.EventHandler(this.buttonOpenFilter_Click);
             // 
             // buttonOpenFXB
             // 
             this.buttonOpenFXB.Name = "buttonOpenFXB";
-            this.buttonOpenFXB.Size = new System.Drawing.Size(239, 22);
+            this.buttonOpenFXB.Size = new System.Drawing.Size(238, 22);
             this.buttonOpenFXB.Text = "Query in FetchXML Builder...";
             this.buttonOpenFXB.Click += new System.EventHandler(this.buttonOpenFXB_Click);
             // 
             // toolStripSeparator5
             // 
             this.toolStripSeparator5.Name = "toolStripSeparator5";
-            this.toolStripSeparator5.Size = new System.Drawing.Size(236, 6);
+            this.toolStripSeparator5.Size = new System.Drawing.Size(235, 6);
             // 
             // buttonOpenLogRecord
             // 
             this.buttonOpenLogRecord.Enabled = false;
             this.buttonOpenLogRecord.Name = "buttonOpenLogRecord";
-            this.buttonOpenLogRecord.Size = new System.Drawing.Size(239, 22);
+            this.buttonOpenLogRecord.Size = new System.Drawing.Size(238, 22);
             this.buttonOpenLogRecord.Text = "Selected log record in CRM...";
             this.buttonOpenLogRecord.Click += new System.EventHandler(this.buttonOpenLogRecord_Click);
             // 
@@ -176,7 +178,7 @@
             // 
             this.buttonOpenLogTrace.Enabled = false;
             this.buttonOpenLogTrace.Name = "buttonOpenLogTrace";
-            this.buttonOpenLogTrace.Size = new System.Drawing.Size(239, 22);
+            this.buttonOpenLogTrace.Size = new System.Drawing.Size(238, 22);
             this.buttonOpenLogTrace.Text = "Selected log record Trace...";
             this.buttonOpenLogTrace.Click += new System.EventHandler(this.buttonOpenLogTrace_Click);
             // 
@@ -184,7 +186,7 @@
             // 
             this.buttonOpenLogException.Enabled = false;
             this.buttonOpenLogException.Name = "buttonOpenLogException";
-            this.buttonOpenLogException.Size = new System.Drawing.Size(239, 22);
+            this.buttonOpenLogException.Size = new System.Drawing.Size(238, 22);
             this.buttonOpenLogException.Text = "Selected log record Exception...";
             this.buttonOpenLogException.Click += new System.EventHandler(this.buttonOpenLogException_Click);
             // 
@@ -281,6 +283,8 @@
             // tsddTraces
             // 
             this.tsddTraces.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.tsmiExcel,
+            this.toolStripMenuItem8,
             this.tsmiViewQuickFilter,
             this.tsmiLocalTimes,
             this.toolStripMenuItem1,
@@ -294,7 +298,7 @@
             this.tsddTraces.Image = ((System.Drawing.Image)(resources.GetObject("tsddTraces.Image")));
             this.tsddTraces.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsddTraces.Name = "tsddTraces";
-            this.tsddTraces.Size = new System.Drawing.Size(84, 36);
+            this.tsddTraces.Size = new System.Drawing.Size(85, 36);
             this.tsddTraces.Text = "Traces";
             // 
             // tsmiViewQuickFilter
@@ -303,7 +307,7 @@
             this.tsmiViewQuickFilter.Image = ((System.Drawing.Image)(resources.GetObject("tsmiViewQuickFilter.Image")));
             this.tsmiViewQuickFilter.Name = "tsmiViewQuickFilter";
             this.tsmiViewQuickFilter.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.F)));
-            this.tsmiViewQuickFilter.Size = new System.Drawing.Size(253, 22);
+            this.tsmiViewQuickFilter.Size = new System.Drawing.Size(269, 38);
             this.tsmiViewQuickFilter.Text = "Quick Filter";
             this.tsmiViewQuickFilter.Click += new System.EventHandler(this.tsmiViewQuickFilter_Click);
             // 
@@ -312,21 +316,21 @@
             this.tsmiLocalTimes.CheckOnClick = true;
             this.tsmiLocalTimes.Image = ((System.Drawing.Image)(resources.GetObject("tsmiLocalTimes.Image")));
             this.tsmiLocalTimes.Name = "tsmiLocalTimes";
-            this.tsmiLocalTimes.Size = new System.Drawing.Size(253, 22);
+            this.tsmiLocalTimes.Size = new System.Drawing.Size(269, 38);
             this.tsmiLocalTimes.Text = "Local Times";
             this.tsmiLocalTimes.Click += new System.EventHandler(this.tsmiLocalTimes_Click);
             // 
             // toolStripMenuItem1
             // 
             this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(250, 6);
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(266, 6);
             // 
             // tsmiFullyQualifiedPluginNames
             // 
             this.tsmiFullyQualifiedPluginNames.CheckOnClick = true;
             this.tsmiFullyQualifiedPluginNames.Image = ((System.Drawing.Image)(resources.GetObject("tsmiFullyQualifiedPluginNames.Image")));
             this.tsmiFullyQualifiedPluginNames.Name = "tsmiFullyQualifiedPluginNames";
-            this.tsmiFullyQualifiedPluginNames.Size = new System.Drawing.Size(253, 22);
+            this.tsmiFullyQualifiedPluginNames.Size = new System.Drawing.Size(269, 38);
             this.tsmiFullyQualifiedPluginNames.Text = "Show fully qualified Plugin names";
             this.tsmiFullyQualifiedPluginNames.Click += new System.EventHandler(this.tsmiFullyQualifiedPluginNames_Click);
             // 
@@ -335,7 +339,7 @@
             this.tsmiHidePluginFromStep.CheckOnClick = true;
             this.tsmiHidePluginFromStep.Image = ((System.Drawing.Image)(resources.GetObject("tsmiHidePluginFromStep.Image")));
             this.tsmiHidePluginFromStep.Name = "tsmiHidePluginFromStep";
-            this.tsmiHidePluginFromStep.Size = new System.Drawing.Size(253, 22);
+            this.tsmiHidePluginFromStep.Size = new System.Drawing.Size(269, 38);
             this.tsmiHidePluginFromStep.Text = "Hide Plugin names from Steps";
             this.tsmiHidePluginFromStep.Click += new System.EventHandler(this.tsmiHidePluginFromStep_Click);
             // 
@@ -344,14 +348,14 @@
             this.tsmiHideEntityFromStep.CheckOnClick = true;
             this.tsmiHideEntityFromStep.Image = ((System.Drawing.Image)(resources.GetObject("tsmiHideEntityFromStep.Image")));
             this.tsmiHideEntityFromStep.Name = "tsmiHideEntityFromStep";
-            this.tsmiHideEntityFromStep.Size = new System.Drawing.Size(253, 22);
+            this.tsmiHideEntityFromStep.Size = new System.Drawing.Size(269, 38);
             this.tsmiHideEntityFromStep.Text = "Hide Entity names from Steps";
             this.tsmiHideEntityFromStep.Click += new System.EventHandler(this.tsmiHideEntityFromStep_Click);
             // 
             // toolStripMenuItem2
             // 
             this.toolStripMenuItem2.Name = "toolStripMenuItem2";
-            this.toolStripMenuItem2.Size = new System.Drawing.Size(250, 6);
+            this.toolStripMenuItem2.Size = new System.Drawing.Size(266, 6);
             // 
             // tsmiHighlight
             // 
@@ -360,20 +364,20 @@
             this.tsmiHighlight.CheckState = System.Windows.Forms.CheckState.Checked;
             this.tsmiHighlight.Image = ((System.Drawing.Image)(resources.GetObject("tsmiHighlight.Image")));
             this.tsmiHighlight.Name = "tsmiHighlight";
-            this.tsmiHighlight.Size = new System.Drawing.Size(253, 22);
+            this.tsmiHighlight.Size = new System.Drawing.Size(269, 38);
             this.tsmiHighlight.Text = "Highlight identical cells";
             this.tsmiHighlight.Click += new System.EventHandler(this.tsmiHighlight_Click);
             // 
             // toolStripMenuItem6
             // 
             this.toolStripMenuItem6.Name = "toolStripMenuItem6";
-            this.toolStripMenuItem6.Size = new System.Drawing.Size(250, 6);
+            this.toolStripMenuItem6.Size = new System.Drawing.Size(266, 6);
             // 
             // tsmiResetColumns
             // 
             this.tsmiResetColumns.Image = ((System.Drawing.Image)(resources.GetObject("tsmiResetColumns.Image")));
             this.tsmiResetColumns.Name = "tsmiResetColumns";
-            this.tsmiResetColumns.Size = new System.Drawing.Size(253, 22);
+            this.tsmiResetColumns.Size = new System.Drawing.Size(269, 38);
             this.tsmiResetColumns.Text = "Reset all columns";
             this.tsmiResetColumns.Click += new System.EventHandler(this.tsmiResetColumns_Click);
             // 
@@ -396,7 +400,7 @@
             this.tsmiHighlightGuids.Image = ((System.Drawing.Image)(resources.GetObject("tsmiHighlightGuids.Image")));
             this.tsmiHighlightGuids.Name = "tsmiHighlightGuids";
             this.tsmiHighlightGuids.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.G)));
-            this.tsmiHighlightGuids.Size = new System.Drawing.Size(240, 22);
+            this.tsmiHighlightGuids.Size = new System.Drawing.Size(239, 22);
             this.tsmiHighlightGuids.Text = "Highlight guids";
             this.tsmiHighlightGuids.Click += new System.EventHandler(this.tsmiIdentifyRecords_Click);
             // 
@@ -406,14 +410,14 @@
             this.tsmiIdentifyRecords.Image = ((System.Drawing.Image)(resources.GetObject("tsmiIdentifyRecords.Image")));
             this.tsmiIdentifyRecords.Name = "tsmiIdentifyRecords";
             this.tsmiIdentifyRecords.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.I)));
-            this.tsmiIdentifyRecords.Size = new System.Drawing.Size(240, 22);
+            this.tsmiIdentifyRecords.Size = new System.Drawing.Size(239, 22);
             this.tsmiIdentifyRecords.Text = "Identify records";
             this.tsmiIdentifyRecords.Click += new System.EventHandler(this.tsmiIdentifyRecords_Click);
             // 
             // toolStripMenuItem7
             // 
             this.toolStripMenuItem7.Name = "toolStripMenuItem7";
-            this.toolStripMenuItem7.Size = new System.Drawing.Size(237, 6);
+            this.toolStripMenuItem7.Size = new System.Drawing.Size(236, 6);
             // 
             // tsmiWordWrap
             // 
@@ -421,7 +425,7 @@
             this.tsmiWordWrap.Image = ((System.Drawing.Image)(resources.GetObject("tsmiWordWrap.Image")));
             this.tsmiWordWrap.Name = "tsmiWordWrap";
             this.tsmiWordWrap.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.Z)));
-            this.tsmiWordWrap.Size = new System.Drawing.Size(240, 22);
+            this.tsmiWordWrap.Size = new System.Drawing.Size(239, 22);
             this.tsmiWordWrap.Text = "Wrap text in log window";
             this.tsmiWordWrap.CheckedChanged += new System.EventHandler(this.tsmiWordWrap_CheckedChanged);
             // 
@@ -566,6 +570,19 @@
             this.timerRefresh.Interval = 1000;
             this.timerRefresh.Tick += new System.EventHandler(this.timerRefresh_Tick);
             // 
+            // toolStripMenuItem8
+            // 
+            this.toolStripMenuItem8.Name = "toolStripMenuItem8";
+            this.toolStripMenuItem8.Size = new System.Drawing.Size(266, 6);
+            // 
+            // tsmiExcel
+            // 
+            this.tsmiExcel.Image = ((System.Drawing.Image)(resources.GetObject("tsmiExcel.Image")));
+            this.tsmiExcel.Name = "tsmiExcel";
+            this.tsmiExcel.Size = new System.Drawing.Size(269, 38);
+            this.tsmiExcel.Text = "Export to Excel";
+            this.tsmiExcel.Click += new System.EventHandler(this.tsmiExcel_Click);
+            // 
             // PluginTraceViewer
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -642,5 +659,7 @@
         private System.Windows.Forms.ToolStripSeparator toolStripMenuItem7;
         internal System.Windows.Forms.ToolStripMenuItem tsmiHighlightGuids;
         private System.Windows.Forms.ToolStripButton tsbSupporting;
+        private System.Windows.Forms.ToolStripSeparator toolStripMenuItem8;
+        private System.Windows.Forms.ToolStripMenuItem tsmiExcel;
     }
 }
