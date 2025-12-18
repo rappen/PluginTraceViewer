@@ -53,6 +53,8 @@
             this.comboLogSetting = new System.Windows.Forms.ToolStripComboBox();
             this.tsddTraces = new System.Windows.Forms.ToolStripDropDownButton();
             this.tsmiExcel = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiExcelLess = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiExcelMore = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem8 = new System.Windows.Forms.ToolStripSeparator();
             this.tsmiViewQuickFilter = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiLocalTimes = new System.Windows.Forms.ToolStripMenuItem();
@@ -86,8 +88,6 @@
             this.vS2005Theme1 = new WeifenLuo.WinFormsUI.Docking.VS2005Theme();
             this.dockContainer = new WeifenLuo.WinFormsUI.Docking.DockPanel();
             this.timerRefresh = new System.Windows.Forms.Timer(this.components);
-            this.tsmiExcelLess = new System.Windows.Forms.ToolStripMenuItem();
-            this.tsmiExcelMore = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMain.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -312,6 +312,20 @@
             this.tsmiExcel.Name = "tsmiExcel";
             this.tsmiExcel.Size = new System.Drawing.Size(269, 38);
             this.tsmiExcel.Text = "Export to Excel";
+            // 
+            // tsmiExcelLess
+            // 
+            this.tsmiExcelLess.Name = "tsmiExcelLess";
+            this.tsmiExcelLess.Size = new System.Drawing.Size(180, 22);
+            this.tsmiExcelLess.Text = "What you see";
+            this.tsmiExcelLess.Click += new System.EventHandler(this.tsmiExcelLess_Click);
+            // 
+            // tsmiExcelMore
+            // 
+            this.tsmiExcelMore.Name = "tsmiExcelMore";
+            this.tsmiExcelMore.Size = new System.Drawing.Size(180, 22);
+            this.tsmiExcelMore.Text = "With all details";
+            this.tsmiExcelMore.Click += new System.EventHandler(this.tsmiExcelMore_Click);
             // 
             // toolStripMenuItem8
             // 
@@ -584,22 +598,8 @@
             // 
             // timerRefresh
             // 
-            this.timerRefresh.Interval = 1000;
+            this.timerRefresh.Interval = 5000;
             this.timerRefresh.Tick += new System.EventHandler(this.timerRefresh_Tick);
-            // 
-            // tsmiExcelLess
-            // 
-            this.tsmiExcelLess.Name = "tsmiExcelLess";
-            this.tsmiExcelLess.Size = new System.Drawing.Size(180, 22);
-            this.tsmiExcelLess.Text = "What you see";
-            this.tsmiExcelLess.Click += new System.EventHandler(this.tsmiExcelLess_Click);
-            // 
-            // tsmiExcelMore
-            // 
-            this.tsmiExcelMore.Name = "tsmiExcelMore";
-            this.tsmiExcelMore.Size = new System.Drawing.Size(180, 22);
-            this.tsmiExcelMore.Text = "With all details";
-            this.tsmiExcelMore.Click += new System.EventHandler(this.tsmiExcelMore_Click);
             // 
             // PluginTraceViewer
             // 

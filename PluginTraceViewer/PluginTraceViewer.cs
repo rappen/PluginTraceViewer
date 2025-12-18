@@ -3,6 +3,7 @@ using Cinteros.XTB.PluginTraceViewer.Controls;
 using Cinteros.XTB.PluginTraceViewer.Properties;
 using McTools.Xrm.Connection;
 using Microsoft.Crm.Sdk.Messages;
+using Microsoft.Toolkit.Uwp.Notifications;
 using Microsoft.Xrm.Sdk;
 using Microsoft.Xrm.Sdk.Query;
 using Rappen.XRM.Helpers.Serialization;
@@ -44,6 +45,7 @@ namespace Cinteros.XTB.PluginTraceViewer
         internal RecordList recordlist;
         private Entity lasttracerecord;
         private List<string> defaultcolumns;
+        private bool justtoasted;
 
         public PluginTraceViewer()
         {
@@ -299,6 +301,25 @@ namespace Cinteros.XTB.PluginTraceViewer
         public void ShowAboutDialog()
         {
             tslAbout_Click(null, null);
+        }
+
+        public override void HandleToastActivation(ToastNotificationActivatedEventArgsCompat args)
+        {
+            if (Supporting.HandleToastActivation(this, args, ai2))
+            {
+                return;
+            }
+            var arguments = ToastArguments.Parse(args.Argument);
+            if (arguments.TryGetValue("action", out var action) && action == "default")
+            {
+                this.BringToolToFront(gridControl.crmGridView);
+                if (buttonRefreshLogs.Visible && buttonRefreshLogs.Enabled)
+                {
+                    buttonRefreshLogs_Click(null, null);
+                }
+                return;
+            }
+            base.HandleToastActivation(args);
         }
 
         internal void UpdateHighlighting()
@@ -606,6 +627,21 @@ namespace Cinteros.XTB.PluginTraceViewer
                             FixingLogRecords(logs);
                             gridControl.crmGridView.Refresh();
                             UpdateRefreshButton(0);
+                        }
+                        else if (newlogs.Entities.Count > 0 && comboRefreshMode.SelectedIndex == 1 && !this.IsShownAndActive())
+                        {
+                            if (!justtoasted)
+                            {
+                                ToastHelper.ToastIt(
+                                this,
+                                "PluginTraceViewer",
+                                $"New Plugin Trace Logs!",
+                                $"{newlogs.Entities.Count} new Plugin Trace Logs have arrived.",
+                                $"Click here to open and refresh it!",
+                                logo: "https://rappen.github.io/Tools/Images/PTV150.png",
+                                duration: ToastDuration.Short);
+                            }
+                            justtoasted = true;
                         }
                     }
                 }
@@ -944,6 +980,7 @@ namespace Cinteros.XTB.PluginTraceViewer
         private void buttonRetrieveLogs_Click(object sender, EventArgs e)
         {
             RefreshTraces(GetQuery(false));
+            justtoasted = false;
         }
 
         internal void GridRecordEnter(Entity record)
@@ -1170,6 +1207,7 @@ namespace Cinteros.XTB.PluginTraceViewer
         private void RefreshModeUpdated()
         {
             StopRefreshTimer();
+            justtoasted = false;
             buttonRefreshLogs.Text = "0 new";
             buttonRefreshLogs.Visible = comboRefreshMode.SelectedIndex == 1;
             StartRefreshTimer(false);
@@ -1375,6 +1413,7 @@ namespace Cinteros.XTB.PluginTraceViewer
         private void buttonRefreshLogs_Click(object sender, EventArgs e)
         {
             RefreshNewTraces(true);
+            justtoasted = false;
         }
 
         private void tsmiSuppressLogSettingWarning_Click(object sender, EventArgs e)
