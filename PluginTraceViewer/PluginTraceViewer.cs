@@ -315,7 +315,8 @@ namespace Cinteros.XTB.PluginTraceViewer
                 this.BringToolToFront(gridControl.crmGridView);
                 if (buttonRefreshLogs.Visible && buttonRefreshLogs.Enabled)
                 {
-                    buttonRefreshLogs_Click(null, null);
+                    RefreshNewTraces(true);
+                    justtoasted = false;
                 }
                 return;
             }
@@ -981,6 +982,7 @@ namespace Cinteros.XTB.PluginTraceViewer
         {
             RefreshTraces(GetQuery(false));
             justtoasted = false;
+            Supporting.ShowIf(this, ShowItFrom.Execute, false, false, ai2);
         }
 
         internal void GridRecordEnter(Entity record)
@@ -1414,6 +1416,7 @@ namespace Cinteros.XTB.PluginTraceViewer
         {
             RefreshNewTraces(true);
             justtoasted = false;
+            Supporting.ShowIf(this, ShowItFrom.Execute, false, false, ai2);
         }
 
         private void tsmiSuppressLogSettingWarning_Click(object sender, EventArgs e)
