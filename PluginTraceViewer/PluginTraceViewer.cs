@@ -1446,9 +1446,47 @@ namespace Cinteros.XTB.PluginTraceViewer
             Supporting.ShowIf(this, ShowItFrom.Open, true, false, ai2);
         }
 
-        private void tsmiExcel_Click(object sender, EventArgs e)
+        private void tsmiExcelLess_Click(object sender, EventArgs e)
         {
-            ExcelHelper.ExportToExcel(this, gridControl.crmGridView, false, GetQueryFetchXML(), string.Empty, null);
+            Cursor = Cursors.WaitCursor;
+            Enabled = false;
+            gridControl.crmGridView.ExportToExcel(
+                fetch: GetQueryFetchXML(),
+                afterExport: () => { Enabled = true; Cursor = Cursors.Default; },
+                columnMaxWidth: 400);
+        }
+
+        private void tsmiExcelMore_Click(object sender, EventArgs e)
+        {
+            var columns = new[]{
+                "correlation",
+                "createdon",
+                "performanceexecutionstartdate",
+                "performanceexecutionstarttime",
+                "performanceexecutionduration",
+                "operationtype",
+                "typename",
+                "stepname",
+                "depth",
+                "mode",
+                "stage",
+                "rank",
+                "messagename",
+                "primaryentity",
+                "tracesize",
+                "correlationid",
+                "requestid",
+                "exceptionsummary",
+                "messageblock",
+                "exceptiondetails"
+            };
+            Cursor = Cursors.WaitCursor;
+            Enabled = false;
+            gridControl.crmGridView.ExportToExcel(
+                fetch: GetQueryFetchXML(),
+                afterExport: () => { Enabled = true; Cursor = Cursors.Default; },
+                columnMaxWidth: 400,
+                columns: columns);
         }
     }
 }

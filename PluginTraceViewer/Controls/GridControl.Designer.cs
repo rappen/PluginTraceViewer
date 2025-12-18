@@ -557,7 +557,7 @@
             // 
             this.mnuQFColHeader.Enabled = false;
             this.mnuQFColHeader.Name = "mnuQFColHeader";
-            this.mnuQFColHeader.Size = new System.Drawing.Size(180, 22);
+            this.mnuQFColHeader.Size = new System.Drawing.Size(172, 22);
             this.mnuQFColHeader.Text = "Filter by columns:";
             this.mnuQFColHeader.ToolTipText = "Select which columns will be searching in";
             // 
@@ -567,7 +567,7 @@
             this.mnuQFColTrace.CheckOnClick = true;
             this.mnuQFColTrace.CheckState = System.Windows.Forms.CheckState.Checked;
             this.mnuQFColTrace.Name = "mnuQFColTrace";
-            this.mnuQFColTrace.Size = new System.Drawing.Size(180, 22);
+            this.mnuQFColTrace.Size = new System.Drawing.Size(172, 22);
             this.mnuQFColTrace.Text = "  Trace";
             this.mnuQFColTrace.ToolTipText = "Searching in Plugin Trace Message Block";
             this.mnuQFColTrace.CheckedChanged += new System.EventHandler(this.mnuQFChanged_CheckedChanged);
@@ -578,7 +578,7 @@
             this.mnuQFColException.CheckOnClick = true;
             this.mnuQFColException.CheckState = System.Windows.Forms.CheckState.Checked;
             this.mnuQFColException.Name = "mnuQFColException";
-            this.mnuQFColException.Size = new System.Drawing.Size(180, 22);
+            this.mnuQFColException.Size = new System.Drawing.Size(172, 22);
             this.mnuQFColException.Text = "  Exception";
             this.mnuQFColException.ToolTipText = "Searching in Exception Details";
             this.mnuQFColException.CheckedChanged += new System.EventHandler(this.mnuQFChanged_CheckedChanged);
@@ -589,7 +589,7 @@
             this.mnuQFColPlugin.CheckOnClick = true;
             this.mnuQFColPlugin.CheckState = System.Windows.Forms.CheckState.Checked;
             this.mnuQFColPlugin.Name = "mnuQFColPlugin";
-            this.mnuQFColPlugin.Size = new System.Drawing.Size(180, 22);
+            this.mnuQFColPlugin.Size = new System.Drawing.Size(172, 22);
             this.mnuQFColPlugin.Text = "  Plugin";
             this.mnuQFColPlugin.ToolTipText = "Searching in Plugin Type Name";
             this.mnuQFColPlugin.CheckedChanged += new System.EventHandler(this.mnuQFChanged_CheckedChanged);
@@ -600,7 +600,7 @@
             this.mnuQFColStep.CheckOnClick = true;
             this.mnuQFColStep.CheckState = System.Windows.Forms.CheckState.Checked;
             this.mnuQFColStep.Name = "mnuQFColStep";
-            this.mnuQFColStep.Size = new System.Drawing.Size(180, 22);
+            this.mnuQFColStep.Size = new System.Drawing.Size(172, 22);
             this.mnuQFColStep.Text = "  Step";
             this.mnuQFColStep.ToolTipText = "Searching in Plugin Step Name";
             this.mnuQFColStep.CheckedChanged += new System.EventHandler(this.mnuQFChanged_CheckedChanged);
@@ -608,13 +608,13 @@
             // mnuQFSep1
             // 
             this.mnuQFSep1.Name = "mnuQFSep1";
-            this.mnuQFSep1.Size = new System.Drawing.Size(177, 6);
+            this.mnuQFSep1.Size = new System.Drawing.Size(169, 6);
             // 
             // mnuQFCombHeader
             // 
             this.mnuQFCombHeader.Enabled = false;
             this.mnuQFCombHeader.Name = "mnuQFCombHeader";
-            this.mnuQFCombHeader.Size = new System.Drawing.Size(180, 22);
+            this.mnuQFCombHeader.Size = new System.Drawing.Size(172, 22);
             this.mnuQFCombHeader.Text = "Combine columns";
             this.mnuQFCombHeader.ToolTipText = "Select here if all columns selected will find the text, or one hit is enough";
             // 
@@ -625,7 +625,7 @@
             this.mnuQFCombOr.CheckOnClick = true;
             this.mnuQFCombOr.CheckState = System.Windows.Forms.CheckState.Checked;
             this.mnuQFCombOr.Name = "mnuQFCombOr";
-            this.mnuQFCombOr.Size = new System.Drawing.Size(180, 22);
+            this.mnuQFCombOr.Size = new System.Drawing.Size(172, 22);
             this.mnuQFCombOr.Text = "  Or";
             this.mnuQFCombOr.ToolTipText = "Select Or to show the record if at least one column gets a hit";
             this.mnuQFCombOr.CheckedChanged += new System.EventHandler(this.mnuQFChanged_CheckedChanged);
@@ -634,7 +634,7 @@
             // 
             this.mnuQFCombAnd.CheckOnClick = true;
             this.mnuQFCombAnd.Name = "mnuQFCombAnd";
-            this.mnuQFCombAnd.Size = new System.Drawing.Size(180, 22);
+            this.mnuQFCombAnd.Size = new System.Drawing.Size(172, 22);
             this.mnuQFCombAnd.Text = "  And";
             this.mnuQFCombAnd.ToolTipText = "Select And to only show records that find it on all selected columns";
             this.mnuQFCombAnd.CheckedChanged += new System.EventHandler(this.mnuQFChanged_CheckedChanged);
@@ -642,20 +642,20 @@
             // mnuQFSep2
             // 
             this.mnuQFSep2.Name = "mnuQFSep2";
-            this.mnuQFSep2.Size = new System.Drawing.Size(177, 6);
+            this.mnuQFSep2.Size = new System.Drawing.Size(169, 6);
             // 
             // mnuQFAdvHeader
             // 
             this.mnuQFAdvHeader.Enabled = false;
             this.mnuQFAdvHeader.Name = "mnuQFAdvHeader";
-            this.mnuQFAdvHeader.Size = new System.Drawing.Size(180, 22);
+            this.mnuQFAdvHeader.Size = new System.Drawing.Size(172, 22);
             this.mnuQFAdvHeader.Text = "Advanced";
             // 
             // mnuQFAdvNot
             // 
             this.mnuQFAdvNot.CheckOnClick = true;
             this.mnuQFAdvNot.Name = "mnuQFAdvNot";
-            this.mnuQFAdvNot.Size = new System.Drawing.Size(180, 22);
+            this.mnuQFAdvNot.Size = new System.Drawing.Size(172, 22);
             this.mnuQFAdvNot.Text = "  Not";
             this.mnuQFAdvNot.ToolTipText = "Check this to revert the result of all records";
             this.mnuQFAdvNot.CheckedChanged += new System.EventHandler(this.mnuQFChanged_CheckedChanged);
@@ -664,7 +664,7 @@
             // 
             this.mnuQFAdvRegEx.CheckOnClick = true;
             this.mnuQFAdvRegEx.Name = "mnuQFAdvRegEx";
-            this.mnuQFAdvRegEx.Size = new System.Drawing.Size(180, 22);
+            this.mnuQFAdvRegEx.Size = new System.Drawing.Size(172, 22);
             this.mnuQFAdvRegEx.Text = "  RegEx (BETA)";
             this.mnuQFAdvRegEx.ToolTipText = "To you know RegEx?\r\nTry to use it for more advanced finding of records.";
             this.mnuQFAdvRegEx.CheckedChanged += new System.EventHandler(this.mnuQFChanged_CheckedChanged);
@@ -906,14 +906,14 @@
             // 
             // messageblock
             // 
-            this.messageblock.HeaderText = "Trace Log (Hidden)";
+            this.messageblock.HeaderText = "Message Trace";
             this.messageblock.Name = "messageblock";
             this.messageblock.ReadOnly = true;
             this.messageblock.Visible = false;
             // 
             // exceptiondetails
             // 
-            this.exceptiondetails.HeaderText = "Exception Details (Hidden)";
+            this.exceptiondetails.HeaderText = "Exception Details";
             this.exceptiondetails.Name = "exceptiondetails";
             this.exceptiondetails.ReadOnly = true;
             this.exceptiondetails.Visible = false;
@@ -994,6 +994,23 @@
         private System.Windows.Forms.Label label2;
         internal System.Windows.Forms.Panel panQuickFilter;
         private System.Windows.Forms.ToolStripMenuItem tsmiShowColStartDate;
+        private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.MenuStrip mnuQuickFilter;
+        private System.Windows.Forms.ToolStripMenuItem mnuQFOptions;
+        private System.Windows.Forms.ToolStripSeparator mnuQFSep2;
+        private System.Windows.Forms.ToolStripMenuItem mnuQFAdvRegEx;
+        private System.Windows.Forms.ToolStripSeparator mnuQFSep1;
+        private System.Windows.Forms.ToolStripMenuItem mnuQFColTrace;
+        private System.Windows.Forms.ToolStripMenuItem mnuQFColException;
+        private System.Windows.Forms.ToolStripMenuItem mnuQFColPlugin;
+        private System.Windows.Forms.ToolStripMenuItem mnuQFColHeader;
+        private System.Windows.Forms.ToolStripMenuItem mnuQFCombHeader;
+        private System.Windows.Forms.ToolStripMenuItem mnuQFCombOr;
+        private System.Windows.Forms.ToolStripMenuItem mnuQFCombAnd;
+        private System.Windows.Forms.ToolStripMenuItem mnuQFAdvHeader;
+        private System.Windows.Forms.ToolStripMenuItem mnuQFAdvNot;
+        private System.Windows.Forms.ToolStripMenuItem mnuQFColStep;
+        private System.Windows.Forms.ToolTip toolTip1;
         private System.Windows.Forms.DataGridViewTextBoxColumn correlation;
         private System.Windows.Forms.DataGridViewTextBoxColumn createdon;
         private System.Windows.Forms.DataGridViewTextBoxColumn performanceexecutionstartdate;
@@ -1014,22 +1031,5 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn exceptionsummary;
         private System.Windows.Forms.DataGridViewTextBoxColumn messageblock;
         private System.Windows.Forms.DataGridViewTextBoxColumn exceptiondetails;
-        private System.Windows.Forms.PictureBox pictureBox1;
-        private System.Windows.Forms.MenuStrip mnuQuickFilter;
-        private System.Windows.Forms.ToolStripMenuItem mnuQFOptions;
-        private System.Windows.Forms.ToolStripSeparator mnuQFSep2;
-        private System.Windows.Forms.ToolStripMenuItem mnuQFAdvRegEx;
-        private System.Windows.Forms.ToolStripSeparator mnuQFSep1;
-        private System.Windows.Forms.ToolStripMenuItem mnuQFColTrace;
-        private System.Windows.Forms.ToolStripMenuItem mnuQFColException;
-        private System.Windows.Forms.ToolStripMenuItem mnuQFColPlugin;
-        private System.Windows.Forms.ToolStripMenuItem mnuQFColHeader;
-        private System.Windows.Forms.ToolStripMenuItem mnuQFCombHeader;
-        private System.Windows.Forms.ToolStripMenuItem mnuQFCombOr;
-        private System.Windows.Forms.ToolStripMenuItem mnuQFCombAnd;
-        private System.Windows.Forms.ToolStripMenuItem mnuQFAdvHeader;
-        private System.Windows.Forms.ToolStripMenuItem mnuQFAdvNot;
-        private System.Windows.Forms.ToolStripMenuItem mnuQFColStep;
-        private System.Windows.Forms.ToolTip toolTip1;
     }
 }
