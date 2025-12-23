@@ -9,6 +9,7 @@ using Microsoft.Xrm.Sdk.Query;
 using Rappen.XRM.Helpers.Serialization;
 using Rappen.XTB;
 using Rappen.XTB.Helpers;
+using Rappen.XTB.Helpers.RappXTB;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -25,18 +26,8 @@ using XrmToolBox.Extensibility.Interfaces;
 
 namespace Cinteros.XTB.PluginTraceViewer
 {
-    public partial class PluginTraceViewer : PluginControlBase, IGitHubPlugin, IMessageBusHost, IHelpPlugin, IPayPalPlugin, IStatusBarMessenger, IShortcutReceiver, IAboutPlugin
+    public partial class PluginTraceViewer : RappXTBControlBase, IMessageBusHost, IHelpPlugin, IStatusBarMessenger, IShortcutReceiver, IAboutPlugin
     {
-        private const string aiEndpoint = "https://dc.services.visualstudio.com/v2/track";
-
-        //private const string aiKey = "cc7cb081-b489-421d-bb61-2ee53495c336";    // jonas@rappen.net tenant, TestAI
-        private const string aiKey1 = "eed73022-2444-45fd-928b-5eebd8fa46a6";    // jonas@rappen.net tenant, XrmToolBox
-
-        private const string aiKey2 = "d46e9c12-ee8b-4b28-9643-dae62ae7d3d4";    // jonas@jonasr.app, XrmToolBoxTools
-
-        private readonly AppInsights ai1;
-        private readonly AppInsights ai2;
-
         internal GridControl gridControl;
         internal FilterControl filterControl;
         private StatsControl statsControl;
@@ -47,13 +38,10 @@ namespace Cinteros.XTB.PluginTraceViewer
         private List<string> defaultcolumns;
         private bool justtoasted;
 
-        public PluginTraceViewer()
+        public PluginTraceViewer() : base()
         {
             InitializeComponent();
-            UrlUtils.TOOL_NAME = "PluginTraceViewer";
             tslAbout.ToolTipText = $"Version: {Assembly.GetExecutingAssembly().GetName().Version}";
-            ai1 = new AppInsights(aiEndpoint, aiKey1, Assembly.GetExecutingAssembly(), "Plugin Trace Viewer");
-            ai2 = new AppInsights(aiEndpoint, aiKey2, Assembly.GetExecutingAssembly(), "Plugin Trace Viewer");
             var theme = new VS2015LightTheme();
             dockContainer.Theme = theme;
             gridControl = new GridControl(this);
@@ -121,14 +109,6 @@ namespace Cinteros.XTB.PluginTraceViewer
         }
 
         public string HelpUrl => "https://jonasr.app/PTV";
-
-        public string RepositoryName => "PluginTraceViewer";
-
-        public string UserName => "rappen";
-
-        public string DonationDescription => "Plugin Trace Viewer Fan Club";
-
-        public string EmailAccount => "jonas@rappen.net";
 
         public event EventHandler<MessageBusEventArgs> OnOutgoingMessage;
 
@@ -305,7 +285,7 @@ namespace Cinteros.XTB.PluginTraceViewer
 
         public override void HandleToastActivation(ToastNotificationActivatedEventArgsCompat args)
         {
-            if (Supporting.HandleToastActivation(this, args, ai2))
+            if (Supporting.HandleToastActivation(this, args, AppInsights))
             {
                 return;
             }
@@ -343,8 +323,8 @@ namespace Cinteros.XTB.PluginTraceViewer
             SetupDockControls();
             defaultcolumns = gridControl.Columns;
             LoadSettings();
-            LogUse("Load", ai2: true);
-            Supporting.ShowIf(this, ShowItFrom.Open, false, true, ai2);
+            LogUse("Load", newAppInsights: true);
+            Supporting.ShowIf(this, ShowItFrom.Open, false, true);
             if (Supporting.IsEnabled(this))
             {
                 tsbSupporting.Visible = true;
@@ -398,7 +378,7 @@ namespace Cinteros.XTB.PluginTraceViewer
             ShowLogSettingWarning(info);
             SaveSettings();
             SaveDockPanels();
-            LogUse("Close", ai2: true);
+            LogUse("Close", newAppInsights: true);
         }
 
         private void ShowLogSettingWarning(PluginCloseInfo info)
@@ -982,7 +962,7 @@ namespace Cinteros.XTB.PluginTraceViewer
         {
             RefreshTraces(GetQuery(false));
             justtoasted = false;
-            Supporting.ShowIf(this, ShowItFrom.Execute, false, false, ai2);
+            Supporting.ShowIf(this, ShowItFrom.Execute, false, false);
         }
 
         internal void GridRecordEnter(Entity record)
@@ -1173,7 +1153,7 @@ namespace Cinteros.XTB.PluginTraceViewer
                 settings.Version = version;
                 settings.Columns = defaultcolumns;
                 SettingsManager.Instance.Save(typeof(PluginTraceViewer), settings, "Settings");
-                LogUse("ShowWelcome", ai2: true);
+                LogUse("ShowWelcome", newAppInsights: true);
                 Process.Start($"https://jonasr.app/PTV/releases/#{version}");
             }
             tsmiWordWrap.Checked = settings.WordWrap;
@@ -1276,26 +1256,6 @@ namespace Cinteros.XTB.PluginTraceViewer
                 fetchdoc.LoadXml(fetchxml);
                 fetchdoc.Save(sfd.FileName);
                 MessageBox.Show(this, "Query saved!", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            }
-        }
-
-        internal void LogUse(string action, bool forceLog = false, double? count = null, double? duration = null, bool ai1 = true, bool ai2 = false)
-        {
-            if (ai1)
-            {
-                this.ai1.WriteEvent(action, count, duration, HandleAIResult);
-            }
-            if (ai2)
-            {
-                this.ai2.WriteEvent(action, count, duration, HandleAIResult);
-            }
-        }
-
-        private void HandleAIResult(string result)
-        {
-            if (!string.IsNullOrEmpty(result))
-            {
-                LogError("Failed to write to Application Insights:\n{0}", result);
             }
         }
 
@@ -1416,7 +1376,7 @@ namespace Cinteros.XTB.PluginTraceViewer
         {
             RefreshNewTraces(true);
             justtoasted = false;
-            Supporting.ShowIf(this, ShowItFrom.Execute, false, false, ai2);
+            Supporting.ShowIf(this, ShowItFrom.Execute, false, false);
         }
 
         private void tsmiSuppressLogSettingWarning_Click(object sender, EventArgs e)
@@ -1485,7 +1445,7 @@ namespace Cinteros.XTB.PluginTraceViewer
 
         private void tsbSupporting_Click(object sender, EventArgs e)
         {
-            Supporting.ShowIf(this, ShowItFrom.Open, true, false, ai2);
+            Supporting.ShowIf(this, ShowItFrom.Open, true, false);
         }
 
         private void tsmiExcelLess_Click(object sender, EventArgs e)
