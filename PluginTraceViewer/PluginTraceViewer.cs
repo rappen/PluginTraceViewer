@@ -637,6 +637,7 @@ namespace Cinteros.XTB.PluginTraceViewer
         {
             FriendlyfyCorrelationIds(logs);
             SplittingStartDateTime(logs);
+            CalculateCorrelationTimeDelta(logs);
             SimplifyPluginTypes(logs);
             HidePluginsFromSteps(logs);
             HideEntitiesFromSteps(logs);
@@ -831,6 +832,75 @@ namespace Cinteros.XTB.PluginTraceViewer
                     entity["startdate"] = start;
                 }
             }
+        }
+
+        private void CalculateCorrelationTimeDelta(IEnumerable<Entity> entities)
+        {
+            var correlationStarts = new Dictionary<Guid, DateTime>();
+            var allCorrelationIds = new List<Guid>();
+            var multiCorrelationIds = new List<Guid>();
+
+            foreach (var entity in entities)
+            {
+                if (entity.Contains(PluginTraceLog.CorrelationId) && entity.Contains(PluginTraceLog.PerformanceExecutionStarttime))
+                {
+                    var corrId = (Guid)entity[PluginTraceLog.CorrelationId];
+                    var startTime = (DateTime)entity[PluginTraceLog.PerformanceExecutionStarttime];
+
+                    if (allCorrelationIds.Contains(corrId))
+                    {
+                        if (!multiCorrelationIds.Contains(corrId))
+                        {
+                            multiCorrelationIds.Add(corrId);
+                        }
+                    }
+                    else
+                    {
+                        allCorrelationIds.Add(corrId);
+                    }
+
+                    if (!correlationStarts.ContainsKey(corrId) || startTime < correlationStarts[corrId])
+                    {
+                        correlationStarts[corrId] = startTime;
+                    }
+                }
+            }
+
+            foreach (var entity in entities)
+            {
+                if (entity.Contains(PluginTraceLog.CorrelationId) &&
+                    entity.Contains(PluginTraceLog.PerformanceExecutionStarttime))
+                {
+                    var corrId = (Guid)entity[PluginTraceLog.CorrelationId];
+                    if (multiCorrelationIds.Contains(corrId))
+                    {
+                        var startTime = (DateTime)entity[PluginTraceLog.PerformanceExecutionStarttime];
+                        var deltaMs = (startTime - correlationStarts[corrId]).TotalMilliseconds;
+                        var deltaStr = FormatTimeDelta(deltaMs);
+                        if (entity.Contains("timedelta"))
+                        {
+                            entity["timedelta"] = deltaStr;
+                        }
+                        else
+                        {
+                            entity.Attributes.Add("timedelta", deltaStr);
+                        }
+                    }
+                }
+            }
+        }
+
+        private static string FormatTimeDelta(double totalMs)
+        {
+            if (totalMs < 1000)
+            {
+                return $"+{(int)totalMs} ms";
+            }
+            if (totalMs < 60000)
+            {
+                return $"+{totalMs / 1000:F1} s";
+            }
+            return $"+{totalMs / 60000:F1} min";
         }
 
         private void ExtractExceptionSummaries(IEnumerable<Entity> entities)
@@ -1465,6 +1535,7 @@ namespace Cinteros.XTB.PluginTraceViewer
                 "performanceexecutionstartdate",
                 "performanceexecutionstarttime",
                 "performanceexecutionduration",
+                "timedelta",
                 "operationtype",
                 "typename",
                 "stepname",
