@@ -54,6 +54,7 @@
             this.tsmiShowColStartDate = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiShowColStartTime = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiShowColDuration = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiShowColTimeDelta = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiShowColOperation = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiShowColPlugin = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiShowColStep = new System.Windows.Forms.ToolStripMenuItem();
@@ -100,6 +101,7 @@
             this.performanceexecutionstartdate = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.performanceexecutionstarttime = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.performanceexecutionduration = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.timedelta = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.operationtype = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.typename = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.stepname = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -135,6 +137,7 @@
             this.tsmiShowColStartDate,
             this.tsmiShowColStartTime,
             this.tsmiShowColDuration,
+            this.tsmiShowColTimeDelta,
             this.tsmiShowColOperation,
             this.tsmiShowColPlugin,
             this.tsmiShowColStep,
@@ -297,7 +300,18 @@
             this.tsmiShowColDuration.Tag = "performanceexecutionduration";
             this.tsmiShowColDuration.Text = "Duration";
             this.tsmiShowColDuration.CheckStateChanged += new System.EventHandler(this.tsmiShowColumn_CheckedChanged);
-            // 
+            //
+            // tsmiShowColTimeDelta
+            //
+            this.tsmiShowColTimeDelta.Checked = true;
+            this.tsmiShowColTimeDelta.CheckOnClick = true;
+            this.tsmiShowColTimeDelta.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.tsmiShowColTimeDelta.Name = "tsmiShowColTimeDelta";
+            this.tsmiShowColTimeDelta.Size = new System.Drawing.Size(163, 22);
+            this.tsmiShowColTimeDelta.Tag = "timedelta";
+            this.tsmiShowColTimeDelta.Text = "Time Delta";
+            this.tsmiShowColTimeDelta.CheckStateChanged += new System.EventHandler(this.tsmiShowColumn_CheckedChanged);
+            //
             // tsmiShowColOperation
             // 
             this.tsmiShowColOperation.Checked = true;
@@ -705,6 +719,7 @@
             this.performanceexecutionstartdate,
             this.performanceexecutionstarttime,
             this.performanceexecutionduration,
+            this.timedelta,
             this.operationtype,
             this.typename,
             this.stepname,
@@ -808,7 +823,14 @@
             this.performanceexecutionduration.Name = "performanceexecutionduration";
             this.performanceexecutionduration.ReadOnly = true;
             this.performanceexecutionduration.Width = 40;
-            // 
+            //
+            // timedelta
+            //
+            this.timedelta.HeaderText = "Time Delta";
+            this.timedelta.Name = "timedelta";
+            this.timedelta.ReadOnly = true;
+            this.timedelta.Width = 65;
+            //
             // operationtype
             // 
             this.operationtype.HeaderText = "Operation";
@@ -978,6 +1000,7 @@
         private System.Windows.Forms.ToolStripMenuItem tsmiShowColCreated;
         private System.Windows.Forms.ToolStripMenuItem tsmiShowColStartTime;
         private System.Windows.Forms.ToolStripMenuItem tsmiShowColDuration;
+        private System.Windows.Forms.ToolStripMenuItem tsmiShowColTimeDelta;
         private System.Windows.Forms.ToolStripMenuItem tsmiShowColOperation;
         private System.Windows.Forms.ToolStripMenuItem tsmiShowColPlugin;
         private System.Windows.Forms.ToolStripMenuItem tsmiShowColStep;
@@ -1026,6 +1049,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn performanceexecutionstartdate;
         private System.Windows.Forms.DataGridViewTextBoxColumn performanceexecutionstarttime;
         private System.Windows.Forms.DataGridViewTextBoxColumn performanceexecutionduration;
+        private System.Windows.Forms.DataGridViewTextBoxColumn timedelta;
         private System.Windows.Forms.DataGridViewTextBoxColumn operationtype;
         private System.Windows.Forms.DataGridViewTextBoxColumn typename;
         private System.Windows.Forms.DataGridViewTextBoxColumn stepname;
